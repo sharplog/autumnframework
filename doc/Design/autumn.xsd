@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="autumn">
+		<xs:annotation>
+			<xs:documentation>AutumnFramework's root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="library" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="library">
+		<xs:annotation>
+			<xs:documentation>Dynamic library or Local library</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="bean" maxOccurs="unbounded"/>
+				<xs:element ref="type" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="path" type="xs:string" use="required"/>
+			<xs:attribute name="namespace" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="bean">
+		<xs:annotation>
+			<xs:documentation>A simple bean</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="constructor-arg" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Constructor arguments</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="argument" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="depends-on" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="bean-name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="class" type="xs:string" use="required"/>
+			<xs:attribute name="initializable" type="xs:boolean"/>
+			<xs:attribute name="destroyable" type="xs:boolean"/>
+			<xs:attribute name="singleton" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>A bean is not a singleton in default</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property" type="propertyType"/>
+	<xs:element name="argument" type="propertyType"/>
+	<xs:element name="type">
+		<xs:annotation>
+			<xs:documentation>Customed types</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>same as class in default</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="basic" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>true in default</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="class" type="xs:string" use="required">
+				<xs:annotation>
+					<xs:documentation>The type's implementation</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="propertyType">
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="autumn-manage" type="xs:boolean"/>
+	</xs:complexType>
+</xs:schema>
