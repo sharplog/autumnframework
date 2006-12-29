@@ -1,4 +1,8 @@
-Todo list
+= Introduction =
+
+Todo list.
+
+= Details =
 
 1. *test*
 2. *demo*
