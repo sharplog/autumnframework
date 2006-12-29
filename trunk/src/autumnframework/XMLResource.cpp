@@ -76,6 +76,10 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 			"'. There is no path.");
 	}
 
+	if( lib.Name.empty() ){
+		lib.Name = lib.Path;
+	}
+	
 	// parsing beans
 	int i, pos=0, n = xml.nChildNode(beanTag);
 	for( i=0; i<n; i++ ){
