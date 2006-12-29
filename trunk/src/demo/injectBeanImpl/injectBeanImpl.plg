@@ -1,0 +1,49 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: injectBeanImpl - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1F7.tmp" with contents
+[
+/nologo /MD /W3 /GX /O2 /I "." /I "..\..\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "INJECTBEANIMPL_EXPORTS" /Fp"Release/injectBeanImpl.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"E:\Workplace\C++_Dll\VC\VC_IOC\demo\injectBeanImpl\ActionExp.cpp"
+"E:\Workplace\C++_Dll\VC\VC_IOC\demo\injectBeanImpl\LowerAction.cpp"
+"E:\Workplace\C++_Dll\VC\VC_IOC\demo\injectBeanImpl\UpperAction.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1F7.tmp" 
+Creating temporary file "C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1F8.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFrameworkS.lib /nologo /dll /incremental:no /pdb:"Release/injectBeanImpl.pdb" /machine:I386 /out:"Release/injectBeanImpl.dll" /implib:"Release/injectBeanImpl.lib" /libpath:"..\..\lib" 
+".\Release\ActionExp.obj"
+".\Release\LowerAction.obj"
+".\Release\UpperAction.obj"
+]
+Creating command line "link.exe @C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1F8.tmp"
+<h3>Output Window</h3>
+Compiling...
+ActionExp.cpp
+LowerAction.cpp
+UpperAction.cpp
+Linking...
+   Creating library Release/injectBeanImpl.lib and object Release/injectBeanImpl.exp
+Creating temporary file "C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1FC.bat" with contents
+[
+@echo off
+copy  release\injectBeanImpl.lib  ..\lib\
+copy  release\injectBeanImpl.dll  ..\lib\
+]
+Creating command line "C:\DOCUME~1\NIU_WQ~1.IBM\LOCALS~1\Temp\RSP1FC.bat"
+
+        1 file(s) copied.
+        1 file(s) copied.
+
+
+
+<h3>Results</h3>
+injectBeanImpl.dll - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
