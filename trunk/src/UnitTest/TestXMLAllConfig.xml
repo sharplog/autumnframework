@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
 	<library path="dumb.dll" name="testlib1" namespace="nstestlib1">
-		<bean class="dumbclass" name="bean1" destroyable="true" initializable="true" singleton="true" >
-			<properties>
-				<property name="dumbproperty" type="dumbtype" autumn-manage="false">
-					<value>dumb1</value>
-					<value>dumb2</value>
-				</property>
-			</properties>
-		</bean>
-		<type class="typeclass"/>
+		<beans>
+			<bean name="bean1-1" class="dumbclass" destroyable="true" initializable="true" singleton="true" >
+				<properties>
+					<property name="property1" type="dumbtype" autumn-manage="false">
+						<value>dumb1</value>
+						<value>dumb2</value>
+					</property>
+					<property name="property2" type="type2">
+						<value></value>
+					</property>
+				</properties>
+				<depends-on>
+					<bean-name>class1</bean-name>
+					<bean-name>class2</bean-name>
+				</depends-on>
+				<constructor-arg>
+					<argument name="arg1" type="argtype1">
+						<value>argvalue1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+		</beans>
+		<types>
+			<type class="typeclass" name="ctype1" basic="false"/>
+			<type class="typeclass2" />
+		</types>
+	</library>
+	<library path="dumb2.dll">
+		<beans>
+			<bean class="bean2-1"></bean>
+			<bean class="bean2-2"></bean>
+		</beans>
 	</library>
 </autumn>
