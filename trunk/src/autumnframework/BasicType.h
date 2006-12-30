@@ -46,7 +46,7 @@ template<class T, T createfun(const char*), void freefun(T)>
 void* BasicType<T, createfun, freefun>::createValue(StrValueList& vl)
 {
 	T *p = new T;
-	string cValue = vl.at(0);
+	string cValue = vl[0];
 	*p = createfun(cValue.c_str());
 	return (void*)p; //*p is the value
 }

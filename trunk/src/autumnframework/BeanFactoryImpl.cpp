@@ -93,8 +93,8 @@ void* BeanFactoryImpl::getBean(string name)
 	// Create depended objects, they should be singletons.
 	StrValueList vl = bc->getDependedObjects();
 	for( i=0; i<vl.size(); i++){
-		if( this->ManagerOfBean->getSingleton(vl.at(i)) == NULL)
-			this->getBean(vl.at(i));
+		if( this->ManagerOfBean->getSingleton(vl[i]) == NULL)
+			this->getBean(vl[i]);
 	}
 
 	//Use auto_ptr to free pw if exception happens?
@@ -113,7 +113,7 @@ void* BeanFactoryImpl::getBean(string name)
 		void_ptr* pv = pp.get();
 
 		for(i=0; i<num; i++){
-			pv[i] = pargs->at(i)->takeoutValue(pw.get());
+			pv[i] = (*pargs)[i]->takeoutValue(pw.get());
 		}
 		p = pw->createBean(pv, num);
 	}
@@ -125,7 +125,7 @@ void* BeanFactoryImpl::getBean(string name)
 	//Set properties
 	PropertyList* props = bc->getProperties();
 	for(i=0; i<props->size(); i++){
-		props->at(i)->setProperty(pw.get());
+		(*props)[i]->setProperty(pw.get());
 	}
 
 	//Add to bean manager

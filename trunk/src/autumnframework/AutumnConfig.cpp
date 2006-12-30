@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+#include <memory>
 #include "AutumnDefinition.h"
 #include "AutumnException.h"
 #include "IBasicType.h"
@@ -37,7 +38,7 @@ AutumnConfig::AutumnConfig(IResource* config)
 {
 	const vector<TLibrary*> *pLibs = config->getLibraries();
 	for(int i=0; i<pLibs->size(); i++){
-		this->processLibrary(*pLibs->at(i));
+		this->processLibrary(*(*pLibs)[i]);
 	}
 
 }
@@ -56,11 +57,11 @@ void AutumnConfig::processLibrary(TLibrary& lib)
 	
 	int i;
 	for(i=0; i<lib.Beans.size(); i++){
-		this->processBean(lib.Beans.at(i), pl);
+		this->processBean(lib.Beans[i], pl);
 	}
 
 	for(i=0; i<lib.Types.size(); i++){
-		this->processType(lib.Types.at(i), pl);
+		this->processType(lib.Types[i], pl);
 	}
 }
 
@@ -135,7 +136,7 @@ string AutumnConfig::mangleName(string objType, string  op, string objName)
 AutumnConfig::~AutumnConfig()
 {
 	for(int i=0; i<this->Libs.size(); i++)
-		delete this->Libs.at(i);
+		delete this->Libs[i];
 
 	for(map<string, BeanConfig*>::iterator it=this->Beans.begin();
 			it!=this->Beans.end(); it++)

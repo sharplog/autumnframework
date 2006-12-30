@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+#include <memory>
 #include "BeanConfig.h"
 
 /** erase space char */
@@ -21,7 +22,7 @@ string trimString(const string v)
 {
 	string s=v;
 	for(int i=0; i<s.size(); ){
-		if( isspace(s.at(i)) ){
+		if( isspace(s[i]) ){
 			s.erase(i,1);
 		}
 		else i++;
@@ -46,12 +47,12 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	int i;
 	TProperty *p;
 	for(i=0; i<beandef.ConArgs.size(); i++){
-		p = &beandef.ConArgs.at(i);
+		p = &beandef.ConArgs[i];
 		this->ConArgs->push_back(new BeanProperty(p->Name,
 				trimString(p->Type), p->Value, p->Managed));
 	}
 	for(i=0; i<beandef.Properties.size(); i++){
-		p = &beandef.Properties.at(i);
+		p = &beandef.Properties[i];
 		auto_ptr<BeanProperty> pb(new BeanProperty(p->Name, 
 				trimString(p->Type), p->Value, p->Managed));
 		this->Properties->push_back(pb.release());
@@ -62,10 +63,10 @@ BeanConfig::~BeanConfig()
 {
 	int i;
 	for(i=0; i<this->ConArgs->size(); i++){
-		delete this->ConArgs->at(i);
+		delete (*this->ConArgs)[i];
 	}
 	for(i=0; i<this->Properties->size(); i++){
-		delete this->Properties->at(i);
+		delete (*this->Properties)[i];
 	}
 	delete this->ConArgs;
 	delete this->Properties;	

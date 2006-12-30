@@ -34,7 +34,7 @@ public:
 	 * @return A pointer to a value of object
 	 */
 	void* createValue(StrValueList& vl){
-		return BeanFactoryImpl::getInstance()->getBean(vl.at(0));
+		return (void*)BeanFactoryImpl::getInstance()->getBean(vl[0]);
 	}
 
 	/** Free the space where p point */

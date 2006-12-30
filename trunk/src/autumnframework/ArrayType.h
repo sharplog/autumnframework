@@ -43,7 +43,7 @@ public:
 		
 		// create the value array
 		for(int i=0; i<vl.size(); i++){
-			cValue = vl.at(i);
+			cValue = vl[i];
 			*ptmp = createfun(cValue.c_str());
 			ptmp++;
 		}
