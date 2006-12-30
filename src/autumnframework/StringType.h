@@ -33,7 +33,7 @@ public:
 	 * @return A pointer to a value
 	 */
 	void* createValue(StrValueList& vl){
-		string *p = new string(vl.at(0));
+		string *p = new string(vl[0]);
 		return (void*)p; //*p is the value
 	}
 
