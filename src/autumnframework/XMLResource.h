@@ -60,7 +60,7 @@ public:
 	/** Destructor */
 	~XMLResource(){
 		for(int i=0; i<this->LibsConfig.size(); i++)
-			delete this->LibsConfig[0];
+			delete this->LibsConfig[i];
 	}
 
 	/** Return all libraries configuration */
