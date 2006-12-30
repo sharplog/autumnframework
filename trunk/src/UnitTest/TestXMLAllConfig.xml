@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
-	<library path="dumb.dll">
-		<bean class="dumbclass">
+	<library path="dumb.dll" name="testlib1" namespace="nstestlib1">
+		<bean class="dumbclass" name="bean1" destroyable="true" initializable="true" singleton="true" >
 			<properties>
-				<property name="dumbproperty" type="dumbtype">
-					<value>dumb</value>
+				<property name="dumbproperty" type="dumbtype" autumn-manage="false">
+					<value>dumb1</value>
+					<value>dumb2</value>
 				</property>
 			</properties>
 		</bean>
