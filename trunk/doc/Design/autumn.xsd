@@ -16,10 +16,22 @@
 			<xs:documentation>Dynamic library or Local library</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="bean" maxOccurs="unbounded"/>
-				<xs:element ref="type" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:all>
+				<xs:element name="beans">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="bean" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="types" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="type" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
 			<xs:attribute name="name" type="xs:string"/>
 			<xs:attribute name="path" type="xs:string" use="required"/>
 			<xs:attribute name="namespace" type="xs:string"/>
@@ -30,7 +42,7 @@
 			<xs:documentation>A simple bean</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
-			<xs:sequence>
+			<xs:all>
 				<xs:element name="constructor-arg" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>Constructor arguments</xs:documentation>
@@ -51,11 +63,15 @@
 				<xs:element name="depends-on" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="bean-name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+							<xs:element name="bean-name" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>bean-name must not be empty</xs:documentation>
+								</xs:annotation>
+							</xs:element>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-			</xs:sequence>
+			</xs:all>
 			<xs:attribute name="name" type="xs:string"/>
 			<xs:attribute name="class" type="xs:string" use="required"/>
 			<xs:attribute name="initializable" type="xs:boolean"/>
@@ -93,7 +109,11 @@
 	</xs:element>
 	<xs:complexType name="propertyType">
 		<xs:sequence>
-			<xs:element name="value" type="xs:string" maxOccurs="unbounded"/>
+			<xs:element name="value" type="xs:string" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>If value is empty, it is empty string</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required"/>
 		<xs:attribute name="type" type="xs:string" use="required"/>
