@@ -82,12 +82,16 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 	}
 	
 	// parsing beans
-	int i, pos=0, n = xml.nChildNode(beanTag);
-	for( i=0; i<n; i++ ){
-		auto_ptr<TBean> pbean(new TBean);
-		XMLNode beanNode = xml.getChildNode(beanTag, &pos);
-		this->parseBean(beanNode, *pbean);
-		lib.Beans.push_back(*pbean);
+	int i, pos, n = 0;
+	XMLNode beans = xml.getChildNode("beans");
+	if( ! beans.isEmpty() ) {
+		n= beans.nChildNode(beanTag);
+		for( pos=0, i=0; i<n; i++ ){
+			auto_ptr<TBean> pbean(new TBean);
+			XMLNode beanNode = beans.getChildNode(beanTag, &pos);
+			this->parseBean(beanNode, *pbean);
+			lib.Beans.push_back(*pbean);
+		}
 	}
 	if( n==0 ){
 		throw new XMLParsingEx("XMLResource", "parseLibrary", 
@@ -96,10 +100,11 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 	}
 
 	// parsing types
-	pos=0, n = xml.nChildNode(typeTag);
-	for( i=0; i<n; i++ ){
+	XMLNode types = xml.getChildNode("types");
+	 n = types.nChildNode(typeTag);
+	for(pos=0, i=0; i<n; i++ ){
 		auto_ptr<TType> ptype(new TType);
-		XMLNode typeNode = xml.getChildNode(typeTag, &pos);
+		XMLNode typeNode = types.getChildNode(typeTag, &pos);
 		this->parseType(typeNode, *ptype);
 		lib.Types.push_back(*ptype);
 	}
@@ -234,8 +239,11 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 	// values
 	int	pos=0, n = xml.nChildNode("value");
 	for( int i=0; i<n; i++ ){
-		prop.Value.push_back(
-			xml.getChildNode("value", &pos).getText());
+		XMLCSTR v = xml.getChildNode("value", &pos).getText();
+		if ( NULL == v)
+			prop.Value.push_back("");
+		else
+			prop.Value.push_back(v);
 	}
 	if( n==0 ){
 		throw new XMLParsingEx("XMLResource", "parseProperty", 
