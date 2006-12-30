@@ -116,6 +116,10 @@ SOURCE=.\UnitTest.cpp
 SOURCE=.\UnitTest.rc
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=..\XMLResourceTest.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
