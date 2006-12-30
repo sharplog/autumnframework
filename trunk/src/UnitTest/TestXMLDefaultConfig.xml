@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
 	<library path="dumb.dll">
-		<bean class="dumbclass">
-			<properties>
-				<property name="dumbproperty" type="dumbtype">
-					<value>dumb</value>
-				</property>
-			</properties>
-		</bean>
-		<type class="typeclass"/>
+		<beans>
+			<bean class="dumbclass">
+				<properties>
+					<property name="dumbproperty" type="dumbtype">
+						<value>dumb</value>
+					</property>
+				</properties>
+			</bean>
+		</beans>
+		<types>
+			<type class="typeclass"/>
+		</types>
 	</library>
 </autumn>
