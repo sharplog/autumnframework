@@ -79,11 +79,7 @@ public:																\
 #define AUTUMNBEAN_CONSTRUCTOR(bean)								\
 	void* createBean(){												\
 		this->pBean = NULL;											\
-																	\
 		this->pBean = new bean();									\
-		if( this->getInitializable() )								\
-			this->initializeBean();									\
-																	\
 		return this->pBean;											\
 	}
 
@@ -118,9 +114,6 @@ public:																\
  */
 #define AUTUMNBEAN_CON_PARAMS_END()									\
 			);														\
-																	\
-		if( this->getInitializable() )								\
-			this->initializeBean();									\
 																	\
 		return this->pBean;											\
 	}

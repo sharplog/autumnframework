@@ -128,6 +128,11 @@ void* BeanFactoryImpl::getBean(string name)
 		(*props)[i]->setProperty(pw.get());
 	}
 
+	//Initialize bean
+	if( pw->getInitializable() ){
+		pw->initializeBean();
+	}
+
 	//Add to bean manager
 	if( bc->isSingleton() ){
 		this->ManagerOfBean->addSingleton(name, pw.release());
