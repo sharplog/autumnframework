@@ -6,7 +6,7 @@ Todo list.
 
 = Details =
 
-1. *test*
-2. *demo*
-3. _manual_
-4. support chinese
+ * *test*
+ * *demo*
+ * _manual_
+ * support chinese
