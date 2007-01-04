@@ -41,7 +41,7 @@ unsigned long atoul(const char* s){return strtoul(s, NULL, 0);}
 float	atofl(const char* s){return (float)atof(s);}
 double	atodb(const char* s){return atof(s);}
 charstrPointer atocs(const char* s){
-	char* p = (char*)malloc(strlen(s)+1);
+	char* p = new char[strlen(s)+1];
 	strcpy(p, s);
 	return (charstrPointer)p;
 }
@@ -54,7 +54,7 @@ void freeul(unsigned long p){}
 void freefl(float p){}
 void freedb(double p){}
 void freecs(charstrPointer p){
-	free(p);
+	delete p;
 }
 
 /** global template and functions end. */
