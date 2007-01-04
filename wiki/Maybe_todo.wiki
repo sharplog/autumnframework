@@ -2,7 +2,7 @@ Things maybe to do.
 
 = Introduction =
 
-There are a lot work maybe to do in Autumn framework.
+There is a lot of work maybe to do in Autumn framework.
 
 
 = Details =
