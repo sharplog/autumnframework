@@ -167,6 +167,12 @@ void TypeManager::setCombinedType(string name, ICombinedType* ct)
  */
 void* TypeManager::createValue(StrValueList& vl, string type)
 {
+	if( vl.size() == 0 ){
+		throw new NonValueEx("TypeManager", 
+			"createValue", 
+			string("String value of type[") + type + string("] is not found!"));
+	}
+	
 	if( IBasicType* bt = this->findBasicType(type) ) {
 		return bt->createValue(vl);
 	}
