@@ -25,7 +25,8 @@
 void BeanProperty::setProperty(IBeanWrapper* pw)
 {
 	/** Property's value */
-	ValueWrapper *value = new ValueWrapper(this->Type, this->StrValue, this->Managed);
+	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
+									this->StrValue, this->Managed));
 	
 	int rtn = pw->setBeanProperty(this->Name.c_str(), 
 								this->Type.c_str(), 
@@ -37,7 +38,7 @@ void BeanProperty::setProperty(IBeanWrapper* pw)
 			pw->getBeanName() + "] failed!");
 	}
 	
-	pw->addParameter((long)value);
+	pw->addParameter((long)value.release());
 }
 
 /** 

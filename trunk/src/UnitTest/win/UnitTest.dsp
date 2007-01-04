@@ -118,6 +118,10 @@ SOURCE=.\UnitTest.rc
 # End Group
 # Begin Source File
 
+SOURCE=..\TypeManagerTest.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\XMLResourceTest.cpp
 # End Source File
 # End Group
@@ -148,6 +152,10 @@ SOURCE=.\StdAfx.h
 SOURCE=.\UnitTest.h
 # End Source File
 # End Group
+# Begin Source File
+
+SOURCE=..\TypeManagerTest.h
+# End Source File
 # Begin Source File
 
 SOURCE=..\XMLResourceTest.h
