@@ -16,4 +16,4 @@ Todo list.
  * Test self-manage-property.
  # *demo*
  # _manual_
- # support [[chinese]]
+ # support chinese
