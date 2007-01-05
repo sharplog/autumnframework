@@ -7,13 +7,13 @@ Todo list.
 = Details =
 
  * *test*
-   * Test all types injection, includes all basic type, pointer type and bean type.
-   * Test setter injection and constructor injection.
-   * Test initialize and destroy function.
-   * Test local library injection.
-   * Test singleton.
-   * Test customized type.
-   * Test self-manage-property.
+  * Test all types injection, includes all basic type, pointer type and bean type.
+  * Test setter injection and constructor injection.
+  * Test initialize and destroy function.
+  * Test local library injection.
+  * Test singleton.
+  * Test customized type.
+  * Test self-manage-property.
  * *demo*
  * _manual_
  * support chinese
