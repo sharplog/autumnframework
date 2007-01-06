@@ -19,6 +19,14 @@
 
 #include <string>
 
+#if(defined WIN32 && defined _USRDLL)
+#define DLLEXPORT _declspec(dllexport)
+#define DLLIMPORT _declspec(dllimport)
+#else
+#define DLLEXPORT 
+#define DLLIMPORT
+#endif
+
 using namespace std;
 
 /** 
@@ -28,7 +36,7 @@ using namespace std;
  * @since 2006-12-5
  */
 
-class IBeanFactory{
+class DLLEXPORT IBeanFactory{
 private:
 	/** The singleton's instance */
 	static IBeanFactory* Instance;
