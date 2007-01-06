@@ -22,15 +22,6 @@
 
 using namespace std;
 
-#ifdef WIN32
-#define DLLEXPORT _declspec(dllexport)
-#define DLLIMPORT _declspec(dllimport)
-
-#else
-#define DLLEXPORT 
-#define DLLIMPORT
-#endif
-
 /** Define a bean's adapter */
 /** 
  * Define bean adapter's first part 
