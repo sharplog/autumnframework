@@ -7,14 +7,17 @@ Todo list.
 = Details =
 
  # *test*
- * Test all types injection, includes all basic type, pointer type and bean type.
- * Test setter injection and constructor injection.
+ * Test all types injection, includes all basic type, pointer type and bean type. [*over*]
+ * Test setter injection and constructor injection. [*over*]
+ * Test bean management, free bean when destroying itself.
  * Test initialize and destroy function.
+ * Test bean injection from another librarie.
  * Test local library injection.
  * Test singleton.
  * Test customized type.
  * Test self-manage-property.
- * Test bean management.
  # *demo*
- # _manual_
- # support chinese
+ # *manual*
+ # *implement*
+ * how to support unsigned char, unsinged char* and wide charact?
+ * support chinese
