@@ -38,7 +38,7 @@ private:
 
 	/** All beans */
 //	MapHashTable<IBeanWrapper*, unsigned long> Beans;
-	MapHashTable<unsigned long, unsigned long> Beans;
+	MapHashTable<long, long> Beans;
 	
 	/** Singleton beans */
 	map<string, void*> SingletonBeans;

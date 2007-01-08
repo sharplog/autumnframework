@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="UnitTest" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="UnitTest2" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=UnitTest - Win32 Debug
+CFG=UnitTest2 - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
-!MESSAGE NMAKE /f "UnitTest.mak".
+!MESSAGE NMAKE /f "UnitTest2.mak".
 !MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "UnitTest.mak" CFG="UnitTest - Win32 Debug"
+!MESSAGE NMAKE /f "UnitTest2.mak" CFG="UnitTest2 - Win32 Debug"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "UnitTest - Win32 Release" (based on "Win32 (x86) Application")
-!MESSAGE "UnitTest - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "UnitTest2 - Win32 Release" (based on "Win32 (x86) Application")
+!MESSAGE "UnitTest2 - Win32 Debug" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -29,7 +29,7 @@ CPP=cl.exe
 MTL=midl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "UnitTest - Win32 Release"
+!IF  "$(CFG)" == "UnitTest2 - Win32 Release"
 
 # PROP BASE Use_MFC 6
 # PROP BASE Use_Debug_Libraries 0
@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_AFXDLL" /Yu"stdafx.h" /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "../../AutumnFramework" /I "./include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "../../AutumnFramework" /I "../include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_AFXDLL" /FD /c
 # SUBTRACT CPP /YX /Yc /Yu
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
@@ -54,9 +54,9 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /machine:I386
-# ADD LINK32 cppunit_dll.lib testrunner.lib AutumnFrameworkS.lib /nologo /subsystem:windows /machine:I386 /libpath:"..\..\lib"
+# ADD LINK32 cppunit_dll.lib testrunner.lib AutumnFramework.lib /nologo /subsystem:windows /machine:I386 /libpath:"..\..\lib"
 
-!ELSEIF  "$(CFG)" == "UnitTest - Win32 Debug"
+!ELSEIF  "$(CFG)" == "UnitTest2 - Win32 Debug"
 
 # PROP BASE Use_MFC 6
 # PROP BASE Use_Debug_Libraries 1
@@ -81,14 +81,14 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 cppunitd_dll.lib testrunnerd.lib AutumnFrameworkS_D.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"..\..\lib"
+# ADD LINK32 cppunitd_dll.lib testrunnerd.lib AutumnFramework_D.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept /libpath:"..\..\lib"
 
 !ENDIF 
 
 # Begin Target
 
-# Name "UnitTest - Win32 Release"
-# Name "UnitTest - Win32 Debug"
+# Name "UnitTest2 - Win32 Release"
+# Name "UnitTest2 - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
@@ -110,24 +110,16 @@ SOURCE=.\StdAfx.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\UnitTest.cpp
+SOURCE=.\UnitTest2.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\UnitTest.rc
+SOURCE=.\UnitTest2.rc
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=..\MapHashTableTest.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\TypeManagerTest.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=..\XMLResourceTest.cpp
+SOURCE=..\TypeInjectionTest.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -154,20 +146,12 @@ SOURCE=.\StdAfx.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\UnitTest.h
+SOURCE=.\UnitTest2.h
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=..\MapHashTableTest.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\TypeManagerTest.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\XMLResourceTest.h
+SOURCE=..\TypeInjectionTest.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
@@ -179,11 +163,11 @@ SOURCE=.\res\Toolbar.bmp
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\UnitTest.ico
+SOURCE=.\res\UnitTest2.ico
 # End Source File
 # Begin Source File
 
-SOURCE=.\res\UnitTest.rc2
+SOURCE=.\res\UnitTest2.rc2
 # End Source File
 # End Group
 # Begin Source File

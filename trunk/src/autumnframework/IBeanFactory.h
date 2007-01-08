@@ -19,12 +19,14 @@
 
 #include <string>
 
-#if(defined WIN32 && defined _USRDLL)
-#define DLLEXPORT _declspec(dllexport)
-#define DLLIMPORT _declspec(dllimport)
+#ifdef WIN32
+	#ifdef AUTUMNFRAMEWORK_EXPORTS
+		#define DLL_IM_EXPORT _declspec(dllexport)
+	#else
+		#define DLL_IM_EXPORT _declspec(dllimport)
+	#endif
 #else
-#define DLLEXPORT 
-#define DLLIMPORT
+	#define DLL_IM_EXPORT
 #endif
 
 using namespace std;
@@ -36,10 +38,10 @@ using namespace std;
  * @since 2006-12-5
  */
 
-class DLLEXPORT IBeanFactory{
+class IBeanFactory{
 private:
 	/** The singleton's instance */
-	static IBeanFactory* Instance;
+	//static IBeanFactory* Instance;
 	
 public:
 	/**
@@ -47,7 +49,7 @@ public:
 	 * @param file Configuration xml file
 	 * @return Instance of IBeanFactory
 	 */
-	static IBeanFactory* getInstanceWithXML(const char* file);
+	//static IBeanFactory* getInstanceWithXML(const char* file);
 
 	/** 
 	 * Get a bean with bean's name
@@ -81,4 +83,8 @@ public:
 	 */
 	virtual ~IBeanFactory(){}
 };
+
+/** Get IBeanFactory instance */
+DLL_IM_EXPORT IBeanFactory* getBeanFactoryWithXML(const char* file);
+
 #endif

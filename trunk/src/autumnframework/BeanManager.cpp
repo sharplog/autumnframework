@@ -28,12 +28,16 @@ const int BeanManager::HashDivisor = 997;
 
 BeanManager::~BeanManager()
 {
-	map<unsigned long, unsigned long> m;
+	typedef void WrapperFreer (IBeanWrapper*);
+	map<long, long> m;
 	
 	this->Beans.listElement(m);
-	for(map<unsigned long, unsigned long>::iterator it = m.begin();
-	it != m.end(); it++){
-		delete (IBeanWrapper*)it->second;
+	for(map<long, long>::iterator it = m.begin();
+			it != m.end(); it++){
+		IBeanWrapper* pt = (IBeanWrapper *)it->second;
+		WrapperFreer* pf = pt->getWrapperDeleter();
+		//delete itself
+		pf(pt);
 	}
 
 }
@@ -43,13 +47,13 @@ BeanManager::~BeanManager()
  */
 void BeanManager::deleteBean(void* p)
 {
-	unsigned long pw;
+	long pw;
 	typedef void WrapperFreer (IBeanWrapper*);
 	
 	AutumnLog::getInstance()->debug("BeanManager->deleteBean");
 
 	// Delete from hash table
-	if( this->Beans.deleteElement((unsigned long)p, pw) ){
+	if( this->Beans.deleteElement((long)p, pw) ){
 		IBeanWrapper* pt = (IBeanWrapper *)pw;
 		WrapperFreer* pf = pt->getWrapperDeleter();
 		//delete itself
@@ -63,8 +67,8 @@ void BeanManager::deleteBean(void* p)
  */
 void BeanManager::addBean(IBeanWrapper* pw)
 {
-	unsigned long pl = (unsigned long)pw;
-	this->Beans.insertElement((unsigned long)pw->getBean(), pl);
+	long pl = (long)pw;
+	this->Beans.insertElement((long)pw->getBean(), pl);
 }
 
 /** 
@@ -74,8 +78,8 @@ void BeanManager::addBean(IBeanWrapper* pw)
  */
 void BeanManager::addSingleton(string name,IBeanWrapper* pw)
 {
-	unsigned long pl = (unsigned long)pw;
-	this->Beans.insertElement((unsigned long)pw->getBean(), pl);
+	long pl = (long)pw;
+	this->Beans.insertElement((long)pw->getBean(), pl);
 
 	this->SingletonBeans.insert(make_pair(name, pw->getBean()));
 }

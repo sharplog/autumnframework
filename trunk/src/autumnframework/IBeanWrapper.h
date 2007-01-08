@@ -20,12 +20,14 @@
 #include <string>
 #include <vector>
 
-#if(defined WIN32 && defined _USRDLL)
-	#define DLLEXPORT _declspec(dllexport)
-	#define DLLIMPORT _declspec(dllimport)
+#ifdef WIN32
+	#ifdef AUTUMNFRAMEWORK_EXPORTS
+		#define DLL_IM_EXPORT _declspec(dllexport)
+	#else
+		#define DLL_IM_EXPORT _declspec(dllimport)
+	#endif
 #else
-	#define DLLEXPORT 
-	#define DLLIMPORT
+	#define DLL_IM_EXPORT
 #endif
 
 using namespace std;
@@ -37,7 +39,7 @@ using namespace std;
  * @since 2006-12-04
  */
 
-class DLLEXPORT IBeanWrapper{
+class DLL_IM_EXPORT IBeanWrapper{
 	typedef void WrapperFreer(IBeanWrapper*);
 	typedef long ParamPointer;
 	
