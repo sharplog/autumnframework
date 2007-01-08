@@ -16,6 +16,7 @@
 
 #include "AutumnLog.h"
 #include "ConsoleLogger.h"
+#include "FileLogger.h"
 
 /**
  * Logger for AutumnFramework
@@ -28,5 +29,6 @@ AutumnLog* AutumnLog::instance = NULL;
 
 AutumnLog::AutumnLog()
 {
-	this->logger = new ConsoleLogger(0);
+	//this->logger = new ConsoleLogger(0);
+	this->logger = new FileLogger("e:\\autumn.log", 0);
 }

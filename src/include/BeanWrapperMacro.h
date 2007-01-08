@@ -163,8 +163,8 @@ public:																\
 };																	\
 																	\
 extern "C"{															\
-	DLLEXPORT IBeanWrapper* create_##bean##_Wrapper();				\
-	DLLEXPORT void delete_##bean##_Wrapper(IBeanWrapper*);			\
+	DLL_IM_EXPORT IBeanWrapper* create_##bean##_Wrapper();				\
+	DLL_IM_EXPORT void delete_##bean##_Wrapper(IBeanWrapper*);			\
 	IBeanWrapper* create_##bean##_Wrapper(){						\
 		return new bean##_Wrapper;									\
 	}																\

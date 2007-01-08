@@ -15,7 +15,7 @@
 */
 
 #include <memory>
-#include "IResource.h"
+#include "XMLResource.h"
 #include "BeanConfig.h"
 #include "BeanManager.h"
 #include "IBeanFactory.h"
@@ -180,4 +180,8 @@ bool BeanFactoryImpl::isSingleton(string name)
 		return false;
 }
 
-	
+/** Get IBeanFactory instance */
+IBeanFactory* getBeanFactoryWithXML(const char* file)
+{
+	return BeanFactoryImpl::getInstance(new XMLResource(file));
+}

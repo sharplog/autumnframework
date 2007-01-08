@@ -17,6 +17,7 @@
 #include <string>
 #include "TypeManager.h"
 #include "ValueWrapper.h"
+#include "AutumnLog.h"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed):
 	
 ValueWrapper::~ValueWrapper(){
 	if( this->PointerOfValue != NULL ){
+		AutumnLog::getInstance()->debug("ValueWrapper->~ValueWrapper, type: " + this->Type);
 		if( this->Managed ){
 			TypeManager::getInstance()->
 				freeValue(this->PointerOfValue, this->Type);

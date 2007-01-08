@@ -28,15 +28,7 @@ using namespace std;
  * @since 2006-11-25
  */
 /*
-#ifdef WIN32
-	#define DLLEXPORT _declspec(dllexport)
-	#define DLLIMPORT _declspec(dllimport)
 
-#else
-	#define DLLEXPORT 
-	#define DLLIMPORT
-#endif
-*/
 /** Value strings */
 typedef vector<string> StrValueList;
 

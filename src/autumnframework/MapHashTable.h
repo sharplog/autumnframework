@@ -27,6 +27,8 @@
  * @since 2006-12-8
  */
 
+using namespace std;
+
 template<class E, class K> class MapHashTable{
 private:
 	/** The number of positons in hash table */

@@ -37,7 +37,7 @@ const string ushortBT("unsignedshort");
 const string intBT("int");
 const string uintBT("unsignedint");
 const string longBT("long");
-const string ulongBT("unsingedlong");
+const string ulongBT("unsignedlong");
 const string floatBT("float");
 const string doubleBT("double");
 const string stringBT("string");

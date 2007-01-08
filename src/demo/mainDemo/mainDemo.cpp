@@ -16,7 +16,7 @@ void main(int argc, char* argv[])
 		
 		cout<<"OK!"<<endl;
 	}catch (exception* e ) {
-		cout<<e->what()<<endl;
+		cout<<"Exception: "<<e->what()<<endl;
 		delete e;
 	}
 }

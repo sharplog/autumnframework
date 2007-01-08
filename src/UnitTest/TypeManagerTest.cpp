@@ -130,12 +130,14 @@ void TypeManagerTest::testTypeSetter()
 	CPPUNIT_ASSERT_THROW(tm->createValue(vl, "dumbBT"), ep);
 	tm->setBasicType("dumbBT", new dumbBT);
 	CPPUNIT_ASSERT_NO_THROW(tm->createValue(vl, "dumbBT"));
+	CPPUNIT_ASSERT_NO_THROW(tm->freeValue(NULL, "dumbBT"));
 	tm->eraseValueType("dumbBT");
 	CPPUNIT_ASSERT_THROW(tm->createValue(vl, "dumbBT"), ep);
 	
 	CPPUNIT_ASSERT_THROW(tm->createValue(vl, "char_dumbCT"), ep);
 	tm->setCombinedType("_dumbCT", new dumbCT);
 	CPPUNIT_ASSERT_NO_THROW(tm->createValue(vl, "char_dumbCT"));
+	CPPUNIT_ASSERT_NO_THROW(tm->freeValue(NULL, "char_dumbCT"));
 	tm->eraseValueType("_dumbCT");
 	CPPUNIT_ASSERT_THROW(tm->createValue(vl, "char_dumbCT"), ep);
 	

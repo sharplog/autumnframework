@@ -125,10 +125,6 @@ SOURCE=.\BeanProperty.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\IBeanFactory.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\IBeanWrapper.cpp
 # End Source File
 # Begin Source File
@@ -210,6 +206,10 @@ SOURCE=.\ConsoleLogger.h
 # Begin Source File
 
 SOURCE=.\DynamicLibrary.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FileLogger.h
 # End Source File
 # Begin Source File
 

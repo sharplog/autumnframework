@@ -118,10 +118,6 @@ SOURCE=..\AutumnFramework\BeanProperty.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\AutumnFramework\IBeanFactory.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=..\AutumnFramework\IBeanWrapper.cpp
 # End Source File
 # Begin Source File
@@ -203,6 +199,10 @@ SOURCE=..\AutumnFramework\ConsoleLogger.h
 # Begin Source File
 
 SOURCE=..\AutumnFramework\DynamicLibrary.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\autumnframework\FileLogger.h
 # End Source File
 # Begin Source File
 
