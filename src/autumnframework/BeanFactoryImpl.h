@@ -89,9 +89,6 @@ public:
 	virtual bool isSingleton(string name);
 	
 	/** Destructor */
-	virtual ~BeanFactoryImpl(){
-		delete this->Config;
-		delete this->ManagerOfBean;
-	}
+	virtual ~BeanFactoryImpl();
 };
 #endif

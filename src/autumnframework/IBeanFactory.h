@@ -86,5 +86,6 @@ public:
 
 /** Get IBeanFactory instance */
 DLL_IM_EXPORT IBeanFactory* getBeanFactoryWithXML(const char* file);
-
+/** Delete IBeanFactory instance */
+DLL_IM_EXPORT void deleteBeanFactory(IBeanFactory* p);
 #endif

@@ -30,10 +30,15 @@ BeanManager::~BeanManager()
 {
 	typedef void WrapperFreer (IBeanWrapper*);
 	map<long, long> m;
+
+	AutumnLog::getInstance()->debug("BeanManager->~BeanManager");
 	
 	this->Beans.listElement(m);
 	for(map<long, long>::iterator it = m.begin();
 			it != m.end(); it++){
+		long tmp;
+		this->Beans.deleteElement(it->first, tmp);
+		
 		IBeanWrapper* pt = (IBeanWrapper *)it->second;
 		WrapperFreer* pf = pt->getWrapperDeleter();
 		//delete itself
@@ -53,6 +58,7 @@ void BeanManager::deleteBean(void* p)
 	AutumnLog::getInstance()->debug("BeanManager->deleteBean");
 
 	// Delete from hash table
+	// Maybe it has deleted somewhere, like ~BeanManager()
 	if( this->Beans.deleteElement((long)p, pw) ){
 		IBeanWrapper* pt = (IBeanWrapper *)pw;
 		WrapperFreer* pf = pt->getWrapperDeleter();
