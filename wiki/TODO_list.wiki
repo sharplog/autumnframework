@@ -10,10 +10,10 @@ Todo list.
  * Test all types injection, includes all basic type, pointer type and bean type. [*over*]
  * Test setter injection and constructor injection. [*over*]
  * Test bean management, free bean when destroying itself. [*over*]
+ * Test singleton.
  * Test initialize and destroy function.
  * Test bean injection from another librarie.
  * Test local library injection.
- * Test singleton.
  * Test customized type.
  * Test self-manage-property.
  # *demo*
