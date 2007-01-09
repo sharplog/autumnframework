@@ -51,6 +51,16 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	this->ManagerOfBean = new BeanManager();
 }
 
+/** Destructor */
+BeanFactoryImpl::~BeanFactoryImpl()
+{
+	AutumnLog::getInstance()->debug("BeanFactoryImpl->~BeanFactoryImpl");
+
+	delete this->Config;
+	delete this->ManagerOfBean;
+	BeanFactoryImpl::Instance = NULL;
+}
+
 /** 
  * Get this singleton's instance
  * @param config Configuration resource
@@ -184,4 +194,10 @@ bool BeanFactoryImpl::isSingleton(string name)
 IBeanFactory* getBeanFactoryWithXML(const char* file)
 {
 	return BeanFactoryImpl::getInstance(new XMLResource(file));
+}
+
+/** Delete IBeanFactory instance */
+void deleteBeanFactory(IBeanFactory* p)
+{
+	delete p;
 }
