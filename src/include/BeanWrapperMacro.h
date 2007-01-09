@@ -20,6 +20,16 @@
 #include "IBeanWrapper.h"
 #include <iostream>
 
+#ifdef WIN32
+	#ifdef _USRDLL
+		#define DLL_EXPORT _declspec(dllexport)
+	#else
+		#define DLL_EXPORT 
+	#endif
+#else
+	#define DLL_EXPORT
+#endif
+
 using namespace std;
 
 /** Define a bean's adapter */
@@ -163,8 +173,8 @@ public:																\
 };																	\
 																	\
 extern "C"{															\
-	DLL_IM_EXPORT IBeanWrapper* create_##bean##_Wrapper();				\
-	DLL_IM_EXPORT void delete_##bean##_Wrapper(IBeanWrapper*);			\
+	DLL_EXPORT IBeanWrapper* create_##bean##_Wrapper();				\
+	DLL_EXPORT void delete_##bean##_Wrapper(IBeanWrapper*);			\
 	IBeanWrapper* create_##bean##_Wrapper(){						\
 		return new bean##_Wrapper;									\
 	}																\
