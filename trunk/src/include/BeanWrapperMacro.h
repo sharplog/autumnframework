@@ -133,7 +133,7 @@ public:																\
  * @param init The class's destroying function
  */
 #define AUTUMNBEAN_DESTROY(destroy)									\
-	void destoryBean(){												\
+	void destroyBean(){												\
 		this->pBean->destroy();										\
 	}
 	
