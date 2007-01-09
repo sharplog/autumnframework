@@ -57,8 +57,5 @@ public:
 	void*  getValuePointer(){
 		return this->PointerOfValue;
 	}
-
-	/** Set PointerOfValue to NULL to preserve value where destructing */
-	//void* preserveValue();
 };
 #endif

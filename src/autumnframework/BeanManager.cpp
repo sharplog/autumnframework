@@ -30,21 +30,34 @@ BeanManager::~BeanManager()
 {
 	typedef void WrapperFreer (IBeanWrapper*);
 	map<long, long> m;
-
+	vector<IBeanWrapper*> vSingleton;
+	IBeanWrapper* pt;
+	WrapperFreer* pf;
+	
 	AutumnLog::getInstance()->debug("BeanManager->~BeanManager");
 	
 	this->Beans.listElement(m);
-	for(map<long, long>::iterator it = m.begin();
-			it != m.end(); it++){
+	for(map<long, long>::iterator it = m.begin(); it != m.end(); it++){
 		long tmp;
 		this->Beans.deleteElement(it->first, tmp);
 		
-		IBeanWrapper* pt = (IBeanWrapper *)it->second;
-		WrapperFreer* pf = pt->getWrapperDeleter();
-		//delete itself
-		pf(pt);
+		pt = (IBeanWrapper *)it->second;
+
+		// Singleton will be deleted at last
+		if( pt->getSingleton() ) {
+			vSingleton.push_back(pt);
+		}
+		else{
+			pf = pt->getWrapperDeleter();
+			pf(pt);		//delete itself
+		}
 	}
 
+	for( int i=0; i<vSingleton.size(); i++){
+		pt = vSingleton[i];
+		pf = pt->getWrapperDeleter();
+		pf(pt);		//delete itself
+	}
 }
 /** 
  * Delete a bean from bean manager.
@@ -61,33 +74,27 @@ void BeanManager::deleteBean(void* p)
 	// Maybe it has deleted somewhere, like ~BeanManager()
 	if( this->Beans.deleteElement((long)p, pw) ){
 		IBeanWrapper* pt = (IBeanWrapper *)pw;
-		WrapperFreer* pf = pt->getWrapperDeleter();
-		//delete itself
-		pf(pt);
+		
+		// Singleton will be deleted at last
+		if( ! pt->getSingleton() ) {
+			WrapperFreer* pf = pt->getWrapperDeleter();
+			pf(pt);		//delete itself
+		}
 	}
 }
 
 /** 
  * Add a bean
+ * @param name Bean's name
  * @param pw Pointer to bean's wrapper
  */
-void BeanManager::addBean(IBeanWrapper* pw)
-{
-	long pl = (long)pw;
-	this->Beans.insertElement((long)pw->getBean(), pl);
-}
-
-/** 
- * Add a singleton bean
- * @param name Singleton's name
- * @param pw Pointer to singleton's wrapper
- */
-void BeanManager::addSingleton(string name,IBeanWrapper* pw)
+void BeanManager::addBean(string name, IBeanWrapper* pw)
 {
 	long pl = (long)pw;
 	this->Beans.insertElement((long)pw->getBean(), pl);
 
-	this->SingletonBeans.insert(make_pair(name, pw->getBean()));
+	if( pw->getSingleton() )
+		this->SingletonBeans.insert(make_pair(name, pw->getBean()));
 }
 
 /** 

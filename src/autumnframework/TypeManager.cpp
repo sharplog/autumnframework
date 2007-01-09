@@ -167,17 +167,19 @@ void TypeManager::setCombinedType(string name, ICombinedType* ct)
  */
 void* TypeManager::createValue(StrValueList& vl, string type)
 {
+	AutumnLog::getInstance()->debug("TypeManager->createValue, type: " + type);
+	
 	if( vl.size() == 0 ){
 		throw new NonValueEx("TypeManager", 
 			"createValue", 
 			string("String value of type[") + type + string("] is not found!"));
 	}
 	
+	int pos;
 	if( IBasicType* bt = this->findBasicType(type) ) {
 		return bt->createValue(vl);
 	}
-
-	int pos;
+	
 	if( ICombinedType* ct = this->findCombinedType(type, pos) ){
 		return ct->createValue(vl, type.substr(0,pos));
 	}
@@ -192,20 +194,18 @@ void TypeManager::freeValue(void* p, string type)
 {
 	AutumnLog::getInstance()->debug("TypeManager->freeValue, type: " + type);
 	
+	int pos;
 	if( IBasicType* bt = this->findBasicType(type) ) {
 		bt->freeValue(p);
-		return;
 	}
-	
-	int pos;
-	if( ICombinedType* ct = this->findCombinedType(type, pos) ){
+	else if( ICombinedType* ct = this->findCombinedType(type, pos) ){
 		ct->freeValue(p, type.substr(0,pos));
-		return;
 	}
-	
-	throw new MissDefinitionEx("TypeManager", 
-		"freeValue", 
-		string("Type of [") + type + string("] is not found!") );
+	else {
+		throw new MissDefinitionEx("TypeManager", 
+			"freeValue", 
+			string("Type of [") + type + string("] is not found!") );
+	}
 }
 
 /** Free the space where p pointing to, the space occupied by the type self */

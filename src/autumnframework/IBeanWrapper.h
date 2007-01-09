@@ -47,43 +47,37 @@ class DLL_IM_EXPORT IBeanWrapper{
 
 	/** pointers of parameters, using long type */
 	vector<ParamPointer> Parameters;
+
+	/** function pointer to delete wrapper */
 	WrapperFreer* WrapperDeleter;
-	bool Initializable;
-	bool Destroyable;
+
+	/** 
+	 * bean's property 
+	 */
+	bool Initializable;		//initializable or not
+	bool Destroyable;		//destroyable or not
+	bool Singleton;			//is singleton or not
 public:
 	virtual void* getBean() = 0;
 
-	void setBeanName(string name){
-		this->BeanName = name;
-	}
+	void setBeanName(string name){ this->BeanName = name; }
+	string getBeanName(){ return this->BeanName; }
+	
+	void setDestroyable(bool d){ this->Destroyable = d; }
+	bool getDestroyable(){ return this->Destroyable; }
+	
+	void setInitializable(bool i){ this->Initializable = i; }
+	bool getInitializable(){ return this->Initializable; }
 
-	string getBeanName(){
-		return this->BeanName;
-	}
-	
-	void setDestroyable(bool d){
-		this->Destroyable = d;
-	}
-	
-	bool getDestroyable(){
-		return this->Destroyable;
-	}
-	
-	void setInitializable(bool i){
-		this->Initializable = i;
-	}
-	
-	bool getInitializable(){
-		return this->Initializable;
-	}
+	void setSingleton(bool s){ this->Singleton = s; }
+	bool getSingleton() { return this->Singleton; }
 
-	void addParameter(ParamPointer p){
-		this->Parameters.push_back(p);
-	}
+	void setWrapperDeleter(WrapperFreer* wd){ this->WrapperDeleter = wd; }
+	WrapperFreer* getWrapperDeleter(){ return this->WrapperDeleter; }
+	
+	void addParameter(ParamPointer p){ this->Parameters.push_back(p); }
+	vector<ParamPointer> getParameter(){ return this->Parameters; }
 
-	vector<ParamPointer> getParameter(){
-		return this->Parameters;
-	}
 	
 	virtual void* createBean();
 
@@ -95,17 +89,7 @@ public:
 
 	virtual int setBeanProperty(const char* name, const char* type, void* value);
 
-	void setWrapperDeleter(WrapperFreer* wd){
-		this->WrapperDeleter = wd;
-	}
-
-	WrapperFreer* getWrapperDeleter(){
-		return this->WrapperDeleter;
-	}
-	
-	/** 
-	 * Destructor
-	 */
+	/** Destructor */
 	virtual ~IBeanWrapper();
 };
 
