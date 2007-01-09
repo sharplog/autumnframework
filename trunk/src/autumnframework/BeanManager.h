@@ -37,7 +37,6 @@ private:
 	static const int HashDivisor;
 
 	/** All beans */
-//	MapHashTable<IBeanWrapper*, unsigned long> Beans;
 	MapHashTable<long, long> Beans;
 	
 	/** Singleton beans */
@@ -58,16 +57,10 @@ public:
 
 	/** 
 	 * Add a bean
+	 * @param name bean's name
 	 * @param pw Pointer to bean's wrapper
 	*/
-	void addBean(IBeanWrapper* pw);
-		
-	/** 
-	 * Add a singleton bean
-	 * @param name Singleton's name
-	 * @param pw Pointer to singleton's wrapper
-	*/
-	void addSingleton(string name, IBeanWrapper* pw);
+	void addBean(string name, IBeanWrapper* pw);
 
 	/** 
 	 * Find a singleton by name

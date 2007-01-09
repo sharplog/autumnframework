@@ -132,6 +132,9 @@ void* BeanFactoryImpl::getBean(string name)
 			string("Create Bean [") + name + "] failed!");
 	}
 	
+	//Set singleton
+	pw->setSingleton(bc->isSingleton());
+
 	//Set properties
 	PropertyList* props = bc->getProperties();
 	for(i=0; i<props->size(); i++){
@@ -144,12 +147,7 @@ void* BeanFactoryImpl::getBean(string name)
 	}
 
 	//Add to bean manager
-	if( bc->isSingleton() ){
-		this->ManagerOfBean->addSingleton(name, pw.release());
-	}
-	else{
-		this->ManagerOfBean->addBean(pw.release());
-	}
+	this->ManagerOfBean->addBean(name, pw.release());
 
 	return p;
 }

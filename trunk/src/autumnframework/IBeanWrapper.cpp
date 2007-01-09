@@ -76,5 +76,7 @@ IBeanWrapper::~IBeanWrapper()
 	
 	for(int i=0; i<this->Parameters.size(); i++)
 		delete (ValueWrapper*)this->Parameters[i];
+
+	AutumnLog::getInstance()->debug("IBeanWrapper->~IBeanWrapper return");
 }
 
