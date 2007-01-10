@@ -110,7 +110,7 @@
 					<property name="Int" type="BasicTypesBean*">
 						<value>BasicTypesBean3</value>
 					</property>
-					<property name="CStr" type="BasicTypesBean" autumn-manage="false">
+					<property name="CStr" type="BasicTypesBean">
 						<value>BasicTypesBean4</value>
 					</property>
 				</properties>
@@ -128,6 +128,15 @@
 						<value>hello, CStr for bean4</value>
 					</property>
 				</properties>
+			</bean>
+			
+			<!-- BeanTypeBean3 test bean injection from another library -->
+			<bean class="BeanTypeBean" name="BeanTypeBean5">
+				<constructor-arg>
+					<argument name="arg1" type="BasicTypesBean*">
+						<value>BasicTypesBean2-1</value>
+					</argument>
+				</constructor-arg>
 			</bean>
 
 			<!-- SingletonBean test singleton property -->
@@ -155,6 +164,38 @@
 				</constructor-arg>
 			</bean>
 			
+			<!-- The fllowing is useless, self-managed property can't be used-->
+			<!-- SelfManagedBean test self-managed property -->
+			<!--
+			<bean class="SelfManagedBean" name="SelfManagedBean1">
+					<constructor-arg>
+						<argument name="arg1" type="SingletonBean*" autumn-manage="false">
+							<value>NotSingleton1</value>
+						</argument>
+					</constructor-arg>
+					<properties>
+						<property name="CStr" type="char*" autumn-manage="false">
+							<value>Hello, SelfManagedBean</value>
+						</property>
+					</properties>
+			</bean>
+			-->
 		</beans>
 	</library>
+	
+	<library path="../lib/UnitTestDll2_D.dll">
+		<beans>
+			<bean class="BasicTypesBean" name="BasicTypesBean2-1">
+				<properties>
+					<property name="Int" type="int*">
+						<value>70021</value>
+					</property>
+					<property name="CStr" type="char**">
+						<value>hello, CStr2-1</value>
+					</property>
+				</properties>
+			</bean>
+		</beans>
+	</library>
+	
 </autumn>
