@@ -56,7 +56,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework.lib /nologo /dll /machine:I386 /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy      IBasicTypeBean.h      ..\include\ 	copy      release\UnitTestDll.lib      ..\lib\     	copy      release\UnitTestDll.dll      ..\lib\ 
+PostBuild_Cmds=copy      IBasicTypeBean.h      ..\include\ 	copy      release\UnitTestDll.lib      ..\lib\     	copy      release\UnitTestDll.dll      ..\lib\	copy      release\UnitTestDll.dll      ..\lib\UnitTestDll2.dll
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "UnitTestDll - Win32 Debug"
@@ -86,7 +86,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework_D.lib /nologo /dll /debug /machine:I386 /out:"Debug/UnitTestDll_D.dll" /pdbtype:sept /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy        IBasicTypesBean.h        ..\include\       	copy        debug\UnitTestDll_D.dll        ..\lib\       	copy        debug\UnitTestDll_D.lib        ..\lib\ 
+PostBuild_Cmds=copy        IBasicTypesBean.h        ..\include\       	copy        debug\UnitTestDll_D.dll        ..\lib\       	copy        debug\UnitTestDll_D.lib        ..\lib\	copy        debug\UnitTestDll_D.dll       ..\lib\UnitTestDll2_D.dll
 # End Special Build Tool
 
 !ENDIF 
@@ -129,6 +129,10 @@ SOURCE=.\IBasicTypesBean.h
 # Begin Source File
 
 SOURCE=.\InitDestBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SelfManagedBean.h
 # End Source File
 # Begin Source File
 

@@ -107,6 +107,22 @@ void TypeInjectionTest::testInitDestroyable()
 	CPPUNIT_ASSERT(b1->getString().compare("Destroy") == 0);
 }
 
+void TypeInjectionTest::testSelfManage()
+{
+	//can't self managed
+	//IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("SelfManagedBean1");
+	//CPPUNIT_ASSERT_NO_THROW(this->bf->freeBean(b));
+}
+
+void TypeInjectionTest::testInjectFromLibElse()
+{
+	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("BeanTypeBean5");
+	
+	CPPUNIT_ASSERT(b->getInt() == 70021);
+	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, CStr2-1") == 0);
+	this->bf->freeBean(b);
+}
+
 void TypeInjectionTest::testCustomizedType()
 {
 }
