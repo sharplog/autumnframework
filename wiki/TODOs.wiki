@@ -12,10 +12,10 @@ Todo list.
   * Test bean management, free bean when destroying itself. [ *over* ]
   * Test singleton. [ *over* ]
   * Test initialize and destroy function. [ *over* ]
-  * Test bean injection from another librarie.
+  * Test bean injection from another librarie. [ *over* ]
   * Test local library injection.
   * Test customized type.
-  * Test self-manage-property.
+  * ~~Test self-manage-property.~~
  # *demo*
  # *manual*
  # *implement*
