@@ -9,11 +9,12 @@ using namespace std;
 void main(int argc, char* argv[])
 {
 	try{
-		IBeanFactory* bf = IBeanFactory::getInstanceWithXML(argv[1]);
+		IBeanFactory* bf = getBeanFactoryWithXML(argv[1]);
 		Action* pa = (Action*)bf->getBean("TheAction");
 		cout<<pa->excute("Vicent")<<endl;
 		bf->freeBean(pa);
 		
+		deleteBeanFactory(bf);
 		cout<<"OK!"<<endl;
 	}catch (exception* e ) {
 		cout<<"Exception: "<<e->what()<<endl;
