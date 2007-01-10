@@ -163,6 +163,10 @@ SOURCE=.\res\Toolbar.bmp
 # End Source File
 # Begin Source File
 
+SOURCE=.\res\UnitTest.ico
+# End Source File
+# Begin Source File
+
 SOURCE=.\res\UnitTest2.ico
 # End Source File
 # Begin Source File

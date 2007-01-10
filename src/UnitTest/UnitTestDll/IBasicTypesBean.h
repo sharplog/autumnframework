@@ -12,13 +12,15 @@ public:
 	const string intBT("int");
 	const string uintBT("unsignedint");
 	const string longBT("long");
-	const string ulongBT("unsingedlong");
+	const string ulongBT("unsignedlong");
 	const string floatBT("float");
 	const string doubleBT("double");
 	const string stringBT("string");
 	const string cstrBT("char*");
 	const string ucstrBT("unsignedchar*");
 	*/
+	virtual void setString(string s){}
+	
 	virtual char getChar() = 0;
 	virtual unsigned char getUChar() = 0;
 	virtual short getShort() = 0;

@@ -36,7 +36,7 @@ public:
 					unsigned long	pULong,
 					float			pFloat,
 					double			pDouble,
-					string			pString,
+					string&			pString,
 					char*			pCStr,
 					unsigned char*	pUCStr):
 					mChar(pChar),
