@@ -93,4 +93,7 @@ public:
 	virtual ~IBeanWrapper();
 };
 
+/** register local function for local library */
+DLL_IM_EXPORT void registerLocalFunction(const char* name, void* f);
+
 #endif

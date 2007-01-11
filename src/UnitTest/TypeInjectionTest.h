@@ -16,6 +16,7 @@ class TypeInjectionTest: public TestFixture{
 	CPPUNIT_TEST(testInitDestroyable);
 	CPPUNIT_TEST(testSelfManage);
 	CPPUNIT_TEST(testInjectFromLibElse);
+	CPPUNIT_TEST(testLocalBean);
 	CPPUNIT_TEST(testCustomizedType);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -33,6 +34,7 @@ public:
 	void testInitDestroyable();
 	void testSelfManage();
 	void testInjectFromLibElse();
+	void testLocalBean();
 	void testCustomizedType();
 };
 

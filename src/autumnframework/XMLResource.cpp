@@ -218,12 +218,17 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 	// parsing attributes
 	XMLCSTR name = xml.getAttribute("name");
 	XMLCSTR type = xml.getAttribute("type");
+	XMLCSTR itype = xml.getAttribute("inject-type");
 	XMLCSTR managed = xml.getAttribute("autumn-manage");
 	string isManaged = "true";
 
 	if( name != NULL ) prop.Name = name;
 	if( type != NULL ) prop.Type = type;
 	if( managed != NULL ) isManaged = managed;
+	if( itype != NULL ) 
+		prop.InjectType = itype;
+	else
+		prop.InjectType = "";
 	
 	if( prop.Name.empty() ){
 		throw new XMLParsingEx("XMLResource", "parseProperty", 

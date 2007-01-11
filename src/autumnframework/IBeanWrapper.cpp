@@ -16,6 +16,7 @@
 
 #include "ValueWrapper.h"
 #include "IBeanWrapper.h"
+#include "LocalLibrary.h"
 #include "AutumnException.h"
 
 /** 
@@ -78,5 +79,11 @@ IBeanWrapper::~IBeanWrapper()
 		delete (ValueWrapper*)this->Parameters[i];
 
 	AutumnLog::getInstance()->debug("IBeanWrapper->~IBeanWrapper return");
+}
+
+/** register local function for local library */
+void registerLocalFunction(const char* name, void* f)
+{
+	LocalLibrary::getInstance()->addFunction(name, f);
 }
 

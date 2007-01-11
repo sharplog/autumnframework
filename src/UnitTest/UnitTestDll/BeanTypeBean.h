@@ -15,7 +15,7 @@ public:
 		this->mInt = 0;
 		this->mCStr = NULL;
 	}
-	BeanTypeBean(BasicTypesBean* pb){
+	BeanTypeBean(IBasicTypesBean* pb){
 		this->mInt = pb->getInt();
 		char* p = pb->getCStr();
 		this->mCStr = new char[strlen(p) + 1];
@@ -26,7 +26,7 @@ public:
 	}
 
 	//setter
-	void setInt(BasicTypesBean* pb){
+	void setInt(IBasicTypesBean* pb){
 		this->mInt = pb->getInt();
 	}
 

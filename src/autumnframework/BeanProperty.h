@@ -37,6 +37,9 @@ private:
 	/** Property's type */
 	string Type;
 	
+	/** Property's type for injection*/
+	string InjectType;
+	
 	/** String list presenting parameter value */
 	StrValueList StrValue;
 	
@@ -44,8 +47,8 @@ private:
 	bool Managed;
 
 public:
-	BeanProperty(string name, string type, StrValueList& vl, bool b=true):
-	  Name(name), Type(type), StrValue(vl), Managed(b){ }
+	BeanProperty(string name, string type, string itype, StrValueList& vl, bool b=true):
+	  Name(name), Type(type), InjectType(itype), StrValue(vl), Managed(b){ }
 
 	/** 
 	 * Set a object's property.

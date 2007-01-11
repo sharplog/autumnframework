@@ -179,7 +179,6 @@ extern "C"{															\
 		return new bean##_Wrapper;									\
 	}																\
 	void delete_##bean##_Wrapper(IBeanWrapper* p){					\
-		cout<<"delete_"<<#bean<<"_Wrapper"<<endl;					\
 		delete p;													\
 	}																\
 }
@@ -191,12 +190,25 @@ extern "C"{															\
 #define AUTUMN_LOCALBEAN(bean)										\
 																	\
 class AUTUMN_##bean##_Proxy{										\
+private:															\
+	string mangleName(string op, string objName){					\
+		if( op == "create" )										\
+			return "create_" + objName + "_Wrapper";				\
+		else if( op == "delete" )									\
+			return "delete_" + objName + "_Wrapper";				\
+		else return string("");										\
+	}																\
+																	\
 public:																\
 	AUTUMN_##bean##_Proxy(){										\
-		LocalLibrary::getInstance()->addFunction(#bean,				\
-			create_##bean##_Wrapper));								\
+		registerLocalFunction(										\
+				this->mangleName("create", #bean).c_str(),			\
+				create_##bean##_Wrapper);							\
+		registerLocalFunction(										\
+				this->mangleName("delete", #bean).c_str(),			\
+				delete_##bean##_Wrapper);							\
 	}																\
-}																	\
+};																	\
 																	\
 AUTUMN_##bean##_Proxy _AUTUMN_##bean##_Proxy_;
 

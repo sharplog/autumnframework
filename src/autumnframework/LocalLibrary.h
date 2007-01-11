@@ -39,10 +39,7 @@ private:
 public:
 	static LocalLibrary* getInstance();
 
-	void addFunction(const char* name, void* fun){
-		this->LocalFunctions.insert(make_pair(name, fun));
-	}
-
+	void addFunction(const char* name, void* fun);
 	void* getFunction(string name);
 };
 

@@ -28,9 +28,18 @@ void BeanProperty::setProperty(IBeanWrapper* pw)
 	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
 									this->StrValue, this->Managed));
 	
-	int rtn = pw->setBeanProperty(this->Name.c_str(), 
+	int rtn;
+	if( this->InjectType.compare("") != 0){
+		rtn = pw->setBeanProperty(this->Name.c_str(), 
+								this->InjectType.c_str(), 
+								value->getValuePointer());
+	}
+	else{
+		rtn = pw->setBeanProperty(this->Name.c_str(), 
 								this->Type.c_str(), 
 								value->getValuePointer());
+	}
+	
 	// if not return 0
 	if( rtn ){	
 		throw new SetPropertyFailedEx("BeanProperty", "setProperty", 

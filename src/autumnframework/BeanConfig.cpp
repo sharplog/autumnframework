@@ -49,13 +49,14 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	for(i=0; i<beandef.ConArgs.size(); i++){
 		p = &beandef.ConArgs[i];
 		this->ConArgs->push_back(new BeanProperty(p->Name,
-				trimString(p->Type), p->Value, p->Managed));
+				trimString(p->Type), trimString(p->InjectType),
+				p->Value, p->Managed));
 	}
 	for(i=0; i<beandef.Properties.size(); i++){
 		p = &beandef.Properties[i];
-		auto_ptr<BeanProperty> pb(new BeanProperty(p->Name, 
-				trimString(p->Type), p->Value, p->Managed));
-		this->Properties->push_back(pb.release());
+		this->Properties->push_back(new BeanProperty(p->Name, 
+				trimString(p->Type), trimString(p->InjectType),
+				p->Value, p->Managed));
 	}
 }
 
