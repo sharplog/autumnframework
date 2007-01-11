@@ -26,6 +26,7 @@ using namespace std;
 typedef struct{
 	string	Name;
 	string	Type;
+	string	InjectType;
 	StrValueList Value;	
 
 	/** Property be managed by Autumn framework or not. */

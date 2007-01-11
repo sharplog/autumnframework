@@ -32,6 +32,10 @@ LocalLibrary* LocalLibrary::getInstance(){
 	return LocalLibrary::instance;
 }
 
+void LocalLibrary::addFunction(const char* name, void* fun){
+	this->LocalFunctions.insert(make_pair(name, fun));
+}
+
 void* LocalLibrary::getFunction(string name){
 	map<string, void*>::iterator it=this->LocalFunctions.find(name);
 	if( it != this->LocalFunctions.end() )

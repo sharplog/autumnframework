@@ -198,4 +198,19 @@
 		</beans>
 	</library>
 	
+	<library path="local">
+		<beans>
+			<bean class="LocalBean" name="LocalBean1">
+				<properties>
+					<property name="Int" type="BasicTypesBean*" inject-type="IBasicTypesBean*">
+						<value>BasicTypesBean3</value>
+					</property>
+					<property name="CStr" type="char*">
+						<value>hello, Local Bean</value>
+					</property>
+				</properties>
+			</bean>
+		</beans>
+	</library>
+	
 </autumn>

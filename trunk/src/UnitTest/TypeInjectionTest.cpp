@@ -16,7 +16,7 @@ void TypeInjectionTest::tearDown()
 
 void TypeInjectionTest::testBasicType()
 {
-/**/	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("BasicTypesBean1");
+	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("BasicTypesBean1");
 
 	CPPUNIT_ASSERT(b->getChar() == 'c');
 	CPPUNIT_ASSERT(b->getUChar() == 'u');
@@ -48,7 +48,7 @@ void TypeInjectionTest::testBasicType()
 	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, CStr") == 0);
 	CPPUNIT_ASSERT(strcmp((const char*)b->getUCStr(), "hello, UCStr") == 0);
 	this->bf->freeBean(b);
-/**/}
+}
 
 void TypeInjectionTest::testCombinedType()
 {
@@ -120,6 +120,15 @@ void TypeInjectionTest::testInjectFromLibElse()
 	
 	CPPUNIT_ASSERT(b->getInt() == 70021);
 	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, CStr2-1") == 0);
+	this->bf->freeBean(b);
+}
+
+void TypeInjectionTest::testLocalBean()
+{
+	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("LocalBean1");
+	
+	CPPUNIT_ASSERT(b->getInt() == 70000);
+	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, Local Bean") == 0);
 	this->bf->freeBean(b);
 }
 
