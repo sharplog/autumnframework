@@ -31,9 +31,15 @@ private:
 	static AutumnLog* instance;
 	
 	/** Constructor, logger is NULL */
-	AutumnLog();
+	AutumnLog(const char* file = "");
 	
 public:
+	/** Destructor */
+	~AutumnLog(){
+		if( this->logger ) 
+			delete this->logger;
+	}
+
 	/** Get this singleton's instance */
 	static AutumnLog* getInstance(){
 		if( AutumnLog::instance == NULL)

@@ -26,6 +26,7 @@
 #include "DynamicLibrary.h"
 #include "TypeManager.h"
 #include "AutumnConfig.h"
+#include "BeanFactoryImpl.h"
 
 /**
  * AutumnFramework's configuration
@@ -101,6 +102,7 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 /** Deal with each type */
 void AutumnConfig::processType(TType& type, ILibrary* pl)
 {
+/*
 	string funName = this->mangleName("type", "create", type.ClassName);
 
 	if( type.IsBasic ){
@@ -115,6 +117,43 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 		ICombinedType* pc = fc();
 		TypeManager::getInstance()->setCombinedType(type.Name, pc);
 	}
+*/
+	// the bean exists or not
+	if( this->Beans.find(type.Name) != this->Beans.end() ){
+		throw new ReduplicateEx("AutumnConfig", "processType", 
+			"Reduplicate defined type [" + type.Name + "]!");
+	}
+	
+	// get bean wrapper maker function
+	string funName = this->mangleName("type", "create", type.ClassName);
+	WrapperMaker* pw = (WrapperMaker*)pl->getFunction(funName);
+	if( pw == NULL ){
+		throw new NotFoundEx("AutumnConfig", "processType", 
+			"Geting WrapperMaker failed for class '" + type.ClassName + "'.");
+	}
+	
+	// get bean wrapper freer function
+	funName = this->mangleName("type", "delete", type.ClassName);
+	WrapperFreer* pd = (WrapperFreer*)pl->getFunction(funName);
+	if( pd == NULL ){
+		throw new NotFoundEx("AutumnConfig", "processType", 
+			"Geting WrapperFreer failed for class '" + type.ClassName + "'.");
+	}
+	
+	// create BeanConfig, each type class as a singleton bean
+	auto_ptr<BeanConfig> pb(new BeanConfig(type, pw, pd));
+	this->Beans.insert(make_pair(type.Name, pb.release()));
+	
+	// get type class instance
+	void* pt = BeanFactoryImpl::getInstance()->getBean(type.Name);
+
+	// register type to typemanager
+	if( type.IsBasic ){
+		TypeManager::getInstance()->setBasicType(type.Name, (IBasicType*)pt);
+	}
+	else {
+		TypeManager::getInstance()->setCombinedType(type.Name, (ICombinedType*)pt);
+	}
 }
 
 string AutumnConfig::mangleName(string objType, string  op, string objName)
@@ -128,6 +167,8 @@ string AutumnConfig::mangleName(string objType, string  op, string objName)
 	else if( objType == "type" ){
 		if( op == "create" )
 			return "create_" + objName + "_Type";
+		else if( op == "delete" )
+			return "delete_" + objName + "_Type";
 	}
 	throw new NotFoundEx("AutumnConfig", "mangleName", 
 		"type[" + objType + "]->operation[" + op +"] is not found!");

@@ -68,6 +68,9 @@ public:
 	/** Constructor */
 	BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd);
 
+	/** Constructor for customized type class */
+	BeanConfig(TType& typedefine, WrapperMaker* wc, WrapperFreer* wd);
+	
 	/** Destructor */
 	~BeanConfig();
 

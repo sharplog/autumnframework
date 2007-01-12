@@ -19,6 +19,7 @@
 
 #include <string>
 #include <map>
+#include "Basic.h"
 #include "IBasicType.h"
 #include "ICombinedType.h"
 
@@ -61,6 +62,9 @@ private:
 	 * @param string Combined ValueType's postfix
 	 */
 	map<string, ICombinedType*> CombinedTypeList;
+
+	/** Customized types */
+	vector<string> CustomizedTypes;
 	
 	/** The singleton's instance */
 	static TypeManager* instance;
@@ -78,6 +82,12 @@ private:
 	IBasicType* findBasicType(string type);
 
 	ICombinedType* findCombinedType(string type, int& pos);
+
+	/** a type is customized or not */
+	bool isCustomized(string type);
+
+	void addCustomizedType(string name);
+	void eraseCustomizedType(string name);
 	
 public:
 	/** Get this singleton's instance */
@@ -102,20 +112,20 @@ public:
 	 * @param name Type name
 	 * @param bt A pointer to BasicType
 	*/
-	void setBasicType(string name, IBasicType* bt);
+	void setBasicType(string name, IBasicType* bt, bool customized = false);
 	
 	/** 
 	 * Set a couple of name and CombinedType into list
 	 * @param name Type name
 	 * @param ct A pointer to CombinedType
 	*/
-	void setCombinedType(string name, ICombinedType* ct);
+	void setCombinedType(string name, ICombinedType* ct, bool customized = false);
 	
 	/** 
 	 * Erase a couple of name and ValueType from list
 	 * @param name Type name
 	 */
-	void eraseValueType(string name);
+	void eraseValueType(string name, bool customized = false);
 
 	/** 
 	 * Create a value from StrValueList.

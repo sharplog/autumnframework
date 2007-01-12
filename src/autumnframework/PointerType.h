@@ -17,6 +17,7 @@
 #ifndef AUTUMN_POINTERTYPE_H
 #define AUTUMN_POINTERTYPE_H
 
+#include "Basic.h"
 #include "ICombinedType.h"
 
 /** 

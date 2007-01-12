@@ -27,8 +27,11 @@
 
 AutumnLog* AutumnLog::instance = NULL;
 
-AutumnLog::AutumnLog()
+AutumnLog::AutumnLog(const char* file)
 {
 	//this->logger = new ConsoleLogger(0);
-	this->logger = new FileLogger("e:\\autumn.log", 0);
+
+	string path = "AutumnFramework.log";
+	if( string(file).compare("") ) path = file;
+	this->logger = new FileLogger(path, 0);
 }
