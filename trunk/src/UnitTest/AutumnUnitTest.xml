@@ -180,7 +180,19 @@
 					</properties>
 			</bean>
 			-->
+
+			<!-- MyTypeBean test customized types -->
+			<bean class="MyTypeBean" name="MyTypeBean1">
+				<properties>
+					<property name="MyData" type="MyType1">
+						<value>100</value>
+						<value>Hi, MyData!</value>
+					</property>
+				</properties>
+			</bean>
 		</beans>
+		<types>
+		</types>
 	</library>
 	
 	<library path="../lib/UnitTestDll2_D.dll">

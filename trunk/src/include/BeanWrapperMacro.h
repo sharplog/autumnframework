@@ -50,7 +50,6 @@ public:																\
 	}																\
 																	\
 	~##bean##_Wrapper(){											\
-		cout<<"destructor of "<<#bean<<endl;						\
 		if( this->pBean ) {											\
 			if( this->getDestroyable() ) {							\
 				this->destroyBean();								\
@@ -211,5 +210,41 @@ public:																\
 };																	\
 																	\
 AUTUMN_##bean##_Proxy _AUTUMN_##bean##_Proxy_;
+
+/** 
+ * Define a customized type wrapper, like bean wrapper
+ * @param type the class devided from IBasicType or ICombinedType
+ */
+#define AUTUMNTYPE(type)											\
+class type##_Type:public IBeanWrapper{								\
+	type * pType;													\
+																	\
+public:																\
+	type##_Type(){													\
+		this->setBeanName(#type);									\
+		this->pType = NULL;											\
+	}																\
+	void* createBean(){												\
+		this->pType = NULL;											\
+		this->pType = new type();									\
+		return this->pType;											\
+	}																\
+	~##type##_Type(){												\
+		if( this->pType )											\
+			delete this->pType;										\
+	}																\
+	void* getBean(){ return (void*)this->pType; }					\
+};																	\
+																	\
+extern "C"{															\
+	DLL_EXPORT IBeanWrapper* create_##type##_Type();				\
+	DLL_EXPORT void delete_##type##_Type(IBeanWrapper*);			\
+	IBeanWrapper* create_##type##_Type(){							\
+		return new type##_Type;										\
+	}																\
+	void delete_##type##_Type(IBeanWrapper* p){						\
+		delete p;													\
+	}																\
+}
 
 #endif

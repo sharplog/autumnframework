@@ -17,6 +17,7 @@
 #ifndef AUTUMN_BASICTYPE_H
 #define AUTUMN_BASICTYPE_H
 
+#include "Basic.h"
 #include "IBasicType.h"
 
 /** 

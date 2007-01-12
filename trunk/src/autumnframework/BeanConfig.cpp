@@ -60,6 +60,21 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	}
 }
 
+BeanConfig::BeanConfig(TType& typedefine, WrapperMaker* wc, WrapperFreer* wd)
+{
+	this->Name = typedefine.Name;
+	this->WrapperCreater = wc;
+	this->WrapperDeleter = wd;
+	// type calss as a singleton
+	this->Singleton = true;
+
+	// the following is useless for type class
+	this->Initializable = false;
+	this->Destroyable = false;
+	this->ConArgs = new PropertyList;
+	this->Properties = new PropertyList;
+}
+	
 BeanConfig::~BeanConfig()
 {
 	int i;

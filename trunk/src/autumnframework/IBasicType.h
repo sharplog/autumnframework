@@ -17,7 +17,10 @@
 #ifndef AUTUMN_IBASICTYPE_H
 #define AUTUMN_IBASICTYPE_H
 
-#include "Basic.h"
+#include <vector>
+#include <string>
+
+using namespace std;
 
 /** 
  * Interface of ValueType
@@ -32,7 +35,7 @@ public:
 	 * @param vl A Vector<string>
 	 * @return A pointer to a value
 	 */
-	virtual void* createValue(StrValueList& vl) = 0;
+	virtual void* createValue(vector<string>& vl) = 0;
 
 	/** Free the space where p point */
 	virtual void freeValue(void* p) = 0;

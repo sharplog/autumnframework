@@ -108,6 +108,10 @@ SOURCE=.\BeanTypeBeanExp.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyTypesExp.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SingInitDestBeanExp.cpp
 # End Source File
 # End Group
@@ -129,6 +133,18 @@ SOURCE=.\IBasicTypesBean.h
 # Begin Source File
 
 SOURCE=.\InitDestBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyBasicType.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyData.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyTypeBean.h
 # End Source File
 # Begin Source File
 

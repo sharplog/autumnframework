@@ -17,7 +17,10 @@
 #ifndef AUTUMN_ICOMBINEDTYPE_H
 #define AUTUMN_ICOMBINEDTYPE_H
 
-#include "Basic.h"
+#include <vector>
+#include <string>
+
+using namespace std;
 
 /** 
  * Interface of ValueType
@@ -32,7 +35,7 @@ public:
 	 * @param vl A Vector<string>
 	 * @return A pointer to a pointer value
 	 */
-	virtual void* createValue(StrValueList& vl, string basicType) = 0;
+	virtual void* createValue(vector<string>& vl, string basicType) = 0;
 
 	/** Free the space where p point, include it's memeber's space */
 	virtual void freeValue(void* p, string basicType) = 0;

@@ -92,10 +92,13 @@ TypeManager::TypeManager()
  */
 TypeManager::~TypeManager(){
 	for(map<string, IBasicType*>::iterator itb = this->BasicTypeList.begin(); itb != this->BasicTypeList.end(); itb++){
-		delete itb->second;
+		// customized type is freed by bean manager
+		if( !this->isCustomized(itb->first) )
+			delete itb->second;
 	}
 	for(map<string, ICombinedType*>::iterator itc = this->CombinedTypeList.begin(); itc != this->CombinedTypeList.end(); itc++){
-		delete itc->second;
+		if( !this->isCustomized(itc->first) )
+			delete itc->second;
 	}
 }
 
@@ -105,6 +108,32 @@ IBasicType* TypeManager::findBasicType(string type)
 		return this->BasicTypeList[type];
 	}
 	return NULL;
+}
+
+void TypeManager::addCustomizedType(string name)
+{
+	this->CustomizedTypes.push_back(name);
+}
+
+void TypeManager::eraseCustomizedType(string name)
+{
+	vector<string>::iterator tmp;
+	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); ){
+		if( tmp[0].compare(name) == 0)
+			this->CustomizedTypes.erase(tmp);
+		else
+			tmp++;
+	}
+}
+
+bool TypeManager::isCustomized(string type)
+{
+	vector<string>::iterator tmp;
+	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); ){
+		if( tmp[0].compare(type) == 0)
+			return true;
+	}
+	return false;
 }
 
 ICombinedType* TypeManager::findCombinedType(string type, int& pos)
@@ -135,7 +164,7 @@ TypeManager* TypeManager::getInstance()
  * @param name Type name
  * @param bt A pointer to BasicType
 */
-void TypeManager::setBasicType(string name, IBasicType* bt)
+void TypeManager::setBasicType(string name, IBasicType* bt, bool customized)
 {
 	if( this->BasicTypeList.find(name) != this->BasicTypeList.end() ){
 		this->BasicTypeList[name] = bt;
@@ -143,6 +172,8 @@ void TypeManager::setBasicType(string name, IBasicType* bt)
 	else {
 		this->BasicTypeList.insert(make_pair(name, bt));
 	}
+	if( customized )
+		this->addCustomizedType(name);
 }
 
 /** 
@@ -150,7 +181,7 @@ void TypeManager::setBasicType(string name, IBasicType* bt)
  * @param name Type name
  * @param ct A pointer to CombinedType
 */
-void TypeManager::setCombinedType(string name, ICombinedType* ct)
+void TypeManager::setCombinedType(string name, ICombinedType* ct, bool customized)
 {
 	if( this->CombinedTypeList.find(name) != this->CombinedTypeList.end() ){
 		this->CombinedTypeList[name] = ct;
@@ -158,6 +189,8 @@ void TypeManager::setCombinedType(string name, ICombinedType* ct)
 	else {
 		this->CombinedTypeList.insert(make_pair(name, ct));
 	}
+	if( customized )
+		this->addCustomizedType(name);
 }
 
 /** 
@@ -231,9 +264,11 @@ void TypeManager::freeSelfSpace(void* p, string type)
  * Erase a couple of name and ValueType from list
  * @param type Type name
  */
-void TypeManager::eraseValueType(string type)
+void TypeManager::eraseValueType(string type, bool customized)
 {
 	// the type maybe be in BasicTypeList or CombinedTypeList
 	this->BasicTypeList.erase(type);
 	this->CombinedTypeList.erase(type);
+	if( customized )
+		this->eraseCustomizedType(type);
 }
