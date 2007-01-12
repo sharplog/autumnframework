@@ -22,21 +22,13 @@
 #include "BeanFactoryImpl.h"
 #include "AutumnException.h"
 #include "IBeanWrapper.h"
+#include "ObjectType.h"
 
 /** 
  * BeanFactory implementation
  *
  * @version 0.1.0
  * @since 2006-12-5
- */
-
-/**
- * When a bean is not in dynamic library, but in main process,
- * using this factory. The second parameter of map mustn't be
- * a function type, it use void* type here and will be converse to
- * function type when using it.
- * @param string Name of bean
- * @param void* Function pointer of creating BeanWrapper
  */
 
 IBeanFactory* BeanFactoryImpl::Instance = NULL;
@@ -49,6 +41,30 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 {
 	this->Config = new AutumnConfig(config);
 	this->ManagerOfBean = new BeanManager();
+	this->ManagerOfType = new TypeManager();
+
+	// Add each bean as a basic type. Do this before adding customized types,
+	// or the customized types will be added to type manager twice.
+	vector<string> beanClasses = this->Config->getAllBeanClasses();
+	for(int i = 0; i<beanClasses.size(); i++)
+		this->ManagerOfType->setBasicType(beanClasses[i], new ObjectType);
+
+	// Add customized types
+	vector<TypeConfig>* types = this->Config->getAllTypes();
+	for(int j = 0; j<types->size(); j++){
+		TypeConfig tc = (*types)[j];
+		this->Config->setBeanConfig(tc.Name, tc.BeanCfg);
+
+		void* p = this->getBean(tc.Name);
+		if( tc.IsBasic ) {
+			this->ManagerOfType->setBasicType(tc.Name, (IBasicType*)p, true);
+		}
+		else{
+			ICombinedType* pc = (ICombinedType*)p;
+			pc->setTypeManager(this->ManagerOfType);
+			this->ManagerOfType->setCombinedType(tc.Name, pc, true);
+		}
+	}
 }
 
 /** Destructor */
@@ -123,7 +139,7 @@ void* BeanFactoryImpl::getBean(string name)
 		void_ptr* pv = pp.get();
 
 		for(i=0; i<num; i++){
-			pv[i] = (*pargs)[i]->takeoutValue(pw.get());
+			pv[i] = (*pargs)[i]->takeoutValue(pw.get(), this->ManagerOfType);
 		}
 		p = pw->createBean(pv, num);
 	}
@@ -138,7 +154,7 @@ void* BeanFactoryImpl::getBean(string name)
 	//Set properties
 	PropertyList* props = bc->getProperties();
 	for(i=0; i<props->size(); i++){
-		(*props)[i]->setProperty(pw.get());
+		(*props)[i]->setProperty(pw.get(), this->ManagerOfType);
 	}
 
 	//Initialize bean

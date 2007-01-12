@@ -22,11 +22,11 @@
  * Set a object's property.
  * @param pw The object's wrapper to be set
  */
-void BeanProperty::setProperty(IBeanWrapper* pw)
+void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
 	/** Property's value */
 	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
-									this->StrValue, this->Managed));
+									this->StrValue, this->Managed, tm));
 	
 	int rtn;
 	if( this->InjectType.compare("") != 0){
@@ -54,11 +54,11 @@ void BeanProperty::setProperty(IBeanWrapper* pw)
  * Take out a property's value.
  * @param pw The object's wrapper to manage the value
  */
-void* BeanProperty::takeoutValue(IBeanWrapper* pw)
+void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 {
 	/** Property's value */
-	ValueWrapper *value = new ValueWrapper(this->Type, this->StrValue, this->Managed);
+	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, this->StrValue, this->Managed, tm));
 
-	pw->addParameter((long)value);
-	return value->getValuePointer();
+	pw->addParameter((long)value.get());
+	return value.release()->getValuePointer();
 }

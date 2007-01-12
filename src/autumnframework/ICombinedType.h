@@ -29,6 +29,16 @@ using namespace std;
  * @since 2006-11-25
  */
 class ICombinedType{
+private:
+	void* TypeMng;
+
+protected:
+	/** Create one value of basic type */
+	void* createBasicValue(vector<string>& vl, string basicType);
+
+	/** Free one value of basic type */
+	void freeBasicValue(void* p, string basicType);
+	
 public:
 	/** 
 	 * Create a value from StrValueList.
@@ -42,6 +52,15 @@ public:
 	
 	/** Free the space where p point, don't free it's memeber's space */
 	virtual void freeSelfSpace(void* p) = 0;
+	
+	/** 
+	 * Set type manager
+	 * use void* replacing TypeManager* for easy using, this interface becomes simpler.
+	 * @param p A pointer to TypeManager
+	 */
+	void setTypeManager(void* p){
+		this->TypeMng = p;
+	}
 	
 	/** 
 	 * Destructor

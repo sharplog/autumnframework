@@ -66,19 +66,6 @@ private:
 	/** Customized types */
 	vector<string> CustomizedTypes;
 	
-	/** The singleton's instance */
-	static TypeManager* instance;
-	
-	/** 
-	 * Constructor, initialize the basic and combined type
-	 */
-	TypeManager();
-
-	/** 
-	 * Destructor
-	 */
-	~TypeManager();
-
 	IBasicType* findBasicType(string type);
 
 	ICombinedType* findCombinedType(string type, int& pos);
@@ -90,22 +77,15 @@ private:
 	void eraseCustomizedType(string name);
 	
 public:
-	/** Get this singleton's instance */
-	static TypeManager* getInstance();
-	
 	/** 
-	 * Get a ValueType according type name
-	 * @param name Type name
-	 * @return A pointer to a ValueType
-	IBasicType* getBasicType(string name);
-	*/
-	
+	 * Constructor, initialize the basic and combined type
+	 */
+	TypeManager();
+
 	/** 
-	 * Get a ValueType according type name
-	 * @param name Type name
-	 * @return A pointer to a ValueType
-	ICombinedType* getCombinedType(string name);
-	*/
+	 * Destructor
+	 */
+	~TypeManager();
 	
 	/** 
 	 * Set a couple of name and BasicType into list

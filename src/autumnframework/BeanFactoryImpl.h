@@ -17,10 +17,11 @@
 #ifndef AUTUMN_BEANFACTORYIMPL_H
 #define AUTUMN_BEANFACTORYIMPL_H
 
+#include "IBeanFactory.h"
 #include "IResource.h"
 #include "AutumnConfig.h"
 #include "BeanManager.h"
-#include "IBeanFactory.h"
+#include "TypeManager.h"
 
 /** 
  * BeanFactory implementation
@@ -43,6 +44,11 @@ private:
 	 * Autumn bean manager
 	 */
 	BeanManager* ManagerOfBean;
+
+	/** 
+	 * Autumn type manager
+	 */
+	TypeManager* ManagerOfType;
 
 	/** 
 	 * Constructor

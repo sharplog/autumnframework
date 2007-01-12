@@ -14,27 +14,21 @@
 * limitations under the License.
 */
 
-#include "PointerType.h"
+#include "ICombinedType.h"
 #include "TypeManager.h"
 
 /** 
- * Create correctly pointer value and free it.
- * 
+ * Combined type.
  * @version 0.1.0
- * @since 2006-21-02
+ * @since 2007-01-13
  */
 
-void* PointerType::createValue(StrValueList& vl, string basicType)
+void* ICombinedType::createBasicValue(vector<string>& vl, string basicType)
 {
-	void* p = this->createBasicValue(vl, basicType);
-
-	void** pp = new (void*);
-	*pp = p;
-	return (void*)pp;
+	return ((TypeManager*)this->TypeMng)->createValue(vl, basicType);
 }
 
-void PointerType::freeValue(void* p, string basicType)
+void ICombinedType::freeBasicValue(void* p, string basicType)
 {
-	this->freeBasicValue(*(void**)p, basicType);
-	delete (void**)p;
+	((TypeManager*)this->TypeMng)->freeValue(p, basicType);
 }

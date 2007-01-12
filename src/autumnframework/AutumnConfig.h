@@ -32,6 +32,12 @@ using namespace std;
  * @since 2006-12-6
  */
 
+typedef struct{
+	string Name;
+	BeanConfig* BeanCfg;
+	bool IsBasic;
+}TypeConfig;
+
 class AutumnConfig{
 	/** All dynamic libraries */
 	vector<ILibrary*> Libs;
@@ -39,6 +45,12 @@ class AutumnConfig{
 	/** All Beans */
 	map<string, BeanConfig*> Beans;
 
+	/** All bean classes,  */
+	vector<string> BeanClasses;
+
+	/** All customized types,  */
+	vector<TypeConfig> Types;
+	
 	/** Deal with each dynamic library */
 	void processLibrary(TLibrary& lib);
 
@@ -47,6 +59,9 @@ class AutumnConfig{
 	
 	/** Deal with each type */
 	void processType(TType& type, ILibrary* pl);
+
+	/** Add bean class name */
+	void addBeanClassName(string name);
 	
 	/** 
 	 * Name mangler
@@ -63,7 +78,22 @@ public:
 	/** Destructor */
 	~AutumnConfig();
 	
+	/** Set a bean's configuration */
+	void setBeanConfig(string name, BeanConfig* pb){
+		this->Beans.insert(make_pair(name, pb));
+	}
+
 	/** Get a bean's configuration by name */
 	BeanConfig* getBeanConfig(string name);
+	
+	/** Get all customized types */
+	vector<TypeConfig>* getAllTypes(){
+		return &this->Types;
+	}
+	
+	/** Get all bean names */
+	vector<string> getAllBeanClasses(){
+		return this->BeanClasses;
+	}
 };
 #endif
