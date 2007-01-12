@@ -57,11 +57,6 @@ void freecs(charstrPointer p){
 	delete p;
 }
 
-/** global template and functions end. */
-
-
-TypeManager* TypeManager::instance = NULL;
-
 /** 
  * Constructor, initialize the basic type
  */
@@ -84,7 +79,9 @@ TypeManager::TypeManager()
 	this->BasicTypeList.insert(make_pair(stringBT, new StringType));
 
 	// The following is for combined type.
-	this->CombinedTypeList.insert(make_pair(pointerCT, new PointerType));
+	PointerType* ppt = new PointerType;
+	ppt->setTypeManager(this);
+	this->CombinedTypeList.insert(make_pair(pointerCT, ppt));
 }
 
 /** 
@@ -149,16 +146,6 @@ ICombinedType* TypeManager::findCombinedType(string type, int& pos)
 	return NULL;
 }
 
-
-/** Get this singleton's instance */
-TypeManager* TypeManager::getInstance()
-{
-	if(TypeManager::instance == NULL) {
-		TypeManager::instance = new TypeManager();
-	}
-	return TypeManager::instance;
-}
- 
 /** 
  * Set a couple of name and BasicType into list
  * @param name Type name

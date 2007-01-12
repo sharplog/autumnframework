@@ -19,6 +19,7 @@
 
 #include <string>
 #include "Basic.h"
+#include "TypeManager.h"
 
 using namespace std;
 
@@ -39,6 +40,9 @@ private:
 	/** Pointer to the argument */
 	void*  PointerOfValue;
 
+	/** Type manager */
+	TypeManager* TypeMng;
+
 public:
 	
 	/** 
@@ -46,7 +50,7 @@ public:
 	 * @param type Type of the argument
 	 * @param value Value string list of the argument
 	 */
-	ValueWrapper(string type, StrValueList& vl, bool managed);
+	ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm);
 	
 	/** Destructor, delete pointer of value */
 	~ValueWrapper();

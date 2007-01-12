@@ -17,16 +17,11 @@
 #include <memory>
 #include "AutumnDefinition.h"
 #include "AutumnException.h"
-#include "IBasicType.h"
-#include "ICombinedType.h"
 #include "IBeanWrapper.h"
 #include "ILibrary.h"
-#include "ObjectType.h"
 #include "LocalLibrary.h"
 #include "DynamicLibrary.h"
-#include "TypeManager.h"
 #include "AutumnConfig.h"
-#include "BeanFactoryImpl.h"
 
 /**
  * AutumnFramework's configuration
@@ -95,36 +90,14 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	auto_ptr<BeanConfig> pb(new BeanConfig(bean, pw, pd));
 	this->Beans.insert(make_pair(bean.Name, pb.release()));
 
-	//Every class as a basic type of data
-	TypeManager::getInstance()->setBasicType(bean.ClassName, new ObjectType);
+	// add class to BeanClasses
+	this->addBeanClassName(bean.ClassName);
 }
 
 /** Deal with each type */
 void AutumnConfig::processType(TType& type, ILibrary* pl)
 {
-/*
-	string funName = this->mangleName("type", "create", type.ClassName);
-
-	if( type.IsBasic ){
-		typedef IBasicType* bfunType();
-		bfunType* fb = (bfunType*)pl->getFunction(funName);
-		IBasicType* pb = fb();
-		TypeManager::getInstance()->setBasicType(type.Name, pb);
-	}
-	else{
-		typedef ICombinedType* cfunType();
-		cfunType* fc = (cfunType*)pl->getFunction(funName);
-		ICombinedType* pc = fc();
-		TypeManager::getInstance()->setCombinedType(type.Name, pc);
-	}
-*/
-	// the bean exists or not
-	if( this->Beans.find(type.Name) != this->Beans.end() ){
-		throw new ReduplicateEx("AutumnConfig", "processType", 
-			"Reduplicate defined type [" + type.Name + "]!");
-	}
-	
-	// get bean wrapper maker function
+	// get type wrapper maker function
 	string funName = this->mangleName("type", "create", type.ClassName);
 	WrapperMaker* pw = (WrapperMaker*)pl->getFunction(funName);
 	if( pw == NULL ){
@@ -132,7 +105,7 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 			"Geting WrapperMaker failed for class '" + type.ClassName + "'.");
 	}
 	
-	// get bean wrapper freer function
+	// get type wrapper freer function
 	funName = this->mangleName("type", "delete", type.ClassName);
 	WrapperFreer* pd = (WrapperFreer*)pl->getFunction(funName);
 	if( pd == NULL ){
@@ -140,20 +113,31 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 			"Geting WrapperFreer failed for class '" + type.ClassName + "'.");
 	}
 	
-	// create BeanConfig, each type class as a singleton bean
-	auto_ptr<BeanConfig> pb(new BeanConfig(type, pw, pd));
-	this->Beans.insert(make_pair(type.Name, pb.release()));
+	TypeConfig tc;
 	
-	// get type class instance
-	void* pt = BeanFactoryImpl::getInstance()->getBean(type.Name);
+	// create BeanConfig for type config, each type class as a singleton bean
+	TBean bf;
+	bf.Name = type.Name;
+	bf.ClassName = type.ClassName;
+	bf.Singleton = true;
+	bf.Initializable = false;
+	bf.Destroyable = false;
+	tc.BeanCfg = new BeanConfig(bf, pw, pd);
+	tc.Name = type.Name;
+	tc.IsBasic = type.IsBasic;
 
-	// register type to typemanager
-	if( type.IsBasic ){
-		TypeManager::getInstance()->setBasicType(type.Name, (IBasicType*)pt);
+	// add to Types
+	this->Types.push_back(tc);
+}
+
+void AutumnConfig::addBeanClassName(string name)
+{
+	int i;
+	for(i=0; i<this->BeanClasses.size(); i++){
+		if( this->BeanClasses[i].compare(name) == 0 ) break;
 	}
-	else {
-		TypeManager::getInstance()->setCombinedType(type.Name, (ICombinedType*)pt);
-	}
+	if( i == this->BeanClasses.size() ) 
+		this->BeanClasses.push_back(name);
 }
 
 string AutumnConfig::mangleName(string objType, string  op, string objName)

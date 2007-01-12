@@ -20,6 +20,7 @@
 #include <string>
 #include "Basic.h"
 #include "IBeanWrapper.h"
+#include "TypeManager.h"
 
 using namespace std;
 
@@ -54,12 +55,12 @@ public:
 	 * Set a object's property.
 	 * @param pw The object's wrapper to be set
 	 */
-	void setProperty(IBeanWrapper* pw);
+	void setProperty(IBeanWrapper* pw, TypeManager* tm);
 
 	/** 
 	 * Take out a property's value.
 	 * @param pw The object's wrapper to manage the value
 	 */
-	void* takeoutValue(IBeanWrapper* pw);
+	void* takeoutValue(IBeanWrapper* pw, TypeManager* tm);
 };
 #endif

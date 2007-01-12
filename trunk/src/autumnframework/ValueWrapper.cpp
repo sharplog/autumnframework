@@ -28,22 +28,19 @@ using namespace std;
  * @since 2006-11-24
  */
 
-ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed):
-  Type(type), Managed(managed){
-	this->PointerOfValue = TypeManager::getInstance()->
-		createValue(vl, type);
+ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm):
+  Type(type), Managed(managed), TypeMng(tm){
+	this->PointerOfValue = this->TypeMng->createValue(vl, type);
 }
 	
 ValueWrapper::~ValueWrapper(){
 	if( this->PointerOfValue != NULL ){
 		AutumnLog::getInstance()->debug("ValueWrapper->~ValueWrapper, type: " + this->Type);
 		if( this->Managed ){
-			TypeManager::getInstance()->
-				freeValue(this->PointerOfValue, this->Type);
+			this->TypeMng->freeValue(this->PointerOfValue, this->Type);
 		}
 		else{
-			TypeManager::getInstance()->
-				freeSelfSpace(this->PointerOfValue, this->Type);
+			this->TypeMng->freeSelfSpace(this->PointerOfValue, this->Type);
 		}
 	}
 }
