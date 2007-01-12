@@ -13,7 +13,7 @@ Todo list.
   * Test singleton. [ *over* ]
   * Test initialize and destroy function. [ *over* ]
   * Test bean injection from another librarie. [ *over* ]
-  * Test local library injection.
+  * Test local library injection. [ *over* ]
   * Test customized type.
   * ~~Test self-manage-property.~~
  # *demo*
