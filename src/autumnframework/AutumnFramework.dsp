@@ -129,6 +129,10 @@ SOURCE=.\IBeanWrapper.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\ICombinedType.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\LocalLibrary.cpp
 # End Source File
 # Begin Source File

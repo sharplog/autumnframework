@@ -134,4 +134,9 @@ void TypeInjectionTest::testLocalBean()
 
 void TypeInjectionTest::testCustomizedType()
 {
+	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("MyTypeBean1");
+	
+	CPPUNIT_ASSERT(b->getInt() == 100);
+	CPPUNIT_ASSERT(b->getString().compare("Hi, MyData!") == 0);
+	this->bf->freeBean(b);
 }
