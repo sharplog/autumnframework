@@ -33,9 +33,11 @@ public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a value
 	 */
-	virtual void* createValue(vector<string>& vl) = 0;
+	virtual void* createValue(const vector<string>& vl, vector<string>::iterator& it) = 0;
 
 	/** Free the space where p point */
 	virtual void freeValue(void* p) = 0;

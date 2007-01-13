@@ -33,19 +33,30 @@ private:
 	void* TypeMng;
 
 protected:
-	/** Create one value of basic type */
-	void* createBasicValue(vector<string>& vl, string basicType);
+	/** 
+	 * Create one value of basic type
+	 * @param vl Strings for construct value
+	 * @param basicType The basic types for this combined type, one or more basic types
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
+	*/
+	void* createBasicValue(const vector<string>& vl, string basicType, vector<string>::iterator& it);
 
 	/** Free one value of basic type */
 	void freeBasicValue(void* p, string basicType);
+	
+	/** Free the space where p point, don't free it's memeber's space */
+	void freeSelfBasicValue(void* p, string basicType);
 	
 public:
 	/** 
 	 * Create a value from StrValueList.
 	 * @param vl A Vector<string>
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a pointer value
 	 */
-	virtual void* createValue(vector<string>& vl, string basicType) = 0;
+	virtual void* createValue(const vector<string>& vl, string basicType, vector<string>::iterator& it) = 0;
 
 	/** Free the space where p point, include it's memeber's space */
 	virtual void freeValue(void* p, string basicType) = 0;

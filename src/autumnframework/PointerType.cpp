@@ -24,9 +24,9 @@
  * @since 2006-21-02
  */
 
-void* PointerType::createValue(StrValueList& vl, string basicType)
+void* PointerType::createValue(const StrValueList& vl, string basicType, StrIterator& it)
 {
-	void* p = this->createBasicValue(vl, basicType);
+	void* p = this->createBasicValue(vl, basicType, it);
 
 	void** pp = new (void*);
 	*pp = p;

@@ -31,5 +31,6 @@ using namespace std;
 
 /** Value strings */
 typedef vector<string> StrValueList;
+typedef vector<string>::iterator StrIterator;
 
 #endif 

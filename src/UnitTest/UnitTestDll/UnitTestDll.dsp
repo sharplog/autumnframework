@@ -140,6 +140,10 @@ SOURCE=.\MyBasicType.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyCombinedTypeMap.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyData.h
 # End Source File
 # Begin Source File

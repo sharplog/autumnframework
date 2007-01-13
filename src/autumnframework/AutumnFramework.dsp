@@ -161,10 +161,6 @@ SOURCE=.\XMLResource.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=.\ArrayType.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\AutumnConfig.h
 # End Source File
 # Begin Source File

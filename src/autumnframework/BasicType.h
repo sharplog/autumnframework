@@ -19,6 +19,7 @@
 
 #include "Basic.h"
 #include "IBasicType.h"
+#include "AutumnException.h"
 
 /** 
  * Create correctly value and free it.
@@ -35,21 +36,26 @@ public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a value of type T
 	 */
-	void* createValue(StrValueList& vl);
+	void* createValue(const StrValueList& vl, StrIterator& it);
 
 	/** Free the space where p point */
 	void freeValue(void* pp);
 };
 
 template<class T, T createfun(const char*), void freefun(T)>
-void* BasicType<T, createfun, freefun>::createValue(StrValueList& vl)
+void* BasicType<T, createfun, freefun>::createValue(const StrValueList& vl, StrIterator& it)
 {
-	T *p = new T;
-	string cValue = vl[0];
-	*p = createfun(cValue.c_str());
-	return (void*)p; //*p is the value
+	if( it != vl.end() ){
+		T *p = new T;
+		*p = createfun((*it++).c_str());
+		return (void*)p; //*p is the value
+	}
+	throw new NonValueEx("BasicType", "createValue",
+		"There is no string in vector!");
 }
 
 template<class T, T createfun(const char*), void freefun(T)>

@@ -23,12 +23,17 @@
  * @since 2007-01-13
  */
 
-void* ICombinedType::createBasicValue(vector<string>& vl, string basicType)
+void* ICombinedType::createBasicValue(const vector<string>& vl, string basicType, StrIterator& it)
 {
-	return ((TypeManager*)this->TypeMng)->createValue(vl, basicType);
+	return ((TypeManager*)this->TypeMng)->createValue(vl, basicType, it);
 }
 
 void ICombinedType::freeBasicValue(void* p, string basicType)
+{
+	((TypeManager*)this->TypeMng)->freeValue(p, basicType);
+}
+
+void ICombinedType::freeSelfBasicValue(void* p, string basicType)
 {
 	((TypeManager*)this->TypeMng)->freeValue(p, basicType);
 }
