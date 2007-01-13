@@ -19,6 +19,8 @@
 
 #include "Basic.h"
 #include "IBasicType.h"
+#include "AutumnException.h"
+
 /** 
  * ValueType: string. Implementing this type not using template ValueType
  * is due to a VC6's bug.
@@ -30,11 +32,17 @@ public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a value
 	 */
-	void* createValue(StrValueList& vl){
-		string *p = new string(vl[0]);
-		return (void*)p; //*p is the value
+	void* createValue(const StrValueList& vl, StrIterator& it){
+		if( it != vl.end() ){
+			string *p = new string(*it++);
+			return (void*)p; //*p is the value
+		}
+		throw new NonValueEx("StringType", "createValue",
+			"There is no string in vector!");
 	}
 
 	/** Free the space where p point*/

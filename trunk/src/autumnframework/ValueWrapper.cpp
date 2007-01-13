@@ -30,7 +30,8 @@ using namespace std;
 
 ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm):
   Type(type), Managed(managed), TypeMng(tm){
-	this->PointerOfValue = this->TypeMng->createValue(vl, type);
+	StrIterator it = vl.begin();
+	this->PointerOfValue = this->TypeMng->createValue(vl, type, it);
 }
 	
 ValueWrapper::~ValueWrapper(){

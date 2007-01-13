@@ -109,10 +109,13 @@ public:
 
 	/** 
 	 * Create a value from StrValueList.
-	 * @param vl A Vector<string>
+	 * @param vl A Vector<string> for create value
+	 * @param type Value's type
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a value
 	 */
-	void* createValue(StrValueList& vl, string type);
+	void* createValue(const StrValueList& vl, string type, StrIterator& it);
 
 	/** Free the space where p pointing to */
 	void freeValue(void* p, string type);

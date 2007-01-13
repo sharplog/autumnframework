@@ -33,9 +33,11 @@ public:
 	 * Create a pointer of basic type from StrValueList.
 	 * @param vl A Vector<string>
 	 * @param basicType Base type of the pointer value
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to the pointer value
 	 */
-	void* createValue(StrValueList& vl, string basicType);
+	void* createValue(const StrValueList& vl, string basicType, StrIterator& it);
 
 	/** 
 	 * Free the space where p point 

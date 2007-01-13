@@ -19,6 +19,7 @@
 
 #include "IBasicType.h"
 #include "BeanFactoryImpl.h"
+#include "AutumnException.h"
 
 /** 
  * Create object value and free it.
@@ -31,10 +32,16 @@ public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
+	 * @param it A iterator pointing to the first unused string, it will be changed
+	 * in this function.
 	 * @return A pointer to a value of object
 	 */
-	void* createValue(StrValueList& vl){
-		return (void*)BeanFactoryImpl::getInstance()->getBean(vl[0]);
+	void* createValue(const StrValueList& vl, StrIterator& it){
+		if( it != vl.end() ){
+			return (void*)BeanFactoryImpl::getInstance()->getBean(*it++);
+		}
+		throw new NonValueEx("ObjectType", "createValue",
+			"There is no string in vector!");
 	}
 
 	/** Free the space where p point */

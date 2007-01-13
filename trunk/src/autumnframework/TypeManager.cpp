@@ -185,7 +185,7 @@ void TypeManager::setCombinedType(string name, ICombinedType* ct, bool customize
  * @param vl A Vector<string>
  * @return A pointer to a value
  */
-void* TypeManager::createValue(StrValueList& vl, string type)
+void* TypeManager::createValue(const StrValueList& vl, string type, StrIterator& it)
 {
 	AutumnLog::getInstance()->debug("TypeManager->createValue, type: " + type);
 	
@@ -197,11 +197,11 @@ void* TypeManager::createValue(StrValueList& vl, string type)
 	
 	int pos;
 	if( IBasicType* bt = this->findBasicType(type) ) {
-		return bt->createValue(vl);
+		return bt->createValue(vl, it);
 	}
 	
 	if( ICombinedType* ct = this->findCombinedType(type, pos) ){
-		return ct->createValue(vl, type.substr(0,pos));
+		return ct->createValue(vl, type.substr(0,pos), it);
 	}
 
 	throw new MissDefinitionEx("TypeManager", 
