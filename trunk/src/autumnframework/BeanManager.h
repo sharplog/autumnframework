@@ -41,6 +41,9 @@ private:
 	
 	/** Singleton beans */
 	map<string, void*> SingletonBeans;
+
+	/** Delete a singleton */
+	void deleteSingleton(void* p);
 	
 public:
 	/** Constructor */
@@ -50,10 +53,17 @@ public:
 	~BeanManager();
 	
 	/** 
-	 * Delete a bean from bean manager.
+	 * Delete a bean from bean manager, but can't delete a singleton truely.
+	 * A singleton will be deleted at last if it has been created.
 	 * @param p Pointer to the bean.
 	 */
 	void deleteBean(void* p);
+
+	/** 
+	 * Release a bean from bean manager, even if it is a singleton.
+	 * @param p Pointer to the bean.
+	 */
+	IBeanWrapper* releaseBean(void* p);
 
 	/** 
 	 * Add a bean

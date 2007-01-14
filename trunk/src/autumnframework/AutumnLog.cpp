@@ -25,13 +25,44 @@
  * @since 2006-12-01
  */
 
-AutumnLog* AutumnLog::instance = NULL;
+AutumnLog* AutumnLog::Instance = NULL;
+const string DefaultLogPath = "AutumnFramework.log";
+const int DefaultLogLevel = 2;
 
-AutumnLog::AutumnLog(const char* file)
+AutumnLog::AutumnLog()
 {
-	//this->logger = new ConsoleLogger(0);
-
-	string path = "AutumnFramework.log";
-	if( string(file).compare("") ) path = file;
-	this->logger = new FileLogger(path, 0);
+	this->Logger = NULL;
+	this->isDefault = false;
+	this->setDefaultLogger();
 }
+
+AutumnLog::~AutumnLog()
+{
+	if( this->isDefault) 
+		delete this->Logger;
+}
+
+/** Get this singleton's instance */
+AutumnLog* AutumnLog::getInstance()
+{
+	if( AutumnLog::Instance == NULL)
+		AutumnLog::Instance = new AutumnLog();
+	return AutumnLog::Instance;
+}
+
+/** Set property logger */
+void AutumnLog::injectLogger(ILogAdapter* ilogger)
+{
+	if( this->isDefault ) delete this->Logger;
+	this->Logger = ilogger;
+	this->isDefault = false;
+}
+
+void AutumnLog::setDefaultLogger()
+{
+	if( ! this->isDefault ) {
+		this->Logger = new FileLogger(DefaultLogPath, DefaultLogLevel);
+		this->isDefault = true;
+	}
+}
+

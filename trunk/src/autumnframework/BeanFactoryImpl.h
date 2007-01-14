@@ -93,6 +93,11 @@ public:
 	 * @return True if it's a singleton, or false.
 	 */
 	virtual bool isSingleton(string name);
+
+	/** Get type manager */
+	TypeManager* getTypeManager(){
+		return this->ManagerOfType;
+	}
 	
 	/** Destructor */
 	virtual ~BeanFactoryImpl();

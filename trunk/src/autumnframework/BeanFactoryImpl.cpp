@@ -30,6 +30,7 @@
  * @version 0.1.0
  * @since 2006-12-5
  */
+const char* LogBeanName = "AutumnFrameworkLog";
 
 IBeanFactory* BeanFactoryImpl::Instance = NULL;
 
@@ -65,11 +66,19 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 			this->ManagerOfType->setCombinedType(tc.Name, pc, true);
 		}
 	}
+	
+	// use logger configured by user
+	void* p = this->getBean(LogBeanName);
+	if( p != NULL ){
+		AutumnLog::getInstance()->injectLogger((ILogAdapter*)p);
+	}
 }
 
 /** Destructor */
 BeanFactoryImpl::~BeanFactoryImpl()
 {
+	AutumnLog::getInstance()->setDefaultLogger();
+	
 	AutumnLog::getInstance()->debug("BeanFactoryImpl->~BeanFactoryImpl");
 
 	delete this->Config;

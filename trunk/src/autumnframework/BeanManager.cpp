@@ -83,6 +83,13 @@ void BeanManager::deleteBean(void* p)
 	}
 }
 
+IBeanWrapper* BeanManager::releaseBean(void* p){
+	long pw = NULL;
+	this->Beans.deleteElement((long)p, pw);
+	this->deleteSingleton(p);
+	return (IBeanWrapper*)pw;
+}
+
 /** 
  * Add a bean
  * @param name Bean's name
@@ -107,4 +114,18 @@ void* BeanManager::getSingleton(string name)
 		return it->second;
 
 	return NULL;
+}
+
+/** 
+ * Delete a singleton by pointer 
+ */
+void BeanManager::deleteSingleton(void* p)
+{
+	for(map<string, void*>::iterator it = this->SingletonBeans.begin();
+			it != this->SingletonBeans.end(); it++){
+		if( it->second == p){
+			this->SingletonBeans.erase( it );
+			break;
+		}
+	}
 }

@@ -52,7 +52,7 @@ LIB32=link.exe -lib
 # ADD LIB32 /nologo
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy    release\autumnframeworks.lib    ..\lib\	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\ICombinedType.h ..\include
+PostBuild_Cmds=copy    release\autumnframeworks.lib    ..\lib\	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\BeanWrapperMacro.h ..\include
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "AutumnFrameworkS - Win32 Debug"
@@ -80,7 +80,7 @@ LIB32=link.exe -lib
 # ADD LIB32 /nologo /out:"Debug\AutumnFrameworkS_D.lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy  debug\autumnframeworks_d.lib  ..\lib\	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\ICombinedType.h ..\include
+PostBuild_Cmds=copy  debug\autumnframeworks_d.lib  ..\lib\	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\BeanWrapperMacro.h ..\include
 # End Special Build Tool
 
 !ENDIF 
@@ -119,6 +119,10 @@ SOURCE=..\AutumnFramework\BeanProperty.cpp
 # Begin Source File
 
 SOURCE=..\AutumnFramework\IBeanWrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\autumnframework\ICombinedType.cpp
 # End Source File
 # Begin Source File
 
