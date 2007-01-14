@@ -130,6 +130,10 @@ SOURCE=..\AutumnFramework\LocalLibrary.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=..\autumnframework\LoggerExport.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=..\AutumnFramework\PointerType.cpp
 # End Source File
 # Begin Source File
