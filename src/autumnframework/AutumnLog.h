@@ -18,6 +18,7 @@
 #define AUTUMN_AUTUMNLOG_H
 
 #include "ILogAdapter.h"
+#include "IBeanWrapper.h"
 
 /** 
  * Logger for AutumnFramework
@@ -25,64 +26,58 @@
 class AutumnLog{
 private:
 	/** the true logger */
-	ILogAdapter * logger;
+	ILogAdapter * Logger;
+
+	/** the logger is default or not */
+	bool isDefault;
 
 	/** The singleton's instance */
-	static AutumnLog* instance;
+	static AutumnLog* Instance;
 	
 	/** Constructor, logger is NULL */
-	AutumnLog(const char* file = "");
+	AutumnLog();
 	
 public:
 	/** Destructor */
-	~AutumnLog(){
-		if( this->logger ) 
-			delete this->logger;
-	}
+	~AutumnLog();
 
 	/** Get this singleton's instance */
-	static AutumnLog* getInstance(){
-		if( AutumnLog::instance == NULL)
-			AutumnLog::instance = new AutumnLog();
-		return AutumnLog::instance;
-	}
+	static AutumnLog* getInstance();
 	
-	/** Set property logger */
-	void setLogger(ILogAdapter* ilogger){
-		if( this->logger ) 
-			delete this->logger;
+	/** Set property logger from a bean*/
+	void injectLogger(ILogAdapter* ilogger);
 
-		this->logger = ilogger;
-	}
+	/** Set property logger for default */
+	void setDefaultLogger();
 
 	void debug(const string& msg){
-		if( this->logger ) 
-			this->logger->debug(msg);
+		if( this->Logger ) 
+			this->Logger->debug(msg);
 	}
 
 	void info(const string& msg){
-		if( this->logger ) 
-			this->logger->info(msg);
+		if( this->Logger ) 
+			this->Logger->info(msg);
 	}
 	
 	void warn(const string& msg){
-		if( this->logger ) 
-			this->logger->warn(msg);
+		if( this->Logger ) 
+			this->Logger->warn(msg);
 	}
 	
 	void error(const string& msg){
-		if( this->logger ) 
-			this->logger->error(msg);
+		if( this->Logger ) 
+			this->Logger->error(msg);
 	}
 	
 	void fatal(const string& msg){
-		if( this->logger ) 
-			this->logger->fatal(msg);
+		if( this->Logger ) 
+			this->Logger->fatal(msg);
 	}
 	
 	void log(int level, const string& msg){
-		if( this->logger ) 
-			this->logger->log(level, msg);
+		if( this->Logger ) 
+			this->Logger->log(level, msg);
 	}
 		
 };

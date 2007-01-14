@@ -16,18 +16,21 @@ class TypeManagerTest: public TestFixture{
 
 	class dumbBT: public IBasicType{
 	public:
-		void* createValue(StrValueList& vl){return NULL;}
+		void* createValue(const StrValueList& vl, StrIterator& it){return NULL;}
 		void freeValue(void* p){ delete p;}
 	};
 	class dumbCT: public ICombinedType{
 	public:
-		void* createValue(StrValueList& vl, string basicType){return NULL;}
+		void* createValue(const StrValueList& vl, string basicType, StrIterator& it){return NULL;}
 		void freeValue(void* p, string basicType){ delete p;}
 		void freeSelfSpace(void* p){ delete p;}
 	};
+	
+TypeManager* tm;
+
 public:
-	void setUp(){}
-	void tearDown(){}
+	void setUp(){ this->tm = new TypeManager(); }
+	void tearDown(){ delete this->tm;}
 
 	void testBasicType();
 	void testCombinedType();

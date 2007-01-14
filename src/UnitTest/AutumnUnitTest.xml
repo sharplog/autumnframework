@@ -223,6 +223,18 @@
 					</property>
 				</properties>
 			</bean>
+			
+			<!-- Configure autumn framework logger bean -->
+			<bean class="FileLogger" name="AutumnFrameworkLog" singleton="true">
+				<constructor-arg>
+					<argument name="arg1" type="string">
+						<value>AutumnApp.log</value>
+					</argument>
+					<argument name="arg2" type="int">
+						<value>0</value>
+					</argument>
+				</constructor-arg>
+			</bean>
 		</beans>
 	</library>
 	

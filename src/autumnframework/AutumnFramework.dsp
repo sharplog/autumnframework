@@ -57,7 +57,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib log4cxx.lib /nologo /dll /machine:I386 /libpath:"..\..\ext\log4cxx0.9.7\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy release\autumnframework.dll  ..\lib\	copy release\autumnframework.lib  ..\lib\	copy IBeanWrapper.h ..\include	copy IBeanFactory.h ..\include	copy ICombinedType.h ..\include	copy IBasicType.h ..\include
+PostBuild_Cmds=copy release\autumnframework.dll  ..\lib\	copy release\autumnframework.lib  ..\lib\	copy IBeanWrapper.h ..\include	copy IBeanFactory.h ..\include	copy IBasicType.h ..\include	copy BeanWrapperMacro.h ..\include
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "AutumnFramework - Win32 Debug"
@@ -87,7 +87,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib log4cxx.lib /nologo /dll /debug /machine:I386 /out:"Debug/AutumnFramework_D.dll" /pdbtype:sept /libpath:"..\..\ext\log4cxx0.9.7\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy debug\autumnframework_d.dll  ..\lib\	copy debug\autumnframework_d.lib  ..\lib\	copy IBeanWrapper.h ..\include	copy IBeanFactory.h ..\include	copy IBasicType.h ..\include	copy ICombinedType.h ..\include
+PostBuild_Cmds=copy debug\autumnframework_d.dll  ..\lib\	copy debug\autumnframework_d.lib  ..\lib\	copy IBeanWrapper.h ..\include	copy IBeanFactory.h ..\include	copy IBasicType.h ..\include	copy BeanWrapperMacro.h ..\include
 # End Special Build Tool
 
 !ENDIF 
@@ -134,6 +134,10 @@ SOURCE=.\ICombinedType.cpp
 # Begin Source File
 
 SOURCE=.\LocalLibrary.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\LoggerExport.cpp
 # End Source File
 # Begin Source File
 
@@ -198,6 +202,10 @@ SOURCE=.\BeanManager.h
 # Begin Source File
 
 SOURCE=.\BeanProperty.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BeanWrapperMacro.h
 # End Source File
 # Begin Source File
 
