@@ -17,6 +17,7 @@
 #ifndef AUTUMN_FILELOGGER_H
 #define AUTUMN_FILELOGGER_H
 
+#include <ctime>
 #include <string>
 #include <fstream>
 #include "ILogAdapter.h"
@@ -31,9 +32,21 @@ using namespace std;
  */
 
 class FileLogger: public ILogAdapter {
+private:
 	/** Log level */
-	ofstream Of;
 	int Level;
+
+	ofstream Of;
+
+	string getTime(){
+		char buf[100];
+		time_t tm;
+		
+		time(&tm);
+		strftime(buf, 100, "%Y-%m-%d %H:%M:%S", localtime(&tm));
+		return string(buf);
+	}
+
 public:
 	FileLogger(string filepath, int level):Level(level){
 		this->Of.open(filepath.c_str(), ios::out | ios::app);
@@ -63,8 +76,9 @@ public:
 	}
 	
 	void log(int level, const string& msg){
-		if( level >= this->Level )
-			this->Of<<msg<<endl;
+		if( level >= this->Level ){
+			this->Of<<this->getTime()<<" "<<msg<<endl;
+		}
 	}
 };
 #endif
