@@ -32,6 +32,7 @@ using namespace std;
  * @since 2006-12-6
  */
 
+/** A struct to store type configure */
 typedef struct{
 	string Name;
 	BeanConfig* BeanCfg;
@@ -91,7 +92,7 @@ public:
 		return &this->Types;
 	}
 	
-	/** Get all bean names */
+	/** Get all bean class names */
 	vector<string> getAllBeanClasses(){
 		return this->BeanClasses;
 	}
