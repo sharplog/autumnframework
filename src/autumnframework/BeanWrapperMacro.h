@@ -202,10 +202,10 @@ public:																\
 	AUTUMN_##bean##_Proxy(){										\
 		registerLocalFunction(										\
 				this->mangleName("create", #bean).c_str(),			\
-				create_##bean##_Wrapper);							\
+				(void*)create_##bean##_Wrapper);					\
 		registerLocalFunction(										\
 				this->mangleName("delete", #bean).c_str(),			\
-				delete_##bean##_Wrapper);							\
+				(void*)delete_##bean##_Wrapper);					\
 	}																\
 };																	\
 																	\
