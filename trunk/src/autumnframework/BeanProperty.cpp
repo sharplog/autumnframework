@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+#include <memory>
 #include "ValueWrapper.h"
 #include "BeanProperty.h"
 #include "AutumnException.h"
