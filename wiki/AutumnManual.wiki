@@ -6,8 +6,8 @@ Manual for Autumn Ver0.1.0.
 Autumn is writed with stand c++, and is easy to be ported to other platform else.
 
 
-= A Sample =
-== 1. Write the sample without Autumn ==
+= 1. A Sample =
+== 1.1. Write the sample without Autumn ==
 This smaple is very simple and is included in the download package. It defines a interface as following, Action.h:
 {{{
 class Action {
@@ -97,9 +97,9 @@ Action* getAction()
 	return pa;
 }
 }}}
-== 2. Write the sample with Autumn ==
+== 1.2. Write the sample with Autumn ==
 If you write the sample with Autumn, you needn't rewrite any code if you want use UpperAction to replace LowerAction. You can use dependence injection to set LowerAction or UpperAction as Action, and set their Message attribute. There has some difference between Writing it with and without Autumn. But the interface and its implementations will not be changed because Autumn is not invasive for them.
-=== 2.1. Implement wrapper ===
+=== 1.2.1. Implement wrapper ===
 We should implement a wrapper for each of LowerAction and UpperAction. We can do this easily using macros defined in Autumn framework. Write the wrappers in ActionExp.cpp like:
 {{{
 #include "BeanWrapperMacro.h"
@@ -123,7 +123,7 @@ AUTUMNBEAN_END(UpperAction)
 AUTUMN_LOCALBEAN(UpperAction)
 }}}
 File BeanWrapperMacro.h is in include directory.
-=== 2.2. Implement main() ===
+=== 1.2.2. Implement main() ===
 In main(), we should get IBeanFactory first, and use it to get and free Action's implementation. Like this:
 {{{
 #include <iostream>
@@ -150,7 +150,7 @@ void main(int argc, char* argv[])
 }
 }}}
 AutumnDemo.xml is Autumn configuration file for this sample.
-=== 2.3. Configuration file ===
+=== 1.2.3. Configuration file ===
 Configuration file AutumnDemo.xml defines injection rule:
 {{{
 <?xml version="1.0" encoding="UTF-8"?>
@@ -169,5 +169,5 @@ Configuration file AutumnDemo.xml defines injection rule:
 </autumn>
 }}}
 Because LowerAction and UpperAction are in main process, not in dynamic libraries, so the library's path is "local". This config file uses LowerAction as Action. If you want to use UpperAction, you can replace the bean's attribute value of "class" with "UpperAction". If you want to configure the Message property, you can modify its value where "Hello" is.
-=== 2.4. Use dynamic library ===
+=== 1.2.4. Use dynamic library ===
 *TO DO*
