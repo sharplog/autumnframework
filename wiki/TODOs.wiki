@@ -14,10 +14,13 @@ Todo list.
   * Test initialize and destroy function. [ *over* ]
   * Test bean injection from another librarie. [ *over* ]
   * Test local library injection. [ *over* ]
-  * Test customized type.
+  * Test customized basic type. [ *over* ]
+  * Test configurable logger. [ *over* ]
   * ~~Test self-manage-property.~~
  # *demo*
  # *manual*
  # *implement*
   * how to support unsigned char, unsinged char* and wide charact?
   * support chinese
+  * log time. [ *over 2007-01-16* ]
+ 
