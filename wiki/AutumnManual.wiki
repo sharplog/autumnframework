@@ -5,6 +5,5 @@ The manual of Autumn framework.
 Manual for Autumn 0.1.0.
 
 
- # = A Sample =
-
+=  # A Sample =
 
