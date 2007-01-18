@@ -2,7 +2,7 @@ The manual of Autumn framework.
 
 = Introduction =
 
-Manual for Autumn 0.1.0.
+Manual for Autumn Ver0.1.0.
 
 
 = A Sample =
