@@ -3,7 +3,7 @@ The manual of Autumn framework.
 = Introduction =
 
 Manual for Autumn Ver0.1.0. 
-Autumn is writed with stand c++, and is easy to be ported to other platform else.
+Autumn is writed with standard c++, and is easy to be ported to other platform else.
 
 
 = 1. A Sample =
@@ -149,7 +149,7 @@ void main(int argc, char* argv[])
 	}
 }
 }}}
-AutumnDemo.xml is Autumn configuration file for this sample.
+AutumnDemo.xml is Autumn configuration file for this sample.When compiling, you should link Autumn library AutumnFramework.lib.
 === 1.2.3. Configuration file ===
 Configuration file AutumnDemo.xml defines injection rule:
 {{{
