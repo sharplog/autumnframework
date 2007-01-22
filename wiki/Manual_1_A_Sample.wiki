@@ -1,4 +1,4 @@
-*[AutumnManual Manual Main Page]*
+*[AutumnManual Manual Main Page]* | *[AutumnManual Previous Chapter]*
 
 = 1. A Sample =
 == 1.1. Write the sample without Autumn ==
@@ -204,4 +204,4 @@ The configuration file like:
 </autumn>
 }}}
 
-*[AutumnManual Manual Main Page]*
+*[AutumnManual Manual Main Page]* | *[Manual_2_WhatAutumnHas Next Chapter]*
