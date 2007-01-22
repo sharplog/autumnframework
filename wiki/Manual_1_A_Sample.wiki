@@ -1,4 +1,4 @@
-= 1. A Sample =
+= 1. A Sample =                *[AutumnManual Manual main page]*
 == 1.1. Write the sample without Autumn ==
 This smaple is very simple and is included in the download package. It defines a interface as following, Action.h:
 {{{
@@ -201,3 +201,5 @@ The configuration file like:
 	</library>
 </autumn>
 }}}
+
+*[AutumnManual Manual main page]*
