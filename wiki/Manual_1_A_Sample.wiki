@@ -1,4 +1,5 @@
-= 1. A Sample =                *[AutumnManual Manual main page]*
+*[AutumnManual Manual main page]*
+= 1. A Sample = 
 == 1.1. Write the sample without Autumn ==
 This smaple is very simple and is included in the download package. It defines a interface as following, Action.h:
 {{{
