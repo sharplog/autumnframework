@@ -116,7 +116,7 @@ AUTUMNBEAN_SETTER_END()
 AUTUMNBEAN_END(UpperAction)
 AUTUMN_LOCALBEAN(UpperAction)
 }}}
-File BeanWrapperMacro.h is in include directory.
+File BeanWrapperMacro.h is in _include_ directory.
 === 1.2.2. Implement main() ===
 In main(), we should get IBeanFactory first, and use it to get and free Action's implementation. Like this:
 {{{
