@@ -1,0 +1,8 @@
+* [AutumnManual Manual Main Page]*
+= 2. What Autumn Has =
+Autumn has one library and some include files.
+== 2.1. Library ==
+
+== 2.2. Include Files ==
+
+
