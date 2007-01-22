@@ -5,3 +5,8 @@ The manual of Autumn framework.
 Manual for Autumn Ver0.1.0. 
 Autumn is writed with standard c++, and is easy to be ported to other platform else.
 
+= Content =
+*[Manual_1_A_Sample 1. A Sample]*
+
+
+
