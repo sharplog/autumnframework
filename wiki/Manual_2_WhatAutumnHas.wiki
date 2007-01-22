@@ -1,4 +1,4 @@
-* [AutumnManual Manual Main Page]*
+* [AutumnManual Manual Main Page]* | *[Manual_1_A_Sample Previous Chapter]*
 = 2. What Autumn Has =
 Autumn has one library and some head files. Also you can compile Autumn framework source file with your application source file together and not using library because Autumn is a open source project.
 == 2.1. Library ==
@@ -6,4 +6,4 @@ Autumn has one library, two file, AutumnFramework.lib for compiling and AutumnFr
 == 2.2. Head files ==
 Now Autumn has 4 head files in _include_ directory: _IBeanWrapper.h_, _BeanWrapperMacro.h_, _IBeanFactory.h_ and _IBasicType.h_.
 
-*[AutumnManual Manual Main Page]*
+*[AutumnManual Manual Main Page]* | *[Manual_3_HowToUseAutumn Next Chapter]*
