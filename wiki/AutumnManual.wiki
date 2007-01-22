@@ -11,5 +11,4 @@ Autumn is writed with standard c++, and is easy to be ported to other platform e
  # *How To Use Autumn*
 
 
- *[Manual_1_A_Sample Next Chapter]*
-
+*[Manual_1_A_Sample Next Chapter]*
