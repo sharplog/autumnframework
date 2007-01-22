@@ -7,6 +7,6 @@ Autumn is writed with standard c++, and is easy to be ported to other platform e
 
 = Content =
 *[Manual_1_A_Sample 1. A Sample]*
-
-
+*2. What Autumn has*
+*3. How to use Autumn*
 
