@@ -162,7 +162,7 @@ Configuration file AutumnDemo.xml defines injection rule:
 }}}
 Because LowerAction and UpperAction are in main process, not in dynamic libraries, so the library's path is "local". This config file uses LowerAction as Action. If you want to use UpperAction, you can replace the bean's attribute value of "class" with "UpperAction". If you want to configure the Message property, you can modify its value where "Hello" is.
 === 1.2.4. Use dynamic library ===
-To improve agility, we can implement Action in a dynamic library. We generate the dynamic library(injectBeanImpl.dll) with LowerAction.cpp UpperAction.cpp and ActionExp.cpp. Because we use dynamic library, the implemetations of Action are not in the main process, so we should (1)Delete AUTUMN_LOCALBEAN macro from ActionExp.cpp; (2)Library's path should be the dynamic library path, not "local".
+To improve agility, we can implement Action in a dynamic library. We generate the dynamic library(injectBeanImpl.dll) with LowerAction.cpp UpperAction.cpp and ActionExp.cpp. Because we use dynamic library, the implemetations of Action are not in the main process, so we should (1)Delete AUTUMN_LOCALBEAN macro from ActionExp.cpp; (2)Library's path should be the dynamic library path, not "local"; (3)Other programs needn't be changed; (4)Needn't link injectBeanImpl.dll when compile main program.
 The ActionExp.cpp file like:
 {{{
 #include "BeanWrapperMacro.h"
