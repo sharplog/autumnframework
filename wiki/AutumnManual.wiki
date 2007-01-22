@@ -7,9 +7,8 @@ Autumn is writed with standard c++, and is easy to be ported to other platform e
 
 = Content =
  # *[Manual_1_A_Sample A Sample]*
- # *What Autumn Has*
+ # *[Manual_2_WhatAutumnHas What Autumn Has]*
  # *How To Use Autumn*
-
 
 
 
