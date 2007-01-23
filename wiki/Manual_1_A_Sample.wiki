@@ -1,3 +1,5 @@
+#summary A sample for Autumn framework.
+
 *[AutumnManual Manual Main Page]* | *[AutumnManual Previous Chapter]*
 
 = 1. A Sample =
