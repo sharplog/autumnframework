@@ -1,4 +1,4 @@
-The manual of Autumn framework.
+#summary The manual of Autumn framework.
 
 = Introduction =
 
@@ -8,7 +8,7 @@ Autumn is writed with standard c++, and is easy to be ported to other platform e
 = Content =
  # *[Manual_1_A_Sample A Sample]*
  # *[Manual_2_WhatAutumnHas What Autumn Has]*
- # *How To Use Autumn*
+ # *[Manual_3_HowToUseAutumn How To Use Autumn]*
 
 
 *[Manual_1_A_Sample Next Chapter]*
