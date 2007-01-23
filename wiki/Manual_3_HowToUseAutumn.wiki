@@ -2,5 +2,13 @@
 
 * [AutumnManual Manual Main Page]* | *[Manual_2_WhatAutumnHas Previous Chapter]*
 = 3. How To Use Autumn =
+Using Autumn framework to program include six steps.
+== 3.1. Write POCO ==
+POCO means Plain Old C++ Object.
+== 3.2. Create bean wrapper ==
+== 3.3. Write main program ==
+== 3.4. Compile program ==
+== 3.5. Write configuration file ==
+== 3.6. Run program ==
 
 *[AutumnManual Manual Main Page]*
