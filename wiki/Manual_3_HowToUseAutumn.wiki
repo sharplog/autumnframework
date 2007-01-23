@@ -1,4 +1,4 @@
-#How to use Autumn framework.
+#summary How to use Autumn framework.
 
 * [AutumnManual Manual Main Page]* | *[Manual_2_WhatAutumnHas Previous Chapter]*
 = 3. How To Use Autumn =
