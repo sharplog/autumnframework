@@ -4,6 +4,6 @@ Autumn has one library and some head files. Also you can compile Autumn framewor
 == 2.1. Library ==
 Autumn has one library, two file, _AutumnFramework.lib_ for compiling and _AutumnFramework.dll_ for running. If you use Autumn's head file, you should link this library when compile your application.
 == 2.2. Head files ==
-Now Autumn has 4 head files in _include_ directory: _IBeanWrapper.h_, _BeanWrapperMacro.h_, _IBeanFactory.h_ and _IBasicType.h_.
+Now Autumn has 4 head files in _include_ directory: _IBeanWrapper.h_, _BeanWrapperMacro.h_, _IBeanFactory.h_ and _IBasicType.h_. _BeanWrapperMacro.h_ is used for creating bean wrapper, and _IBeanFactory.h_ is used for getting bean factory. _IBasicType.h_ is used for creating customized type.
 
 *[AutumnManual Manual Main Page]* | *[Manual_3_HowToUseAutumn Next Chapter]*
