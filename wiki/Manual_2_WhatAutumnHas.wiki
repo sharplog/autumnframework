@@ -1,3 +1,5 @@
+#summary What Autumn has?
+
 * [AutumnManual Manual Main Page]* | *[Manual_1_A_Sample Previous Chapter]*
 = 2. What Autumn Has =
 Autumn has one library and some head files. Also you can compile Autumn framework source file with your application source file together and not using library because Autumn is a open source project.
