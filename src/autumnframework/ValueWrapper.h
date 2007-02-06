@@ -48,7 +48,7 @@ public:
 	/** 
 	 * Constructor a new ValueWrapper with type and value
 	 * @param type Type of the argument
-	 * @param value Value string list of the argument
+	 * @param vl Value string list of the argument
 	 */
 	ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm);
 	
