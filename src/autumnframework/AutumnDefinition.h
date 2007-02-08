@@ -23,16 +23,23 @@
 
 using namespace std;
 
+/** struct to store property configuration */
 typedef struct{
 	string	Name;
+	
+	/** the initial type of property value */
 	string	Type;
+	
+	/** the type is as when injecting */
 	string	InjectType;
+	
 	StrValueList Value;	
 
 	/** Property be managed by Autumn framework or not. */
 	bool	Managed;
 } TProperty;
 
+/** struct to store bean configuration */
 typedef struct{
 	/** bean name */
 	string	Name;
@@ -59,6 +66,7 @@ typedef struct{
 	StrValueList DependedObjects;
 } TBean;
 
+/** struct to store customized type configuration */
 typedef struct{
 	/** Type name */
 	string Name;
@@ -70,6 +78,7 @@ typedef struct{
 	bool IsBasic;
 } TType;
 
+/** struct to store library configuration */
 typedef struct{
 	/** Library's name. "local" is special for main program */
 	string Name;
@@ -79,8 +88,11 @@ typedef struct{
 
 	/** namespace for this library. not using it now */
 	string NS;
-
+	
+	/** beans in library */
 	vector<TBean> Beans;
+	
+	/** customized types */
 	vector<TType> Types;
 } TLibrary;
 
