@@ -1,0 +1,273 @@
+<HTML>
+<HEAD>
+<TITLE>
+TypeManager.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+<font color="blue">#include</font> <font color="maroon">&#60;cstdlib&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"BasicType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"PointerType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"ObjectType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"StringType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
+<font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
+
+<font color="green">/** 
+ * Maitain all ValueType
+ * @version 0.1.0
+ * @since 2006-11-25
+ */</font>
+
+<font color="green">/** 
+ * The following global template and functions are for basic value type.
+ */</font>
+<font color="blue">typedef</font> <font color="blue">char</font><font color="black">*</font> charstrPointer;
+
+<font color="green">//return the first char, maybe lost the else.</font>
+<font color="blue">char</font>    atoch<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> s<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;<font color="black">}</font>
+<font color="blue">short</font>   atosh<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> <font color="black">(</font><font color="blue">short</font><font color="black">)</font>atoi<font color="black">(</font>s<font color="black">)</font>;<font color="black">}</font>
+<font color="blue">int</font>     atoint<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> atoi<font color="black">(</font>s<font color="black">)</font>;<font color="black">}</font>
+<font color="blue">long</font>    atolong<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> atol<font color="black">(</font>s<font color="black">)</font>;<font color="black">}</font>
+<font color="blue">unsigned</font> <font color="blue">long</font> atoul<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> strtoul<font color="black">(</font>s, NULL, <font color="maroon">0</font><font color="black">)</font>;<font color="black">}</font>
+<font color="blue">float</font>   atofl<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> <font color="black">(</font><font color="blue">float</font><font color="black">)</font>atof<font color="black">(</font>s<font color="black">)</font>;<font color="black">}</font>
+<font color="blue">double</font>  atodb<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font><font color="blue">return</font> atof<font color="black">(</font>s<font color="black">)</font>;<font color="black">}</font>
+charstrPointer atocs<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> s<font color="black">)</font><font color="black">{</font>
+    <font color="blue">char</font><font color="black">*</font> p <font color="black">=</font> <font color="blue">new</font> <font color="blue">char</font><font color="black">[</font>strlen<font color="black">(</font>s<font color="black">)</font><font color="black">+</font><font color="maroon">1</font><font color="black">]</font>;
+    strcpy<font color="black">(</font>p, s<font color="black">)</font>;
+    <font color="blue">return</font> <font color="black">(</font>charstrPointer<font color="black">)</font>p;
+<font color="black">}</font>
+
+<font color="blue">void</font> freech<font color="black">(</font><font color="blue">char</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freesh<font color="black">(</font><font color="blue">short</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freeint<font color="black">(</font><font color="blue">int</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freelong<font color="black">(</font><font color="blue">long</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freeul<font color="black">(</font><font color="blue">unsigned</font> <font color="blue">long</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freefl<font color="black">(</font><font color="blue">float</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freedb<font color="black">(</font><font color="blue">double</font> p<font color="black">)</font><font color="black">{</font><font color="black">}</font>
+<font color="blue">void</font> freecs<font color="black">(</font>charstrPointer p<font color="black">)</font><font color="black">{</font>
+    <font color="blue">delete</font> p;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Constructor, initialize the basic type
+ */</font>
+TypeManager<font color="black">:</font><font color="black">:</font>TypeManager<font color="black">(</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="green">//I think that unsigned is same to singed to deal with except long</font>
+    <font color="green">// The following is for basic type.</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>charBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">char</font>, atoch, freech<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>ucharBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">char</font>, atoch, freech<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>shortBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">short</font>, atosh, freesh<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>ushortBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">short</font>, atosh, freesh<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>intBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">int</font>, atoint, freeint<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>uintBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">int</font>, atoint, freeint<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>longBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">long</font>, atolong, freelong<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>ulongBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">unsigned</font> <font color="blue">long</font>, atoul, freeul<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>floatBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">float</font>, atofl, freefl<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>doubleBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font><font color="blue">double</font>, atodb, freedb<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>cstrBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font>charstrPointer, atocs, freecs<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>ucstrBT, <font color="blue">new</font> BasicType<font color="black">&#60;</font>charstrPointer, atocs, freecs<font color="black">&#62;</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>stringBT, <font color="blue">new</font> StringType<font color="black">)</font><font color="black">)</font>;
+
+    <font color="green">// The following is for combined type.</font>
+    PointerType<font color="black">*</font> ppt <font color="black">=</font> <font color="blue">new</font> PointerType;
+    ppt<font color="black">-</font><font color="black">&#62;</font>setTypeManager<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font>pointerCT, ppt<font color="black">)</font><font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Destructor
+ */</font>
+TypeManager<font color="black">:</font><font color="black">:</font>~TypeManager<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    <font color="blue">for</font><font color="black">(</font>map<font color="black">&#60;</font>string, IBasicType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator itb <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.begin<font color="black">(</font><font color="black">)</font>; itb <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.end<font color="black">(</font><font color="black">)</font>; itb<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+        <font color="green">// customized type is freed by bean manager</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isCustomized<font color="black">(</font>itb<font color="black">-</font><font color="black">&#62;</font>first<font color="black">)</font> <font color="black">)</font>
+            <font color="blue">delete</font> itb<font color="black">-</font><font color="black">&#62;</font>second;
+    <font color="black">}</font>
+    <font color="blue">for</font><font color="black">(</font>map<font color="black">&#60;</font>string, ICombinedType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator itc <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.begin<font color="black">(</font><font color="black">)</font>; itc <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.end<font color="black">(</font><font color="black">)</font>; itc<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isCustomized<font color="black">(</font>itc<font color="black">-</font><font color="black">&#62;</font>first<font color="black">)</font> <font color="black">)</font>
+            <font color="blue">delete</font> itc<font color="black">-</font><font color="black">&#62;</font>second;
+    <font color="black">}</font>
+<font color="black">}</font>
+
+IBasicType<font color="black">*</font> TypeManager<font color="black">:</font><font color="black">:</font>findBasicType<font color="black">(</font>string type<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.find<font color="black">(</font>type<font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.end<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
+        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList<font color="black">[</font>type<font color="black">]</font>;
+    <font color="black">}</font>
+    <font color="blue">return</font> NULL;
+<font color="black">}</font>
+
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>addCustomizedType<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.push_back<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>eraseCustomizedType<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="black">{</font>
+    vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator tmp;
+    <font color="blue">for</font><font color="black">(</font> tmp<font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.begin<font color="black">(</font><font color="black">)</font>; tmp<font color="black">!</font><font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.end<font color="black">(</font><font color="black">)</font>; <font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>.compare<font color="black">(</font><font color="blue">name</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font>
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.erase<font color="black">(</font>tmp<font color="black">)</font>;
+        <font color="blue">else</font>
+            tmp<font color="black">+</font><font color="black">+</font>;
+    <font color="black">}</font>
+<font color="black">}</font>
+
+<font color="blue">bool</font> TypeManager<font color="black">:</font><font color="black">:</font>isCustomized<font color="black">(</font>string type<font color="black">)</font>
+<font color="black">{</font>
+    vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator tmp;
+    <font color="blue">for</font><font color="black">(</font> tmp<font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.begin<font color="black">(</font><font color="black">)</font>; tmp<font color="black">!</font><font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CustomizedTypes.end<font color="black">(</font><font color="black">)</font>; <font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>.compare<font color="black">(</font>type<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font>
+            <font color="blue">return</font> <font color="blue">true</font>;
+    <font color="black">}</font>
+    <font color="blue">return</font> <font color="blue">false</font>;
+<font color="black">}</font>
+
+ICombinedType<font color="black">*</font> TypeManager<font color="black">:</font><font color="black">:</font>findCombinedType<font color="black">(</font>string type, <font color="blue">int</font><font color="black">&</font> pos<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">for</font><font color="black">(</font> <font color="blue">int</font> i<font color="black">=</font>type.size<font color="black">(</font><font color="black">)</font><font color="maroon">-1</font>; i<font color="black">&#62;</font><font color="maroon">0</font>; i<font color="black">-</font><font color="black">-</font><font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.find<font color="black">(</font>type.substr<font color="black">(</font>i<font color="black">)</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font>
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.end<font color="black">(</font><font color="black">)</font><font color="black">)</font><font color="black">{</font>
+            <font color="green">// type.substr(0, i) is basic type</font>
+            pos <font color="black">=</font> i;
+            <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList<font color="black">[</font>type.substr<font color="black">(</font>i<font color="black">)</font><font color="black">]</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+    <font color="blue">return</font> NULL;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Set a couple of name and BasicType into list
+ * @param name Type name
+ * @param bt A pointer to BasicType
+*/</font>
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>setBasicType<font color="black">(</font>string <font color="blue">name</font>, IBasicType<font color="black">*</font> bt, <font color="blue">bool</font> customized<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.find<font color="black">(</font><font color="blue">name</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.end<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList<font color="black">[</font><font color="blue">name</font><font color="black">]</font> <font color="black">=</font> bt;
+    <font color="black">}</font>
+    <font color="blue">else</font> <font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font><font color="blue">name</font>, bt<font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">if</font><font color="black">(</font> customized <font color="black">)</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>addCustomizedType<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Set a couple of name and CombinedType into list
+ * @param name Type name
+ * @param ct A pointer to CombinedType
+*/</font>
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>setCombinedType<font color="black">(</font>string <font color="blue">name</font>, ICombinedType<font color="black">*</font> ct, <font color="blue">bool</font> customized<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.find<font color="black">(</font><font color="blue">name</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.end<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList<font color="black">[</font><font color="blue">name</font><font color="black">]</font> <font color="black">=</font> ct;
+    <font color="black">}</font>
+    <font color="blue">else</font> <font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.insert<font color="black">(</font>make_pair<font color="black">(</font><font color="blue">name</font>, ct<font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">if</font><font color="black">(</font> customized <font color="black">)</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>addCustomizedType<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Create a value from StrValueList.
+ * @param vl A Vector&#60;string&#62;
+ * @return A pointer to a value
+ */</font>
+<font color="blue">void</font><font color="black">*</font> TypeManager<font color="black">:</font><font color="black">:</font>createValue<font color="black">(</font><font color="blue">const</font> StrValueList<font color="black">&</font> vl, string type, StrIterator<font color="black">&</font> it<font color="black">)</font>
+<font color="black">{</font>
+    AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"TypeManager-&#62;createValue, type: "</font> <font color="black">+</font> type<font color="black">)</font>;
+    
+    <font color="blue">if</font><font color="black">(</font> vl.size<font color="black">(</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>
+        <font color="blue">throw</font> <font color="blue">new</font> NonValueEx<font color="black">(</font><font color="maroon">"TypeManager"</font>, 
+            <font color="maroon">"createValue"</font>, 
+            string<font color="black">(</font><font color="maroon">"String value of type["</font><font color="black">)</font> <font color="black">+</font> type <font color="black">+</font> string<font color="black">(</font><font color="maroon">"] is not found!"</font><font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">int</font> pos;
+    <font color="blue">if</font><font color="black">(</font> IBasicType<font color="black">*</font> bt <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findBasicType<font color="black">(</font>type<font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
+        <font color="blue">return</font> bt<font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>vl, it<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">if</font><font color="black">(</font> ICombinedType<font color="black">*</font> ct <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findCombinedType<font color="black">(</font>type, pos<font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        <font color="blue">return</font> ct<font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>vl, type.substr<font color="black">(</font><font color="maroon">0</font>,pos<font color="black">)</font>, it<font color="black">)</font>;
+    <font color="black">}</font>
+
+    <font color="blue">throw</font> <font color="blue">new</font> MissDefinitionEx<font color="black">(</font><font color="maroon">"TypeManager"</font>, 
+            <font color="maroon">"createValue"</font>, 
+            string<font color="black">(</font><font color="maroon">"Type of ["</font><font color="black">)</font> <font color="black">+</font> type <font color="black">+</font> string<font color="black">(</font><font color="maroon">"] is not found!"</font><font color="black">)</font> <font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** Free the space where p point */</font>
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string type<font color="black">)</font>
+<font color="black">{</font>
+    AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"TypeManager-&#62;freeValue, type: "</font> <font color="black">+</font> type<font color="black">)</font>;
+    
+    <font color="blue">int</font> pos;
+    <font color="blue">if</font><font color="black">(</font> IBasicType<font color="black">*</font> bt <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findBasicType<font color="black">(</font>type<font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
+        bt<font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font>p<font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">else</font> <font color="blue">if</font><font color="black">(</font> ICombinedType<font color="black">*</font> ct <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findCombinedType<font color="black">(</font>type, pos<font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        ct<font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font>p, type.substr<font color="black">(</font><font color="maroon">0</font>,pos<font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">else</font> <font color="black">{</font>
+        <font color="blue">throw</font> <font color="blue">new</font> MissDefinitionEx<font color="black">(</font><font color="maroon">"TypeManager"</font>, 
+            <font color="maroon">"freeValue"</font>, 
+            string<font color="black">(</font><font color="maroon">"Type of ["</font><font color="black">)</font> <font color="black">+</font> type <font color="black">+</font> string<font color="black">(</font><font color="maroon">"] is not found!"</font><font color="black">)</font> <font color="black">)</font>;
+    <font color="black">}</font>
+<font color="black">}</font>
+
+<font color="green">/** Free the space where p pointing to, the space occupied by the type self */</font>
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>freeSelfSpace<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string type<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> IBasicType<font color="black">*</font> bt <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findBasicType<font color="black">(</font>type<font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
+        bt<font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font>p<font color="black">)</font>;
+        <font color="blue">return</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">int</font> pos;
+    <font color="blue">if</font><font color="black">(</font> ICombinedType<font color="black">*</font> ct <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>findCombinedType<font color="black">(</font>type, pos<font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        ct<font color="black">-</font><font color="black">&#62;</font>freeSelfSpace<font color="black">(</font>p<font color="black">)</font>;
+        <font color="blue">return</font>;
+    <font color="black">}</font>
+
+    <font color="blue">throw</font> <font color="blue">new</font> MissDefinitionEx<font color="black">(</font><font color="maroon">"TypeManager"</font>, 
+        <font color="maroon">"freeSelfSpace"</font>, 
+        string<font color="black">(</font><font color="maroon">"Type of ["</font><font color="black">)</font> <font color="black">+</font> type <font color="black">+</font> string<font color="black">(</font><font color="maroon">"] is not found!"</font><font color="black">)</font> <font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Erase a couple of name and ValueType from list
+ * @param type Type name
+ */</font>
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>eraseValueType<font color="black">(</font>string type, <font color="blue">bool</font> customized<font color="black">)</font>
+<font color="black">{</font>
+    <font color="green">// the type maybe be in BasicTypeList or CombinedTypeList</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BasicTypeList.erase<font color="black">(</font>type<font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>CombinedTypeList.erase<font color="black">(</font>type<font color="black">)</font>;
+    <font color="blue">if</font><font color="black">(</font> customized <font color="black">)</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>eraseCustomizedType<font color="black">(</font>type<font color="black">)</font>;
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

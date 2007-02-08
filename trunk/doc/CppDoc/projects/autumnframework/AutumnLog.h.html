@@ -1,0 +1,97 @@
+<HTML>
+<HEAD>
+<TITLE>
+AutumnLog.h
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#ifndef</font> AUTUMN_AUTUMNLOG_H
+<font color="blue">#define</font> AUTUMN_AUTUMNLOG_H
+
+<font color="blue">#include</font> <font color="maroon">"ILogAdapter.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IBeanWrapper.h"</font>
+
+<font color="green">/** 
+ * Logger for AutumnFramework
+ */</font>
+<font color="blue">class</font> AutumnLog<font color="black">{</font>
+<font color="blue">private</font><font color="black">:</font>
+    <font color="green">/** the true logger */</font>
+    ILogAdapter <font color="black">*</font> Logger;
+
+    <font color="green">/** the logger is default or not */</font>
+    <font color="blue">bool</font> isDefault;
+
+    <font color="green">/** The singleton's instance */</font>
+    <font color="blue">static</font> AutumnLog<font color="black">*</font> Instance;
+    
+    <font color="green">/** Constructor, logger is NULL */</font>
+    AutumnLog<font color="black">(</font><font color="black">)</font>;
+    
+<font color="blue">public</font><font color="black">:</font>
+    <font color="green">/** Destructor */</font>
+    ~AutumnLog<font color="black">(</font><font color="black">)</font>;
+
+    <font color="green">/** Get this singleton's instance */</font>
+    <font color="blue">static</font> AutumnLog<font color="black">*</font> getInstance<font color="black">(</font><font color="black">)</font>;
+    
+    <font color="green">/** Set property logger from a bean*/</font>
+    <font color="blue">void</font> injectLogger<font color="black">(</font>ILogAdapter<font color="black">*</font> ilogger<font color="black">)</font>;
+
+    <font color="green">/** Set property logger for default */</font>
+    <font color="blue">void</font> setDefaultLogger<font color="black">(</font><font color="black">)</font>;
+
+    <font color="blue">void</font> debug<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font>msg<font color="black">)</font>;
+    <font color="black">}</font>
+
+    <font color="blue">void</font> info<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font>info<font color="black">(</font>msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> warn<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font>warn<font color="black">(</font>msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> <font color="blue">error</font><font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font><font color="blue">error</font><font color="black">(</font>msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> fatal<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font>fatal<font color="black">(</font>msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> log<font color="black">(</font><font color="blue">int</font> level, <font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">)</font> 
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger<font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font>level, msg<font color="black">)</font>;
+    <font color="black">}</font>
+        
+<font color="black">}</font>;
+
+<font color="blue">#endif</font>
+
+</PRE>
+</BODY>
+</HTML>
