@@ -19,10 +19,6 @@
 #include "BeanProperty.h"
 #include "AutumnException.h"
 
-/** 
- * Set a object's property.
- * @param pw The object's wrapper to be set
- */
 void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
 	/** Property's value */
@@ -51,10 +47,6 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 	pw->addParameter((long)value.release());
 }
 
-/** 
- * Take out a property's value.
- * @param pw The object's wrapper to manage the value
- */
 void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 {
 	/** Property's value */

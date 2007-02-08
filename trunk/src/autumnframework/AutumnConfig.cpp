@@ -23,13 +23,6 @@
 #include "DynamicLibrary.h"
 #include "AutumnConfig.h"
 
-/**
- * AutumnFramework's configuration
- * 
- * @version 0.1.0
- * @since 2006-12-16
- */
-
 AutumnConfig::AutumnConfig(IResource* config)
 {
 	const vector<TLibrary*> *pLibs = config->getLibraries();

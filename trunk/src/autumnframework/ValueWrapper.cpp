@@ -21,13 +21,6 @@
 
 using namespace std;
 
-/**
- * Argument value for constuctor or setter functions.
- * 
- * @version 0.1.0
- * @since 2006-11-24
- */
-
 ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm):
   Type(type), Managed(managed), TypeMng(tm){
 	StrIterator it = vl.begin();

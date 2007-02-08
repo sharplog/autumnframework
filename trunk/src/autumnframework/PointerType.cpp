@@ -17,13 +17,6 @@
 #include "PointerType.h"
 #include "TypeManager.h"
 
-/** 
- * Create correctly pointer value and free it.
- * 
- * @version 0.1.0
- * @since 2006-21-02
- */
-
 void* PointerType::createValue(const StrValueList& vl, string basicType, StrIterator& it)
 {
 	void* p = this->createBasicValue(vl, basicType, it);

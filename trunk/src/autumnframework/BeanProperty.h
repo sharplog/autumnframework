@@ -54,12 +54,14 @@ public:
 	/** 
 	 * Set a object's property.
 	 * @param pw The object's wrapper to be set
+	 * @param tm The type manager to generate value
 	 */
 	void setProperty(IBeanWrapper* pw, TypeManager* tm);
 
 	/** 
 	 * Take out a property's value.
 	 * @param pw The object's wrapper to manage the value
+	 * @param tm The type manager to generate value
 	 */
 	void* takeoutValue(IBeanWrapper* pw, TypeManager* tm);
 };

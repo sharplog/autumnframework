@@ -21,12 +21,6 @@
 #include "AutumnException.h"
 
 /** 
- * Parse XML configuration file
- * @version 0.1.0
- * @since 2006-12-18
- */
-
-/** 
  * Constructor, parse XML file 
  * @param path XML file path
  */
