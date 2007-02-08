@@ -23,7 +23,7 @@
  * @since 2007-01-13
  */
 
-void* ICombinedType::createBasicValue(const vector<string>& vl, string basicType, StrIterator& it)
+void* ICombinedType::createBasicValue(const vector<string>& vl, string basicType, vector<string>::iterator& it)
 {
 	return ((TypeManager*)this->TypeMng)->createValue(vl, basicType, it);
 }

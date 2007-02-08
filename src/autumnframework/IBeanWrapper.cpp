@@ -19,13 +19,6 @@
 #include "LocalLibrary.h"
 #include "AutumnException.h"
 
-/** 
- * Wrapper of bean
- * 
- * @version 0.1.0
- * @since 2006-12-23
- */
-
 void* IBeanWrapper::createBean()
 {
 	throw new MissDefinitionEx("IBeanWrapper", 

@@ -18,13 +18,6 @@
 #include "ConsoleLogger.h"
 #include "FileLogger.h"
 
-/**
- * Logger for AutumnFramework
- * 
- * @version 0.1.0
- * @since 2006-12-01
- */
-
 AutumnLog* AutumnLog::Instance = NULL;
 const string DefaultLogPath = "AutumnFramework.log";
 const int DefaultLogLevel = 2;

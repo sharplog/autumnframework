@@ -21,11 +21,6 @@
 #include "TypeManager.h"
 #include "AutumnException.h"
 
-/** 
- * Maitain all ValueType
- * @version 0.1.0
- * @since 2006-11-25
- */
 
 /** 
  * The following global template and functions are for basic value type.

@@ -17,13 +17,6 @@
 #include "AutumnException.h"
 #include "LocalLibrary.h"
 
-/**
- * AutumnFramework's local library
- * 
- * @version 0.1.0
- * @since 2006-12-16
- */
-
 LocalLibrary* LocalLibrary::instance = NULL;
 
 LocalLibrary* LocalLibrary::getInstance(){
