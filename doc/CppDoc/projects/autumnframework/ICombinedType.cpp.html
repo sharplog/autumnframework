@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>
+ICombinedType.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#include</font> <font color="maroon">"ICombinedType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
+
+<font color="green">/** 
+ * Combined type.
+ * @version 0.1.0
+ * @since 2007-01-13
+ */</font>
+
+<font color="blue">void</font><font color="black">*</font> ICombinedType<font color="black">:</font><font color="black">:</font>createBasicValue<font color="black">(</font><font color="blue">const</font> vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">&</font> vl, string basicType, StrIterator<font color="black">&</font> it<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">return</font> <font color="black">(</font><font color="black">(</font>TypeManager<font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>vl, basicType, it<font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="blue">void</font> ICombinedType<font color="black">:</font><font color="black">:</font>freeBasicValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string basicType<font color="black">)</font>
+<font color="black">{</font>
+    <font color="black">(</font><font color="black">(</font>TypeManager<font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font>p, basicType<font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="blue">void</font> ICombinedType<font color="black">:</font><font color="black">:</font>freeSelfBasicValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string basicType<font color="black">)</font>
+<font color="black">{</font>
+    <font color="black">(</font><font color="black">(</font>TypeManager<font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font>p, basicType<font color="black">)</font>;
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

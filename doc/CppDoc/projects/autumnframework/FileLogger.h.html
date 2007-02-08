@@ -1,0 +1,96 @@
+<HTML>
+<HEAD>
+<TITLE>
+FileLogger.h
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#ifndef</font> AUTUMN_FILELOGGER_H
+<font color="blue">#define</font> AUTUMN_FILELOGGER_H
+
+<font color="blue">#include</font> <font color="maroon">&#60;ctime&#62;</font>
+<font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
+<font color="blue">#include</font> <font color="maroon">&#60;fstream&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"ILogAdapter.h"</font>
+<font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
+
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="green">/** 
+ * Adapter for external log implementation
+ * @version 0.1.0
+ * @since 2006-11-30
+ */</font>
+
+<font color="blue">class</font> FileLogger<font color="black">:</font> <font color="blue">public</font> ILogAdapter <font color="black">{</font>
+<font color="blue">private</font><font color="black">:</font>
+    <font color="green">/** Log level */</font>
+    <font color="blue">int</font> Level;
+
+    ofstream Of;
+
+    string getTime<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+        <font color="blue">char</font> buf<font color="black">[</font><font color="maroon">100</font><font color="black">]</font>;
+        time_t tm;
+        
+        time<font color="black">(</font><font color="black">&</font>tm<font color="black">)</font>;
+        strftime<font color="black">(</font>buf, <font color="maroon">100</font>, <font color="maroon">"%Y-%m-%d %H:%M:%S"</font>, localtime<font color="black">(</font><font color="black">&</font>tm<font color="black">)</font><font color="black">)</font>;
+        <font color="blue">return</font> string<font color="black">(</font>buf<font color="black">)</font>;
+    <font color="black">}</font>
+
+<font color="blue">public</font><font color="black">:</font>
+    FileLogger<font color="black">(</font>string filepath, <font color="blue">int</font> level<font color="black">)</font><font color="black">:</font>Level<font color="black">(</font>level<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Of.open<font color="black">(</font>filepath.c_str<font color="black">(</font><font color="black">)</font>, ios<font color="black">:</font><font color="black">:</font>out <font color="black">|</font> ios<font color="black">:</font><font color="black">:</font>app<font color="black">)</font>;
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Of.is_open<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
+            <font color="blue">throw</font> <font color="blue">new</font> InitException<font color="black">(</font><font color="maroon">"FileLogger"</font>, <font color="maroon">"FileLogger"</font>, 
+                string<font color="black">(</font><font color="maroon">"Can't open file["</font> <font color="black">+</font> filepath <font color="black">+</font> <font color="maroon">"]."</font><font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> debug<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font><font color="maroon">0</font>, <font color="maroon">"DEBUG: "</font> <font color="black">+</font> msg<font color="black">)</font>;
+    <font color="black">}</font>
+
+    <font color="blue">void</font> info<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font><font color="maroon">1</font>, <font color="maroon">"INFO: "</font> <font color="black">+</font> msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> warn<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font><font color="maroon">2</font>, <font color="maroon">"WARN: "</font> <font color="black">+</font> msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> <font color="blue">error</font><font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font><font color="maroon">3</font>, <font color="maroon">"ERROR: "</font> <font color="black">+</font> msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> fatal<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>log<font color="black">(</font><font color="maroon">4</font>, <font color="maroon">"FATAL: "</font> <font color="black">+</font> msg<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">void</font> log<font color="black">(</font><font color="blue">int</font> level, <font color="blue">const</font> string<font color="black">&</font> msg<font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> level <font color="black">&#62;</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Level <font color="black">)</font><font color="black">{</font>
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Of<font color="black">&#60;</font><font color="black">&#60;</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getTime<font color="black">(</font><font color="black">)</font><font color="black">&#60;</font><font color="black">&#60;</font><font color="maroon">" "</font><font color="black">&#60;</font><font color="black">&#60;</font>msg<font color="black">&#60;</font><font color="black">&#60;</font>endl;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>;
+<font color="blue">#endif</font>
+
+</PRE>
+</BODY>
+</HTML>

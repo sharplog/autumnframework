@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<TITLE>
+AutumnDefinition.h
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#ifndef</font> AUTUMN_AUTUMNDEFINITION_H
+<font color="blue">#define</font> AUTUMN_AUTUMNDEFINITION_H
+
+<font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
+<font color="blue">#include</font> <font color="maroon">&#60;vector&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
+
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
+    string  Name;
+    string  Type;
+    string  InjectType;
+    StrValueList Value; 
+
+    <font color="green">/** Property be managed by Autumn framework or not. */</font>
+    <font color="blue">bool</font>    Managed;
+<font color="black">}</font> TProperty;
+
+<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
+    <font color="green">/** bean name */</font>
+    string  Name;
+
+    <font color="green">/** POCO name */</font>
+    string  ClassName;
+
+    <font color="green">/** POCO has intializing function or not */</font>
+    <font color="blue">bool</font>    Initializable;
+    
+    <font color="green">/** POCO has destroying function or not */</font>
+    <font color="blue">bool</font>    Destroyable;
+
+    <font color="green">/** POCO as a singleton */</font>
+    <font color="blue">bool</font>    Singleton;
+
+    <font color="green">/** POCO's properties to set */</font>
+    vector<font color="black">&#60;</font>TProperty<font color="black">&#62;</font> Properties;
+
+    <font color="green">/** Use TProperty to save constructor arguments, set name as Arg_n. */</font>
+    vector<font color="black">&#60;</font>TProperty<font color="black">&#62;</font> ConArgs;
+
+    <font color="green">/** Depended objects, should be singleton. */</font>
+    StrValueList DependedObjects;
+<font color="black">}</font> TBean;
+
+<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
+    <font color="green">/** Type name */</font>
+    string Name;
+
+    <font color="green">/** Class derived from IBasicType or ICombinedType */</font>
+    string ClassName;
+
+    <font color="green">/** Type is basic type or not. */</font>
+    <font color="blue">bool</font> IsBasic;
+<font color="black">}</font> TType;
+
+<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
+    <font color="green">/** Library's name. "local" is special for main program */</font>
+    string Name;
+
+    <font color="green">/** Library file path. If name is "local", path is useless. */</font>
+    string Path;
+
+    <font color="green">/** namespace for this library. not using it now */</font>
+    string NS;
+
+    vector<font color="black">&#60;</font>TBean<font color="black">&#62;</font> Beans;
+    vector<font color="black">&#60;</font>TType<font color="black">&#62;</font> Types;
+<font color="black">}</font> TLibrary;
+
+<font color="blue">#endif</font>
+
+</PRE>
+</BODY>
+</HTML>

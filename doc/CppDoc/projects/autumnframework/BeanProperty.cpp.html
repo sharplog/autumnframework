@@ -1,0 +1,77 @@
+<HTML>
+<HEAD>
+<TITLE>
+BeanProperty.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#include</font> <font color="maroon">&#60;memory&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"ValueWrapper.h"</font>
+<font color="blue">#include</font> <font color="maroon">"BeanProperty.h"</font>
+<font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
+
+<font color="green">/** 
+ * Set a object's property.
+ * @param pw The object's wrapper to be set
+ */</font>
+<font color="blue">void</font> BeanProperty<font color="black">:</font><font color="black">:</font>setProperty<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>
+<font color="black">{</font>
+    <font color="green">/** Property's value */</font>
+    auto_ptr<font color="black">&#60;</font>ValueWrapper<font color="black">&#62;</font>value<font color="black">(</font><font color="blue">new</font> ValueWrapper<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type, 
+                                    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>StrValue, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Managed, tm<font color="black">)</font><font color="black">)</font>;
+    
+    <font color="blue">int</font> rtn;
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>InjectType.compare<font color="black">(</font><font color="maroon">""</font><font color="black">)</font> <font color="black">!</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font><font color="black">{</font>
+        rtn <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>setBeanProperty<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name.c_str<font color="black">(</font><font color="black">)</font>, 
+                                <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>InjectType.c_str<font color="black">(</font><font color="black">)</font>, 
+                                value<font color="black">-</font><font color="black">&#62;</font>getValuePointer<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">else</font><font color="black">{</font>
+        rtn <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>setBeanProperty<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name.c_str<font color="black">(</font><font color="black">)</font>, 
+                                <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type.c_str<font color="black">(</font><font color="black">)</font>, 
+                                value<font color="black">-</font><font color="black">&#62;</font>getValuePointer<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="green">// if not return 0</font>
+    <font color="blue">if</font><font color="black">(</font> rtn <font color="black">)</font><font color="black">{</font>  
+        <font color="blue">throw</font> <font color="blue">new</font> SetPropertyFailedEx<font color="black">(</font><font color="maroon">"BeanProperty"</font>, <font color="maroon">"setProperty"</font>, 
+            string<font color="black">(</font><font color="maroon">"Set property["</font><font color="black">)</font> <font color="black">+</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name <font color="black">+</font> <font color="maroon">"] of Bean["</font> <font color="black">+</font> 
+            pw<font color="black">-</font><font color="black">&#62;</font>getBeanName<font color="black">(</font><font color="black">)</font> <font color="black">+</font> <font color="maroon">"] failed!"</font><font color="black">)</font>;
+    <font color="black">}</font>
+    
+    pw<font color="black">-</font><font color="black">&#62;</font>addParameter<font color="black">(</font><font color="black">(</font><font color="blue">long</font><font color="black">)</font>value.release<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="green">/** 
+ * Take out a property's value.
+ * @param pw The object's wrapper to manage the value
+ */</font>
+<font color="blue">void</font><font color="black">*</font> BeanProperty<font color="black">:</font><font color="black">:</font>takeoutValue<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>
+<font color="black">{</font>
+    <font color="green">/** Property's value */</font>
+    auto_ptr<font color="black">&#60;</font>ValueWrapper<font color="black">&#62;</font> value<font color="black">(</font> <font color="blue">new</font> ValueWrapper<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>StrValue, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Managed, tm<font color="black">)</font><font color="black">)</font>;
+
+    pw<font color="black">-</font><font color="black">&#62;</font>addParameter<font color="black">(</font><font color="black">(</font><font color="blue">long</font><font color="black">)</font>value.get<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+    <font color="blue">return</font> value.release<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>getValuePointer<font color="black">(</font><font color="black">)</font>;
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

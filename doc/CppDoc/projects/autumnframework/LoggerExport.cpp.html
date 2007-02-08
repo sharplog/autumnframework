@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<TITLE>
+LoggerExport.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+
+<font color="blue">#include</font> <font color="maroon">"BeanWrapperMacro.h"</font>
+<font color="blue">#include</font> <font color="maroon">"ConsoleLogger.h"</font>
+<font color="blue">#include</font> <font color="maroon">"FileLogger.h"</font>
+
+AUTUMNBEAN<font color="black">(</font>ConsoleLogger<font color="black">)</font>
+AUTUMNBEAN_CON_PARAMS<font color="black">(</font>ConsoleLogger, <font color="maroon">1</font>, <font color="blue">int</font><font color="black">)</font>
+AUTUMNBEAN_CON_PARAMS_END<font color="black">(</font><font color="black">)</font>
+AUTUMNBEAN_END<font color="black">(</font>ConsoleLogger<font color="black">)</font>
+AUTUMN_LOCALBEAN<font color="black">(</font>ConsoleLogger<font color="black">)</font>
+
+AUTUMNBEAN<font color="black">(</font>FileLogger<font color="black">)</font>
+AUTUMNBEAN_CON_PARAMS<font color="black">(</font>FileLogger, <font color="maroon">2</font>, string<font color="black">)</font>
+AUTUMNBEAN_CON_PARAM<font color="black">(</font><font color="blue">int</font><font color="black">)</font>
+AUTUMNBEAN_CON_PARAMS_END<font color="black">(</font><font color="black">)</font>
+AUTUMNBEAN_END<font color="black">(</font>FileLogger<font color="black">)</font>
+AUTUMN_LOCALBEAN<font color="black">(</font>FileLogger<font color="black">)</font>
+
+
+</PRE>
+</BODY>
+</HTML>

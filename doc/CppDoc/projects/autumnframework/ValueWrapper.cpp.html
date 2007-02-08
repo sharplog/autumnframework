@@ -1,0 +1,59 @@
+<HTML>
+<HEAD>
+<TITLE>
+ValueWrapper.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
+<font color="blue">#include</font> <font color="maroon">"ValueWrapper.h"</font>
+<font color="blue">#include</font> <font color="maroon">"AutumnLog.h"</font>
+
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="green">/**
+ * Argument value for constuctor or setter functions.
+ * 
+ * @version 0.1.0
+ * @since 2006-11-24
+ */</font>
+
+ValueWrapper<font color="black">:</font><font color="black">:</font>ValueWrapper<font color="black">(</font>string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed, TypeManager<font color="black">*</font> tm<font color="black">)</font><font color="black">:</font>
+  Type<font color="black">(</font>type<font color="black">)</font>, Managed<font color="black">(</font>managed<font color="black">)</font>, TypeMng<font color="black">(</font>tm<font color="black">)</font><font color="black">{</font>
+    StrIterator it <font color="black">=</font> vl.begin<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>vl, type, it<font color="black">)</font>;
+<font color="black">}</font>
+    
+ValueWrapper<font color="black">:</font><font color="black">:</font>~ValueWrapper<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
+        AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"ValueWrapper-&#62;~ValueWrapper, type: "</font> <font color="black">+</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type<font color="black">)</font>;
+        <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Managed <font color="black">)</font><font color="black">{</font>
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type<font color="black">)</font>;
+        <font color="black">}</font>
+        <font color="blue">else</font><font color="black">{</font>
+            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">-</font><font color="black">&#62;</font>freeSelfSpace<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type<font color="black">)</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+<font color="black">}</font>
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>
+AutumnLog.cpp
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#include</font> <font color="maroon">"AutumnLog.h"</font>
+<font color="blue">#include</font> <font color="maroon">"ConsoleLogger.h"</font>
+<font color="blue">#include</font> <font color="maroon">"FileLogger.h"</font>
+
+<font color="green">/**
+ * Logger for AutumnFramework
+ * 
+ * @version 0.1.0
+ * @since 2006-12-01
+ */</font>
+
+AutumnLog<font color="black">*</font> AutumnLog<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> NULL;
+<font color="blue">const</font> string DefaultLogPath <font color="black">=</font> <font color="maroon">"AutumnFramework.log"</font>;
+<font color="blue">const</font> <font color="blue">int</font> DefaultLogLevel <font color="black">=</font> <font color="maroon">2</font>;
+
+AutumnLog<font color="black">:</font><font color="black">:</font>AutumnLog<font color="black">(</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">=</font> NULL;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">=</font> <font color="blue">false</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>setDefaultLogger<font color="black">(</font><font color="black">)</font>;
+<font color="black">}</font>
+
+AutumnLog<font color="black">:</font><font color="black">:</font>~AutumnLog<font color="black">(</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault<font color="black">)</font> 
+        <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger;
+<font color="black">}</font>
+
+<font color="green">/** Get this singleton's instance */</font>
+AutumnLog<font color="black">*</font> AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> AutumnLog<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font><font color="black">=</font> NULL<font color="black">)</font>
+        AutumnLog<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> <font color="blue">new</font> AutumnLog<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">return</font> AutumnLog<font color="black">:</font><font color="black">:</font>Instance;
+<font color="black">}</font>
+
+<font color="green">/** Set property logger */</font>
+<font color="blue">void</font> AutumnLog<font color="black">:</font><font color="black">:</font>injectLogger<font color="black">(</font>ILogAdapter<font color="black">*</font> ilogger<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">)</font> <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">=</font> ilogger;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">=</font> <font color="blue">false</font>;
+<font color="black">}</font>
+
+<font color="blue">void</font> AutumnLog<font color="black">:</font><font color="black">:</font>setDefaultLogger<font color="black">(</font><font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">)</font> <font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Logger <font color="black">=</font> <font color="blue">new</font> FileLogger<font color="black">(</font>DefaultLogPath, DefaultLogLevel<font color="black">)</font>;
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">=</font> <font color="blue">true</font>;
+    <font color="black">}</font>
+<font color="black">}</font>
+
+
+</PRE>
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<TITLE>
+IBeanWrapper.h
+</TITLE>
+</HEAD>
+<BODY>
+<PRE>
+<font color="green">/*
+* Copyright 2006 the original author or authors.
+* 
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+* 
+*      http://www.apache.org/licenses/LICENSE-2.0
+* 
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/</font>
+
+<font color="blue">#ifndef</font> AUTUMN_IBEANWRAPPER_H
+<font color="blue">#define</font> AUTUMN_IBEANWRAPPER_H
+
+<font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
+<font color="blue">#include</font> <font color="maroon">&#60;vector&#62;</font>
+
+<font color="blue">#ifdef</font> WIN32
+    <font color="blue">#ifdef</font> AUTUMNFRAMEWORK_EXPORTS
+        <font color="blue">#define</font> DLL_IM_EXPORT _declspec<font color="black">(</font>dllexport<font color="black">)</font>
+    <font color="blue">#else</font>
+        <font color="blue">#define</font> DLL_IM_EXPORT _declspec<font color="black">(</font>dllimport<font color="black">)</font>
+    <font color="blue">#endif</font>
+<font color="blue">#else</font>
+    <font color="blue">#define</font> DLL_IM_EXPORT
+<font color="blue">#endif</font>
+
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="green">/** 
+ * Wrapper of bean
+ * 
+ * @version 0.1.0
+ * @since 2006-12-04
+ */</font>
+
+<font color="blue">class</font> DLL_IM_EXPORT IBeanWrapper<font color="black">{</font>
+    <font color="blue">typedef</font> <font color="blue">void</font> WrapperFreer<font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>;
+    <font color="blue">typedef</font> <font color="blue">long</font> ParamPointer;
+    
+    string BeanName;
+
+    <font color="green">/** pointers of parameters, using long type */</font>
+    vector<font color="black">&#60;</font>ParamPointer<font color="black">&#62;</font> Parameters;
+
+    <font color="green">/** function pointer to delete wrapper */</font>
+    WrapperFreer<font color="black">*</font> WrapperDeleter;
+
+    <font color="green">/** 
+     * bean's property 
+     */</font>
+    <font color="blue">bool</font> Initializable;     <font color="green">//initializable or not</font>
+    <font color="blue">bool</font> Destroyable;       <font color="green">//destroyable or not</font>
+    <font color="blue">bool</font> Singleton;         <font color="green">//is singleton or not</font>
+<font color="blue">public</font><font color="black">:</font>
+    virtual <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font><font color="black">)</font> <font color="black">=</font> <font color="maroon">0</font>;
+
+    <font color="blue">void</font> setBeanName<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BeanName <font color="black">=</font> <font color="blue">name</font>; <font color="black">}</font>
+    string getBeanName<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BeanName; <font color="black">}</font>
+    
+    <font color="blue">void</font> setDestroyable<font color="black">(</font><font color="blue">bool</font> d<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable <font color="black">=</font> d; <font color="black">}</font>
+    <font color="blue">bool</font> getDestroyable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable; <font color="black">}</font>
+    
+    <font color="blue">void</font> setInitializable<font color="black">(</font><font color="blue">bool</font> i<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable <font color="black">=</font> i; <font color="black">}</font>
+    <font color="blue">bool</font> getInitializable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable; <font color="black">}</font>
+
+    <font color="blue">void</font> setSingleton<font color="black">(</font><font color="blue">bool</font> s<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton <font color="black">=</font> s; <font color="black">}</font>
+    <font color="blue">bool</font> getSingleton<font color="black">(</font><font color="black">)</font> <font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton; <font color="black">}</font>
+
+    <font color="blue">void</font> setWrapperDeleter<font color="black">(</font>WrapperFreer<font color="black">*</font> wd<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter <font color="black">=</font> wd; <font color="black">}</font>
+    WrapperFreer<font color="black">*</font> getWrapperDeleter<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter; <font color="black">}</font>
+    
+    <font color="blue">void</font> addParameter<font color="black">(</font>ParamPointer p<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters.push_back<font color="black">(</font>p<font color="black">)</font>; <font color="black">}</font>
+    vector<font color="black">&#60;</font>ParamPointer<font color="black">&#62;</font> getParameter<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters; <font color="black">}</font>
+
+    
+    virtual <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="black">)</font>;
+
+    virtual <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> pPrams, <font color="blue">int</font> num<font color="black">)</font>;
+
+    virtual <font color="blue">void</font> initializeBean<font color="black">(</font><font color="black">)</font>;
+
+    virtual <font color="blue">void</font> destroyBean<font color="black">(</font><font color="black">)</font>;
+
+    virtual <font color="blue">int</font> setBeanProperty<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> type, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font>;
+
+    <font color="green">/** Destructor */</font>
+    virtual ~IBeanWrapper<font color="black">(</font><font color="black">)</font>;
+<font color="black">}</font>;
+
+<font color="green">/** register local function for local library */</font>
+DLL_IM_EXPORT <font color="blue">void</font> registerLocalFunction<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">void</font><font color="black">*</font> f<font color="black">)</font>;
+
+<font color="blue">#endif</font>
+
+</PRE>
+</BODY>
+</HTML>
