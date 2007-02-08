@@ -31,7 +31,7 @@ ICombinedType.cpp
  * @since 2007-01-13
  */</font>
 
-<font color="blue">void</font><font color="black">*</font> ICombinedType<font color="black">:</font><font color="black">:</font>createBasicValue<font color="black">(</font><font color="blue">const</font> vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">&</font> vl, string basicType, StrIterator<font color="black">&</font> it<font color="black">)</font>
+<font color="blue">void</font><font color="black">*</font> ICombinedType<font color="black">:</font><font color="black">:</font>createBasicValue<font color="black">(</font><font color="blue">const</font> vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">&</font> vl, string basicType, vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator<font color="black">&</font> it<font color="black">)</font>
 <font color="black">{</font>
     <font color="blue">return</font> <font color="black">(</font><font color="black">(</font>TypeManager<font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeMng<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>vl, basicType, it<font color="black">)</font>;
 <font color="black">}</font>
