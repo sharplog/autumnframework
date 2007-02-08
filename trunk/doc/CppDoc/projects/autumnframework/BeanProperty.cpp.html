@@ -27,10 +27,6 @@ BeanProperty.cpp
 <font color="blue">#include</font> <font color="maroon">"BeanProperty.h"</font>
 <font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
 
-<font color="green">/** 
- * Set a object's property.
- * @param pw The object's wrapper to be set
- */</font>
 <font color="blue">void</font> BeanProperty<font color="black">:</font><font color="black">:</font>setProperty<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>
 <font color="black">{</font>
     <font color="green">/** Property's value */</font>
@@ -59,10 +55,6 @@ BeanProperty.cpp
     pw<font color="black">-</font><font color="black">&#62;</font>addParameter<font color="black">(</font><font color="black">(</font><font color="blue">long</font><font color="black">)</font>value.release<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
 <font color="black">}</font>
 
-<font color="green">/** 
- * Take out a property's value.
- * @param pw The object's wrapper to manage the value
- */</font>
 <font color="blue">void</font><font color="black">*</font> BeanProperty<font color="black">:</font><font color="black">:</font>takeoutValue<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>
 <font color="black">{</font>
     <font color="green">/** Property's value */</font>

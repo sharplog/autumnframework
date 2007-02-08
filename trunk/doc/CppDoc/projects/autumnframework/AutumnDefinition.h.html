@@ -31,16 +31,23 @@ AutumnDefinition.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="green">/** struct to store property configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     string  Name;
+    
+    <font color="green">/** the initial type of property value */</font>
     string  Type;
+    
+    <font color="green">/** the type is as when injecting */</font>
     string  InjectType;
+    
     StrValueList Value; 
 
     <font color="green">/** Property be managed by Autumn framework or not. */</font>
     <font color="blue">bool</font>    Managed;
 <font color="black">}</font> TProperty;
 
+<font color="green">/** struct to store bean configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     <font color="green">/** bean name */</font>
     string  Name;
@@ -67,6 +74,7 @@ AutumnDefinition.h
     StrValueList DependedObjects;
 <font color="black">}</font> TBean;
 
+<font color="green">/** struct to store customized type configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     <font color="green">/** Type name */</font>
     string Name;
@@ -78,6 +86,7 @@ AutumnDefinition.h
     <font color="blue">bool</font> IsBasic;
 <font color="black">}</font> TType;
 
+<font color="green">/** struct to store library configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     <font color="green">/** Library's name. "local" is special for main program */</font>
     string Name;
@@ -87,8 +96,11 @@ AutumnDefinition.h
 
     <font color="green">/** namespace for this library. not using it now */</font>
     string NS;
-
+    
+    <font color="green">/** beans in library */</font>
     vector<font color="black">&#60;</font>TBean<font color="black">&#62;</font> Beans;
+    
+    <font color="green">/** customized types */</font>
     vector<font color="black">&#60;</font>TType<font color="black">&#62;</font> Types;
 <font color="black">}</font> TLibrary;
 

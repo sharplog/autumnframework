@@ -62,12 +62,14 @@ BeanProperty.h
     <font color="green">/** 
      * Set a object's property.
      * @param pw The object's wrapper to be set
+     * @param tm The type manager to generate value
      */</font>
     <font color="blue">void</font> setProperty<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>;
 
     <font color="green">/** 
      * Take out a property's value.
      * @param pw The object's wrapper to manage the value
+     * @param tm The type manager to generate value
      */</font>
     <font color="blue">void</font><font color="black">*</font> takeoutValue<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw, TypeManager<font color="black">*</font> tm<font color="black">)</font>;
 <font color="black">}</font>;
