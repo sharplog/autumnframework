@@ -8,9 +8,10 @@ Add your content here.
 = 对创建模式的支持 =
 
   * *Abstract Factory*
-为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
-  * *Builder*
+为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死，不在配置文件中定义。因为如果在配置文件中可以定义方法名称的话，该方法就需要在动态库中export，会增加使用复杂度。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
   * *Factory Method*
+跟Abstract Factory类似，只是wrapper创建bean时，不用传工厂实例，工厂是在定义wrapper时就写死的，所以不需要<factory-refrence>之类的标签。
+  * *Builder*
   * *Prototype*
   * *Singleton*
 
@@ -23,6 +24,9 @@ Add your content here.
 
 = 其它事情 =
   * *Bean的别名*
+象Spring中那样可以定义别名，便于使用。
+  * *属性注入方法重载*
+把属性注入方法中的属性判断移到Framework中，这样，可以通过配置来实现是否允许重载。如果不允许重载的话，就不需要在bean的属性注入配置中说明注入类型了。
 
 = 未处理好的问题 =
   * *bean由应用销毁的问题*
