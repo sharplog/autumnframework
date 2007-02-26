@@ -7,10 +7,16 @@ Add your content here.
 
 = 对创建模式的支持 =
 
-  * *抽象工厂*
-为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。
-要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
+  * *Abstract Factory*
+为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
+  * *Builder*
+  * *Factory Method*
+  * *Prototype*
+  * *Singleton*
 
+= 对注入类型的支持 =
+  * *对象的引用*
+  * *远程引用，WebService？*
 
 = 未处理好的问题 =
   * *bean由应用销毁的问题*
