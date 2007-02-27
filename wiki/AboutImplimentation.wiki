@@ -6,12 +6,14 @@ Add your content here.
 
 
 = 对创建模式的支持 =
+发现还是象Spring那样，分为静态工厂方法和实例工厂比较合理一些，而不是按抽象工厂和工厂方法来区分。
 
   * *Abstract Factory*
 为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死，不在配置文件中定义。因为如果在配置文件中可以定义方法名称的话，该方法就需要在动态库中export，会增加使用复杂度。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
   * *Factory Method*
 跟Abstract Factory类似，只是wrapper创建bean时，不用传工厂实例，工厂是在定义wrapper时就写死的，所以不需要<factory-refrence>之类的标签。
   * *Builder*
+不易支持，或者说不需要支持。采用这种模式的创建过程比较复杂。
   * *Prototype*
 Autumn Framework本身就支持Prototype模式，如果应用中已经采用这种模式，也可以改用Autumn来实现，对原来的实现没有影响。
   * *Singleton*
