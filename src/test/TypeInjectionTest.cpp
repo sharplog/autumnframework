@@ -1,8 +1,7 @@
 
+#include <math>
 #include "TypeInjectionTest.h"
 #include "IBasicTypesBean.h"
-
-CPPUNIT_TEST_SUITE_REGISTRATION(TypeInjectionTest);
 
 void TypeInjectionTest::setUp()
 {
@@ -26,8 +25,8 @@ void TypeInjectionTest::testBasicType()
 	CPPUNIT_ASSERT(b->getUInt() == 77777);
 	CPPUNIT_ASSERT(b->getLong() == 8000000);
 	CPPUNIT_ASSERT(b->getULong() == 4294967295);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(b->getFloat(), 1.234567, 1e-7);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(b->getDouble(), 1.23456789012345, 1e-15);
+	CPPUNIT_ASSERT( fabs(b->getFloat() - 1.234567) < 1e-7);
+	CPPUNIT_ASSERT( fabs(b->getDouble() - 1.23456789012345) < 1e-15);
 	CPPUNIT_ASSERT(b->getString().compare("hello, String") == 0 );
 	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, CStr") == 0);
 	CPPUNIT_ASSERT(strcmp((const char*)b->getUCStr(), "hello, UCStr") == 0);
@@ -42,8 +41,8 @@ void TypeInjectionTest::testBasicType()
 	CPPUNIT_ASSERT(b->getUInt() == 77777);
 	CPPUNIT_ASSERT(b->getLong() == 8000000);
 	CPPUNIT_ASSERT(b->getULong() == 4294967295);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(b->getFloat(), 1.234567, 1e-7);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(b->getDouble(), 1.23456789012345, 1e-15);
+	CPPUNIT_ASSERT( fabs(b->getFloat() - 1.234567) < 1e-7);
+	CPPUNIT_ASSERT( fabs(b->getDouble() - 1.23456789012345) < 1e-15);
 	CPPUNIT_ASSERT(b->getString().compare("hello, String") == 0 );
 	CPPUNIT_ASSERT(strcmp(b->getCStr(), "hello, CStr") == 0);
 	CPPUNIT_ASSERT(strcmp((const char*)b->getUCStr(), "hello, UCStr") == 0);

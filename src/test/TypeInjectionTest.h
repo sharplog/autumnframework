@@ -2,12 +2,10 @@
 #ifndef AUTUMN_TYPEINJECTIONTEST_H
 #define AUTUMN_TYPEINJECTIONTEST_H
 
-#include <cppunit/extensions/HelperMacros.h>
+#include "UnitTestMacro.h"
 #include "IBeanFactory.h"
 
-using namespace CppUnit;
-
-class TypeInjectionTest: public TestFixture{
+class TypeInjectionTest{
 	CPPUNIT_TEST_SUITE(TypeInjectionTest);
 	CPPUNIT_TEST(testBasicType);
 	CPPUNIT_TEST(testCombinedType);
