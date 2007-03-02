@@ -1,5 +1,5 @@
 
-#include <math>
+#include <cmath>
 #include "TypeInjectionTest.h"
 #include "IBasicTypesBean.h"
 
