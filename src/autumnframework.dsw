@@ -27,31 +27,31 @@ Package=<4>
 
 ###############################################################################
 
+Project: "FrameTest"=.\test\FrameTest.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "TestDll"=.\test\testDll\TestDll.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "UnitTest"=.\UnitTest\win\UnitTest.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "UnitTest2"=.\UnitTest\win2\UnitTest2.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
-}}}
-
-###############################################################################
-
-Project: "UnitTestDll"=.\UnitTest\UnitTestDll\UnitTestDll.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
