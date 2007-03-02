@@ -2,7 +2,7 @@
 #ifndef AUTUMN_LOCALBEAN_H
 #define AUTUMN_LOCALBEAN_H
 
-#include "BasicTypesBean.h"
+#include "IBasicTypesBean.h"
 
 class LocalBean: public IBasicTypesBean{
 private:
