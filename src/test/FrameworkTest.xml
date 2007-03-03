@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
-	<library path="../lib/TestDll_D.dll">
+	<library path="./lib/TestDll.dll">
 		<beans>
 			<!-- BasicTypesBean1 tests property setter -->
 			<bean class="BasicTypesBean" name="BasicTypesBean1">
@@ -196,7 +196,7 @@
 		</types>
 	</library>
 	
-	<library path="../lib/TestDll2_D.dll">
+	<library path="./lib/TestDll2.dll">
 		<beans>
 			<bean class="BasicTypesBean" name="BasicTypesBean2-1">
 				<properties>
