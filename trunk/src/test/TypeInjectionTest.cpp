@@ -5,7 +5,7 @@
 
 void TypeInjectionTest::setUp()
 {
-	this->bf = getBeanFactoryWithXML("../AutumnUnitTest.xml");
+	this->bf = getBeanFactoryWithXML("FrameworkTest.xml");
 }
 
 void TypeInjectionTest::tearDown()

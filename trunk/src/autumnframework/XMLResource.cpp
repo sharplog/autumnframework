@@ -32,9 +32,15 @@ XMLResource::XMLResource(const char* path)
 
 	XMLNode rootNode = XMLNode::parseFile(path, rootTag, &errRlt);
 	if( errRlt.error != eXMLErrorNone ){
-		throw new XMLParsingEx("XMLResource", "XMLResource", 
-			string("Error when parsing file '") + path + "'. " + 
-			this->getErrorMsg(errRlt, rootTag));
+		if( errRlt.error == eXMLErrorFileNotFound ){
+			throw new XMLParsingEx("XMLResource", "XMLResource", 
+				string("File not found: ") + path + ". ");
+		}
+		else{
+			throw new XMLParsingEx("XMLResource", "XMLResource", 
+				string("Error when parsing file '") + path + "'. " + 
+				this->getErrorMsg(errRlt, rootTag));
+		}
 	}
 
 	int i, pos=0, n = rootNode.nChildNode(libTag);
