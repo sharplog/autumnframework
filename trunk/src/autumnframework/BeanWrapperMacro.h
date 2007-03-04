@@ -26,8 +26,12 @@
 	#else
 		#define DLL_EXPORT 
 	#endif
+
+	#define PARAM_SUF --num
 #else
 	#define DLL_EXPORT
+
+	#define PARAM_SUF i++
 #endif
 
 using namespace std;
@@ -98,16 +102,16 @@ public:																\
 			return this->pBean;										\
 		}															\
 																	\
-		int i = 0;												\
+		int i = 0;													\
 		this->pBean = new bean(										\
-			*(type*)pPrams[i++]
+			*(type*)pPrams[PARAM_SUF]
 
 /** 
  * Add the next parameter for constructor
  * @param type The parameter's type
  */
 #define AUTUMNBEAN_CON_PARAM(type)									\
-			,*(type*)pPrams[i++]
+			,*(type*)pPrams[PARAM_SUF]
 
 /** 
  * End of the parameter list and end of creating function
