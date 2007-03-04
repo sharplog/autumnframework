@@ -84,7 +84,7 @@ void BeanManager::deleteBean(void* p)
 }
 
 IBeanWrapper* BeanManager::releaseBean(void* p){
-	long pw = NULL;
+	long pw = (long)NULL;
 	this->Beans.deleteElement((long)p, pw);
 	this->deleteSingleton(p);
 	return (IBeanWrapper*)pw;

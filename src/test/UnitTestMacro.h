@@ -45,7 +45,7 @@ public:																\
 		CPPUNIT_MESSAGE(string("\t") + #testFunc + "......")		\
 		try{														\
 			this->setUp();											\
-			this->##testFunc##();									\
+			this->testFunc();									\
 			this->tearDown();										\
 			CPPUNIT_MESSAGE("OK!\n");								\
 		}															\

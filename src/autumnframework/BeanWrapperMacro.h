@@ -49,7 +49,7 @@ public:																\
 		this->pBean = NULL;											\
 	}																\
 																	\
-	~##bean##_Wrapper(){											\
+	~bean##_Wrapper(){											\
 		if( this->pBean ) {											\
 			if( this->getDestroyable() ) {							\
 				this->destroyBean();								\
@@ -98,16 +98,16 @@ public:																\
 			return this->pBean;										\
 		}															\
 																	\
-		int i = num;												\
+		int i = 0;												\
 		this->pBean = new bean(										\
-			*(type*)pPrams[--i]
+			*(type*)pPrams[i++]
 
 /** 
  * Add the next parameter for constructor
  * @param type The parameter's type
  */
 #define AUTUMNBEAN_CON_PARAM(type)									\
-			,*(type*)pPrams[--i]
+			,*(type*)pPrams[i++]
 
 /** 
  * End of the parameter list and end of creating function
@@ -229,7 +229,7 @@ public:																\
 		this->pType = new type();									\
 		return this->pType;											\
 	}																\
-	~##type##_Type(){												\
+	~type##_Type(){												\
 		if( this->pType )											\
 			delete this->pType;										\
 	}																\
