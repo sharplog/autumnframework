@@ -12,10 +12,15 @@ const char xmlFile[] = "autumnDemo_D.xml";
 const char xmlFile[] = "autumnDemo.xml";
 #endif
 
-void main()
+int main(int argc, char* argv[])
 {
 	try{
-		IBeanFactory* bf = getBeanFactoryWithXML(xmlFile);
+		IBeanFactory* bf;
+		if( argc > 1 )
+			bf = getBeanFactoryWithXML(argv[1]);
+		else
+			bf = getBeanFactoryWithXML(xmlFile);
+
 		Action* pa = (Action*)bf->getBean("TheAction");
 		cout<<pa->excute("Vicent")<<endl;
 		bf->freeBean(pa);
@@ -26,4 +31,6 @@ void main()
 		cout<<"Exception: "<<e->what()<<endl;
 		delete e;
 	}
+	return 0;
 }
+

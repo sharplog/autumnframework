@@ -1,0 +1,1 @@
+OBJS=BasicTypesBeanExp.o BeanTypeBeanExp.o MyTypesExp.o SingInitDestBeanExp.o

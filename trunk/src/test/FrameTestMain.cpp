@@ -1,9 +1,11 @@
 
 #include "TypeInjectionTest.h"
 
-void main()
+int main()
 {
 	TypeInjectionTest test1;
 
 	test1.excuteTest();
+
+	return 0;
 }

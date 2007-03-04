@@ -6,3 +6,4 @@ public:
 	virtual const char* excute(const char* s) = 0;
 };
 #endif
+

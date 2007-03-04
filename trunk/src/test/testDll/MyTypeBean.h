@@ -11,7 +11,7 @@ private:
 	string mString;
 	
 public:
-	BeanTypeBean(){
+	MyTypeBean(){
 		this->mInt = 0;
 	}
 	
