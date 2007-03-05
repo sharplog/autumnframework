@@ -1,7 +1,7 @@
 
 CXX=xlC_r
 CXXFLAGS=-I.
-EXELDFLAGS=
+EXELDFLAGS=-brtl
 DLLLDFLAGS=-p 0 -G
 DLLMAKER=makeC++SharedLib
 DLLNAME=Autumn
