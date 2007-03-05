@@ -1,7 +1,4 @@
 
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../lib;
-export LD_LIBRARY_PATH
-
 cd ./lib
 cp TestDll.so TestDll.dll
 cp TestDll.so TestDll2.dll
