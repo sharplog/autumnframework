@@ -1,0 +1,4 @@
+ActionExp.o: ActionExp.cpp ../../include/BeanWrapperMacro.h \
+  ../../include/IBeanWrapper.h LowerAction.h Action.h UpperAction.h
+LowerAction.o: LowerAction.cpp LowerAction.h Action.h
+UpperAction.o: UpperAction.cpp UpperAction.h Action.h

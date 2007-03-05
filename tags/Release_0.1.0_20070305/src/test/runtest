@@ -1,0 +1,8 @@
+
+cd ./lib
+cp TestDll.so TestDll.dll
+cp TestDll.so TestDll2.dll
+cd ..
+
+./FrameworkTest
+

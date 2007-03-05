@@ -1,0 +1,6 @@
+
+cp ../lib/injectBeanImpl.so ../lib/injectBeanImpl.dll
+cp ../lib/injectBeanImpl.so ../lib/injectBeanImpl_D.dll
+
+./mainDemo autumnDemo.xml
+./mainDemo autumnDemo_D.xml

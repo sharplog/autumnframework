@@ -1,0 +1,12 @@
+BasicTypesBeanExp.o: BasicTypesBeanExp.cpp \
+  ../../include/BeanWrapperMacro.h ../../include/IBeanWrapper.h \
+  BasicTypesBean.h IBasicTypesBean.h
+BeanTypeBeanExp.o: BeanTypeBeanExp.cpp ../../include/BeanWrapperMacro.h \
+  ../../include/IBeanWrapper.h BeanTypeBean.h IBasicTypesBean.h \
+  BasicTypesBean.h
+MyTypesExp.o: MyTypesExp.cpp ../../include/BeanWrapperMacro.h \
+  ../../include/IBeanWrapper.h MyBasicType.h ../../include/IBasicType.h \
+  MyData.h MyTypeBean.h IBasicTypesBean.h
+SingInitDestBeanExp.o: SingInitDestBeanExp.cpp \
+  ../../include/BeanWrapperMacro.h ../../include/IBeanWrapper.h \
+  SingletonBean.h IBasicTypesBean.h InitDestBean.h SelfManagedBean.h
