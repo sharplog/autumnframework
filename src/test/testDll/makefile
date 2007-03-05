@@ -13,13 +13,6 @@ $(TESTDLLNAME):$(OBJS)
 	cp ./$(TESTDLLNAME) ../lib/
 	cp ./IBasicTypesBean.h ../include/
 
-all test clean::
-	@for subdir in $(SUBDIRS);  \
-	do  \
-	    echo "making $@ in $$subdir"; \
-	    ( cd $$subdir && $(MAKE) $@) || exit 1; \
-	done
-
 all::$(TESTDLLNAME)
 
 clean::
