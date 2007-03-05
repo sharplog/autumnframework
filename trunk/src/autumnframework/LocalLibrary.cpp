@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+#include <string>
 #include "AutumnException.h"
 #include "LocalLibrary.h"
 
@@ -26,7 +27,7 @@ LocalLibrary* LocalLibrary::getInstance(){
 }
 
 void LocalLibrary::addFunction(const char* name, void* fun){
-	this->LocalFunctions.insert(make_pair(name, fun));
+	this->LocalFunctions.insert(make_pair(string(name), fun));
 }
 
 void* LocalLibrary::getFunction(string name){

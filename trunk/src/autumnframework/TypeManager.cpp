@@ -59,24 +59,24 @@ TypeManager::TypeManager()
 {
 	//I think that unsigned is same to singed to deal with except long
 	// The following is for basic type.
-	this->BasicTypeList.insert(make_pair(charBT, new BasicType<char, atoch, freech>));
-	this->BasicTypeList.insert(make_pair(ucharBT, new BasicType<char, atoch, freech>));
-	this->BasicTypeList.insert(make_pair(shortBT, new BasicType<short, atosh, freesh>));
-	this->BasicTypeList.insert(make_pair(ushortBT, new BasicType<short, atosh, freesh>));
-	this->BasicTypeList.insert(make_pair(intBT, new BasicType<int, atoint, freeint>));
-	this->BasicTypeList.insert(make_pair(uintBT, new BasicType<int, atoint, freeint>));
-	this->BasicTypeList.insert(make_pair(longBT, new BasicType<long, atolong, freelong>));
-	this->BasicTypeList.insert(make_pair(ulongBT, new BasicType<unsigned long, atoul, freeul>));
-	this->BasicTypeList.insert(make_pair(floatBT, new BasicType<float, atofl, freefl>));
-	this->BasicTypeList.insert(make_pair(doubleBT, new BasicType<double, atodb, freedb>));
-	this->BasicTypeList.insert(make_pair(cstrBT, new BasicType<charstrPointer, atocs, freecs>));
-	this->BasicTypeList.insert(make_pair(ucstrBT, new BasicType<charstrPointer, atocs, freecs>));
-	this->BasicTypeList.insert(make_pair(stringBT, new StringType));
+	this->BasicTypeList.insert(make_pair(charBT, (IBasicType*)new BasicType<char, atoch, freech>));
+	this->BasicTypeList.insert(make_pair(ucharBT, (IBasicType*)new BasicType<char, atoch, freech>));
+	this->BasicTypeList.insert(make_pair(shortBT, (IBasicType*)new BasicType<short, atosh, freesh>));
+	this->BasicTypeList.insert(make_pair(ushortBT, (IBasicType*)new BasicType<short, atosh, freesh>));
+	this->BasicTypeList.insert(make_pair(intBT, (IBasicType*)new BasicType<int, atoint, freeint>));
+	this->BasicTypeList.insert(make_pair(uintBT, (IBasicType*)new BasicType<int, atoint, freeint>));
+	this->BasicTypeList.insert(make_pair(longBT, (IBasicType*)new BasicType<long, atolong, freelong>));
+	this->BasicTypeList.insert(make_pair(ulongBT, (IBasicType*)new BasicType<unsigned long, atoul, freeul>));
+	this->BasicTypeList.insert(make_pair(floatBT, (IBasicType*)new BasicType<float, atofl, freefl>));
+	this->BasicTypeList.insert(make_pair(doubleBT, (IBasicType*)new BasicType<double, atodb, freedb>));
+	this->BasicTypeList.insert(make_pair(cstrBT, (IBasicType*)new BasicType<charstrPointer, atocs, freecs>));
+	this->BasicTypeList.insert(make_pair(ucstrBT, (IBasicType*)new BasicType<charstrPointer, atocs, freecs>));
+	this->BasicTypeList.insert(make_pair(stringBT, (IBasicType*)new StringType));
 
 	// The following is for combined type.
 	PointerType* ppt = new PointerType;
 	ppt->setTypeManager(this);
-	this->CombinedTypeList.insert(make_pair(pointerCT, ppt));
+	this->CombinedTypeList.insert(make_pair(pointerCT, (ICombinedType*)ppt));
 }
 
 /** 
