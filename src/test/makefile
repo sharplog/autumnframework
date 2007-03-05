@@ -25,6 +25,8 @@ clean::
 	rm -f *.o ./$(EXENAME)
 
 test:: $(EXENAME)
-	@sh ./runtest
+	$(LDLIBPATH)=$($(LDLIBPATH)):../lib;	\
+	export $(LDLIBPATH);	\
+	sh ./runtest
 
 include makeDepend
