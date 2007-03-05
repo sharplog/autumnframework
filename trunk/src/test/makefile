@@ -25,6 +25,6 @@ clean::
 	rm -f *.o ./$(EXENAME)
 
 test:: $(EXENAME)
-	@./runtest
+	@sh ./runtest
 
 include makeDepend

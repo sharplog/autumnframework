@@ -17,4 +17,4 @@ clean::
 	rm -f *.o ./$(EXENAME)
 
 test:: 
-	@./runtest
+	@sh ./runtest
