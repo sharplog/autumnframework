@@ -25,7 +25,7 @@ clean::
 	rm -f *.o ./$(EXENAME)
 
 test:: $(EXENAME)
-	$(LDLIBPATH)=$($(LDLIBPATH)):../lib;	\
+	@$(LDLIBPATH)=$($(LDLIBPATH)):../lib;	\
 	export $(LDLIBPATH);	\
 	sh ./runtest
 
