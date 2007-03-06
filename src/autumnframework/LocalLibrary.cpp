@@ -20,17 +20,20 @@
 
 LocalLibrary* LocalLibrary::instance = NULL;
 
-LocalLibrary* LocalLibrary::getInstance(){
+LocalLibrary* LocalLibrary::getInstance()
+{
 	if( LocalLibrary::instance == NULL)
 		LocalLibrary::instance = new LocalLibrary();
 	return LocalLibrary::instance;
 }
 
-void LocalLibrary::addFunction(const char* name, void* fun){
+void LocalLibrary::addFunction(const char* name, void* fun)
+{
 	this->LocalFunctions.insert(make_pair(string(name), fun));
 }
 
-void* LocalLibrary::getFunction(string name){
+void* LocalLibrary::getFunction(string name)
+{
 	map<string, void*>::iterator it=this->LocalFunctions.find(name);
 	if( it != this->LocalFunctions.end() )
 		return it->second;

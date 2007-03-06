@@ -153,9 +153,17 @@ string AutumnConfig::mangleName(string objType, string  op, string objName)
 
 AutumnConfig::~AutumnConfig()
 {
+	AutumnLog::getInstance()->debug("AutumnConfig->~AutumnConfig");
 	for(int i=0; i<this->Libs.size(); i++)
 		delete this->Libs[i];
-
+	
+	/**
+	 * Mustn't delete LocalLibrary singleton. BeanFactory maybe be created and deleted
+	 * many times, but LocalLibrary must be created at the time of the first local
+	 * function registering.
+	 */
+	//LocalLibrary::deleteInstance();
+	
 	for(map<string, BeanConfig*>::iterator it=this->Beans.begin();
 			it!=this->Beans.end(); it++)
 		delete it->second;

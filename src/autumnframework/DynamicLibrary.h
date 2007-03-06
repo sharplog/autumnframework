@@ -65,6 +65,7 @@ public:
 
 	/** Destructor */
 	~DynamicLibrary(){
+		AutumnLog::getInstance()->debug("DynamicLibrary->~DynamicLibrary");
 		if( this->Handle != NULL )
 			_CLOSEDLL_(this->Handle);
 	}

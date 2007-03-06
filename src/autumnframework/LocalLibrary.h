@@ -24,7 +24,7 @@
 using namespace std;
 
 /** 
- * Local library, in main process
+ * Local library, if a bean is in main process
  * @version 0.1.0
  * @since 2006-12-16
  */
@@ -33,13 +33,19 @@ const string LocalLibraryPath = "local";
 
 class LocalLibrary: public ILibrary{
 private:
+	/** functions about local beans */
 	map<string, void*> LocalFunctions;
-		
+	
+	/** for singleton */
 	static LocalLibrary* instance;
 public:
+	/** Get singleton */
 	static LocalLibrary* getInstance();
 
+	/** Add a local function to list */
 	void addFunction(const char* name, void* fun);
+
+	/** Get function address */
 	void* getFunction(string name);
 };
 

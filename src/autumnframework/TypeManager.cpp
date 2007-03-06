@@ -83,6 +83,7 @@ TypeManager::TypeManager()
  * Destructor
  */
 TypeManager::~TypeManager(){
+	AutumnLog::getInstance()->debug("TypeManager->~TypeManager");
 	for(map<string, IBasicType*>::iterator itb = this->BasicTypeList.begin(); itb != this->BasicTypeList.end(); itb++){
 		// customized type is freed by bean manager
 		if( !this->isCustomized(itb->first) )
@@ -121,7 +122,7 @@ void TypeManager::eraseCustomizedType(string name)
 bool TypeManager::isCustomized(string type)
 {
 	vector<string>::iterator tmp;
-	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); ){
+	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); tmp++){
 		if( tmp[0].compare(type) == 0)
 			return true;
 	}

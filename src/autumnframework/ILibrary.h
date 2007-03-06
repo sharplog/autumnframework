@@ -31,6 +31,12 @@ class ILibrary{
 public:
 	/** Get function address */
 	virtual void* getFunction(string name) = 0;
+
+	/** 
+	 * if don't define this destructor, the devided class's 
+	 * destructor may not be called when it being deleted.
+	 */
+	virtual ~ILibrary(){}
 };
 
 #endif

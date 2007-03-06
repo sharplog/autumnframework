@@ -81,8 +81,11 @@ BeanFactoryImpl::~BeanFactoryImpl()
 	
 	AutumnLog::getInstance()->debug("BeanFactoryImpl->~BeanFactoryImpl");
 
-	delete this->Config;
 	delete this->ManagerOfBean;
+	delete this->ManagerOfType;
+
+	// Config will be used when deleting ManagerOfBean.
+	delete this->Config;
 	BeanFactoryImpl::Instance = NULL;
 }
 
