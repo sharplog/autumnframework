@@ -1,0 +1,11 @@
+#summary Development log.
+
+== 03/06/2007 ==
+
+fix three bugs:
+  * don't close dynamic libraries when exiting progress.
+  * don't free TypeManager when free BeanFactory.
+  * a dead loop in TypeManager->isCustomized() function.
+
+== 03/05/2007 ==
+  * release 0.1.0 version.
