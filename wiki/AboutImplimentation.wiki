@@ -20,6 +20,8 @@ Autumn Framework本身就支持Prototype模式，如果应用中已经采用这�
 wrapper中增加对Singleton创建的支持。如果应用中已经采用Singleton模式，则在wrapper中声明相应的创建方法，并在配置文件中必须声明该bean为singleton，否则可能会出错。其实，Autumn的Singleton更灵活好用，可以全局只有一个，也可以某个范围内只有一个。
 
 = 对注入类型的支持 =
+  * *map*
+    *由于将map<string, void*>强制转换成map<string, classA*>应用，可能会出错（http://sharplogautumn.spaces.live.com/blog/cns!13AC373D7F3EAA87!126.entry），所以应在应用中生成和释放map。可以采用某种方式（比如模板或宏），让应用很容易的自定义一个map基本类型。
   * *对象的引用*
   * *远程引用，WebService？*
 
