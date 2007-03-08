@@ -18,11 +18,11 @@ all:: $(DLLLIBNAME)
 
 clean::
 	rm -f *.o ./$(DLLLIBNAME)
-	rm ../lib/$(DLLLIBNAME)
-	rm ../include/BeanWrapperMacro.h
-	rm ../include/IBasicType.h
-	rm ../include/IBeanFactory.h
-	rm ../include/IBeanWrapper.h
+	rm -f ../lib/$(DLLLIBNAME)
+	rm -f ../include/BeanWrapperMacro.h
+	rm -f ../include/IBasicType.h
+	rm -f ../include/IBeanFactory.h
+	rm -f ../include/IBeanWrapper.h
 
 test::
 
