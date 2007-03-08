@@ -12,11 +12,14 @@ using namespace std;
 class MyBasicType: public IBasicType{
 public:
 	void* createValue(const vector<string>& vl, vector<string>::iterator& it){
-		MyData* p = new MyData;
-		p->i = atoi(vl[0].c_str());
-		p->s = vl[1];
-
-		return p;
+		if( it != vl.end() && ++it != vl.end()){
+			MyData* p = new MyData;
+			p->i = atoi((*--it).c_str());
+			p->s = (*++it).c_str();
+	
+			return p;
+		}
+		return NULL;
 	}
 
 	void freeValue(void *p){
