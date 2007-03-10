@@ -53,12 +53,15 @@ public:																\
 		this->pBean = NULL;											\
 	}																\
 																	\
-	~bean##_Wrapper(){											\
+	~bean##_Wrapper(){												\
 		if( this->pBean ) {											\
 			if( this->getDestroyable() ) {							\
 				this->destroyBean();								\
 			}														\
-			delete this->pBean;										\
+			if( this->hasDeletor() ) 								\
+				this->deleteBean();									\
+			else													\
+				delete this->pBean;									\
 		}															\
 	}																\
 																	\
@@ -88,6 +91,34 @@ public:																\
 	}
 
 /** 
+ * Create a bean with static factory method without parameter
+ * @param bean The bean name, it is user's class name
+ * @param method The static factory method name
+ * @return NULL if failed
+*/
+#define AUTUMNBEAN_CON_METHOD(bean, method)							\
+	void* createBean(){												\
+		this->pBean = NULL;											\
+		this->pBean = bean.method();								\
+		return this->pBean;											\
+	}
+
+/** 
+ * Create a bean with factory without parameter
+ * @param factory The factory name
+ * @param method The factory method name
+ * @return NULL if failed
+*/
+#define AUTUMNBEAN_CON_FACTORY(factory, method)						\
+	void* createBean(void** pPrams, int num){						\
+		this->pBean = NULL;											\
+		if( num > 0 ) {												\
+			this->pBean = (factory*)pPrams[0]->method();			\
+		}															\
+		return this->pBean;											\
+	}
+
+/** 
  * Create a bean with parameters
  * This is the first part of creating function.
  * @param bean The bean name, it is user's class name
@@ -104,6 +135,46 @@ public:																\
 																	\
 		int i = 0;													\
 		this->pBean = new bean(										\
+			*(type*)pPrams[PARAM_SUF]
+
+/** 
+ * Create a bean with static factory method with parameters
+ * This is the first part of creating function.
+ * @param bean The bean name, it is user's class name
+ * @param method The static factory method name
+ * @param param_num The number of constructor's parameters
+ * @param type The first parameter's type
+ * @return NULL if failed
+ */
+#define AUTUMNBEAN_CON_METHOD_PARAMS(bean, method, param_num, type)	\
+	void* createBean(void** pPrams, int num){						\
+		this->pBean = NULL;											\
+		if( num != param_num){										\
+			return this->pBean;										\
+		}															\
+																	\
+		int i = 0;													\
+		this->pBean = bean.method(									\
+			*(type*)pPrams[PARAM_SUF]
+
+/** 
+ * Create a bean with factory with parameters
+ * This is the first part of creating function.
+ * @param factory The factory name
+ * @param method The factory method name
+ * @param param_num The number of constructor's parameters
+ * @param type The first parameter's type
+ * @return NULL if failed
+ */
+#define AUTUMNBEAN_CON_FACTORY_PARAMS(factory, method, param_num, type)	\
+	void* createBean(void** pPrams, int num){						\
+		this->pBean = NULL;											\
+		if( num != param_num + 1){									\
+			return this->pBean;										\
+		}															\
+																	\
+		int i = 1;													\
+		this->pBean = (factory*)pPrams[0]->method(					\
 			*(type*)pPrams[PARAM_SUF]
 
 /** 
@@ -159,12 +230,25 @@ public:																\
 			this->pBean->set##pname(*(ptype*)value);				\
 		}															\
 		else 
+
 /** 
- * the last part of bean's setter
+ * the last part of a bean's setter
  */
 #define AUTUMNBEAN_SETTER_END()										\
 			return -1;												\
 		return 0;													\
+	}
+	
+/** 
+ * If a bean has deletor, must use it to delete the bean.
+ * This maybe be usefule when a bean is created with static factory method.
+ * @param bean The bean name, it is user's class name
+ * @param method The deletor name
+ */
+#define AUTUMNBEAN_DELETOR(bean, method)							\
+	bool hasDeletor(){return true;}									\
+	void deleteBean(){												\
+		bean.method(this->pBean);									\
 	}
 	
 /** 

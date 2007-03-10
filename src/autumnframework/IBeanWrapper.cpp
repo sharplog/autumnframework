@@ -37,6 +37,13 @@ void* IBeanWrapper::createBean(void** pPrams, int num)
 	return NULL;
 }
 
+void IBeanWrapper::deleteBean()
+{
+	throw new MissDefinitionEx("IBeanWrapper", 
+		"deleteBean()", 
+		"Definition of bean[" + this->BeanName + "] deleteBean() method is missing!");
+}
+
 void IBeanWrapper::initializeBean()
 {
 	throw new MissDefinitionEx("IBeanWrapper", 

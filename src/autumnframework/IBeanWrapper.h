@@ -54,11 +54,14 @@ class DLL_IM_EXPORT IBeanWrapper{
 	/** 
 	 * bean's property 
 	 */
-	bool Initializable;		//initializable or not
-	bool Destroyable;		//destroyable or not
-	bool Singleton;			//is singleton or not
+	bool Initializable;							// initializable or not
+	bool Destroyable;							// destroyable or not
+	bool Singleton;								// is singleton or not
+	
 public:
 	virtual void* getBean() = 0;
+	
+	virtual bool hasDeletor(){return false;}	// has deletor or not
 
 	void setBeanName(string name){ this->BeanName = name; }
 	string getBeanName(){ return this->BeanName; }
@@ -83,6 +86,8 @@ public:
 
 	virtual void* createBean(void** pPrams, int num);
 
+	virtual void deleteBean();
+	
 	virtual void initializeBean();
 
 	virtual void destroyBean();
