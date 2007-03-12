@@ -120,7 +120,10 @@ void* BeanFactoryImpl::getBean(string name)
 
 	BeanConfig* bc = this->Config->getBeanConfig(name);
 	// Not found
-	if( bc == NULL ) return NULL;
+	if( bc == NULL ){
+		AutumnLog::getInstance()->error("BeanFactoryImpl->getBean: bean[" + name + "]'s config is not found");
+		return NULL;
+	}
 
 	// If singleton
 	if( bc->isSingleton() ){

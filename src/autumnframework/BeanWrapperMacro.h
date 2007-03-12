@@ -113,7 +113,7 @@ public:																\
 	void* createBean(void** pPrams, int num){						\
 		this->pBean = NULL;											\
 		if( num > 0 ) {												\
-			this->pBean = (factory*)pPrams[0]->method();			\
+			this->pBean = ((factory*)pPrams[0])->method();			\
 		}															\
 		return this->pBean;											\
 	}
@@ -174,7 +174,7 @@ public:																\
 		}															\
 																	\
 		int i = 1;													\
-		this->pBean = (factory*)pPrams[0]->method(					\
+		this->pBean = ((factory*)pPrams[0])->method(				\
 			*(type*)pPrams[PARAM_SUF]
 
 /** 
