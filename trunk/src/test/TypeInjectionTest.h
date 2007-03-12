@@ -12,7 +12,7 @@ class TypeInjectionTest{
 	CPPUNIT_TEST(testBeanType);
 	CPPUNIT_TEST(testSingleton);
 	CPPUNIT_TEST(testInitDestroyable);
-	CPPUNIT_TEST(testSelfManage);
+//	CPPUNIT_TEST(testSelfManage);
 	CPPUNIT_TEST(testInjectFromLibElse);
 	CPPUNIT_TEST(testLocalBean);
 	CPPUNIT_TEST(testCustomizedType);

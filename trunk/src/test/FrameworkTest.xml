@@ -190,6 +190,54 @@
 					</property>
 				</properties>
 			</bean>
+			
+			<!-- test factory -->
+			<bean class="Factory1" name="Factory11" singleton="true" />
+			<bean class="Factory2" name="Factory22" singleton="true" />
+			<bean class="IProductA" name="ProductA1">
+				<constructor-arg>
+					<argument name="arg1" type="Factory1">
+						<value>Factory11</value>
+					</argument>
+					<argument name="arg2" type="string">
+						<value>name_A1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="IProductB" name="ProductB1">
+				<constructor-arg>
+					<argument name="arg1" type="Factory1">
+						<value>Factory11</value>
+					</argument>
+					<argument name="arg2" type="string">
+						<value>name_B1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="IProductC" name="ProductC1">
+				<constructor-arg>
+					<argument name="arg1" type="Factory1">
+						<value>Factory11</value>
+					</argument>
+				</constructor-arg>
+				<properties>
+					<property name="Name" type="string">
+						<value>name_C1</value>
+					</property>
+				</properties>
+			</bean>
+			<bean class="IProductA" name="ProductA2">
+				<constructor-arg>
+					<argument name="arg1" type="Factory2">
+						<value>Factory22</value>
+					</argument>
+					<argument name="arg2" type="string">
+						<value>name_A2</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			
+			
 		</beans>
 		<types>
 			<type class="MyBasicType" name="MyData" />
