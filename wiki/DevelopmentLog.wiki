@@ -3,6 +3,7 @@
 == 03/13/2007 ==
 impement factory pattern:
   * instance factory: use "factory-bean" attribute of bean.
+  * static factory method: one bean support only one factory method.
 
 == 03/12/2007 ==
 implement instance factory pattern. Tested on VC6. I used a simple way to get it: pass factory instance to bean wrapper->createBean as a constructor argument, and define it as a argument also. I will add <factory-bean> tag in schema.
