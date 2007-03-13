@@ -123,6 +123,7 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	XMLCSTR init		= xml.getAttribute("initializable");
 	XMLCSTR destory		= xml.getAttribute("destroyable");
 	XMLCSTR singleton	= xml.getAttribute("singleton");
+	XMLCSTR factory		= xml.getAttribute("factory-bean");
 	
 	string hasInit("false");
 	string hasDestroy("false");
@@ -161,6 +162,20 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		}
 	}
 
+	// instance factory pattern, set factory as the first argument
+	if( factory != NULL ){
+		TProperty factoryArg;
+
+		// setting type to bean's class name only to make TypeManager to get factory
+		// instance from BeanFacotry. This depends on the implement of TypeManager.
+		factoryArg.Type = bean.ClassName;
+		factoryArg.Value.push_back(string(factory));
+		factoryArg.Name = factory;
+		factoryArg.InjectType = "";
+		factoryArg.Managed = false;
+		bean.ConArgs.push_back(factoryArg);
+	}
+	
 	// Constructor argument
 	XMLNode args = xml.getChildNode(argsTag);
 	if( ! args.isEmpty() ){
