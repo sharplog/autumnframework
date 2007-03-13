@@ -56,7 +56,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework.lib /nologo /dll /machine:I386 /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy       IBasicTypeBean.h       ..\include\  	copy       release\TestDll.lib       ..\lib\      	copy       release\TestDll.dll       ..\lib\ 	copy       release\TestDll.dll       ..\lib\TestDll2.dll 	copy  IProduct.h  ..\include\ 
+PostBuild_Cmds=copy        IBasicTypeBean.h        ..\include\   	copy        release\TestDll.lib        ..\lib\       	copy        release\TestDll.dll        ..\lib\  	copy        release\TestDll.dll        ..\lib\TestDll2.dll  	copy   IProduct.h   ..\include\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
@@ -86,7 +86,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework_D.lib /nologo /dll /debug /machine:I386 /out:"Debug/TestDll_D.dll" /pdbtype:sept /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy         IBasicTypesBean.h         ..\include\        	copy         debug\TestDll_D.dll         ..\lib\        	copy         debug\TestDll_D.lib         ..\lib\ 	copy         debug\TestDll_D.dll        ..\lib\TestDll2_D.dll 	copy  IProduct.h  ..\include\ 
+PostBuild_Cmds=copy          IBasicTypesBean.h          ..\include\         	copy          debug\TestDll_D.dll          ..\lib\         	copy          debug\TestDll_D.lib          ..\lib\  	copy          debug\TestDll_D.dll         ..\lib\TestDll2_D.dll  	copy   IProduct.h   ..\include\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -109,6 +109,10 @@ SOURCE=.\BeanTypeBeanExp.cpp
 # Begin Source File
 
 SOURCE=.\FactoryExp.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\FactoryMethodBeanExp.cpp
 # End Source File
 # Begin Source File
 
@@ -137,6 +141,10 @@ SOURCE=.\BeanTypeBean.h
 # Begin Source File
 
 SOURCE=.\Factories.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FactoryMethodBean.h
 # End Source File
 # Begin Source File
 

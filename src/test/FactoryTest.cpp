@@ -29,3 +29,14 @@ void FactoryTest::testInstanceFacotry()
 	this->bf->freeBean(pc);
 	this->bf->freeBean(pa2);
 }
+
+void FactoryTest::testStaticFacotryMethod()
+{
+	IProductA* pa = (IProductA*)this->bf->getBean("ProductAM");
+	IProductA* pb = (IProductA*)this->bf->getBean("ProductBM");
+	
+	CPPUNIT_ASSERT(pa->getName().compare("ProductA_M_name_AM") == 0 );
+	CPPUNIT_ASSERT(pb->getName().compare("ProductB_M_name_BM") == 0 );
+	this->bf->freeBean(pa);
+	this->bf->freeBean(pb);
+}
