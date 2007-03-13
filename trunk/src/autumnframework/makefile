@@ -1,30 +1,28 @@
 .SUFFIXES:	.cpp .o
 
 include ../config/makeConfig
-include makeObjects
+include ../config/make.rules
+include $(OBJSFILE)
 
 .cpp.o:
-	$(CXX) $(CXXFLAGS) -c $<
+	$(CXX) $(CXXFLAGS) -I../include -c $<
 
 $(DLLLIBNAME):$(OBJS)
 	$(DLLMAKER) $(DLLLDFLAGS) -o $@ $(OBJS)
-	cp ./$(DLLLIBNAME) ../lib/
-	cp ./BeanWrapperMacro.h ../include/
-	cp ./IBasicType.h ../include/
-	cp ./IBeanFactory.h ../include/
-	cp ./IBeanWrapper.h ../include/
+	$(CP) ./$(DLLLIBNAME) ../lib/
 
 all:: $(DLLLIBNAME)
 
 clean::
-	rm -f *.o ./$(DLLLIBNAME)
-	rm -f ../lib/$(DLLLIBNAME)
-	rm -f ../include/BeanWrapperMacro.h
-	rm -f ../include/IBasicType.h
-	rm -f ../include/IBeanFactory.h
-	rm -f ../include/IBeanWrapper.h
+	$(RM) *.o ./$(DLLLIBNAME)
+	$(RM) ../lib/$(DLLLIBNAME)
 
 test::
 
-include makeDepend
+depend::
+	$(CXX) -I../include -MM *.cpp >$(DEPENDFILE)
+	@echo "OBJS= \\" >$(OBJSFILE)
+	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
+
+include $(DEPENDFILE)
 

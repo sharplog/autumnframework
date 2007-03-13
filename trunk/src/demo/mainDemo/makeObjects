@@ -1,1 +1,2 @@
-OBJS=mainDemo.o
+OBJS= \
+mainDemo.o \

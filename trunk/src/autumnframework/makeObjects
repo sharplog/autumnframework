@@ -1,1 +1,16 @@
-OBJS=AutumnConfig.o AutumnLog.o BeanConfig.o BeanFactoryImpl.o BeanManager.o BeanProperty.o IBeanWrapper.o ICombinedType.o LocalLibrary.o LoggerExport.o PointerType.o TypeManager.o ValueWrapper.o XMLResource.o xmlParser.o
+OBJS= \
+AutumnConfig.o \
+AutumnLog.o \
+BeanConfig.o \
+BeanFactoryImpl.o \
+BeanManager.o \
+BeanProperty.o \
+IBeanWrapper.o \
+ICombinedType.o \
+LocalLibrary.o \
+LoggerExport.o \
+PointerType.o \
+TypeManager.o \
+ValueWrapper.o \
+XMLResource.o \
+xmlParser.o \

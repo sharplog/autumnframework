@@ -1,1 +1,4 @@
-OBJS=ActionExp.o LowerAction.o UpperAction.o
+OBJS= \
+ActionExp.o \
+LowerAction.o \
+UpperAction.o \

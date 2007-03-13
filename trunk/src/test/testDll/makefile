@@ -1,26 +1,30 @@
 .SUFFIXES:	.cpp .o
 
 include ../../config/makeConfig
-include makeObjects
+include ../../config/make.rules
+include $(OBJSFILE)
 
 TESTDLLNAME=TestDll.so
 
 .cpp.o:
-	$(CXX) $(CXXFLAGS) -I../../include -c $<
+	$(CXX) $(CXXFLAGS) -I../../include -I../include -c $<
 
 $(TESTDLLNAME):$(OBJS)
 	$(DLLMAKER) $(DLLLDFLAGS) -L../../lib -l$(DLLNAME) -o $@ $(OBJS)
-	cp ./$(TESTDLLNAME) ../lib/
-	cp ./IBasicTypesBean.h ../include/
+	$(CP) ./$(TESTDLLNAME) ../lib/
 
 all::$(TESTDLLNAME)
 
 clean::
-	rm -f *.o ./$(TESTDLLNAME)
-	rm -f ../lib/$(TESTDLLNAME)
-	rm -f ../include/IBasicTypesBean.h
+	$(RM) *.o ./$(TESTDLLNAME)
+	$(RM) ../lib/$(TESTDLLNAME)
 
 test::
 
-include makeDepend
+depend::
+	$(CXX) -I../../include -I../include -MM *.cpp >$(DEPENDFILE)
+	@echo "OBJS= \\" >$(OBJSFILE)
+	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
+
+include $(DEPENDFILE)
 

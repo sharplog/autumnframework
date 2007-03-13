@@ -1,1 +1,5 @@
-OBJS=FrameTestMain.o LocalBeanExp.o TypeInjectionTest.o
+OBJS= \
+FactoryTest.o \
+FrameTestMain.o \
+LocalBeanExp.o \
+TypeInjectionTest.o \

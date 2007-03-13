@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "../include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
 # ADD BASE RSC /l 0x804 /d "NDEBUG"
 # ADD RSC /l 0x804 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -52,7 +52,7 @@ LIB32=link.exe -lib
 # ADD LIB32 /nologo
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy    release\autumnframeworks.lib    ..\lib\	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\BeanWrapperMacro.h ..\include
+PostBuild_Cmds=copy     release\autumnframeworks.lib     ..\lib\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "AutumnFrameworkS - Win32 Debug"
@@ -68,7 +68,7 @@ PostBuild_Cmds=copy    release\autumnframeworks.lib    ..\lib\	copy ..\autumnfra
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "../include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /FD /GZ /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x804 /d "_DEBUG"
 # ADD RSC /l 0x804 /d "_DEBUG"
@@ -80,7 +80,7 @@ LIB32=link.exe -lib
 # ADD LIB32 /nologo /out:"Debug\AutumnFrameworkS_D.lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy  debug\autumnframeworks_d.lib  ..\lib\	copy ..\autumnframework\IBeanWrapper.h ..\include	copy ..\autumnframework\IBeanFactory.h ..\include	copy ..\autumnframework\IBasicType.h ..\include	copy ..\autumnframework\BeanWrapperMacro.h ..\include
+PostBuild_Cmds=copy   debug\autumnframeworks_d.lib   ..\lib\ 
 # End Special Build Tool
 
 !ENDIF 
