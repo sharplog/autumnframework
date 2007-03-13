@@ -1,0 +1,5 @@
+
+OBJSFILE=makeObjects
+DEPENDFILE=makeDepend
+CP= cp -f
+

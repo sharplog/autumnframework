@@ -7,7 +7,7 @@ include $(OBJSFILE)
 TESTDLLNAME=injectBeanImpl.so
 
 .cpp.o:
-	$(CXX) $(CXXFLAGS) -I../../include -c $<
+	$(CXX) $(CXXFLAGS) -I../../include -I../include -c $<
 
 $(TESTDLLNAME):$(OBJS)
 	$(DLLMAKER) $(DLLLDFLAGS) -L../../lib -l$(DLLNAME) -o $@ $(OBJS)
@@ -22,7 +22,7 @@ clean::
 test::
 
 depend::
-	$(CXX) $(CXXFLAGS) -I../../include -MM *.cpp >$(DEPENDFILE)
+	$(CXX) $(CXXFLAGS) -I../../include -I../include -MM *.cpp >$(DEPENDFILE)
 	@echo "OBJS= \\" >$(OBJSFILE)
 	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
 
