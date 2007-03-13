@@ -1,7 +1,8 @@
 .SUFFIXES:	.cpp .o
 
 include ../../config/makeConfig
-include makeObjects
+include ../../config/make.rules
+include $(OBJSFILE)
 
 TESTDLLNAME=injectBeanImpl.so
 
@@ -10,16 +11,19 @@ TESTDLLNAME=injectBeanImpl.so
 
 $(TESTDLLNAME):$(OBJS)
 	$(DLLMAKER) $(DLLLDFLAGS) -L../../lib -l$(DLLNAME) -o $@ $(OBJS)
-	cp ./$(TESTDLLNAME) ../lib/
-	cp ./Action.h ../include/
+	$(CP) ./$(TESTDLLNAME) ../lib/
 
 all:: $(TESTDLLNAME)
 
 clean::
-	rm -f *.o ./$(TESTDLLNAME)
-	rm -f ../lib/$(TESTDLLNAME)
-	rm -f ../include/Action.h
+	$(RM) *.o ./$(TESTDLLNAME)
+	$(RM) ../lib/$(TESTDLLNAME)
 
 test::
 
-include makeDepend
+depend::
+	$(CXX) $(CXXFLAGS) -I../../include -MM *.cpp >$(DEPENDFILE)
+	@echo "OBJS= \\" >$(OBJSFILE)
+	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
+
+include $(DEPENDFILE)

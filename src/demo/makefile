@@ -1,10 +1,11 @@
 .SUFFIXES:	.cpp .o
 
 include ../config/makeConfig
+include ../config/make.rules
 
 SUBDIRS=injectBeanImpl mainDemo
 
-all test clean::
+all test clean depend::
 	@for subdir in $(SUBDIRS);	\
 	do	\
 		echo "making $@ in $$subdir"; \

@@ -1,7 +1,8 @@
 .SUFFIXES:	.cpp .o
 
 include ../../config/makeConfig
-include makeObjects
+include ../../config/make.rules
+include $(OBJSFILE)
 
 EXENAME=mainDemo
 
@@ -14,9 +15,17 @@ $(EXENAME): $(OBJS)
 all:: $(EXENAME)
 
 clean::
-	rm -f *.o ./$(EXENAME)
+	$(RM) *.o ./$(EXENAME)
 
 test:: 
 	@$(LDLIBPATH)=$($(LDLIBPATH)):../../lib;   \
 	export $(LDLIBPATH);    \
 	sh ./runtest
+
+depend::
+	$(CXX) -I../../include -I../include -MM *.cpp >$(DEPENDFILE)
+	@echo "OBJS= \\" >$(OBJSFILE)
+	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
+
+include $(DEPENDFILE)
+
