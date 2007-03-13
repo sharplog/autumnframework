@@ -1,9 +1,12 @@
 #summary Development log.
 
 == 03/13/2007 ==
-implement factory pattern:
-  * instance factory: use "factory-bean" attribute of bean.
-  * static factory method: one bean support only one factory method.
+  # implement factory pattern:
+   * instance factory: use "factory-bean" attribute of bean.
+   * static factory method: one bean support only one factory method.
+  # refine makefile to generate object file list and dependence file.
+  # test ver 0.2.0 on aix, ubuntu and solaris.
+  # release ver 0.2.0.
 
 == 03/12/2007 ==
 implement instance factory pattern. Tested on VC6. I used a simple way to get it: pass factory instance to bean wrapper->createBean as a constructor argument, and define it as a argument also. I will add <factory-bean> tag in schema.
@@ -17,3 +20,6 @@ fix three bugs:
 
 == 03/05/2007 ==
   * release 0.1.0 version.
+
+
+
