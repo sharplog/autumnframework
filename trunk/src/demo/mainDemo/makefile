@@ -26,6 +26,7 @@ depend::
 	$(CXX) -I../../include -I../include -MM *.cpp >$(DEPENDFILE)
 	@echo "OBJS= \\" >$(OBJSFILE)
 	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
+	@echo >>$(OBJSFILE)
 
 include $(DEPENDFILE)
 
