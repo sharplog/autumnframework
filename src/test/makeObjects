@@ -3,3 +3,4 @@ FactoryTest.o \
 FrameTestMain.o \
 LocalBeanExp.o \
 TypeInjectionTest.o \
+
