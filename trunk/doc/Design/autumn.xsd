@@ -85,6 +85,7 @@
 					<xs:documentation>A bean is not a singleton in default</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
+			<xs:attribute name="factory-bean" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="property" type="propertyType"/>
