@@ -8,6 +8,7 @@
 class FactoryTest{
 	CPPUNIT_TEST_SUITE(FactoryTest);
 	CPPUNIT_TEST(testInstanceFacotry);
+	CPPUNIT_TEST(testStaticFacotryMethod);
 	CPPUNIT_TEST_SUITE_END();
 	
 private:
@@ -18,6 +19,7 @@ public:
 	void tearDown();
 	
 	void testInstanceFacotry();
+	void testStaticFacotryMethod();
 };
 
 #endif

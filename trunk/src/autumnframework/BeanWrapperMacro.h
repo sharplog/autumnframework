@@ -99,7 +99,7 @@ public:																\
 #define AUTUMNBEAN_CON_METHOD(bean, method)							\
 	void* createBean(){												\
 		this->pBean = NULL;											\
-		this->pBean = bean.method();								\
+		this->pBean = bean::method();								\
 		return this->pBean;											\
 	}
 
@@ -154,7 +154,7 @@ public:																\
 		}															\
 																	\
 		int i = 0;													\
-		this->pBean = bean.method(									\
+		this->pBean = bean::method(									\
 			*(type*)pPrams[PARAM_SUF]
 
 /** 
@@ -248,7 +248,7 @@ public:																\
 #define AUTUMNBEAN_DELETOR(bean, method)							\
 	bool hasDeletor(){return true;}									\
 	void deleteBean(){												\
-		bean.method(this->pBean);									\
+		bean::method(this->pBean);									\
 	}
 	
 /** 

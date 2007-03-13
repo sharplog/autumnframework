@@ -237,6 +237,15 @@
 				</constructor-arg>
 			</bean>
 			
+			<!-- Test static factory method -->
+			<bean class="ProductA_M" name="ProductAM">
+				<constructor-arg>
+					<argument name="arg1" type="string">
+						<value>name_AM</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="ProductB_M" name="ProductBM" />
 			
 		</beans>
 		<types>
