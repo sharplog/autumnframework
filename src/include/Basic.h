@@ -32,4 +32,7 @@ using namespace std;
 typedef vector<string> StrValueList;
 typedef vector<string>::iterator StrIterator;
 
+/** A type represents pointer */
+typedef long TPointer;
+
 #endif 

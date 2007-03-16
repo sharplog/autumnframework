@@ -32,8 +32,6 @@
  */
 const char* LogBeanName = "AutumnFrameworkLog";
 
-IBeanFactory* BeanFactoryImpl::Instance = NULL;
-
 /** 
  * Constructor
  * @param config Configuration resource
@@ -48,7 +46,7 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	// or the customized types will be added to type manager twice.
 	vector<string> beanClasses = this->Config->getAllBeanClasses();
 	for(int i = 0; i<beanClasses.size(); i++)
-		this->ManagerOfType->setBasicType(beanClasses[i], new ObjectType);
+		this->ManagerOfType->setBasicType(beanClasses[i], new ObjectType(this));
 
 	// Add customized types
 	vector<TypeConfig>* types = this->Config->getAllTypes();
@@ -86,26 +84,6 @@ BeanFactoryImpl::~BeanFactoryImpl()
 
 	// Config will be used when deleting ManagerOfBean.
 	delete this->Config;
-	BeanFactoryImpl::Instance = NULL;
-}
-
-/** 
- * Get this singleton's instance
- * @param config Configuration resource
- */
-IBeanFactory* BeanFactoryImpl::getInstance(IResource* config)
-{
-	if( BeanFactoryImpl::Instance == NULL )
-		BeanFactoryImpl::Instance = new BeanFactoryImpl(config);
-	return BeanFactoryImpl::Instance;
-}
-
-/** Get this singleton's instance */
-IBeanFactory* BeanFactoryImpl::getInstance()
-{
-	if( BeanFactoryImpl::Instance != NULL )
-		return BeanFactoryImpl::Instance;
-	throw new NonInstanceEx("BeanFactoryImpl", "getInstance", "Instance is NULL");
 }
 
 /** 
@@ -219,13 +197,13 @@ bool BeanFactoryImpl::isSingleton(string name)
 		return false;
 }
 
-/** Get IBeanFactory instance */
-IBeanFactory* getBeanFactoryWithXML(const char* file)
+/** Get IBeanFactory */
+IBeanFactory* getBeanFactoryWithXML(const char* xmlFile)
 {
-	return BeanFactoryImpl::getInstance(new XMLResource(file));
+	return new BeanFactoryImpl(new XMLResource(xmlFile));
 }
 
-/** Delete IBeanFactory instance */
+/** Delete IBeanFactory */
 void deleteBeanFactory(IBeanFactory* p)
 {
 	delete p;

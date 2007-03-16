@@ -18,7 +18,7 @@
 #define AUTUMN_OBJECTTYPE_H
 
 #include "IBasicType.h"
-#include "BeanFactoryImpl.h"
+#include "IBeanFactory.h"
 #include "AutumnException.h"
 
 /** 
@@ -28,7 +28,16 @@
  * @since 2006-21-15
  */
 class ObjectType:public IBasicType{
+	
+	/** Bean factory */
+	IBeanFactory* Bf;
+
 public:
+	/** Constructor */
+	ObjectType(IBeanFactory* p){
+		this->Bf = p;
+	}
+	
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
@@ -38,7 +47,7 @@ public:
 	 */
 	void* createValue(const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
-			return (void*)BeanFactoryImpl::getInstance()->getBean(*it++);
+			return (void*)this->Bf->getBean(*it++);
 		}
 		throw new NonValueEx("ObjectType", "createValue",
 			"There is no string in vector!");
@@ -46,7 +55,7 @@ public:
 
 	/** Free the space where p point */
 	void freeValue(void* p){
-		BeanFactoryImpl::getInstance()->freeBean(p);
+		this->Bf->freeBean(p);
 	}
 	
 };

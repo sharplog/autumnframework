@@ -32,9 +32,6 @@
 
 class BeanFactoryImpl:public IBeanFactory{
 private:
-	/** The singleton's instance */
-	static IBeanFactory* Instance;
-
 	/** 
 	 * Autumn configuration
 	 */
@@ -50,23 +47,13 @@ private:
 	 */
 	TypeManager* ManagerOfType;
 
+public:
 	/** 
 	 * Constructor
 	 * @param config Configuration resource
 	 */
 	BeanFactoryImpl(IResource* config);
 
-public:
-	/**
-	 *Get this singleton's instance 
-	 * @param config Configuration resource
-	 * @return Instance of IBeanFactory
-	 */
-	static IBeanFactory* getInstance(IResource* config);
-
-	/** Get this singleton's instance */
-	static IBeanFactory* getInstance();
-	
 	/** 
 	 * Get a bean with bean's name
 	 * @param name Bean's name
@@ -94,11 +81,6 @@ public:
 	 */
 	virtual bool isSingleton(string name);
 
-	/** Get type manager */
-	TypeManager* getTypeManager(){
-		return this->ManagerOfType;
-	}
-	
 	/** Destructor */
 	virtual ~BeanFactoryImpl();
 };
