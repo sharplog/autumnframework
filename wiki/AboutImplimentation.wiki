@@ -7,17 +7,7 @@ Add your content here.
 
 = 对创建模式的支持 =
 发现还是象Spring那样，分为静态工厂方法和实例工厂比较合理一些，而不是按抽象工厂和工厂方法来区分。
-
-  * *Abstract Factory*
-为抽象产品创建wrapper，在wrapper创建bean时，将工厂实例传进去，工厂生产产品的方法在定义wrapper时就定死，不在配置文件中定义。因为如果在配置文件中可以定义方法名称的话，该方法就需要在动态库中export，会增加使用复杂度。在配置文件中，class写的是抽象产品的名称。可以考虑增加类似<factory-refrence>之类的标签，wrapper中增加makeBean方法来调用工厂生产产品的方法。要支持使用工厂生产bean时的注入，注入方式可能跟构造子注入类似，支持无参数的或有参数的生产方法。
-  * *Factory Method*
-跟Abstract Factory类似，只是wrapper创建bean时，不用传工厂实例，工厂是在定义wrapper时就写死的，所以不需要<factory-refrence>之类的标签。
-  * *Builder*
-不易支持，或者说不需要支持。采用这种模式的创建过程比较复杂。
-  * *Prototype*
-Autumn Framework本身就支持Prototype模式，如果应用中已经采用这种模式，也可以改用Autumn来实现，对原来的实现没有影响。
-  * *Singleton*
-wrapper中增加对Singleton创建的支持。如果应用中已经采用Singleton模式，则在wrapper中声明相应的创建方法，并在配置文件中必须声明该bean为singleton，否则可能会出错。其实，Autumn的Singleton更灵活好用，可以全局只有一个，也可以某个范围内只有一个。
+已经支持，但静态工厂方法只支持一个，不能同时使用多个。以后想办法支持。
 
 = 对注入类型的支持 =
   * *map*
@@ -33,6 +23,8 @@ wrapper中增加对Singleton创建的支持。如果应用中已经采用Singlet
 象Spring中那样可以定义别名，便于使用。
   * *属性注入方法重载*
 把属性注入方法中的属性判断移到Framework中，这样，可以通过配置来实现是否允许重载。如果不允许重载的话，就不需要在bean的属性注入配置中说明注入类型了。
+  * *属性注入*
+修改Wrapper，让它既可以设置属性，又可以取得属性的类型。这样，在配置文件中就可以不用设置属性的类型了。对于bean类型的注入，也采用<ref bean="xxx"/>的形式。如此，就不允许属性注入方法重载了。
 
 = 未处理好的问题 =
   * *bean由应用销毁的问题*
