@@ -37,7 +37,7 @@ private:
 	static const int HashDivisor;
 
 	/** All beans */
-	MapHashTable<long, long> Beans;
+	MapHashTable<TPointer, TPointer> Beans;
 	
 	/** Singleton beans */
 	map<string, void*> SingletonBeans;

@@ -65,14 +65,14 @@ BeanManager::~BeanManager()
  */
 void BeanManager::deleteBean(void* p)
 {
-	long pw;
+	TPointer pw;
 	typedef void WrapperFreer (IBeanWrapper*);
 	
 	AutumnLog::getInstance()->debug("BeanManager->deleteBean");
 
 	// Delete from hash table
 	// Maybe it has deleted somewhere, like ~BeanManager()
-	if( this->Beans.deleteElement((long)p, pw) ){
+	if( this->Beans.deleteElement((TPointer)p, pw) ){
 		IBeanWrapper* pt = (IBeanWrapper *)pw;
 		
 		// Singleton will be deleted at last
@@ -84,8 +84,8 @@ void BeanManager::deleteBean(void* p)
 }
 
 IBeanWrapper* BeanManager::releaseBean(void* p){
-	long pw = (long)NULL;
-	this->Beans.deleteElement((long)p, pw);
+	TPointer pw = (TPointer)NULL;
+	this->Beans.deleteElement((TPointer)p, pw);
 	this->deleteSingleton(p);
 	return (IBeanWrapper*)pw;
 }
@@ -97,8 +97,8 @@ IBeanWrapper* BeanManager::releaseBean(void* p){
  */
 void BeanManager::addBean(string name, IBeanWrapper* pw)
 {
-	long pl = (long)pw;
-	this->Beans.insertElement((long)pw->getBean(), pl);
+	TPointer pl = (TPointer)pw;
+	this->Beans.insertElement((TPointer)pw->getBean(), pl);
 
 	if( pw->getSingleton() )
 		this->SingletonBeans.insert(make_pair(name, pw->getBean()));

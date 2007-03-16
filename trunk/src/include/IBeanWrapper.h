@@ -19,6 +19,7 @@
 
 #include <string>
 #include <vector>
+#include "Basic.h"
 
 #ifdef WIN32
 	#ifdef AUTUMNFRAMEWORK_EXPORTS
@@ -41,12 +42,11 @@ using namespace std;
 
 class DLL_IM_EXPORT IBeanWrapper{
 	typedef void WrapperFreer(IBeanWrapper*);
-	typedef long ParamPointer;
 	
 	string BeanName;
 
 	/** pointers of parameters, using long type */
-	vector<ParamPointer> Parameters;
+	vector<TPointer> Parameters;
 
 	/** function pointer to delete wrapper */
 	WrapperFreer* WrapperDeleter;
@@ -78,8 +78,8 @@ public:
 	void setWrapperDeleter(WrapperFreer* wd){ this->WrapperDeleter = wd; }
 	WrapperFreer* getWrapperDeleter(){ return this->WrapperDeleter; }
 	
-	void addParameter(ParamPointer p){ this->Parameters.push_back(p); }
-	vector<ParamPointer> getParameter(){ return this->Parameters; }
+	void addParameter(TPointer p){ this->Parameters.push_back(p); }
+	vector<TPointer> getParameter(){ return this->Parameters; }
 
 	
 	virtual void* createBean();

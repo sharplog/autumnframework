@@ -56,7 +56,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework.lib /nologo /dll /machine:I386 /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy        release\TestDll.dll        ..\lib\  	copy        release\TestDll.dll        ..\lib\TestDll2.dll  
+PostBuild_Cmds=copy        release\TestDll.dll        ..\lib\  	copy        release\TestDll.dll        ..\lib\TestDll2.dll
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
@@ -86,7 +86,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework_D.lib /nologo /dll /debug /machine:I386 /out:"Debug/TestDll_D.dll" /pdbtype:sept /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy          debug\TestDll_D.dll          ..\lib\         	copy          debug\TestDll_D.dll         ..\lib\TestDll2_D.dll  
+PostBuild_Cmds=copy          debug\TestDll_D.dll          ..\lib\         	copy          debug\TestDll_D.dll         ..\lib\TestDll2_D.dll
 # End Special Build Tool
 
 !ENDIF 
@@ -148,7 +148,7 @@ SOURCE=.\FactoryMethodBean.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\IBasicTypesBean.h
+SOURCE=..\include\IBasicTypesBean.h
 # End Source File
 # Begin Source File
 
@@ -160,7 +160,7 @@ SOURCE=.\InitDestBean.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\IProduct.h
+SOURCE=..\include\IProduct.h
 # End Source File
 # Begin Source File
 

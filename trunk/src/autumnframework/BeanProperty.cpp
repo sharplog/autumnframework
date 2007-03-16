@@ -44,7 +44,7 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 			pw->getBeanName() + "] failed!");
 	}
 	
-	pw->addParameter((long)value.release());
+	pw->addParameter((TPointer)value.release());
 }
 
 void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
@@ -52,6 +52,6 @@ void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 	/** Property's value */
 	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, this->StrValue, this->Managed, tm));
 
-	pw->addParameter((long)value.get());
+	pw->addParameter((TPointer)value.get());
 	return value.release()->getValuePointer();
 }
