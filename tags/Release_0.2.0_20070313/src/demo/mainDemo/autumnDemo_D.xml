@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
+	<library path="../lib/injectBeanImpl_D.dll" name="injectBeanImpl">
+		<beans>
+			<bean class="UpperAction" name="TheAction">
+				<properties>
+					<property name="Message" type="char*">
+						<value>Hello</value>
+					</property>
+				</properties>
+			</bean>
+		</beans>
+	</library>
+</autumn>

@@ -1,0 +1,9 @@
+OBJS= \
+BasicTypesBeanExp.o \
+BeanTypeBeanExp.o \
+FactoryExp.o \
+FactoryMethodBeanExp.o \
+MyTypesExp.o \
+ProductsExp.o \
+SingInitDestBeanExp.o \
+

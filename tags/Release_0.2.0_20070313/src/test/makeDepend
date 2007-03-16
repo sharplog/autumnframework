@@ -1,0 +1,8 @@
+FactoryTest.o: FactoryTest.cpp include/IProduct.h FactoryTest.h \
+  UnitTestMacro.h ../include/IBeanFactory.h
+FrameTestMain.o: FrameTestMain.cpp TypeInjectionTest.h UnitTestMacro.h \
+  ../include/IBeanFactory.h FactoryTest.h
+LocalBeanExp.o: LocalBeanExp.cpp ../include/BeanWrapperMacro.h \
+  ../include/IBeanWrapper.h LocalBean.h include/IBasicTypesBean.h
+TypeInjectionTest.o: TypeInjectionTest.cpp TypeInjectionTest.h \
+  UnitTestMacro.h ../include/IBeanFactory.h include/IBasicTypesBean.h
