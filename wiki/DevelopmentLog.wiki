@@ -6,6 +6,8 @@
  * simplize TypeManager.
  * judge which type a value is by type bean, not TypeManager.
  * don't support property setter overloading.
+ * support bean ref
+ * type needn't be set in config file, can be get with wrapper
 
 == 03/16/2007 ==
 change BeanFactoryImpl to be not a singleton.
@@ -30,6 +32,5 @@ fix three bugs:
 
 == 03/05/2007 ==
   * release 0.1.0 version.
-
 
 
