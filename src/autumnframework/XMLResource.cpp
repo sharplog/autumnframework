@@ -263,7 +263,7 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 	// ref
 	XMLNode ref = xml.getChildNode("ref");
 	if( ! ref.isEmpty() ){
-		XMLCSTR b = xml.getAttribute("bean");
+		XMLCSTR b = ref.getAttribute("bean");
 		if ( NULL != b){
 			prop.Value.push_back(b);
 			isBeanRef = "true";
@@ -271,7 +271,7 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 		else{
 			throw new XMLParsingEx("XMLResource", "parseProperty", 
 				"Error when parsing property '" + prop.Name + 
-				"'. There is no bean name.");
+				"'. There is no reference bean name .");
 		}
 	}
 	
