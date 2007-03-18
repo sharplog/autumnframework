@@ -113,15 +113,23 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="propertyType">
-		<xs:sequence>
+		<xs:choice>
 			<xs:element name="value" type="xs:string" maxOccurs="unbounded">
 				<xs:annotation>
 					<xs:documentation>If value is empty, it is empty string</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-		</xs:sequence>
+			<xs:element name="ref">
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:anySimpleType">
+							<xs:attribute name="bean"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
 		<xs:attribute name="name" type="xs:string" use="required"/>
-		<xs:attribute name="type" type="xs:string" use="required"/>
-		<xs:attribute name="inject-type" type="xs:string"/>
+		<xs:attribute name="type" type="xs:string" use="optional"/>
 	</xs:complexType>
 </xs:schema>
