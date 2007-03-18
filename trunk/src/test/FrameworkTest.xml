@@ -111,7 +111,7 @@
 						<value>BasicTypesBean3</value>
 					</property>
 					<property name="CStr">
-						<value>BasicTypesBean4</value>
+						<ref bean="BasicTypesBean4"/>
 					</property>
 				</properties>
 			</bean>
