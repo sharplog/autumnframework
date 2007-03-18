@@ -16,6 +16,7 @@
 
 #include <memory>
 #include "BeanConfig.h"
+#include "IBeanWrapper.h"
 
 /** erase space char */
 string trimString(const string v)
@@ -44,8 +45,10 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	this->ConArgs = new PropertyList;
 	this->Properties = new PropertyList;
 	
+	
 	int i;
 	TProperty *p;
+	auto_ptr<IBeanWrapper> pw( wc() );
 	for(i=0; i<beandef.ConArgs.size(); i++){
 		p = &beandef.ConArgs[i];
 		this->ConArgs->push_back(new BeanProperty(p->Name,
@@ -54,8 +57,13 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	}
 	for(i=0; i<beandef.Properties.size(); i++){
 		p = &beandef.Properties[i];
+
+		string tmpType = p->Type;
+		if( tmpType.compare("") == 0)
+			pw->getBeanPropertyType(p->Name.c_str(), tmpType);
+
 		this->Properties->push_back(new BeanProperty(p->Name, 
-				trimString(p->Type), 
+				trimString(tmpType), 
 				p->Value, p->IsBeanRef, p->Managed));
 	}
 }

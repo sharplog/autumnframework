@@ -23,10 +23,10 @@
 
 void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
-	IAutumnType* at = tm->findTypeBean(this->getType(pw));
+	IAutumnType* at = tm->findTypeBean(this->Type);
 	
 	/** Property's value */
-	auto_ptr<ValueWrapper>value(new ValueWrapper(this->getType(pw), 
+	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
 				this->StrValue, this->Managed, at));
 	
 	int rtn = pw->setBeanPropertyValue(this->Name.c_str(), 
@@ -44,22 +44,12 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 
 void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 {
-	IAutumnType* at = tm->findTypeBean(this->getType(pw));
+	IAutumnType* at = tm->findTypeBean(this->Type);
 	
 	/** Property's value */
-	auto_ptr<ValueWrapper> value( new ValueWrapper(this->getType(pw), 
+	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, 
 				this->StrValue, this->Managed, at));
 
 	pw->addParameter((TPointer)value.get());
 	return value.release()->getValuePointer();
-}
-
-string BeanProperty::getType(IBeanWrapper* pw)
-{
-	if( this->Type.compare("") == 0 ){
-		string tmp;
-		pw->getBeanPropertyType(this->Name.c_str(), tmp);
-		this->Type = trimString(tmp);
-	}
-	return this->Type;
 }
