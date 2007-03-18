@@ -1,6 +1,12 @@
 #summary Development log.
 #labels Featured
 
+== 03/18/2007 ==
+ * unite IBasicType and ICombinedType into IAutumnType.
+ * simplize TypeManager.
+ * judge which type a value is by type bean, not TypeManager.
+ * don't support property setter overloading.
+
 == 03/16/2007 ==
 change BeanFactoryImpl to be not a singleton.
 
