@@ -18,7 +18,7 @@
 #define AUTUMN_POINTERTYPE_H
 
 #include "Basic.h"
-#include "ICombinedType.h"
+#include "IAutumnType.h"
 
 /** 
  * Create correctly pointer value and free it.
@@ -27,26 +27,26 @@
  * @since 2006-21-02
  */
 
-class PointerType:public ICombinedType{
+class PointerType:public IAutumnType{
 public:
 	/** 
 	 * Create a pointer of basic type from StrValueList.
+	 * @param type Type of the value
 	 * @param vl A Vector<string>
-	 * @param basicType Base type of the pointer value
 	 * @param it A iterator pointing to the first unused string, it will be changed
 	 * in this function.
 	 * @return A pointer to the pointer value
 	 */
-	void* createValue(const StrValueList& vl, string basicType, StrIterator& it);
+	void* createValue(const string type, const StrValueList& vl, StrIterator& it);
 
 	/** 
-	 * Free the space where p point 
+	 * Free the space where p points 
 	 * @param p Pointer to a pointer value
-	 * @param basicType Base type of the pointer value
+	 * @param type Type of the value
 	*/
-	void freeValue(void* p, string basicType);
+	void freeValue(void* p, const string type);
 	
-	/** Free the space where p point, don't free it's memeber's space */
+	/** Free the space where p points, don't free it's memeber's space */
 	void freeSelfSpace(void* p){
 		delete (void**)p;
 	}

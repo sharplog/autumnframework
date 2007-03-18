@@ -14,13 +14,15 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_ICOMBINEDTYPE_H
-#define AUTUMN_ICOMBINEDTYPE_H
+#ifndef AUTUMN_IAUTUMNTYPE_H
+#define AUTUMN_IAUTUMNTYPE_H
 
 #include <vector>
 #include <string>
 
 using namespace std;
+
+class TypeManager;
 
 /** 
  * Interface of ValueType
@@ -28,26 +30,10 @@ using namespace std;
  * @version 0.1.0
  * @since 2006-11-25
  */
-class ICombinedType{
+class IAutumnType{
 private:
-	void* TypeMng;
+	TypeManager* TypeMng;
 
-protected:
-	/** 
-	 * Create one value of basic type
-	 * @param vl Strings for construct value
-	 * @param basicType The basic types for this combined type, one or more basic types
-	 * @param it A iterator pointing to the first unused string, it will be changed
-	 * in this function.
-	*/
-	void* createBasicValue(const vector<string>& vl, string basicType, vector<string>::iterator& it);
-
-	/** Free one value of basic type */
-	void freeBasicValue(void* p, string basicType);
-	
-	/** Free the space where p point, don't free it's memeber's space */
-	void freeSelfBasicValue(void* p, string basicType);
-	
 public:
 	/** 
 	 * Create a value from StrValueList.
@@ -56,27 +42,30 @@ public:
 	 * in this function.
 	 * @return A pointer to a pointer value
 	 */
-	virtual void* createValue(const vector<string>& vl, string basicType, vector<string>::iterator& it) = 0;
+	virtual void* createValue(const string type, const vector<string>& vl, vector<string>::iterator& it) = 0;
 
 	/** Free the space where p point, include it's memeber's space */
-	virtual void freeValue(void* p, string basicType) = 0;
+	virtual void freeValue(void* p, const string type) = 0;
 	
 	/** Free the space where p point, don't free it's memeber's space */
 	virtual void freeSelfSpace(void* p) = 0;
 	
 	/** 
 	 * Set type manager
-	 * use void* replacing TypeManager* for easy using, this interface becomes simpler.
 	 * @param p A pointer to TypeManager
 	 */
-	void setTypeManager(void* p){
+	void setTypeManager(TypeManager* p){
 		this->TypeMng = p;
+	}
+	
+	TypeManager* getTypeManager(){
+		return this->TypeMng;
 	}
 	
 	/** 
 	 * Destructor
 	 */
-	virtual ~ICombinedType(){}
+	virtual ~IAutumnType(){}
 };
 
 #endif

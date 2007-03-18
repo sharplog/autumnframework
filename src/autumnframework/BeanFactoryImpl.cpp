@@ -22,6 +22,7 @@
 #include "BeanFactoryImpl.h"
 #include "AutumnException.h"
 #include "IBeanWrapper.h"
+#include "IAutumnType.h"
 #include "ObjectType.h"
 
 /** 
@@ -45,8 +46,11 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	// Add each bean as a basic type. Do this before adding customized types,
 	// or the customized types will be added to type manager twice.
 	vector<string> beanClasses = this->Config->getAllBeanClasses();
-	for(int i = 0; i<beanClasses.size(); i++)
-		this->ManagerOfType->setBasicType(beanClasses[i], new ObjectType(this));
+	for(int i = 0; i<beanClasses.size(); i++){
+		IAutumnType* pt = new ObjectType(this);
+		pt->setTypeManager(this->ManagerOfType);
+		this->ManagerOfType->addTypeBean(beanClasses[i], pt);
+	}
 
 	// Add customized types
 	vector<TypeConfig>* types = this->Config->getAllTypes();
@@ -54,15 +58,9 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 		TypeConfig tc = (*types)[j];
 		this->Config->setBeanConfig(tc.Name, tc.BeanCfg);
 
-		void* p = this->getBean(tc.Name);
-		if( tc.IsBasic ) {
-			this->ManagerOfType->setBasicType(tc.Name, (IBasicType*)p, true);
-		}
-		else{
-			ICombinedType* pc = (ICombinedType*)p;
-			pc->setTypeManager(this->ManagerOfType);
-			this->ManagerOfType->setCombinedType(tc.Name, pc, true);
-		}
+		IAutumnType* pt =(IAutumnType*) this->getBean(tc.Name);
+		pt->setTypeManager(this->ManagerOfType);
+		this->ManagerOfType->addTypeBean(tc.Name, pt, true);
 	}
 	
 	// use logger configured by user
