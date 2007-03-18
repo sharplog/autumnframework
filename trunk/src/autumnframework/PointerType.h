@@ -50,6 +50,10 @@ public:
 	void freeSelfSpace(void* p){
 		delete (void**)p;
 	}
+	
+	virtual bool isThisType(const string type){
+		return type.at(type.size()-1) == '*';
+	}
 };
 
 #endif

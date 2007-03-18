@@ -61,6 +61,10 @@ public:
 	virtual void freeSelfSpace(void* p){
 		this->Bf->freeBean(p);
 	}
+	
+	virtual bool isThisType(const string type){
+		return type.compare("autumnbean") == 0;
+	}
 };
 
 #endif

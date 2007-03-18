@@ -35,4 +35,5 @@ typedef vector<string>::iterator StrIterator;
 /** A type represents pointer */
 typedef long TPointer;
 
+string trimString(const string v);
 #endif 

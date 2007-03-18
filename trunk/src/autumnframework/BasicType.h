@@ -32,7 +32,12 @@
  * @since 2006-11-25
  */
 template<class T, T createfun(const char*), void freefun(T)>class BasicType:public IAutumnType{
+private:
+	string typeFormat;
+
 public:
+	BasicType(const string name): typeFormat(name){}
+	
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
 	 * @param vl A Vector<string>
@@ -49,6 +54,10 @@ public:
 	
 	/** Free the space where p points, don't free it's memeber's space */
 	virtual void freeSelfSpace(void* p);
+
+	virtual bool isThisType(const string type){
+		return type.compare(this->typeFormat) == 0;
+	}
 };
 
 template<class T, T createfun(const char*), void freefun(T)>

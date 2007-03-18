@@ -38,18 +38,20 @@ private:
 	/** Property's type */
 	string Type;
 	
-	/** Property's type for injection*/
-	string InjectType;
-	
 	/** String list presenting parameter value */
 	StrValueList StrValue;
 	
 	/** Managed by Autumn framework or not */
 	bool Managed;
 
+	/** the type is a ref of bean or not */
+	bool IsBeanRef;
+	
+	string getType(IBeanWrapper* pw);
+	
 public:
-	BeanProperty(string name, string type, string itype, StrValueList& vl, bool b=true):
-	  Name(name), Type(type), InjectType(itype), StrValue(vl), Managed(b){ }
+	BeanProperty(string name, string type, StrValueList& vl, bool r, bool b=true):
+	  Name(name), Type(type), StrValue(vl), IsBeanRef(r), Managed(b){ }
 
 	/** 
 	 * Set a object's property.

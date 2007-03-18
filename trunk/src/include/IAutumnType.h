@@ -49,6 +49,9 @@ public:
 	
 	/** Free the space where p point, don't free it's memeber's space */
 	virtual void freeSelfSpace(void* p) = 0;
+
+	/** Is this type or not */
+	virtual bool isThisType(const string type) = 0;
 	
 	/** 
 	 * Set type manager

@@ -70,8 +70,8 @@ public:
 	void setUCStr(unsigned char* p)	{ this->mUCStr = p; }
 
 	//setter using pointer
-	void setInt(int* p)				{this->mInt = *p; }
-	void setCStr(char** p)			{this->mCStr = *p; }
+	void setIntP(int* p)			{this->mInt = *p; }
+	void setCStrP(char** p)			{this->mCStr = *p; }
 
 	//getter
 	virtual char getChar()			{ return this->mChar; }
