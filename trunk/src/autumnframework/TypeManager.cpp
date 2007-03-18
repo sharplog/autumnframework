@@ -14,12 +14,31 @@
 * limitations under the License.
 */
 #include <cstdlib>
+#include "TypeManager.h"
+#include "IAutumnType.h"
 #include "BasicType.h"
 #include "PointerType.h"
 #include "ObjectType.h"
 #include "StringType.h"
-#include "TypeManager.h"
 #include "AutumnException.h"
+
+// The basic types
+const string charBT("char");
+const string ucharBT("unsignedchar");
+const string shortBT("short");
+const string ushortBT("unsignedshort");
+const string intBT("int");
+const string uintBT("unsignedint");
+const string longBT("long");
+const string ulongBT("unsignedlong");
+const string floatBT("float");
+const string doubleBT("double");
+const string stringBT("string");
+const string cstrBT("char*");
+const string ucstrBT("unsignedchar*");
+
+// The combined types
+const string pointerCT("*");
 
 
 /** 
@@ -59,24 +78,24 @@ TypeManager::TypeManager()
 {
 	//I think that unsigned is same to singed to deal with except long
 	// The following is for basic type.
-	this->BasicTypeList.insert(make_pair(charBT, (IBasicType*)new BasicType<char, atoch, freech>));
-	this->BasicTypeList.insert(make_pair(ucharBT, (IBasicType*)new BasicType<char, atoch, freech>));
-	this->BasicTypeList.insert(make_pair(shortBT, (IBasicType*)new BasicType<short, atosh, freesh>));
-	this->BasicTypeList.insert(make_pair(ushortBT, (IBasicType*)new BasicType<short, atosh, freesh>));
-	this->BasicTypeList.insert(make_pair(intBT, (IBasicType*)new BasicType<int, atoint, freeint>));
-	this->BasicTypeList.insert(make_pair(uintBT, (IBasicType*)new BasicType<int, atoint, freeint>));
-	this->BasicTypeList.insert(make_pair(longBT, (IBasicType*)new BasicType<long, atolong, freelong>));
-	this->BasicTypeList.insert(make_pair(ulongBT, (IBasicType*)new BasicType<unsigned long, atoul, freeul>));
-	this->BasicTypeList.insert(make_pair(floatBT, (IBasicType*)new BasicType<float, atofl, freefl>));
-	this->BasicTypeList.insert(make_pair(doubleBT, (IBasicType*)new BasicType<double, atodb, freedb>));
-	this->BasicTypeList.insert(make_pair(cstrBT, (IBasicType*)new BasicType<charstrPointer, atocs, freecs>));
-	this->BasicTypeList.insert(make_pair(ucstrBT, (IBasicType*)new BasicType<charstrPointer, atocs, freecs>));
-	this->BasicTypeList.insert(make_pair(stringBT, (IBasicType*)new StringType));
+	this->TypeList.insert(make_pair(charBT, (IAutumnType*)new BasicType<char, atoch, freech>));
+	this->TypeList.insert(make_pair(ucharBT, (IAutumnType*)new BasicType<char, atoch, freech>));
+	this->TypeList.insert(make_pair(shortBT, (IAutumnType*)new BasicType<short, atosh, freesh>));
+	this->TypeList.insert(make_pair(ushortBT, (IAutumnType*)new BasicType<short, atosh, freesh>));
+	this->TypeList.insert(make_pair(intBT, (IAutumnType*)new BasicType<int, atoint, freeint>));
+	this->TypeList.insert(make_pair(uintBT, (IAutumnType*)new BasicType<int, atoint, freeint>));
+	this->TypeList.insert(make_pair(longBT, (IAutumnType*)new BasicType<long, atolong, freelong>));
+	this->TypeList.insert(make_pair(ulongBT, (IAutumnType*)new BasicType<unsigned long, atoul, freeul>));
+	this->TypeList.insert(make_pair(floatBT, (IAutumnType*)new BasicType<float, atofl, freefl>));
+	this->TypeList.insert(make_pair(doubleBT, (IAutumnType*)new BasicType<double, atodb, freedb>));
+	this->TypeList.insert(make_pair(cstrBT, (IAutumnType*)new BasicType<charstrPointer, atocs, freecs>));
+	this->TypeList.insert(make_pair(ucstrBT, (IAutumnType*)new BasicType<charstrPointer, atocs, freecs>));
+	this->TypeList.insert(make_pair(stringBT, (IAutumnType*)new StringType));
 
 	// The following is for combined type.
 	PointerType* ppt = new PointerType;
 	ppt->setTypeManager(this);
-	this->CombinedTypeList.insert(make_pair(pointerCT, (ICombinedType*)ppt));
+	this->TypeList.insert(make_pair(pointerCT, (IAutumnType*)ppt));
 }
 
 /** 
@@ -84,39 +103,33 @@ TypeManager::TypeManager()
  */
 TypeManager::~TypeManager(){
 	AutumnLog::getInstance()->debug("TypeManager->~TypeManager");
-	for(map<string, IBasicType*>::iterator itb = this->BasicTypeList.begin(); itb != this->BasicTypeList.end(); itb++){
+	for(map<string, IAutumnType*>::iterator it = this->TypeList.begin(); it != this->TypeList.end(); it++){
 		// customized type is freed by bean manager
-		if( !this->isCustomized(itb->first) )
-			delete itb->second;
-	}
-	for(map<string, ICombinedType*>::iterator itc = this->CombinedTypeList.begin(); itc != this->CombinedTypeList.end(); itc++){
-		if( !this->isCustomized(itc->first) )
-			delete itc->second;
+		if( !this->isCustomized(it->first) )
+			delete it->second;
 	}
 }
 
-IBasicType* TypeManager::findBasicType(string type)
+IAutumnType* TypeManager::findTypeBean(string type)
 {
-	if( this->BasicTypeList.find(type) != this->BasicTypeList.end() ) {
-		return this->BasicTypeList[type];
+	if( this->TypeList.find(type) != this->TypeList.end() ) {
+		return this->TypeList[type];
 	}
-	return NULL;
+	
+	for( int i=type.size()-1; i>0; i-- ){
+		if( this->TypeList.find(type.substr(i)) != this->TypeList.end()){
+			return this->TypeList[type.substr(i)];
+		}
+	}
+
+	throw new MissDefinitionEx("TypeManager", 
+		"findTypeBean", 
+		string("Type of [") + type + "] is not found!" );
 }
 
 void TypeManager::addCustomizedType(string name)
 {
 	this->CustomizedTypes.push_back(name);
-}
-
-void TypeManager::eraseCustomizedType(string name)
-{
-	vector<string>::iterator tmp;
-	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); ){
-		if( tmp[0].compare(name) == 0)
-			this->CustomizedTypes.erase(tmp);
-		else
-			tmp++;
-	}
 }
 
 bool TypeManager::isCustomized(string type)
@@ -129,129 +142,14 @@ bool TypeManager::isCustomized(string type)
 	return false;
 }
 
-ICombinedType* TypeManager::findCombinedType(string type, int& pos)
+void TypeManager::addTypeBean(string name, IAutumnType* at, bool customized)
 {
-	for( int i=type.size()-1; i>0; i-- ){
-		if( this->CombinedTypeList.find(type.substr(i)) !=
-			this->CombinedTypeList.end()){
-			// type.substr(0, i) is basic type
-			pos = i;
-			return this->CombinedTypeList[type.substr(i)];
-		}
-	}
-	return NULL;
-}
-
-/** 
- * Set a couple of name and BasicType into list
- * @param name Type name
- * @param bt A pointer to BasicType
-*/
-void TypeManager::setBasicType(string name, IBasicType* bt, bool customized)
-{
-	if( this->BasicTypeList.find(name) != this->BasicTypeList.end() ){
-		this->BasicTypeList[name] = bt;
+	if( this->TypeList.find(name) != this->TypeList.end() ){
+		this->TypeList[name] = at;
 	}
 	else {
-		this->BasicTypeList.insert(make_pair(name, bt));
+		this->TypeList.insert(make_pair(name, at));
 	}
 	if( customized )
 		this->addCustomizedType(name);
-}
-
-/** 
- * Set a couple of name and CombinedType into list
- * @param name Type name
- * @param ct A pointer to CombinedType
-*/
-void TypeManager::setCombinedType(string name, ICombinedType* ct, bool customized)
-{
-	if( this->CombinedTypeList.find(name) != this->CombinedTypeList.end() ){
-		this->CombinedTypeList[name] = ct;
-	}
-	else {
-		this->CombinedTypeList.insert(make_pair(name, ct));
-	}
-	if( customized )
-		this->addCustomizedType(name);
-}
-
-/** 
- * Create a value from StrValueList.
- * @param vl A Vector<string>
- * @return A pointer to a value
- */
-void* TypeManager::createValue(const StrValueList& vl, string type, StrIterator& it)
-{
-	AutumnLog::getInstance()->debug("TypeManager->createValue, type: " + type);
-	
-	if( vl.size() == 0 ){
-		throw new NonValueEx("TypeManager", 
-			"createValue", 
-			string("String value of type[") + type + string("] is not found!"));
-	}
-	
-	int pos;
-	if( IBasicType* bt = this->findBasicType(type) ) {
-		return bt->createValue(vl, it);
-	}
-	
-	if( ICombinedType* ct = this->findCombinedType(type, pos) ){
-		return ct->createValue(vl, type.substr(0,pos), it);
-	}
-
-	throw new MissDefinitionEx("TypeManager", 
-			"createValue", 
-			string("Type of [") + type + string("] is not found!") );
-}
-
-/** Free the space where p point */
-void TypeManager::freeValue(void* p, string type)
-{
-	AutumnLog::getInstance()->debug("TypeManager->freeValue, type: " + type);
-	
-	int pos;
-	if( IBasicType* bt = this->findBasicType(type) ) {
-		bt->freeValue(p);
-	}
-	else if( ICombinedType* ct = this->findCombinedType(type, pos) ){
-		ct->freeValue(p, type.substr(0,pos));
-	}
-	else {
-		throw new MissDefinitionEx("TypeManager", 
-			"freeValue", 
-			string("Type of [") + type + string("] is not found!") );
-	}
-}
-
-/** Free the space where p pointing to, the space occupied by the type self */
-void TypeManager::freeSelfSpace(void* p, string type)
-{
-	if( IBasicType* bt = this->findBasicType(type) ) {
-		bt->freeValue(p);
-		return;
-	}
-	
-	int pos;
-	if( ICombinedType* ct = this->findCombinedType(type, pos) ){
-		ct->freeSelfSpace(p);
-		return;
-	}
-
-	throw new MissDefinitionEx("TypeManager", 
-		"freeSelfSpace", 
-		string("Type of [") + type + string("] is not found!") );
-}
-
-/** 
- * Erase a couple of name and ValueType from list
- * @param type Type name
- */
-void TypeManager::eraseValueType(string type, bool customized)
-{
-	// the type maybe be in BasicTypeList or CombinedTypeList
-	this->BasicTypeList.erase(type);
-	this->CombinedTypeList.erase(type);
-	if( customized )
-		this->eraseCustomizedType(type);
 }

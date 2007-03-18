@@ -16,14 +16,17 @@
 
 #include <memory>
 #include "ValueWrapper.h"
+#include "IAutumnType.h"
 #include "BeanProperty.h"
 #include "AutumnException.h"
 
 void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
+	IAutumnType* at = tm->findTypeBean(this->Type);
+	
 	/** Property's value */
 	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
-									this->StrValue, this->Managed, tm));
+									this->StrValue, this->Managed, at));
 	
 	int rtn;
 	if( this->InjectType.compare("") != 0){
@@ -49,8 +52,10 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 
 void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 {
+	IAutumnType* at = tm->findTypeBean(this->Type);
+	
 	/** Property's value */
-	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, this->StrValue, this->Managed, tm));
+	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, this->StrValue, this->Managed, at));
 
 	pw->addParameter((TPointer)value.get());
 	return value.release()->getValuePointer();

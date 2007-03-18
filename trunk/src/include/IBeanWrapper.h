@@ -81,6 +81,15 @@ public:
 	void addParameter(TPointer p){ this->Parameters.push_back(p); }
 	vector<TPointer> getParameter(){ return this->Parameters; }
 
+	int setBeanPropertyValue(const char* name, void* value){
+		string dummy;
+		return this->operateBeanProperty(name, "setvalue", dummy, value);
+	}
+	
+	int getBeanPropertyType(const char* name, string& type){
+		return this->operateBeanProperty(name, "gettype", type, NULL);
+	}
+	
 	
 	virtual void* createBean();
 
@@ -94,6 +103,9 @@ public:
 
 	virtual int setBeanProperty(const char* name, const char* type, void* value);
 
+	//TODO
+	virtual int operateBeanProperty(const char* name, const char* op, string& type, void* value){return 0;}
+	
 	/** Destructor */
 	virtual ~IBeanWrapper();
 };

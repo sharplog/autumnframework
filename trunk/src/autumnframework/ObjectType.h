@@ -17,7 +17,7 @@
 #ifndef AUTUMN_OBJECTTYPE_H
 #define AUTUMN_OBJECTTYPE_H
 
-#include "IBasicType.h"
+#include "IAutumnType.h"
 #include "IBeanFactory.h"
 #include "AutumnException.h"
 
@@ -27,7 +27,7 @@
  * @version 0.1.0
  * @since 2006-21-15
  */
-class ObjectType:public IBasicType{
+class ObjectType:public IAutumnType{
 	
 	/** Bean factory */
 	IBeanFactory* Bf;
@@ -45,7 +45,7 @@ public:
 	 * in this function.
 	 * @return A pointer to a value of object
 	 */
-	void* createValue(const StrValueList& vl, StrIterator& it){
+	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
 			return (void*)this->Bf->getBean(*it++);
 		}
@@ -54,10 +54,13 @@ public:
 	}
 
 	/** Free the space where p point */
-	void freeValue(void* p){
+	virtual void freeValue(void* p, const string type){
 		this->Bf->freeBean(p);
 	}
 	
+	virtual void freeSelfSpace(void* p){
+		this->Bf->freeBean(p);
+	}
 };
 
 #endif

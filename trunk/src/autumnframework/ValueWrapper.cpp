@@ -15,26 +15,26 @@
 */
 
 #include <string>
-#include "TypeManager.h"
+#include "IAutumnType.h"
 #include "ValueWrapper.h"
 #include "AutumnLog.h"
 
 using namespace std;
 
-ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm):
-  Type(type), Managed(managed), TypeMng(tm){
+ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, IAutumnType* at):
+  Type(type), Managed(managed), TypeBean(at){
 	StrIterator it = vl.begin();
-	this->PointerOfValue = this->TypeMng->createValue(vl, type, it);
+	this->PointerOfValue = this->TypeBean->createValue(type, vl, it);
 }
 	
 ValueWrapper::~ValueWrapper(){
 	if( this->PointerOfValue != NULL ){
 		AutumnLog::getInstance()->debug("ValueWrapper->~ValueWrapper, type: " + this->Type);
 		if( this->Managed ){
-			this->TypeMng->freeValue(this->PointerOfValue, this->Type);
+			this->TypeBean->freeValue(this->PointerOfValue, this->Type);
 		}
 		else{
-			this->TypeMng->freeSelfSpace(this->PointerOfValue, this->Type);
+			this->TypeBean->freeSelfSpace(this->PointerOfValue);
 		}
 	}
 }

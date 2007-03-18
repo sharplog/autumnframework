@@ -18,7 +18,7 @@
 #define AUTUMN_STRINGTYPEI_H
 
 #include "Basic.h"
-#include "IBasicType.h"
+#include "IAutumnType.h"
 #include "AutumnException.h"
 
 /** 
@@ -27,7 +27,7 @@
  * @version 0.1.0
  * @since 2006-11-28
  */
-class StringType:public IBasicType{
+class StringType:public IAutumnType{
 public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
@@ -36,7 +36,7 @@ public:
 	 * in this function.
 	 * @return A pointer to a value
 	 */
-	void* createValue(const StrValueList& vl, StrIterator& it){
+	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
 			string *p = new string(*it++);
 			return (void*)p; //*p is the value
@@ -45,8 +45,13 @@ public:
 			"There is no string in vector!");
 	}
 
+	virtual void freeValue(void* p, const string type){
+		// free space of string
+		delete (string*)p;
+	}
+	
 	/** Free the space where p point*/
-	void freeValue(void* p){
+	virtual void freeSelfSpace(void* p){
 		// free space of string
 		delete (string*)p;
 	}

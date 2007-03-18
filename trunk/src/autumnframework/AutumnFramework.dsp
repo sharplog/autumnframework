@@ -57,7 +57,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy   release\autumnframework.dll    ..\lib\  	copy   release\autumnframework.lib    ..\lib\ 
+PostBuild_Cmds=copy    release\autumnframework.dll     ..\lib\   	copy    release\autumnframework.lib     ..\lib\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "AutumnFramework - Win32 Debug"
@@ -87,7 +87,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"Debug/AutumnFramework_D.dll" /pdbtype:sept
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy   debug\autumnframework_d.dll    ..\lib\  	copy   debug\autumnframework_d.lib    ..\lib\ 
+PostBuild_Cmds=copy    debug\autumnframework_d.dll     ..\lib\   	copy    debug\autumnframework_d.lib     ..\lib\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -126,10 +126,6 @@ SOURCE=.\BeanProperty.cpp
 # Begin Source File
 
 SOURCE=.\IBeanWrapper.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\ICombinedType.cpp
 # End Source File
 # Begin Source File
 
@@ -221,7 +217,7 @@ SOURCE=.\FileLogger.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\include\IBasicType.h
+SOURCE=..\include\IAutumnType.h
 # End Source File
 # Begin Source File
 
@@ -230,10 +226,6 @@ SOURCE=..\include\IBeanFactory.h
 # Begin Source File
 
 SOURCE=..\include\IBeanWrapper.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\ICombinedType.h
 # End Source File
 # Begin Source File
 
@@ -273,7 +265,7 @@ SOURCE=.\StringType.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\TypeManager.h
+SOURCE=..\include\TypeManager.h
 # End Source File
 # Begin Source File
 

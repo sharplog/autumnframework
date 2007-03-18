@@ -18,7 +18,7 @@
 #define AUTUMN_BASICTYPE_H
 
 #include "Basic.h"
-#include "IBasicType.h"
+#include "IAutumnType.h"
 #include "AutumnException.h"
 
 /** 
@@ -31,7 +31,7 @@
  * @version 0.1.0
  * @since 2006-11-25
  */
-template<class T, T createfun(const char*), void freefun(T)>class BasicType:public IBasicType{
+template<class T, T createfun(const char*), void freefun(T)>class BasicType:public IAutumnType{
 public:
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).
@@ -40,14 +40,19 @@ public:
 	 * in this function.
 	 * @return A pointer to a value of type T
 	 */
-	void* createValue(const StrValueList& vl, StrIterator& it);
+	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it);
 
-	/** Free the space where p point */
-	void freeValue(void* pp);
+	/** Free the space where p points */
+	virtual void freeValue(void* pp, const string type){
+		this->freeSelfSpace(pp);
+	}
+	
+	/** Free the space where p points, don't free it's memeber's space */
+	virtual void freeSelfSpace(void* p);
 };
 
 template<class T, T createfun(const char*), void freefun(T)>
-void* BasicType<T, createfun, freefun>::createValue(const StrValueList& vl, StrIterator& it)
+void* BasicType<T, createfun, freefun>::createValue(const string type, const StrValueList& vl, StrIterator& it)
 {
 	if( it != vl.end() ){
 		T *p = new T;
@@ -59,7 +64,7 @@ void* BasicType<T, createfun, freefun>::createValue(const StrValueList& vl, StrI
 }
 
 template<class T, T createfun(const char*), void freefun(T)>
-void BasicType<T, createfun, freefun>::freeValue(void* pp){
+void BasicType<T, createfun, freefun>::freeSelfSpace(void* pp){
 	T* p = (T*)pp;
 	// free space for T if necessary
 	if( freefun != NULL){

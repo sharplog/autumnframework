@@ -17,17 +17,23 @@
 #include "PointerType.h"
 #include "TypeManager.h"
 
-void* PointerType::createValue(const StrValueList& vl, string basicType, StrIterator& it)
+void* PointerType::createValue(const string type, const StrValueList& vl, StrIterator& it)
 {
-	void* p = this->createBasicValue(vl, basicType, it);
+	string basicType = type.substr(0, type.size()-1); // erase the '*'
+	IAutumnType* at = this->getTypeManager()->findTypeBean(basicType);
+
+	void* p = at->createValue(basicType, vl, it);
 
 	void** pp = new (void*);
 	*pp = p;
 	return (void*)pp;
 }
 
-void PointerType::freeValue(void* p, string basicType)
+void PointerType::freeValue(void* p, string type)
 {
-	this->freeBasicValue(*(void**)p, basicType);
+	string basicType = type.substr(0, type.size()-1); // erase the '*'
+	IAutumnType* at = this->getTypeManager()->findTypeBean(basicType);
+	
+	at->freeValue(*(void**)p, basicType);
 	delete (void**)p;
 }

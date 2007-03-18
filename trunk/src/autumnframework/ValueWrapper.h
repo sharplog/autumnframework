@@ -20,6 +20,7 @@
 #include <string>
 #include "Basic.h"
 #include "TypeManager.h"
+#include "IAutumnType.h"
 
 using namespace std;
 
@@ -40,8 +41,8 @@ private:
 	/** Pointer to the argument */
 	void*  PointerOfValue;
 
-	/** Type manager */
-	TypeManager* TypeMng;
+	/** Type Bean to create or delete value */
+	IAutumnType* TypeBean;
 
 public:
 	
@@ -49,8 +50,10 @@ public:
 	 * Constructor a new ValueWrapper with type and value
 	 * @param type Type of the argument
 	 * @param vl Value string list of the argument
+	 * @param managed This value is managed by Autumn or not
+	 * @param at TypeBean to create and delete value
 	 */
-	ValueWrapper(string type, StrValueList& vl, bool managed, TypeManager* tm);
+	ValueWrapper(string type, StrValueList& vl, bool managed, IAutumnType* at);
 	
 	/** Destructor, delete pointer of value */
 	~ValueWrapper();

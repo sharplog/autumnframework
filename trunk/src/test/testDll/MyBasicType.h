@@ -4,14 +4,14 @@
 
 #include <string>
 #include <vector>
-#include "IBasicType.h"
+#include "IAutumnType.h"
 #include "MyData.h"
 
 using namespace std;
 
-class MyBasicType: public IBasicType{
+class MyBasicType: public IAutumnType{
 public:
-	void* createValue(const vector<string>& vl, vector<string>::iterator& it){
+	void* createValue(const string type, const vector<string>& vl, vector<string>::iterator& it){
 		if( it != vl.end() && ++it != vl.end()){
 			MyData* p = new MyData;
 			p->i = atoi((*--it).c_str());
@@ -22,7 +22,11 @@ public:
 		return NULL;
 	}
 
-	void freeValue(void *p){
+	void freeValue(void *p, const string type){
+		delete (MyData*)p;
+	}
+
+	void freeSelfSpace(void *p){
 		delete (MyData*)p;
 	}
 };
