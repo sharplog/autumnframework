@@ -29,6 +29,10 @@ public:
 	void freeSelfSpace(void *p){
 		delete (MyData*)p;
 	}
+
+	bool isThisType(const string type){
+		return type.compare("MyData") == 0;
+	}
 };
 #endif
 

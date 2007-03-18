@@ -55,6 +55,10 @@ public:
 		// free space of string
 		delete (string*)p;
 	}
+
+	virtual bool isThisType(const string type){
+		return type.compare("string") == 0;
+	}
 };
 
 #endif

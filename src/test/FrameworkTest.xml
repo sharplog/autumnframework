@@ -5,43 +5,43 @@
 			<!-- BasicTypesBean1 tests property setter -->
 			<bean class="BasicTypesBean" name="BasicTypesBean1">
 				<properties>
-					<property name="Char" type="char">
+					<property name="Char">
 						<value>c</value>
 					</property>
-					<property name="UChar" type="unsigned char">
+					<property name="UChar">
 						<value>u</value>
 					</property>
-					<property name="Short" type="short">
+					<property name="Short">
 						<value>123</value>
 					</property>
-					<property name="UShort" type="unsigned short">
+					<property name="UShort">
 						<value>65530</value>
 					</property>
-					<property name="Int" type="int">
+					<property name="Int">
 						<value>70000</value>
 					</property>
-					<property name="UInt" type="unsigned int">
+					<property name="UInt">
 						<value>77777</value>
 					</property>
-					<property name="Long" type="long">
+					<property name="Long">
 						<value>8000000</value>
 					</property>
-					<property name="ULong" type="unsigned long">
+					<property name="ULong">
 						<value>4294967295</value>
 					</property>
-					<property name="Float" type="float">
+					<property name="Float">
 						<value>1.234567</value>
 					</property>
-					<property name="Double" type="double">
+					<property name="Double">
 						<value>1.23456789012345</value>
 					</property>
-					<property name="String" type="string">
+					<property name="String">
 						<value>hello, String</value>
 					</property>
-					<property name="CStr" type="char*">
+					<property name="CStr">
 						<value>hello, CStr</value>
 					</property>
-					<property name="UCStr" type="unsigned char*">
+					<property name="UCStr">
 						<value>hello, UCStr</value>
 					</property>
 				</properties>
@@ -95,10 +95,10 @@
 			<!-- BasicTypesBean3 tests pointer type -->
 			<bean class="BasicTypesBean" name="BasicTypesBean3">
 				<properties>
-					<property name="Int" type="int*">
+					<property name="IntP">
 						<value>70000</value>
 					</property>
-					<property name="CStr" type="char**">
+					<property name="CStrP">
 						<value>hello, CStr</value>
 					</property>
 				</properties>
@@ -107,10 +107,10 @@
 			<!-- BeanTypeBean test bean injection -->
 			<bean class="BeanTypeBean" name="BeanTypeBean1">
 				<properties>
-					<property name="Int" type="BasicTypesBean*">
+					<property name="Int">
 						<value>BasicTypesBean3</value>
 					</property>
-					<property name="CStr" type="BasicTypesBean">
+					<property name="CStr">
 						<value>BasicTypesBean4</value>
 					</property>
 				</properties>
@@ -124,7 +124,7 @@
 			</bean>
 			<bean class="BasicTypesBean" name="BasicTypesBean4">
 				<properties>
-					<property name="CStr" type="char*">
+					<property name="CStr">
 						<value>hello, CStr for bean4</value>
 					</property>
 				</properties>
@@ -142,14 +142,14 @@
 			<!-- SingletonBean test singleton property -->
 			<bean class="SingletonBean" name="NotSingleton1">
 				<properties>
-					<property name="String" type="string">
+					<property name="String">
 						<value>Not Singleton</value>
 					</property>
 				</properties>
 			</bean>
 			<bean class="SingletonBean" name="SingletonBean1" singleton="true">
 				<properties>
-					<property name="String" type="string">
+					<property name="String">
 						<value>Singleton Bean</value>
 					</property>
 				</properties>
@@ -184,7 +184,7 @@
 			<!-- MyTypeBean test customized types -->
 			<bean class="MyTypeBean" name="MyTypeBean1">
 				<properties>
-					<property name="MyData" type="MyData*">
+					<property name="MyData">
 						<value>100</value>
 						<value>Hi, MyData!</value>
 					</property>
@@ -221,7 +221,7 @@
 					</argument>
 				</constructor-arg>
 				<properties>
-					<property name="Name" type="string">
+					<property name="Name">
 						<value>name_C1</value>
 					</property>
 				</properties>
@@ -264,10 +264,10 @@
 		<beans>
 			<bean class="BasicTypesBean" name="BasicTypesBean2-1">
 				<properties>
-					<property name="Int" type="int*">
+					<property name="IntP">
 						<value>70021</value>
 					</property>
-					<property name="CStr" type="char**">
+					<property name="CStrP">
 						<value>hello, CStr2-1</value>
 					</property>
 				</properties>
@@ -279,10 +279,10 @@
 		<beans>
 			<bean class="LocalBean" name="LocalBean1">
 				<properties>
-					<property name="Int" type="BasicTypesBean*" inject-type="IBasicTypesBean*">
+					<property name="Int">
 						<value>BasicTypesBean3</value>
 					</property>
-					<property name="CStr" type="char*">
+					<property name="CStr">
 						<value>hello, Local Bean</value>
 					</property>
 				</properties>

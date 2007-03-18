@@ -215,8 +215,8 @@ public:																\
  * bean's setter, the first part
  */
 #define AUTUMNBEAN_SETTER()											\
-	int setBeanProperty(const char* name,							\
-			const char* type, void* value){
+	int operateBeanProperty(const char* name, const char* op, 		\
+			string& type, void* value){
 
 /** 
  * Add property
@@ -225,9 +225,11 @@ public:																\
  * @return 0 for success and -1 for failure
  */
 #define AUTUMNBEAN_PROPERTY(pname, ptype)							\
-		if(!strcmp(#pname, name) &&									\
-				!this->trimString(#ptype).compare(type)){			\
-			this->pBean->set##pname(*(ptype*)value);				\
+		if( !strcmp(#pname, name) ){								\
+			if( !strcmp(op, "setvalue")	)							\
+				this->pBean->set##pname(*(ptype*)value);			\
+			else													\
+				type = #ptype;										\
 		}															\
 		else 
 

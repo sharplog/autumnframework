@@ -171,7 +171,7 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		factoryArg.Type = bean.ClassName;
 		factoryArg.Value.push_back(string(factory));
 		factoryArg.Name = factory;
-		factoryArg.InjectType = "";
+		factoryArg.IsBeanRef = true;
 		factoryArg.Managed = false;
 		bean.ConArgs.push_back(factoryArg);
 	}
@@ -233,28 +233,22 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 	// parsing attributes
 	XMLCSTR name = xml.getAttribute("name");
 	XMLCSTR type = xml.getAttribute("type");
-	XMLCSTR itype = xml.getAttribute("inject-type");
 	XMLCSTR managed = xml.getAttribute("autumn-manage");
 	string isManaged = "true";
-
+	string isBeanRef = "false";
+	
 	if( name != NULL ) prop.Name = name;
-	if( type != NULL ) prop.Type = type;
+	if( type != NULL ) 
+		prop.Type = type;
+	else 
+		prop.Type = "";
+	
 	if( managed != NULL ) isManaged = managed;
-	if( itype != NULL ) 
-		prop.InjectType = itype;
-	else
-		prop.InjectType = "";
 	
 	if( prop.Name.empty() ){
 		throw new XMLParsingEx("XMLResource", "parseProperty", 
 			"Error when parsing property. There is no property name.");
 	}
-	
-	if( prop.Type.empty() ){
-		throw new XMLParsingEx("XMLResource", "parseProperty", 
-			"Error when parsing property. There is no property type.");
-	}
-	prop.Managed = this->boolAttribute(isManaged, "autumn-manage");
 	
 	// values
 	int	pos=0, n = xml.nChildNode("value");
@@ -265,7 +259,26 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 		else
 			prop.Value.push_back(v);
 	}
-	if( n==0 ){
+
+	// ref
+	XMLNode ref = xml.getChildNode("ref");
+	if( ! ref.isEmpty() ){
+		XMLCSTR b = xml.getAttribute("bean");
+		if ( NULL != b){
+			prop.Value.push_back(b);
+			isBeanRef = "true";
+		}
+		else{
+			throw new XMLParsingEx("XMLResource", "parseProperty", 
+				"Error when parsing property '" + prop.Name + 
+				"'. There is no bean name.");
+		}
+	}
+	
+	prop.IsBeanRef = this->boolAttribute(isBeanRef, "ref");
+	prop.Managed = this->boolAttribute(isManaged, "autumn-manage");
+	
+	if( n==0 && ref.isEmpty() ) {
 		throw new XMLParsingEx("XMLResource", "parseProperty", 
 			"Error when parsing property '" + prop.Name + 
 			"'. There is no value.");

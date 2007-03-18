@@ -18,7 +18,7 @@
 #define AUTUMN_TYPEMANAGER_H
 
 #include <string>
-#include <map>
+#include <vector>
 #include "IAutumnType.h"
 
 /** 
@@ -35,15 +35,17 @@ private:
 	 * TypeBeans 
 	 * @param string Basic ValueType's name
 	 */
-	map<string, IAutumnType*> TypeList;
+	vector<IAutumnType*> TypeList;
 
 	/** Customized types */
-	vector<string> CustomizedTypes;
+	vector<IAutumnType*> CustomizedTypes;
+
+	IAutumnType* beanMaker;
 	
 	/** a type is customized or not */
-	bool isCustomized(string type);
+	bool isCustomized(IAutumnType* p);
 
-	void addCustomizedType(string name);
+	void addCustomizedType(IAutumnType* p);
 	
 public:
 	/** 
@@ -68,6 +70,10 @@ public:
 	 * @param name Type name
 	 */
 	IAutumnType* findTypeBean(string name);
+
+	void setBeanMaker(IAutumnType* p){
+		this->beanMaker = p;
+	}
 
 };
 

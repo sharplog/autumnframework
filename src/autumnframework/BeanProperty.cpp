@@ -15,6 +15,7 @@
 */
 
 #include <memory>
+#include "Basic.h"
 #include "ValueWrapper.h"
 #include "IAutumnType.h"
 #include "BeanProperty.h"
@@ -22,23 +23,14 @@
 
 void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
-	IAutumnType* at = tm->findTypeBean(this->Type);
+	IAutumnType* at = tm->findTypeBean(this->getType(pw));
 	
 	/** Property's value */
-	auto_ptr<ValueWrapper>value(new ValueWrapper(this->Type, 
-									this->StrValue, this->Managed, at));
+	auto_ptr<ValueWrapper>value(new ValueWrapper(this->getType(pw), 
+				this->StrValue, this->Managed, at));
 	
-	int rtn;
-	if( this->InjectType.compare("") != 0){
-		rtn = pw->setBeanProperty(this->Name.c_str(), 
-								this->InjectType.c_str(), 
+	int rtn = pw->setBeanPropertyValue(this->Name.c_str(), 
 								value->getValuePointer());
-	}
-	else{
-		rtn = pw->setBeanProperty(this->Name.c_str(), 
-								this->Type.c_str(), 
-								value->getValuePointer());
-	}
 	
 	// if not return 0
 	if( rtn ){	
@@ -52,11 +44,22 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 
 void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 {
-	IAutumnType* at = tm->findTypeBean(this->Type);
+	IAutumnType* at = tm->findTypeBean(this->getType(pw));
 	
 	/** Property's value */
-	auto_ptr<ValueWrapper> value( new ValueWrapper(this->Type, this->StrValue, this->Managed, at));
+	auto_ptr<ValueWrapper> value( new ValueWrapper(this->getType(pw), 
+				this->StrValue, this->Managed, at));
 
 	pw->addParameter((TPointer)value.get());
 	return value.release()->getValuePointer();
+}
+
+string BeanProperty::getType(IBeanWrapper* pw)
+{
+	if( this->Type.compare("") == 0 ){
+		string tmp;
+		pw->getBeanPropertyType(this->Name.c_str(), tmp);
+		this->Type = trimString(tmp);
+	}
+	return this->Type;
 }

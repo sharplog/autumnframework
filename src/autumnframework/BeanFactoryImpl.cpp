@@ -43,15 +43,12 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	this->ManagerOfBean = new BeanManager();
 	this->ManagerOfType = new TypeManager();
 
-	// Add each bean as a basic type. Do this before adding customized types,
-	// or the customized types will be added to type manager twice.
-	vector<string> beanClasses = this->Config->getAllBeanClasses();
-	for(int i = 0; i<beanClasses.size(); i++){
-		IAutumnType* pt = new ObjectType(this);
-		pt->setTypeManager(this->ManagerOfType);
-		this->ManagerOfType->addTypeBean(beanClasses[i], pt);
-	}
-
+	// Add a bean maker to TypeManager to make all beans.
+	// it is deleted in TypeManager destructor.
+	IAutumnType* pt = new ObjectType(this);
+	pt->setTypeManager(this->ManagerOfType);
+	this->ManagerOfType->setBeanMaker(pt);
+	
 	// Add customized types
 	vector<TypeConfig>* types = this->Config->getAllTypes();
 	for(int j = 0; j<types->size(); j++){

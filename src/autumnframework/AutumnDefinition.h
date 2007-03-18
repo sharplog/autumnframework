@@ -27,13 +27,14 @@ using namespace std;
 typedef struct{
 	string	Name;
 	
-	/** the initial type of property value */
+	/** the initial type of property value, be set in config file or by wrapper */
 	string	Type;
 	
-	/** the type is as when injecting */
-	string	InjectType;
-	
+	/** Value strings */
 	StrValueList Value;	
+	
+	/** the type is a ref of bean or not */
+	bool IsBeanRef;
 
 	/** Property be managed by Autumn framework or not. */
 	bool	Managed;

@@ -78,24 +78,24 @@ TypeManager::TypeManager()
 {
 	//I think that unsigned is same to singed to deal with except long
 	// The following is for basic type.
-	this->TypeList.insert(make_pair(charBT, (IAutumnType*)new BasicType<char, atoch, freech>));
-	this->TypeList.insert(make_pair(ucharBT, (IAutumnType*)new BasicType<char, atoch, freech>));
-	this->TypeList.insert(make_pair(shortBT, (IAutumnType*)new BasicType<short, atosh, freesh>));
-	this->TypeList.insert(make_pair(ushortBT, (IAutumnType*)new BasicType<short, atosh, freesh>));
-	this->TypeList.insert(make_pair(intBT, (IAutumnType*)new BasicType<int, atoint, freeint>));
-	this->TypeList.insert(make_pair(uintBT, (IAutumnType*)new BasicType<int, atoint, freeint>));
-	this->TypeList.insert(make_pair(longBT, (IAutumnType*)new BasicType<long, atolong, freelong>));
-	this->TypeList.insert(make_pair(ulongBT, (IAutumnType*)new BasicType<unsigned long, atoul, freeul>));
-	this->TypeList.insert(make_pair(floatBT, (IAutumnType*)new BasicType<float, atofl, freefl>));
-	this->TypeList.insert(make_pair(doubleBT, (IAutumnType*)new BasicType<double, atodb, freedb>));
-	this->TypeList.insert(make_pair(cstrBT, (IAutumnType*)new BasicType<charstrPointer, atocs, freecs>));
-	this->TypeList.insert(make_pair(ucstrBT, (IAutumnType*)new BasicType<charstrPointer, atocs, freecs>));
-	this->TypeList.insert(make_pair(stringBT, (IAutumnType*)new StringType));
+	this->TypeList.push_back((IAutumnType*)new BasicType<char, atoch, freech>(charBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<char, atoch, freech>(ucharBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<short, atosh, freesh>(shortBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<short, atosh, freesh>(ushortBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<int, atoint, freeint>(intBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<int, atoint, freeint>(uintBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<long, atolong, freelong>(longBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<unsigned long, atoul, freeul>(ulongBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<float, atofl, freefl>(floatBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<double, atodb, freedb>(doubleBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<charstrPointer, atocs, freecs>(cstrBT));
+	this->TypeList.push_back((IAutumnType*)new BasicType<charstrPointer, atocs, freecs>(ucstrBT));
+	this->TypeList.push_back((IAutumnType*)new StringType);
 
 	// The following is for combined type.
 	PointerType* ppt = new PointerType;
 	ppt->setTypeManager(this);
-	this->TypeList.insert(make_pair(pointerCT, (IAutumnType*)ppt));
+	this->TypeList.push_back((IAutumnType*)ppt);
 }
 
 /** 
@@ -103,40 +103,42 @@ TypeManager::TypeManager()
  */
 TypeManager::~TypeManager(){
 	AutumnLog::getInstance()->debug("TypeManager->~TypeManager");
-	for(map<string, IAutumnType*>::iterator it = this->TypeList.begin(); it != this->TypeList.end(); it++){
+	for(vector<IAutumnType*>::iterator it = this->TypeList.begin(); it != this->TypeList.end(); it++){
 		// customized type is freed by bean manager
-		if( !this->isCustomized(it->first) )
-			delete it->second;
+		if( !this->isCustomized(it[0]) )
+			delete it[0];
 	}
+
+	delete this->beanMaker;
 }
 
 IAutumnType* TypeManager::findTypeBean(string type)
 {
-	if( this->TypeList.find(type) != this->TypeList.end() ) {
-		return this->TypeList[type];
-	}
-	
-	for( int i=type.size()-1; i>0; i-- ){
-		if( this->TypeList.find(type.substr(i)) != this->TypeList.end()){
-			return this->TypeList[type.substr(i)];
+	vector<IAutumnType*>::iterator tmp;
+	for( tmp=this->TypeList.begin(); tmp!=this->TypeList.end(); tmp++){
+		if( tmp[0]->isThisType(type) ){
+			return tmp[0];
 		}
 	}
 
+	AutumnLog::getInstance()->debug("TypeManager->findTypeBean: " + type);
+	return this->beanMaker;
+	
 	throw new MissDefinitionEx("TypeManager", 
 		"findTypeBean", 
 		string("Type of [") + type + "] is not found!" );
 }
 
-void TypeManager::addCustomizedType(string name)
+void TypeManager::addCustomizedType(IAutumnType* p)
 {
-	this->CustomizedTypes.push_back(name);
+	this->CustomizedTypes.push_back(p);
 }
 
-bool TypeManager::isCustomized(string type)
+bool TypeManager::isCustomized(IAutumnType* p)
 {
-	vector<string>::iterator tmp;
+	vector<IAutumnType*>::iterator tmp;
 	for( tmp=this->CustomizedTypes.begin(); tmp!=this->CustomizedTypes.end(); tmp++){
-		if( tmp[0].compare(type) == 0)
+		if( tmp[0] == p)
 			return true;
 	}
 	return false;
@@ -144,12 +146,15 @@ bool TypeManager::isCustomized(string type)
 
 void TypeManager::addTypeBean(string name, IAutumnType* at, bool customized)
 {
-	if( this->TypeList.find(name) != this->TypeList.end() ){
-		this->TypeList[name] = at;
+	vector<IAutumnType*>::iterator tmp;
+	for( tmp=this->TypeList.begin(); tmp!=this->TypeList.end(); tmp++){
+		if( tmp[0] == at){
+			this->TypeList.erase(tmp);
+		}
 	}
-	else {
-		this->TypeList.insert(make_pair(name, at));
-	}
+
+	this->TypeList.push_back(at);
+
 	if( customized )
-		this->addCustomizedType(name);
+		this->addCustomizedType(at);
 }
