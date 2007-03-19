@@ -17,6 +17,8 @@ Add your content here.
 
 = 自身实现框架 =
   * *微内核？*
+  * *关于Wrapper*
+当前的Wrapper是为依赖注入服务的，是否也应该支持其它的Wrapper，以提供其它服务？如远程调用。
 
 = 其它事情 =
   * *Bean的别名*
