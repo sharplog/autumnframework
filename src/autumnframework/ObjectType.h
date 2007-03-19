@@ -47,7 +47,12 @@ public:
 	 */
 	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
-			return (void*)this->Bf->getBean(*it++);
+			string name = *it++;
+			void* p = this->Bf->getBean(name);
+			if( p != NULL ) return p;
+			
+			throw new CreateBeanFailedEx("ObjectType", "createValue",
+				"getBean[" + name + "] return NULL!");
 		}
 		throw new NonValueEx("ObjectType", "createValue",
 			"There is no string in vector!");
