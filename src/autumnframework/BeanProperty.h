@@ -41,7 +41,7 @@ private:
 	/** String list presenting parameter value */
 	StrValueList StrValue;
 	
-	/** Managed by Autumn framework or not */
+	/** Managed by Autumn framework or not, it is allways true now. */
 	bool Managed;
 
 	/** UNUSED NOW. the type is a ref of bean or not  */

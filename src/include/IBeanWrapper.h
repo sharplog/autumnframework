@@ -83,17 +83,17 @@ public:
 
 	int setBeanPropertyValue(const char* name, void* value){
 		string dummy;
-		return this->operateBeanProperty(name, "setvalue", dummy, value);
+		return this->operateBeanProperty(name, opSetPropValue, dummy, value);
 	}
 	
 	int getBeanPropertyType(const char* name, string& type){
-		return this->operateBeanProperty(name, "gettype", type, NULL);
+		return this->operateBeanProperty(name, opGetPropType, type, NULL);
 	}
 	
 	
-	virtual void* createBean();
+	string getConArgTypes(void** pPrams, int num);
 
-	virtual void* createBean(void** pPrams, int num);
+	void* createBean(void** pPrams, int num);
 
 	virtual void deleteBean();
 	
@@ -101,11 +101,10 @@ public:
 
 	virtual void destroyBean();
 
-	virtual int setBeanProperty(const char* name, const char* type, void* value);
-
-	//TODO
-	virtual int operateBeanProperty(const char* name, const char* op, string& type, void* value){return 0;}
+	virtual int operateBeanProperty(const char* name, const char* op, string& type, void* value);
 	
+	virtual int operateCreator(void** p, int num, const char* op, string& args, void*& pr);
+		
 	/** Destructor */
 	virtual ~IBeanWrapper();
 };

@@ -117,7 +117,6 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 	bf.Destroyable = false;
 	tc.BeanCfg = new BeanConfig(bf, pw, pd);
 	tc.Name = type.Name;
-	tc.IsBasic = type.IsBasic;
 
 	// add to Types
 	this->Types.push_back(tc);

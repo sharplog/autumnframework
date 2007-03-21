@@ -36,7 +36,6 @@ using namespace std;
 typedef struct{
 	string Name;
 	BeanConfig* BeanCfg;
-	bool IsBasic;
 }TypeConfig;
 
 class AutumnConfig{

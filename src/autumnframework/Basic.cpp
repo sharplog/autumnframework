@@ -14,31 +14,14 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_BASIC_H
-#define AUTUMN_BASIC_H
-
-#include <string>
-#include <vector>
-
-using namespace std;
+#include "Basic.h"
 
 /** 
- * Basic configuration
- * @version 0.1.0
- * @since 2006-11-25
+ * some const define
  */
 
-/** Value strings */
-typedef vector<string> StrValueList;
-typedef vector<string>::iterator StrIterator;
-
-/** A type represents pointer */
-typedef long TPointer;
-
-extern const char opGetPropType[];
-extern const char opSetPropValue[];
-extern const char opCreateBean[];
-extern const char opGetConArgType[];
-extern const char typeSeparator;
-
-#endif 
+const char opGetPropType[]	= "gettype";
+const char opSetPropValue[] = "setvalue";
+const char opCreateBean[]	= "create";
+const char opGetConArgType[]= "gettype";
+const char typeSeparator	= '|';

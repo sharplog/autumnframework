@@ -117,7 +117,8 @@ void* BeanFactoryImpl::getBean(string name)
 	//Create bean
 	PropertyList* pargs = bc->getConArgs();
 	if( pargs->size() == 0 ){	//No constructor argument
-		p = pw->createBean();
+		void ** pDummy;
+		p = pw->createBean(pDummy, 0);
 	}
 	else{						//Has constructor argments
 		int num = pargs->size();

@@ -65,58 +65,31 @@ public:																\
 		}															\
 	}																\
 																	\
-	void* getBean(){ return (void*)this->pBean; }					\
-																	\
-	string trimString(const string v){								\
-		string s=v;													\
-		for(int i=0; i<s.size(); ){									\
-			if( isspace(s.at(i)) ){									\
-				s.erase(i,1);										\
-			}														\
-			else i++;												\
-		}															\
-		return s;													\
-	}
+	void* getBean(){ return (void*)this->pBean; }
 
-/** 
+#define AUTUMNBEAN_CREATOR()										\
+int operateCreator(void** p, int num, const char* op, string& args, void*& pr)	\
+{
+
+#define AUTUMNBEAN_CREATOR_END()									\
+		return -1;													\
+	return 0;														\
+}
+
+ /** 
  * Create a bean without parameter
  * @param bean The bean name, it is user's class name
  * @return NULL if failed
 */
 #define AUTUMNBEAN_CONSTRUCTOR(bean)								\
-	void* createBean(){												\
-		this->pBean = NULL;											\
-		this->pBean = new bean();									\
-		return this->pBean;											\
-	}
-
-/** 
- * Create a bean with static factory method without parameter
- * @param bean The bean name, it is user's class name
- * @param method The static factory method name
- * @return NULL if failed
-*/
-#define AUTUMNBEAN_CON_METHOD(bean, method)							\
-	void* createBean(){												\
-		this->pBean = NULL;											\
-		this->pBean = bean::method();								\
-		return this->pBean;											\
-	}
-
-/** 
- * Create a bean with factory without parameter
- * @param factory The factory name
- * @param method The factory method name
- * @return NULL if failed
-*/
-#define AUTUMNBEAN_CON_FACTORY(factory, method)						\
-	void* createBean(void** pPrams, int num){						\
-		this->pBean = NULL;											\
-		if( num > 0 ) {												\
-			this->pBean = ((factory*)pPrams[0])->method();			\
-		}															\
-		return this->pBean;											\
-	}
+	if( num == 0 ){													\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = new bean();							\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "";												\
+		else return -1;												\
+	}																\
+	else
 
 /** 
  * Create a bean with parameters
@@ -126,16 +99,69 @@ public:																\
  * @param type The first parameter's type
  * @return NULL if failed
  */
-#define AUTUMNBEAN_CON_PARAMS(bean, param_num, type)				\
-	void* createBean(void** pPrams, int num){						\
-		this->pBean = NULL;											\
-		if( num != param_num){										\
-			return this->pBean;										\
-		}															\
-																	\
-		int i = 0;													\
-		this->pBean = new bean(										\
-			*(type*)pPrams[PARAM_SUF]
+#define AUTUMNBEAN_CONSTRUCTOR_1P(bean, type)						\
+	if( num == 1 ){													\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = new bean(*(type*)p[0]);				\
+		else if ( !strcmp(op, "gettype") )							\
+			args = #type "|";										\
+		else return -1;												\
+	}																\
+	else
+
+#define AUTUMNBEAN_CONSTRUCTOR_2P(bean, type1, type2)				\
+	if( num == 2 ){													\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = new bean(*(type1*)p[0],				\
+										*(type2*)p[1]);				\
+		else if ( !strcmp(op, "gettype") )							\
+			args = #type1 "|" #type2 "|";							\
+		else return -1;												\
+	}																\
+	else
+
+#define AUTUMNBEAN_CONSTRUCTOR_13P(bean, type1, type2, type3, type4,\
+								type5, type6, type7, type8, type9,	\
+								type10, type11, type12, type13)		\
+	if( num == 13 ){													\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = new bean(*(type1*)p[0],				\
+										*(type2*)p[1],				\
+										*(type3*)p[2],				\
+										*(type4*)p[3],				\
+										*(type5*)p[4],				\
+										*(type6*)p[5],				\
+										*(type7*)p[6],				\
+										*(type8*)p[7],				\
+										*(type9*)p[8],				\
+										*(type10*)p[9],				\
+										*(type11*)p[10],			\
+										*(type12*)p[11],			\
+										*(type13*)p[12]);			\
+		else if ( !strcmp(op, "gettype") )							\
+			args = #type1 "|" #type2 "|" #type3 "|" #type4 "|"		\
+				   #type5 "|" #type6 "|" #type7 "|" #type8 "|"		\
+				   #type9 "|" #type10 "|" #type11 "|" #type12 "|"	\
+				   #type13 "|";										\
+		else return -1;												\
+	}																\
+else
+
+ /** 
+ * Create a bean with static factory method without parameter
+ * @param bean The bean name, it is user's class name
+ * @param method The static factory method name
+ * @return NULL if failed
+*/
+#define AUTUMNBEAN_CON_METHOD(bean, method)							\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 1 ){		\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = bean::method();						\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|";										\
+		else return -1;												\
+	}																\
+	else
 
 /** 
  * Create a bean with static factory method with parameters
@@ -146,16 +172,42 @@ public:																\
  * @param type The first parameter's type
  * @return NULL if failed
  */
-#define AUTUMNBEAN_CON_METHOD_PARAMS(bean, method, param_num, type)	\
-	void* createBean(void** pPrams, int num){						\
-		this->pBean = NULL;											\
-		if( num != param_num){										\
-			return this->pBean;										\
-		}															\
-																	\
-		int i = 0;													\
-		this->pBean = bean::method(									\
-			*(type*)pPrams[PARAM_SUF]
+#define AUTUMNBEAN_CON_METHOD_1P(bean, method, type)				\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 1+1 ){		\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = bean::method(*(type*)p[1]);			\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|" #type "|";								\
+		else return -1;												\
+	}																\
+	else
+
+#define AUTUMNBEAN_CON_METHOD_2P(bean, method, type1, type2)		\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 1+2 ){		\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = bean::method(*(type1*)p[1],			\
+											*(type2*)p[2]);			\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|" #type1 "|" #type2 "|";					\
+		else return -1;												\
+	}																\
+	else
+
+ /** 
+ * Create a bean with factory without parameter
+ * @param factory The factory name
+ * @param method The factory method name
+ * @return NULL if failed
+*/
+#define AUTUMNBEAN_CON_FACTORY(factory, method)						\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 2 ){		\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = ((factory*)p[1])->method();			\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|" #factory "|";							\
+		else return -1;												\
+	}																\
+	else
 
 /** 
  * Create a bean with factory with parameters
@@ -166,34 +218,29 @@ public:																\
  * @param type The first parameter's type
  * @return NULL if failed
  */
-#define AUTUMNBEAN_CON_FACTORY_PARAMS(factory, method, param_num, type)	\
-	void* createBean(void** pPrams, int num){						\
-		this->pBean = NULL;											\
-		if( num != param_num + 1){									\
-			return this->pBean;										\
+#define AUTUMNBEAN_CON_FACTORY_1P(factory, method, type)			\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 2+1 ){		\
+	if( !strcmp(op, "create" ) ){									\
+			pr = this->pBean = ((factory*)p[1])->method(*(type*)p[2]);	\
 		}															\
-																	\
-		int i = 1;													\
-		this->pBean = ((factory*)pPrams[0])->method(				\
-			*(type*)pPrams[PARAM_SUF]
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|" #factory "|" #type "|";				\
+		else return -1;												\
+	}																\
+	else
 
-/** 
- * Add the next parameter for constructor
- * @param type The parameter's type
- */
-#define AUTUMNBEAN_CON_PARAM(type)									\
-			,*(type*)pPrams[PARAM_SUF]
+#define AUTUMNBEAN_CON_FACTORY_2P(factory, method, type1, type2)	\
+	if( ((string*)p[0])->compare(#method) == 0 && num == 2+2 ){		\
+		if( !strcmp(op, "create" ) )								\
+			pr = this->pBean = ((factory*)p[1])->method(*(type1*)p[2],	\
+														*(type2*)p[3]);	\
+		else if ( !strcmp(op, "gettype") )							\
+			args = "string|" #factory "|" #type1 "|" #type2 "|";	\
+		else return -1;												\
+	}																\
+	else
 
-/** 
- * End of the parameter list and end of creating function
- */
-#define AUTUMNBEAN_CON_PARAMS_END()									\
-			);														\
-																	\
-		return this->pBean;											\
-	}
-	
-/** 
+ /** 
  * Initializing function
  * @param init The class's initializing function
  */
@@ -228,8 +275,10 @@ public:																\
 		if( !strcmp(#pname, name) ){								\
 			if( !strcmp(op, "setvalue")	)							\
 				this->pBean->set##pname(*(ptype*)value);			\
-			else													\
+			else if ( !strcmp(op, "gettype") )						\
 				type = #ptype;										\
+			else													\
+				return -1;											\
 		}															\
 		else 
 
@@ -314,12 +363,19 @@ public:																\
 		this->setBeanName(#type);									\
 		this->pType = NULL;											\
 	}																\
-	void* createBean(){												\
-		this->pType = NULL;											\
-		this->pType = new type();									\
-		return this->pType;											\
+	int operateCreator(void** p, int num, const char* op, string& args, void*& pr){	\
+		if( num == 0 ){												\
+			if( !strcmp(op, "create" ) )							\
+				pr = this->pType = new type();						\
+			else if ( !strcmp(op, "gettype") )						\
+				args = "";											\
+			else return -1;											\
+		}															\
+		else														\
+			return -1;												\
+		return 0;													\
 	}																\
-	~type##_Type(){												\
+	~type##_Type(){													\
 		if( this->pType )											\
 			delete this->pType;										\
 	}																\

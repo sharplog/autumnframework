@@ -43,7 +43,7 @@ private:
 	void parseType(XMLNode& xml, TType& type);
 
 	/** Parse Property */
-	void parseProperty(XMLNode& xml, TProperty& prop);
+	void parseProperty(XMLNode& xml, TProperty& prop, bool isProp);
 
 	/** Get parsing error message */
 	string getErrorMsg(XMLResults& err, const char* tag);

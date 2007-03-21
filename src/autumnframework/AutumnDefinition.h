@@ -74,9 +74,6 @@ typedef struct{
 
 	/** Class derived from IBasicType or ICombinedType */
 	string ClassName;
-
-	/** Type is basic type or not. */
-	bool IsBasic;
 } TType;
 
 /** struct to store library configuration */

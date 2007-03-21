@@ -4,22 +4,13 @@
 
 AUTUMNBEAN(BasicTypesBean)
 
+AUTUMNBEAN_CREATOR()
 AUTUMNBEAN_CONSTRUCTOR(BasicTypesBean)
-
-AUTUMNBEAN_CON_PARAMS(BasicTypesBean, 13, char)
-AUTUMNBEAN_CON_PARAM(unsigned char)
-AUTUMNBEAN_CON_PARAM(short		)
-AUTUMNBEAN_CON_PARAM(unsigned short)
-AUTUMNBEAN_CON_PARAM(int			)
-AUTUMNBEAN_CON_PARAM(unsigned int)
-AUTUMNBEAN_CON_PARAM(long		)
-AUTUMNBEAN_CON_PARAM(unsigned long)
-AUTUMNBEAN_CON_PARAM(float		)
-AUTUMNBEAN_CON_PARAM(double		)
-AUTUMNBEAN_CON_PARAM(string		)
-AUTUMNBEAN_CON_PARAM(char*		)
-AUTUMNBEAN_CON_PARAM(unsigned char*)
-AUTUMNBEAN_CON_PARAMS_END()
+AUTUMNBEAN_CONSTRUCTOR_13P(BasicTypesBean, char,unsigned char,short,
+						   unsigned short,int,unsigned int,long,
+						   unsigned long,float,double,string,char*,
+						   unsigned char*)
+AUTUMNBEAN_CREATOR_END()
 
 AUTUMNBEAN_SETTER()
 AUTUMNBEAN_PROPERTY(Char,char)	
