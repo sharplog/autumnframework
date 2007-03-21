@@ -1,6 +1,12 @@
 #summary Development log.
 #labels Featured
 
+== 03/21/2007 ==
+ * constuctor argument and property's type needn't be set in config file both, are got with wrapper.
+ * bean support factory-method attibute.
+ * erase name attribute from argument element.
+ * tested on VC6.
+
 == 03/18/2007 ==
  * unite IBasicType and ICombinedType into IAutumnType.
  * simplize TypeManager.
@@ -32,5 +38,4 @@ fix three bugs:
 
 == 03/05/2007 ==
   * release 0.1.0 version.
-
 
