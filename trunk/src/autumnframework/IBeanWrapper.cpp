@@ -19,22 +19,32 @@
 #include "LocalLibrary.h"
 #include "AutumnException.h"
 
-void* IBeanWrapper::createBean()
+string IBeanWrapper::getConArgTypes(void** pPrams, int num)
 {
-	throw new MissDefinitionEx("IBeanWrapper", 
-			"createBean", 
-			"Definition of bean[" + this->BeanName + "] createBean method is missing!");
-	//avoid warning for some compiler
-	return NULL;
+	string types;
+	void* pDummy;
+
+	int rtn = operateCreator(pPrams, num, opGetConArgType, types, pDummy);
+	if( rtn )
+		throw new MissDefinitionEx("IBeanWrapper", 
+				"getConArgTypes", 
+				"Getting bean[" + this->BeanName + "] constructor-arg types failed!");
+
+	return types;
 }
 
 void* IBeanWrapper::createBean(void** pPrams, int num)
 {
-	throw new MissDefinitionEx("IBeanWrapper", 
-			"createBean(void**, int)", 
-			"Definition of bean[" + this->BeanName + "] createBean(void**, int) method is missing!");
-	//avoid warning for some compiler
-	return NULL;
+	string sDummy;
+	void* pBean;
+
+	int rtn = operateCreator(pPrams, num, opCreateBean, sDummy, pBean);
+	if( rtn )
+		throw new MissDefinitionEx("IBeanWrapper", 
+				"createBean(void**, int)", 
+				"Creating bean[" + this->BeanName + "] failed!");
+
+	return pBean;
 }
 
 void IBeanWrapper::deleteBean()
@@ -58,12 +68,21 @@ void IBeanWrapper::destroyBean()
 			"Definition of bean[" + this->BeanName + "] destoryBean method is missing!");
 }
 
-int IBeanWrapper::setBeanProperty(const char* name, const char* type, void* value)
+int IBeanWrapper::operateBeanProperty(const char* name, const char* op, string& type, void* value)
 {
 	throw new MissDefinitionEx("IBeanWrapper", 
-			"setBean", 
-			"Definition of bean[" + this->BeanName + "] set" +
-				name + "(" + type + ") method is missing!");
+			"operateBeanProperty", 
+			"Definition of bean[" + this->BeanName + "] set/get " +
+				name + " method is missing!");
+	//avoid warning for some compiler
+	return -1;
+}
+
+int IBeanWrapper::operateCreator(void** p, int num, const char* op, string& args, void*& pr)
+{
+	throw new MissDefinitionEx("IBeanWrapper", "operateCreator", 
+			"Definition of bean[" + this->BeanName + 
+			"] create/gettype method is missing!");
 	//avoid warning for some compiler
 	return -1;
 }

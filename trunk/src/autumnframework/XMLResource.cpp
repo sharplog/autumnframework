@@ -124,6 +124,7 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	XMLCSTR destory		= xml.getAttribute("destroyable");
 	XMLCSTR singleton	= xml.getAttribute("singleton");
 	XMLCSTR factory		= xml.getAttribute("factory-bean");
+	XMLCSTR factoryMthd	= xml.getAttribute("factory-method");
 	
 	string hasInit("false");
 	string hasDestroy("false");
@@ -157,22 +158,33 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		for( i=0; i<n; i++ ){
 			auto_ptr<TProperty> pprop(new TProperty);
 			XMLNode proNode = props.getChildNode("property", &pos);
-			this->parseProperty(proNode, *pprop);
+			this->parseProperty(proNode, *pprop, true);
 			bean.Properties.push_back(*pprop);
 		}
 	}
 
-	// instance factory pattern, set factory as the first argument
+	// factory pattern, set factory method as the first argument
+	// this depends on the BeanWrapperMacro.
+	if( factoryMthd != NULL ){
+		TProperty factoryMthdArg;
+
+		factoryMthdArg.Type = "string";
+		factoryMthdArg.Value.push_back(string(factoryMthd));
+		factoryMthdArg.IsBeanRef = false;
+		factoryMthdArg.Managed = true;
+		bean.ConArgs.push_back(factoryMthdArg);
+	}
+	
+	// factory pattern, set factory instance as the next argument
 	if( factory != NULL ){
 		TProperty factoryArg;
-
+		
 		// setting type to bean's class name only to make TypeManager to get factory
 		// instance from BeanFacotry. This depends on the implement of TypeManager.
 		factoryArg.Type = bean.ClassName;
 		factoryArg.Value.push_back(string(factory));
-		factoryArg.Name = factory;
 		factoryArg.IsBeanRef = true;
-		factoryArg.Managed = false;
+		factoryArg.Managed = true;
 		bean.ConArgs.push_back(factoryArg);
 	}
 	
@@ -183,7 +195,7 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		for( i=0; i<n; i++ ){
 			auto_ptr<TProperty> parg(new TProperty);
 			XMLNode argNode = args.getChildNode("argument", &pos);
-			this->parseProperty(argNode, *parg);
+			this->parseProperty(argNode, *parg, false);
 			bean.ConArgs.push_back(*parg);
 		}
 	}
@@ -206,12 +218,9 @@ void XMLResource::parseType(XMLNode& xml, TType& type)
 	// parsing attributes
 	XMLCSTR name = xml.getAttribute("name");
 	XMLCSTR classname = xml.getAttribute("class");
-	XMLCSTR basic = xml.getAttribute("basic");
-	string isBasic("true");			// true in default
 
 	if( name	  != NULL ) type.Name = name;
 	if( classname != NULL ) type.ClassName = classname;
-	if( basic	  != NULL ) isBasic = basic;
 	
 	if( type.ClassName.empty()){
 		throw new XMLParsingEx("XMLResource", "parseType", 
@@ -221,34 +230,26 @@ void XMLResource::parseType(XMLNode& xml, TType& type)
 	
 	if( type.Name.empty() )
 		type.Name = type.ClassName;
-	
-	type.IsBasic = this->boolAttribute(isBasic, "basic");
 }
 
 /* Parse Property */
-void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
+void XMLResource::parseProperty(XMLNode& xml, TProperty& prop, bool isProp)
 {
-	XMLCSTR valueTag="value";
-	
-	// parsing attributes
+	// name
 	XMLCSTR name = xml.getAttribute("name");
-	XMLCSTR type = xml.getAttribute("type");
-	XMLCSTR managed = xml.getAttribute("autumn-manage");
-	string isManaged = "true";
-	string isBeanRef = "false";
-	
 	if( name != NULL ) prop.Name = name;
-	if( type != NULL ) 
-		prop.Type = type;
-	else 
-		prop.Type = "";
-	
-	if( managed != NULL ) isManaged = managed;
-	
-	if( prop.Name.empty() ){
+	if( prop.Name.empty() && isProp == true ){
 		throw new XMLParsingEx("XMLResource", "parseProperty", 
 			"Error when parsing property. There is no property name.");
 	}
+	
+	XMLCSTR type = xml.getAttribute("type");
+	if( type != NULL ) prop.Type = type;
+
+	prop.Managed = true;
+	XMLCSTR managed = xml.getAttribute("autumn-manage");
+	if( managed != NULL ) 
+		prop.Managed = this->boolAttribute(managed, "autumn-manage");
 	
 	// values
 	int	pos=0, n = xml.nChildNode("value");
@@ -261,12 +262,13 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 	}
 
 	// ref
+	prop.IsBeanRef = false;
 	XMLNode ref = xml.getChildNode("ref");
 	if( ! ref.isEmpty() ){
 		XMLCSTR b = ref.getAttribute("bean");
 		if ( NULL != b){
 			prop.Value.push_back(b);
-			isBeanRef = "true";
+			prop.IsBeanRef = true;
 		}
 		else{
 			throw new XMLParsingEx("XMLResource", "parseProperty", 
@@ -274,9 +276,6 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop)
 				"'. There is no reference bean name .");
 		}
 	}
-	
-	prop.IsBeanRef = this->boolAttribute(isBeanRef, "ref");
-	prop.Managed = this->boolAttribute(isManaged, "autumn-manage");
 	
 	if( n==0 && ref.isEmpty() ) {
 		throw new XMLParsingEx("XMLResource", "parseProperty", 

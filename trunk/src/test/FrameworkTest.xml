@@ -50,43 +50,43 @@
 			<!-- BasicTypesBean2 tests constructor -->
 			<bean class="BasicTypesBean" name="BasicTypesBean2">
 				<constructor-arg>
-					<argument  name="Char" type="char">
+					<argument>
 						<value>c</value>
 					</argument>
-					<argument name="UChar" type="unsigned char">
+					<argument>
 						<value>u</value>
 					</argument>
-					<argument name="Short" type="short">
+					<argument>
 						<value>123</value>
 					</argument>
-					<argument name="UShort" type="unsigned short">
+					<argument>
 						<value>65530</value>
 					</argument>
-					<argument name="Int" type="int">
+					<argument>
 						<value>70000</value>
 					</argument>
-					<argument name="UInt" type="unsigned int">
+					<argument>
 						<value>77777</value>
 					</argument>
-					<argument name="Long" type="long">
+					<argument>
 						<value>8000000</value>
 					</argument>
-					<argument name="ULong" type="unsigned long">
+					<argument>
 						<value>4294967295</value>
 					</argument>
-					<argument name="Float" type="float">
+					<argument>
 						<value>1.234567</value>
 					</argument>
-					<argument name="Double" type="double">
+					<argument>
 						<value>1.23456789012345</value>
 					</argument>
-					<argument name="String" type="string">
+					<argument>
 						<value>hello, String</value>
 					</argument>
-					<argument name="CStr" type="char*">
+					<argument type="char*">
 						<value>hello, CStr</value>
 					</argument>
-					<argument name="UCStr" type="unsigned char*">
+					<argument type="unsigned char*">
 						<value>hello, UCStr</value>
 					</argument>
 				</constructor-arg>
@@ -117,7 +117,7 @@
 			</bean>
 			<bean class="BeanTypeBean" name="BeanTypeBean2">
 				<constructor-arg>
-					<argument name="arg1" type="BasicTypesBean*">
+					<argument>
 						<value>BasicTypesBean3</value>
 					</argument>
 				</constructor-arg>
@@ -133,7 +133,7 @@
 			<!-- BeanTypeBean3 test bean injection from another library -->
 			<bean class="BeanTypeBean" name="BeanTypeBean5">
 				<constructor-arg>
-					<argument name="arg1" type="BasicTypesBean*">
+					<argument>
 						<value>BasicTypesBean2-1</value>
 					</argument>
 				</constructor-arg>
@@ -158,7 +158,7 @@
 			<!-- InitDestBean test destroyable and initializable property -->
 			<bean class="InitDestBean" name="InitDestBean1" destroyable="true" initializable="true">
 				<constructor-arg>
-					<argument name="arg1" type="SingletonBean*">
+					<argument type="SingletonBean*">
 						<value>SingletonBean1</value>
 					</argument>
 				</constructor-arg>
@@ -194,65 +194,51 @@
 			<!-- test factory -->
 			<bean class="Factory1" name="Factory11" singleton="true" />
 			<bean class="Factory2" name="Factory22" singleton="true" />
-			<bean class="IProductA" name="ProductA1">
+			<bean class="IProductA" name="ProductA1" factory-bean="Factory11"  factory-method="createProductA">
 				<constructor-arg>
-					<argument name="arg1" type="Factory1">
-						<value>Factory11</value>
-					</argument>
-					<argument name="arg2" type="string">
+					<argument>
 						<value>name_A1</value>
 					</argument>
 				</constructor-arg>
 			</bean>
-			<bean class="IProductB" name="ProductB1">
+			<bean class="IProductB" name="ProductB1" factory-bean="Factory11" factory-method="createProductB">
 				<constructor-arg>
-					<argument name="arg1" type="Factory1">
-						<value>Factory11</value>
-					</argument>
-					<argument name="arg2" type="string">
+					<argument>
 						<value>name_B1</value>
 					</argument>
 				</constructor-arg>
 			</bean>
-			<bean class="IProductC" name="ProductC1">
-				<constructor-arg>
-					<argument name="arg1" type="Factory1">
-						<value>Factory11</value>
-					</argument>
-				</constructor-arg>
+			<bean class="IProductC" name="ProductC1" factory-bean="Factory11" factory-method="createProductC">
 				<properties>
 					<property name="Name">
 						<value>name_C1</value>
 					</property>
 				</properties>
 			</bean>
-			<bean class="IProductA" name="ProductA2">
+			<bean class="IProductA" name="ProductA2"  factory-bean="Factory22" factory-method="createProductA">
 				<constructor-arg>
-					<argument name="arg1" type="Factory2">
-						<value>Factory22</value>
-					</argument>
-					<argument name="arg2" type="string">
+					<argument>
 						<value>name_A2</value>
 					</argument>
 				</constructor-arg>
 			</bean>
-			<bean class="IProductB" name="ProductB2" factory-bean="Factory22">
+			<bean class="IProductB" name="ProductB2" factory-bean="Factory22" factory-method="createProductB">
 				<constructor-arg>
-					<argument name="arg2" type="string">
+					<argument>
 						<value>name_B2</value>
 					</argument>
 				</constructor-arg>
 			</bean>
 			
 			<!-- Test static factory method -->
-			<bean class="ProductA_M" name="ProductAM">
+			<bean class="ProductA_M" name="ProductAM" factory-method="getInstance">
 				<constructor-arg>
-					<argument name="arg1" type="string">
+					<argument>
 						<value>name_AM</value>
 					</argument>
 				</constructor-arg>
 			</bean>
-			<bean class="ProductB_M" name="ProductBM" />
+			<bean class="ProductB_M" name="ProductBM" factory-method="getInstance"/>
 			
 		</beans>
 		<types>
@@ -291,10 +277,10 @@
 			<!-- Configure autumn framework logger bean -->
 			<bean class="FileLogger" name="AutumnFrameworkLog" singleton="true">
 				<constructor-arg>
-					<argument name="arg1" type="string">
+					<argument>
 						<value>AutumnApp.log</value>
 					</argument>
-					<argument name="arg2" type="int">
+					<argument>
 						<value>0</value>
 					</argument>
 				</constructor-arg>
