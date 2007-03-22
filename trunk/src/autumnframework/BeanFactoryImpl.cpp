@@ -147,7 +147,7 @@ void* BeanFactoryImpl::getBean(string name)
 	}
 
 	//Initialize bean
-	if( pw->getInitializable() ){
+	if( pw->Initializable() ){
 		pw->initializeBean();
 	}
 

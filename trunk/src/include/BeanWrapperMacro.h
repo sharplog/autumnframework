@@ -26,12 +26,8 @@
 	#else
 		#define DLL_EXPORT 
 	#endif
-
-	#define PARAM_SUF --num
 #else
 	#define DLL_EXPORT
-
-	#define PARAM_SUF i++
 #endif
 
 using namespace std;
@@ -55,7 +51,7 @@ public:																\
 																	\
 	~bean##_Wrapper(){												\
 		if( this->pBean ) {											\
-			if( this->getDestroyable() ) {							\
+			if( this->Destroyable() ) {								\
 				this->destroyBean();								\
 			}														\
 			if( this->hasDeletor() ) 								\
@@ -123,7 +119,7 @@ int operateCreator(void** p, int num, const char* op, string& args, void*& pr)	\
 #define AUTUMNBEAN_CONSTRUCTOR_13P(bean, type1, type2, type3, type4,\
 								type5, type6, type7, type8, type9,	\
 								type10, type11, type12, type13)		\
-	if( num == 13 ){													\
+	if( num == 13 ){												\
 		if( !strcmp(op, "create" ) )								\
 			pr = this->pBean = new bean(*(type1*)p[0],				\
 										*(type2*)p[1],				\
@@ -245,6 +241,7 @@ else
  * @param init The class's initializing function
  */
 #define AUTUMNBEAN_INIT(init)										\
+	bool Initializable(){ return true; }							\
 	void initializeBean(){											\
 		this->pBean->init();										\
 	}
@@ -254,6 +251,7 @@ else
  * @param init The class's destroying function
  */
 #define AUTUMNBEAN_DESTROY(destroy)									\
+	bool Destroyable(){ return true; }								\
 	void destroyBean(){												\
 		this->pBean->destroy();										\
 	}
