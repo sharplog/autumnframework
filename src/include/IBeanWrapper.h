@@ -58,6 +58,7 @@ class DLL_IM_EXPORT IBeanWrapper{
 	
 public:
 	virtual void* getBean() = 0;
+	virtual void  setBean(void*) = 0;
 	
 	virtual bool hasDeletor(){return false;}	// has deletor or not
 	virtual bool Destroyable(){ return false; }	// has initialize function or not

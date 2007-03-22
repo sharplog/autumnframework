@@ -37,16 +37,16 @@ private:
 	 */
 	vector<IAutumnType*> TypeList;
 
-	/** Customized types */
+	/** Customized types 
 	vector<IAutumnType*> CustomizedTypes;
-
+*/
 	IAutumnType* beanMaker;
 	
-	/** a type is customized or not */
+	/** a type is customized or not 
 	bool isCustomized(IAutumnType* p);
 
 	void addCustomizedType(IAutumnType* p);
-	
+	*/
 public:
 	/** 
 	 * Constructor, initialize the inliine type
@@ -63,7 +63,7 @@ public:
 	 * @param name Type name
 	 * @param bt A pointer to BasicType
 	*/
-	void addTypeBean(string name, IAutumnType* at, bool customized = false);
+	void addTypeBean(IAutumnType* at);
 	
 	/** 
 	 * Erase a couple of name and ValueType from list

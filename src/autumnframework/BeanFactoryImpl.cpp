@@ -50,6 +50,7 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	this->ManagerOfType->setBeanMaker(pt);
 	
 	// Add customized types
+	// it is deleted in TypeManager destructor.
 	vector<TypeConfig>* types = this->Config->getAllTypes();
 	for(int j = 0; j<types->size(); j++){
 		TypeConfig tc = (*types)[j];
@@ -57,7 +58,10 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 
 		IAutumnType* pt =(IAutumnType*) this->getBean(tc.Name);
 		pt->setTypeManager(this->ManagerOfType);
-		this->ManagerOfType->addTypeBean(tc.Name, pt, true);
+		this->ManagerOfType->addTypeBean(pt);
+		IBeanWrapper* pw = this->ManagerOfBean->releaseBean(pt);
+		pw->setBean(NULL);
+		delete pw;
 	}
 	
 	// use logger configured by user
