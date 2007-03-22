@@ -78,8 +78,6 @@
 			</xs:all>
 			<xs:attribute name="name" type="xs:string"/>
 			<xs:attribute name="class" type="xs:string" use="required"/>
-			<xs:attribute name="initializable" type="xs:boolean"/>
-			<xs:attribute name="destroyable" type="xs:boolean"/>
 			<xs:attribute name="singleton" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>A bean is not a singleton in default</xs:documentation>
