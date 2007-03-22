@@ -3,6 +3,7 @@
 
 == 03/22/2007 ==
  * erase bean's attributes: initializable and destroyable. bean supports init and destroy function however, it's decided by definition of bean wrapper.
+ * optimize TypeManager object.
 
 == 03/21/2007 ==
  * constuctor argument and property's type needn't be set in config file both, are got with wrapper.
