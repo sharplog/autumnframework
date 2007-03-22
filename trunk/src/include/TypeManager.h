@@ -22,7 +22,7 @@
 #include "IAutumnType.h"
 
 /** 
- * Maitain all TypeBeans.
+ * Maitain all type makers.
  * 
  * @version 0.1.0
  * @since 2006-11-25
@@ -30,23 +30,11 @@
 
 class TypeManager{
 private:
-	
-	/** 
-	 * TypeBeans 
-	 * @param string Basic ValueType's name
-	 */
+	/** Type makers */
 	vector<IAutumnType*> TypeList;
 
-	/** Customized types 
-	vector<IAutumnType*> CustomizedTypes;
-*/
+	/** a type maker to create bean type value */
 	IAutumnType* beanMaker;
-	
-	/** a type is customized or not 
-	bool isCustomized(IAutumnType* p);
-
-	void addCustomizedType(IAutumnType* p);
-	*/
 public:
 	/** 
 	 * Constructor, initialize the inliine type
@@ -60,13 +48,12 @@ public:
 	
 	/** 
 	 * Set a couple of name and AutumnType into list
-	 * @param name Type name
-	 * @param bt A pointer to BasicType
+	 * @param at A pointer to type maker
 	*/
 	void addTypeBean(IAutumnType* at);
 	
 	/** 
-	 * Erase a couple of name and ValueType from list
+	 * Erase a type maker from list
 	 * @param name Type name
 	 */
 	IAutumnType* findTypeBean(string name);
