@@ -92,7 +92,8 @@ int IBeanWrapper::operateCreator(void** p, int num, const char* op, string& args
  */
 IBeanWrapper::~IBeanWrapper()
 {
-	AutumnLog::getInstance()->debug("IBeanWrapper->~IBeanWrapper ");
+	AutumnLog::getInstance()->debug("IBeanWrapper->~IBeanWrapper [" + 
+			this->getBeanName() + "]");
 	
 	for(int i=0; i<this->Parameters.size(); i++)
 		delete (ValueWrapper*)this->Parameters[i];

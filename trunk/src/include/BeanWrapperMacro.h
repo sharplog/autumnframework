@@ -61,7 +61,8 @@ public:																\
 		}															\
 	}																\
 																	\
-	void* getBean(){ return (void*)this->pBean; }
+	void* getBean(){ return (void*)this->pBean; }					\
+	void  setBean(void* p){ this->pBean = (bean*)p; }
 
 #define AUTUMNBEAN_CREATOR()										\
 int operateCreator(void** p, int num, const char* op, string& args, void*& pr)	\
@@ -378,6 +379,7 @@ public:																\
 			delete this->pType;										\
 	}																\
 	void* getBean(){ return (void*)this->pType; }					\
+	void  setBean(void* p){ this->pType = (type*)p; }				\
 };																	\
 																	\
 extern "C"{															\
