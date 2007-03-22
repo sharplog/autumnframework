@@ -55,12 +55,6 @@ class BeanConfig{
 	/** Bean's properties */
 	PropertyList *Properties;
 
-	/** Bean has initializing function or not */
-	bool Initializable;
-
-	/** Bean has destroying function or not */
-	bool Destroyable;
-	
 	/** Bean is singleton or not */
 	bool Singleton;
 

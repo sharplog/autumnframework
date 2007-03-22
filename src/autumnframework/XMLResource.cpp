@@ -120,20 +120,14 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	// parsing attributes
 	XMLCSTR name		= xml.getAttribute("name");
 	XMLCSTR classname	= xml.getAttribute("class");
-	XMLCSTR init		= xml.getAttribute("initializable");
-	XMLCSTR destory		= xml.getAttribute("destroyable");
 	XMLCSTR singleton	= xml.getAttribute("singleton");
 	XMLCSTR factory		= xml.getAttribute("factory-bean");
 	XMLCSTR factoryMthd	= xml.getAttribute("factory-method");
 	
-	string hasInit("false");
-	string hasDestroy("false");
 	string isSingleton("false");
 	
 	if( name != NULL) bean.Name = name;
 	if( classname != NULL )bean.ClassName = classname;
-	if( init != NULL ) hasInit = init;
-	if( destory != NULL ) hasDestroy = destory;
 	if( singleton != NULL ) isSingleton = singleton;
 
 	if( bean.ClassName.empty() ){
@@ -145,8 +139,6 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		bean.Name = bean.ClassName;
 	}
 
-	bean.Initializable = this->boolAttribute(hasInit, "initializable");
-	bean.Destroyable = this->boolAttribute(hasDestroy, "destroyable");
 	bean.Singleton = this->boolAttribute(isSingleton, "singleton");
 	
 	// child node

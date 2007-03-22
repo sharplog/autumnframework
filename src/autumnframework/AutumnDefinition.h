@@ -48,12 +48,6 @@ typedef struct{
 	/** POCO name */
 	string	ClassName;
 
-	/** POCO has intializing function or not */
-	bool	Initializable;
-	
-	/** POCO has destroying function or not */
-	bool	Destroyable;
-
 	/** POCO as a singleton */
 	bool	Singleton;
 

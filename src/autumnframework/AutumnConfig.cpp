@@ -113,8 +113,6 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 	bf.Name = type.Name;
 	bf.ClassName = type.ClassName;
 	bf.Singleton = true;
-	bf.Initializable = false;
-	bf.Destroyable = false;
 	tc.BeanCfg = new BeanConfig(bf, pw, pd);
 	tc.Name = type.Name;
 

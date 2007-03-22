@@ -38,8 +38,6 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	this->Name = beandef.Name;
 	this->WrapperCreater = wc;
 	this->WrapperDeleter = wd;
-	this->Initializable = beandef.Initializable;
-	this->Destroyable = beandef.Destroyable;
 	this->DependedObjects = beandef.DependedObjects;
 	this->Singleton = beandef.Singleton;
 	
@@ -114,8 +112,6 @@ BeanConfig::~BeanConfig()
 IBeanWrapper* BeanConfig::createWrapper()
 {
 	IBeanWrapper* p = this->WrapperCreater();
-	p->setInitializable(this->Initializable);
-	p->setDestroyable(this->Destroyable);
 	p->setWrapperDeleter(this->WrapperDeleter);
 
 	return p;
