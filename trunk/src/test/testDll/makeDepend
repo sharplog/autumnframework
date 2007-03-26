@@ -1,21 +1,23 @@
 BasicTypesBeanExp.o: BasicTypesBeanExp.cpp \
   ../../include/BeanWrapperMacro.h ../../include/IBeanWrapper.h \
-  BasicTypesBean.h ../include/IBasicTypesBean.h
+  ../../include/Basic.h BasicTypesBean.h ../include/IBasicTypesBean.h
 BeanTypeBeanExp.o: BeanTypeBeanExp.cpp ../../include/BeanWrapperMacro.h \
-  ../../include/IBeanWrapper.h BeanTypeBean.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h BeanTypeBean.h \
   ../include/IBasicTypesBean.h BasicTypesBean.h
 FactoryExp.o: FactoryExp.cpp ../../include/BeanWrapperMacro.h \
-  ../../include/IBeanWrapper.h Factories.h Products.h \
-  ../include/IProduct.h IFactory.h
+  ../../include/IBeanWrapper.h ../../include/Basic.h Factories.h \
+  Products.h ../include/IProduct.h IFactory.h
 FactoryMethodBeanExp.o: FactoryMethodBeanExp.cpp \
   ../../include/BeanWrapperMacro.h ../../include/IBeanWrapper.h \
-  FactoryMethodBean.h ../include/IProduct.h
+  ../../include/Basic.h FactoryMethodBean.h ../include/IProduct.h
 MyTypesExp.o: MyTypesExp.cpp ../../include/BeanWrapperMacro.h \
-  ../../include/IBeanWrapper.h MyBasicType.h ../../include/IBasicType.h \
-  MyData.h MyTypeBean.h ../include/IBasicTypesBean.h
+  ../../include/IBeanWrapper.h ../../include/Basic.h MyBasicType.h \
+  ../../include/IAutumnType.h MyData.h MyTypeBean.h \
+  ../include/IBasicTypesBean.h
 ProductsExp.o: ProductsExp.cpp ../../include/BeanWrapperMacro.h \
-  ../../include/IBeanWrapper.h ../include/IProduct.h IFactory.h
+  ../../include/IBeanWrapper.h ../../include/Basic.h \
+  ../include/IProduct.h IFactory.h
 SingInitDestBeanExp.o: SingInitDestBeanExp.cpp \
   ../../include/BeanWrapperMacro.h ../../include/IBeanWrapper.h \
-  SingletonBean.h ../include/IBasicTypesBean.h InitDestBean.h \
-  SelfManagedBean.h
+  ../../include/Basic.h SingletonBean.h ../include/IBasicTypesBean.h \
+  InitDestBean.h SelfManagedBean.h

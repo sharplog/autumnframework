@@ -1,12 +1,12 @@
 OBJS= \
 AutumnConfig.o \
 AutumnLog.o \
+Basic.o \
 BeanConfig.o \
 BeanFactoryImpl.o \
 BeanManager.o \
 BeanProperty.o \
 IBeanWrapper.o \
-ICombinedType.o \
 LocalLibrary.o \
 LoggerExport.o \
 PointerType.o \
