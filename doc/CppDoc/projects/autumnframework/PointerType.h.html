@@ -26,7 +26,7 @@ PointerType.h
 <font color="blue">#define</font> AUTUMN_POINTERTYPE_H
 
 <font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
-<font color="blue">#include</font> <font color="maroon">"ICombinedType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 
 <font color="green">/** 
  * Create correctly pointer value and free it.
@@ -35,28 +35,32 @@ PointerType.h
  * @since 2006-21-02
  */</font>
 
-<font color="blue">class</font> PointerType<font color="black">:</font><font color="blue">public</font> ICombinedType<font color="black">{</font>
+<font color="blue">class</font> PointerType<font color="black">:</font><font color="blue">public</font> IAutumnType<font color="black">{</font>
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** 
      * Create a pointer of basic type from StrValueList.
+     * @param type Type of the value
      * @param vl A Vector&#60;string&#62;
-     * @param basicType Base type of the pointer value
      * @param it A iterator pointing to the first unused string, it will be changed
      * in this function.
      * @return A pointer to the pointer value
      */</font>
-    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> StrValueList<font color="black">&</font> vl, string basicType, StrIterator<font color="black">&</font> it<font color="black">)</font>;
+    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> string type, <font color="blue">const</font> StrValueList<font color="black">&</font> vl, StrIterator<font color="black">&</font> it<font color="black">)</font>;
 
     <font color="green">/** 
-     * Free the space where p point 
+     * Free the space where p points 
      * @param p Pointer to a pointer value
-     * @param basicType Base type of the pointer value
+     * @param type Type of the value
     */</font>
-    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string basicType<font color="black">)</font>;
+    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, <font color="blue">const</font> string type<font color="black">)</font>;
     
-    <font color="green">/** Free the space where p point, don't free it's memeber's space */</font>
+    <font color="green">/** Free the space where p points, don't free it's memeber's space */</font>
     <font color="blue">void</font> freeSelfSpace<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font>
         <font color="blue">delete</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font><font color="black">)</font>p;
+    <font color="black">}</font>
+    
+    virtual <font color="blue">bool</font> isThisType<font color="black">(</font><font color="blue">const</font> string type<font color="black">)</font><font color="black">{</font>
+        <font color="blue">return</font> type.at<font color="black">(</font>type.size<font color="black">(</font><font color="black">)</font><font color="maroon">-1</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'*'</font>;
     <font color="black">}</font>
 <font color="black">}</font>;
 

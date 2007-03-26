@@ -28,6 +28,7 @@ ValueWrapper.h
 <font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
 <font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
 <font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
@@ -48,8 +49,8 @@ ValueWrapper.h
     <font color="green">/** Pointer to the argument */</font>
     <font color="blue">void</font><font color="black">*</font>  PointerOfValue;
 
-    <font color="green">/** Type manager */</font>
-    TypeManager<font color="black">*</font> TypeMng;
+    <font color="green">/** Type Bean to create or delete value */</font>
+    IAutumnType<font color="black">*</font> TypeBean;
 
 <font color="blue">public</font><font color="black">:</font>
     
@@ -57,8 +58,10 @@ ValueWrapper.h
      * Constructor a new ValueWrapper with type and value
      * @param type Type of the argument
      * @param vl Value string list of the argument
+     * @param managed This value is managed by Autumn or not
+     * @param at TypeBean to create and delete value
      */</font>
-    ValueWrapper<font color="black">(</font>string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed, TypeManager<font color="black">*</font> tm<font color="black">)</font>;
+    ValueWrapper<font color="black">(</font>string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed, IAutumnType<font color="black">*</font> at<font color="black">)</font>;
     
     <font color="green">/** Destructor, delete pointer of value */</font>
     ~ValueWrapper<font color="black">(</font><font color="black">)</font>;

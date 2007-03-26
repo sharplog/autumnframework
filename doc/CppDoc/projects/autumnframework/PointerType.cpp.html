@@ -25,18 +25,24 @@ PointerType.cpp
 <font color="blue">#include</font> <font color="maroon">"PointerType.h"</font>
 <font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
 
-<font color="blue">void</font><font color="black">*</font> PointerType<font color="black">:</font><font color="black">:</font>createValue<font color="black">(</font><font color="blue">const</font> StrValueList<font color="black">&</font> vl, string basicType, StrIterator<font color="black">&</font> it<font color="black">)</font>
+<font color="blue">void</font><font color="black">*</font> PointerType<font color="black">:</font><font color="black">:</font>createValue<font color="black">(</font><font color="blue">const</font> string type, <font color="blue">const</font> StrValueList<font color="black">&</font> vl, StrIterator<font color="black">&</font> it<font color="black">)</font>
 <font color="black">{</font>
-    <font color="blue">void</font><font color="black">*</font> p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>createBasicValue<font color="black">(</font>vl, basicType, it<font color="black">)</font>;
+    string basicType <font color="black">=</font> type.substr<font color="black">(</font><font color="maroon">0</font>, type.size<font color="black">(</font><font color="black">)</font><font color="maroon">-1</font><font color="black">)</font>; <font color="green">// erase the '*'</font>
+    IAutumnType<font color="black">*</font> at <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getTypeManager<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>findTypeBean<font color="black">(</font>basicType<font color="black">)</font>;
+
+    <font color="blue">void</font><font color="black">*</font> p <font color="black">=</font> at<font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>basicType, vl, it<font color="black">)</font>;
 
     <font color="blue">void</font><font color="black">*</font><font color="black">*</font> pp <font color="black">=</font> <font color="blue">new</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font>;
     <font color="black">*</font>pp <font color="black">=</font> p;
     <font color="blue">return</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font>pp;
 <font color="black">}</font>
 
-<font color="blue">void</font> PointerType<font color="black">:</font><font color="black">:</font>freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string basicType<font color="black">)</font>
+<font color="blue">void</font> PointerType<font color="black">:</font><font color="black">:</font>freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string type<font color="black">)</font>
 <font color="black">{</font>
-    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>freeBasicValue<font color="black">(</font><font color="black">*</font><font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font><font color="black">)</font>p, basicType<font color="black">)</font>;
+    string basicType <font color="black">=</font> type.substr<font color="black">(</font><font color="maroon">0</font>, type.size<font color="black">(</font><font color="black">)</font><font color="maroon">-1</font><font color="black">)</font>; <font color="green">// erase the '*'</font>
+    IAutumnType<font color="black">*</font> at <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getTypeManager<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>findTypeBean<font color="black">(</font>basicType<font color="black">)</font>;
+    
+    at<font color="black">-</font><font color="black">&#62;</font>freeValue<font color="black">(</font><font color="black">*</font><font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font><font color="black">)</font>p, basicType<font color="black">)</font>;
     <font color="blue">delete</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font><font color="black">)</font>p;
 <font color="black">}</font>
 

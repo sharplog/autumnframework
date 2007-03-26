@@ -26,67 +26,26 @@ TypeManager.h
 <font color="blue">#define</font> AUTUMN_TYPEMANAGER_H
 
 <font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
-<font color="blue">#include</font> <font color="maroon">&#60;map&#62;</font>
-<font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
-<font color="blue">#include</font> <font color="maroon">"IBasicType.h"</font>
-<font color="blue">#include</font> <font color="maroon">"ICombinedType.h"</font>
+<font color="blue">#include</font> <font color="maroon">&#60;vector&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 
 <font color="green">/** 
- * Maitain all ValueType, this is a singleton.
+ * Maitain all type makers.
  * 
  * @version 0.1.0
  * @since 2006-11-25
  */</font>
 
-<font color="green">// The basic types</font>
-<font color="blue">const</font> string charBT<font color="black">(</font><font color="maroon">"char"</font><font color="black">)</font>;
-<font color="blue">const</font> string ucharBT<font color="black">(</font><font color="maroon">"unsignedchar"</font><font color="black">)</font>;
-<font color="blue">const</font> string shortBT<font color="black">(</font><font color="maroon">"short"</font><font color="black">)</font>;
-<font color="blue">const</font> string ushortBT<font color="black">(</font><font color="maroon">"unsignedshort"</font><font color="black">)</font>;
-<font color="blue">const</font> string intBT<font color="black">(</font><font color="maroon">"int"</font><font color="black">)</font>;
-<font color="blue">const</font> string uintBT<font color="black">(</font><font color="maroon">"unsignedint"</font><font color="black">)</font>;
-<font color="blue">const</font> string longBT<font color="black">(</font><font color="maroon">"long"</font><font color="black">)</font>;
-<font color="blue">const</font> string ulongBT<font color="black">(</font><font color="maroon">"unsignedlong"</font><font color="black">)</font>;
-<font color="blue">const</font> string floatBT<font color="black">(</font><font color="maroon">"float"</font><font color="black">)</font>;
-<font color="blue">const</font> string doubleBT<font color="black">(</font><font color="maroon">"double"</font><font color="black">)</font>;
-<font color="blue">const</font> string stringBT<font color="black">(</font><font color="maroon">"string"</font><font color="black">)</font>;
-<font color="blue">const</font> string cstrBT<font color="black">(</font><font color="maroon">"char*"</font><font color="black">)</font>;
-<font color="blue">const</font> string ucstrBT<font color="black">(</font><font color="maroon">"unsignedchar*"</font><font color="black">)</font>;
-
-<font color="green">// The combined types</font>
-<font color="blue">const</font> string pointerCT<font color="black">(</font><font color="maroon">"*"</font><font color="black">)</font>;
-
 <font color="blue">class</font> TypeManager<font color="black">{</font>
 <font color="blue">private</font><font color="black">:</font>
-    
-    <font color="green">/** 
-     * Basic ValueTypes 
-     * @param string Basic ValueType's name
-     */</font>
-    map<font color="black">&#60;</font>string, IBasicType<font color="black">*</font><font color="black">&#62;</font> BasicTypeList;
+    <font color="green">/** Type makers */</font>
+    vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font> TypeList;
 
-    <font color="green">/** 
-     * Combined ValueTypes
-     * @param string Combined ValueType's postfix
-     */</font>
-    map<font color="black">&#60;</font>string, ICombinedType<font color="black">*</font><font color="black">&#62;</font> CombinedTypeList;
-
-    <font color="green">/** Customized types */</font>
-    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> CustomizedTypes;
-    
-    IBasicType<font color="black">*</font> findBasicType<font color="black">(</font>string type<font color="black">)</font>;
-
-    ICombinedType<font color="black">*</font> findCombinedType<font color="black">(</font>string type, <font color="blue">int</font><font color="black">&</font> pos<font color="black">)</font>;
-
-    <font color="green">/** a type is customized or not */</font>
-    <font color="blue">bool</font> isCustomized<font color="black">(</font>string type<font color="black">)</font>;
-
-    <font color="blue">void</font> addCustomizedType<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
-    <font color="blue">void</font> eraseCustomizedType<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
-    
+    <font color="green">/** a type maker to create bean type value */</font>
+    IAutumnType<font color="black">*</font> beanMaker;
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** 
-     * Constructor, initialize the basic and combined type
+     * Constructor, initialize the inliine type
      */</font>
     TypeManager<font color="black">(</font><font color="black">)</font>;
 
@@ -96,40 +55,21 @@ TypeManager.h
     ~TypeManager<font color="black">(</font><font color="black">)</font>;
     
     <font color="green">/** 
-     * Set a couple of name and BasicType into list
-     * @param name Type name
-     * @param bt A pointer to BasicType
+     * Set a couple of name and AutumnType into list
+     * @param at A pointer to type maker
     */</font>
-    <font color="blue">void</font> setBasicType<font color="black">(</font>string <font color="blue">name</font>, IBasicType<font color="black">*</font> bt, <font color="blue">bool</font> customized <font color="black">=</font> <font color="blue">false</font><font color="black">)</font>;
+    <font color="blue">void</font> addTypeBean<font color="black">(</font>IAutumnType<font color="black">*</font> at<font color="black">)</font>;
     
     <font color="green">/** 
-     * Set a couple of name and CombinedType into list
-     * @param name Type name
-     * @param ct A pointer to CombinedType
-    */</font>
-    <font color="blue">void</font> setCombinedType<font color="black">(</font>string <font color="blue">name</font>, ICombinedType<font color="black">*</font> ct, <font color="blue">bool</font> customized <font color="black">=</font> <font color="blue">false</font><font color="black">)</font>;
-    
-    <font color="green">/** 
-     * Erase a couple of name and ValueType from list
+     * Erase a type maker from list
      * @param name Type name
      */</font>
-    <font color="blue">void</font> eraseValueType<font color="black">(</font>string <font color="blue">name</font>, <font color="blue">bool</font> customized <font color="black">=</font> <font color="blue">false</font><font color="black">)</font>;
+    IAutumnType<font color="black">*</font> findTypeBean<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
 
-    <font color="green">/** 
-     * Create a value from StrValueList.
-     * @param vl A Vector&#60;string&#62; for create value
-     * @param type Value's type
-     * @param it A iterator pointing to the first unused string, it will be changed
-     * in this function.
-     * @return A pointer to a value
-     */</font>
-    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> StrValueList<font color="black">&</font> vl, string type, StrIterator<font color="black">&</font> it<font color="black">)</font>;
+    <font color="blue">void</font> setBeanMaker<font color="black">(</font>IAutumnType<font color="black">*</font> p<font color="black">)</font><font color="black">{</font>
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>beanMaker <font color="black">=</font> p;
+    <font color="black">}</font>
 
-    <font color="green">/** Free the space where p pointing to */</font>
-    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string type<font color="black">)</font>;
-
-    <font color="green">/** Free the space where p pointing to, the space occupied by the type self */</font>
-    <font color="blue">void</font> freeSelfSpace<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, string type<font color="black">)</font>;
 <font color="black">}</font>;
 
 <font color="blue">#endif</font>

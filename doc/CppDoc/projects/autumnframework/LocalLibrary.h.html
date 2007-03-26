@@ -32,7 +32,7 @@ LocalLibrary.h
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
 <font color="green">/** 
- * Local library, in main process
+ * Local library, if a bean is in main process
  * @version 0.1.0
  * @since 2006-12-16
  */</font>
@@ -41,13 +41,19 @@ LocalLibrary.h
 
 <font color="blue">class</font> LocalLibrary<font color="black">:</font> <font color="blue">public</font> ILibrary<font color="black">{</font>
 <font color="blue">private</font><font color="black">:</font>
+    <font color="green">/** functions about local beans */</font>
     map<font color="black">&#60;</font>string, <font color="blue">void</font><font color="black">*</font><font color="black">&#62;</font> LocalFunctions;
-        
+    
+    <font color="green">/** for singleton */</font>
     <font color="blue">static</font> LocalLibrary<font color="black">*</font> instance;
 <font color="blue">public</font><font color="black">:</font>
+    <font color="green">/** Get singleton */</font>
     <font color="blue">static</font> LocalLibrary<font color="black">*</font> getInstance<font color="black">(</font><font color="black">)</font>;
 
+    <font color="green">/** Add a local function to list */</font>
     <font color="blue">void</font> addFunction<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">void</font><font color="black">*</font> fun<font color="black">)</font>;
+
+    <font color="green">/** Get function address */</font>
     <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
 <font color="black">}</font>;
 

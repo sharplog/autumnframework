@@ -26,7 +26,7 @@ StringType.h
 <font color="blue">#define</font> AUTUMN_STRINGTYPEI_H
 
 <font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
-<font color="blue">#include</font> <font color="maroon">"IBasicType.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 <font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
 
 <font color="green">/** 
@@ -35,7 +35,7 @@ StringType.h
  * @version 0.1.0
  * @since 2006-11-28
  */</font>
-<font color="blue">class</font> StringType<font color="black">:</font><font color="blue">public</font> IBasicType<font color="black">{</font>
+<font color="blue">class</font> StringType<font color="black">:</font><font color="blue">public</font> IAutumnType<font color="black">{</font>
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** 
      * Create a value from StrValueList(from it's first element in fact).
@@ -44,7 +44,7 @@ StringType.h
      * in this function.
      * @return A pointer to a value
      */</font>
-    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> StrValueList<font color="black">&</font> vl, StrIterator<font color="black">&</font> it<font color="black">)</font><font color="black">{</font>
+    virtual <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> string type, <font color="blue">const</font> StrValueList<font color="black">&</font> vl, StrIterator<font color="black">&</font> it<font color="black">)</font><font color="black">{</font>
         <font color="blue">if</font><font color="black">(</font> it <font color="black">!</font><font color="black">=</font> vl.end<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
             string <font color="black">*</font>p <font color="black">=</font> <font color="blue">new</font> string<font color="black">(</font><font color="black">*</font>it<font color="black">+</font><font color="black">+</font><font color="black">)</font>;
             <font color="blue">return</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font>p; <font color="green">//*p is the value</font>
@@ -53,10 +53,19 @@ StringType.h
             <font color="maroon">"There is no string in vector!"</font><font color="black">)</font>;
     <font color="black">}</font>
 
-    <font color="green">/** Free the space where p point*/</font>
-    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font>
+    virtual <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, <font color="blue">const</font> string type<font color="black">)</font><font color="black">{</font>
         <font color="green">// free space of string</font>
         <font color="blue">delete</font> <font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p;
+    <font color="black">}</font>
+    
+    <font color="green">/** Free the space where p point*/</font>
+    virtual <font color="blue">void</font> freeSelfSpace<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font>
+        <font color="green">// free space of string</font>
+        <font color="blue">delete</font> <font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p;
+    <font color="black">}</font>
+
+    virtual <font color="blue">bool</font> isThisType<font color="black">(</font><font color="blue">const</font> string type<font color="black">)</font><font color="black">{</font>
+        <font color="blue">return</font> type.compare<font color="black">(</font><font color="maroon">"string"</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font>;
     <font color="black">}</font>
 <font color="black">}</font>;
 
