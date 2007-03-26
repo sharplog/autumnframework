@@ -73,6 +73,7 @@ DynamicLibrary.h
 
     <font color="green">/** Destructor */</font>
     ~DynamicLibrary<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+        AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"DynamicLibrary-&#62;~DynamicLibrary"</font><font color="black">)</font>;
         <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Handle <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font>
             _CLOSEDLL_<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Handle<font color="black">)</font>;
     <font color="black">}</font>

@@ -24,6 +24,8 @@ BeanConfig.cpp
 
 <font color="blue">#include</font> <font color="maroon">&#60;memory&#62;</font>
 <font color="blue">#include</font> <font color="maroon">"BeanConfig.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IBeanWrapper.h"</font>
+<font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
 
 <font color="green">/** erase space char */</font>
 string trimString<font color="black">(</font><font color="blue">const</font> string v<font color="black">)</font>
@@ -44,27 +46,61 @@ BeanConfig<font color="black">:</font><font color="black">:</font>BeanConfig<fon
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name <font color="black">=</font> beandef.Name;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperCreater <font color="black">=</font> wc;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter <font color="black">=</font> wd;
-    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable <font color="black">=</font> beandef.Initializable;
-    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable <font color="black">=</font> beandef.Destroyable;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>DependedObjects <font color="black">=</font> beandef.DependedObjects;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton <font color="black">=</font> beandef.Singleton;
     
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ConArgs <font color="black">=</font> <font color="blue">new</font> PropertyList;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Properties <font color="black">=</font> <font color="blue">new</font> PropertyList;
     
-    <font color="blue">int</font> i;
+    
+    <font color="blue">int</font> i, argNum;
     TProperty <font color="black">*</font>p;
+    string ConArgTypes;
+
+    auto_ptr<font color="black">&#60;</font>IBeanWrapper<font color="black">&#62;</font> pw<font color="black">(</font> wc<font color="black">(</font><font color="black">)</font> <font color="black">)</font>;
+    
+    <font color="green">// the following depends on BeanWrapperMacro implementation.</font>
+    <font color="green">// get constructor arguments' types.</font>
+    argNum <font color="black">=</font> beandef.ConArgs.size<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">if</font><font color="black">(</font> argNum <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">)</font> <font color="black">{</font>
+        <font color="blue">typedef</font> <font color="blue">void</font><font color="black">*</font> void_ptr;
+        auto_ptr<font color="black">&#60;</font>void_ptr<font color="black">&#62;</font> pp<font color="black">(</font> <font color="blue">new</font> void_ptr<font color="black">[</font><font color="maroon">1</font><font color="black">]</font> <font color="black">)</font>;
+        void_ptr<font color="black">*</font> pv <font color="black">=</font> pp.get<font color="black">(</font><font color="black">)</font>;
+
+        string firstArg <font color="black">=</font> beandef.ConArgs<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>.Value<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+        pv<font color="black">[</font><font color="maroon">0</font><font color="black">]</font> <font color="black">=</font> <font color="black">&</font>firstArg;
+        ConArgTypes <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>getConArgTypes<font color="black">(</font>pv, argNum<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    <font color="blue">int</font> start, end <font color="black">=</font> <font color="maroon">-1</font>;
     <font color="blue">for</font><font color="black">(</font>i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>beandef.ConArgs.size<font color="black">(</font><font color="black">)</font>; i<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         p <font color="black">=</font> <font color="black">&</font>beandef.ConArgs<font color="black">[</font>i<font color="black">]</font>;
+        string tmpType <font color="black">=</font> p<font color="black">-</font><font color="black">&#62;</font>Type;
+        
+        start <font color="black">=</font> end <font color="black">+</font> <font color="maroon">1</font>;
+        end <font color="black">=</font> ConArgTypes.find<font color="black">(</font>typeSeparator, start<font color="black">)</font>;
+        <font color="blue">if</font><font color="black">(</font> end <font color="black">=</font><font color="black">=</font> string<font color="black">:</font><font color="black">:</font>npos <font color="black">)</font><font color="black">{</font>
+            <font color="blue">throw</font> <font color="blue">new</font> MissDefinitionEx<font color="black">(</font><font color="maroon">"BeanConfig"</font>, <font color="maroon">"BeanConfig"</font>, 
+                <font color="maroon">"the ConArgs' types are less than arguments!"</font><font color="black">)</font>;
+        <font color="black">}</font>
+        <font color="blue">if</font><font color="black">(</font> tmpType.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
+            tmpType <font color="black">=</font> ConArgTypes.substr<font color="black">(</font>start, end <font color="black">-</font>start<font color="black">)</font>;
+        
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ConArgs<font color="black">-</font><font color="black">&#62;</font>push_back<font color="black">(</font><font color="blue">new</font> BeanProperty<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>Name,
-                trimString<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>Type<font color="black">)</font>, trimString<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>InjectType<font color="black">)</font>,
-                p<font color="black">-</font><font color="black">&#62;</font>Value, p<font color="black">-</font><font color="black">&#62;</font>Managed<font color="black">)</font><font color="black">)</font>;
+                trimString<font color="black">(</font>tmpType<font color="black">)</font>,
+                p<font color="black">-</font><font color="black">&#62;</font>Value, p<font color="black">-</font><font color="black">&#62;</font>IsBeanRef, p<font color="black">-</font><font color="black">&#62;</font>Managed<font color="black">)</font><font color="black">)</font>;
     <font color="black">}</font>
+    
     <font color="blue">for</font><font color="black">(</font>i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>beandef.Properties.size<font color="black">(</font><font color="black">)</font>; i<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         p <font color="black">=</font> <font color="black">&</font>beandef.Properties<font color="black">[</font>i<font color="black">]</font>;
+
+        string tmpType <font color="black">=</font> p<font color="black">-</font><font color="black">&#62;</font>Type;
+        <font color="blue">if</font><font color="black">(</font> tmpType.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
+            pw<font color="black">-</font><font color="black">&#62;</font>getBeanPropertyType<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>Name.c_str<font color="black">(</font><font color="black">)</font>, tmpType<font color="black">)</font>;
+
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Properties<font color="black">-</font><font color="black">&#62;</font>push_back<font color="black">(</font><font color="blue">new</font> BeanProperty<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>Name, 
-                trimString<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>Type<font color="black">)</font>, trimString<font color="black">(</font>p<font color="black">-</font><font color="black">&#62;</font>InjectType<font color="black">)</font>,
-                p<font color="black">-</font><font color="black">&#62;</font>Value, p<font color="black">-</font><font color="black">&#62;</font>Managed<font color="black">)</font><font color="black">)</font>;
+                trimString<font color="black">(</font>tmpType<font color="black">)</font>, 
+                p<font color="black">-</font><font color="black">&#62;</font>Value, p<font color="black">-</font><font color="black">&#62;</font>IsBeanRef, p<font color="black">-</font><font color="black">&#62;</font>Managed<font color="black">)</font><font color="black">)</font>;
     <font color="black">}</font>
 <font color="black">}</font>
 
@@ -84,8 +120,6 @@ BeanConfig<font color="black">:</font><font color="black">:</font>~BeanConfig<fo
 IBeanWrapper<font color="black">*</font> BeanConfig<font color="black">:</font><font color="black">:</font>createWrapper<font color="black">(</font><font color="black">)</font>
 <font color="black">{</font>
     IBeanWrapper<font color="black">*</font> p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperCreater<font color="black">(</font><font color="black">)</font>;
-    p<font color="black">-</font><font color="black">&#62;</font>setInitializable<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable<font color="black">)</font>;
-    p<font color="black">-</font><font color="black">&#62;</font>setDestroyable<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable<font color="black">)</font>;
     p<font color="black">-</font><font color="black">&#62;</font>setWrapperDeleter<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter<font color="black">)</font>;
 
     <font color="blue">return</font> p;

@@ -39,6 +39,12 @@ ILibrary.h
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** Get function address */</font>
     virtual <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font> <font color="black">=</font> <font color="maroon">0</font>;
+
+    <font color="green">/** 
+     * if don't define this destructor, the devided class's 
+     * destructor may not be called when it being deleted.
+     */</font>
+    virtual ~ILibrary<font color="black">(</font><font color="black">)</font><font color="black">{</font><font color="black">}</font>
 <font color="black">}</font>;
 
 <font color="blue">#endif</font>

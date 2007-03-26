@@ -27,6 +27,7 @@ IBeanWrapper.h
 
 <font color="blue">#include</font> <font color="maroon">&#60;string&#62;</font>
 <font color="blue">#include</font> <font color="maroon">&#60;vector&#62;</font>
+<font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
 
 <font color="blue">#ifdef</font> WIN32
     <font color="blue">#ifdef</font> AUTUMNFRAMEWORK_EXPORTS
@@ -49,12 +50,11 @@ IBeanWrapper.h
 
 <font color="blue">class</font> DLL_IM_EXPORT IBeanWrapper<font color="black">{</font>
     <font color="blue">typedef</font> <font color="blue">void</font> WrapperFreer<font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>;
-    <font color="blue">typedef</font> <font color="blue">long</font> ParamPointer;
     
     string BeanName;
 
     <font color="green">/** pointers of parameters, using long type */</font>
-    vector<font color="black">&#60;</font>ParamPointer<font color="black">&#62;</font> Parameters;
+    vector<font color="black">&#60;</font>TPointer<font color="black">&#62;</font> Parameters;
 
     <font color="green">/** function pointer to delete wrapper */</font>
     WrapperFreer<font color="black">*</font> WrapperDeleter;
@@ -62,41 +62,52 @@ IBeanWrapper.h
     <font color="green">/** 
      * bean's property 
      */</font>
-    <font color="blue">bool</font> Initializable;     <font color="green">//initializable or not</font>
-    <font color="blue">bool</font> Destroyable;       <font color="green">//destroyable or not</font>
-    <font color="blue">bool</font> Singleton;         <font color="green">//is singleton or not</font>
+    <font color="blue">bool</font> Singleton;                             <font color="green">// is singleton or not</font>
+    
 <font color="blue">public</font><font color="black">:</font>
     virtual <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font><font color="black">)</font> <font color="black">=</font> <font color="maroon">0</font>;
+    virtual <font color="blue">void</font>  setBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font> <font color="black">=</font> <font color="maroon">0</font>;
+    
+    virtual <font color="blue">bool</font> hasDeletor<font color="black">(</font><font color="black">)</font><font color="black">{</font><font color="blue">return</font> <font color="blue">false</font>;<font color="black">}</font>    <font color="green">// has deletor or not</font>
+    virtual <font color="blue">bool</font> Destroyable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">false</font>; <font color="black">}</font> <font color="green">// has initialize function or not</font>
+    virtual <font color="blue">bool</font> Initializable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">false</font>; <font color="black">}</font><font color="green">// has destroy function or not</font>
 
     <font color="blue">void</font> setBeanName<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BeanName <font color="black">=</font> <font color="blue">name</font>; <font color="black">}</font>
     string getBeanName<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BeanName; <font color="black">}</font>
     
-    <font color="blue">void</font> setDestroyable<font color="black">(</font><font color="blue">bool</font> d<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable <font color="black">=</font> d; <font color="black">}</font>
-    <font color="blue">bool</font> getDestroyable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable; <font color="black">}</font>
-    
-    <font color="blue">void</font> setInitializable<font color="black">(</font><font color="blue">bool</font> i<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable <font color="black">=</font> i; <font color="black">}</font>
-    <font color="blue">bool</font> getInitializable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Initializable; <font color="black">}</font>
-
     <font color="blue">void</font> setSingleton<font color="black">(</font><font color="blue">bool</font> s<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton <font color="black">=</font> s; <font color="black">}</font>
     <font color="blue">bool</font> getSingleton<font color="black">(</font><font color="black">)</font> <font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton; <font color="black">}</font>
 
     <font color="blue">void</font> setWrapperDeleter<font color="black">(</font>WrapperFreer<font color="black">*</font> wd<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter <font color="black">=</font> wd; <font color="black">}</font>
     WrapperFreer<font color="black">*</font> getWrapperDeleter<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperDeleter; <font color="black">}</font>
     
-    <font color="blue">void</font> addParameter<font color="black">(</font>ParamPointer p<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters.push_back<font color="black">(</font>p<font color="black">)</font>; <font color="black">}</font>
-    vector<font color="black">&#60;</font>ParamPointer<font color="black">&#62;</font> getParameter<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters; <font color="black">}</font>
+    <font color="blue">void</font> addParameter<font color="black">(</font>TPointer p<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters.push_back<font color="black">(</font>p<font color="black">)</font>; <font color="black">}</font>
+    vector<font color="black">&#60;</font>TPointer<font color="black">&#62;</font> getParameter<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Parameters; <font color="black">}</font>
 
+    <font color="blue">int</font> setBeanPropertyValue<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font><font color="black">{</font>
+        string dummy;
+        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>operateBeanProperty<font color="black">(</font><font color="blue">name</font>, opSetPropValue, dummy, value<font color="black">)</font>;
+    <font color="black">}</font>
     
-    virtual <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">int</font> getBeanPropertyType<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, string<font color="black">&</font> type<font color="black">)</font><font color="black">{</font>
+        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>operateBeanProperty<font color="black">(</font><font color="blue">name</font>, opGetPropType, type, NULL<font color="black">)</font>;
+    <font color="black">}</font>
+    
+    
+    string getConArgTypes<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> pPrams, <font color="blue">int</font> num<font color="black">)</font>;
 
-    virtual <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> pPrams, <font color="blue">int</font> num<font color="black">)</font>;
+    <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> pPrams, <font color="blue">int</font> num<font color="black">)</font>;
 
+    virtual <font color="blue">void</font> deleteBean<font color="black">(</font><font color="black">)</font>;
+    
     virtual <font color="blue">void</font> initializeBean<font color="black">(</font><font color="black">)</font>;
 
     virtual <font color="blue">void</font> destroyBean<font color="black">(</font><font color="black">)</font>;
 
-    virtual <font color="blue">int</font> setBeanProperty<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> type, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font>;
-
+    virtual <font color="blue">int</font> operateBeanProperty<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> op, string<font color="black">&</font> type, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font>;
+    
+    virtual <font color="blue">int</font> operateCreator<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> p, <font color="blue">int</font> num, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> op, string<font color="black">&</font> args, <font color="blue">void</font><font color="black">*</font><font color="black">&</font> pr<font color="black">)</font>;
+        
     <font color="green">/** Destructor */</font>
     virtual ~IBeanWrapper<font color="black">(</font><font color="black">)</font>;
 <font color="black">}</font>;

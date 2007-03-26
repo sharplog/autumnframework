@@ -46,18 +46,18 @@ BeanProperty.h
     <font color="green">/** Property's type */</font>
     string Type;
     
-    <font color="green">/** Property's type for injection*/</font>
-    string InjectType;
-    
     <font color="green">/** String list presenting parameter value */</font>
     StrValueList StrValue;
     
-    <font color="green">/** Managed by Autumn framework or not */</font>
+    <font color="green">/** Managed by Autumn framework or not, it is allways true now. */</font>
     <font color="blue">bool</font> Managed;
 
+    <font color="green">/** UNUSED NOW. the type is a ref of bean or not  */</font>
+    <font color="blue">bool</font> IsBeanRef;
+    
 <font color="blue">public</font><font color="black">:</font>
-    BeanProperty<font color="black">(</font>string <font color="blue">name</font>, string type, string itype, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> b<font color="black">=</font><font color="blue">true</font><font color="black">)</font><font color="black">:</font>
-      Name<font color="black">(</font><font color="blue">name</font><font color="black">)</font>, Type<font color="black">(</font>type<font color="black">)</font>, InjectType<font color="black">(</font>itype<font color="black">)</font>, StrValue<font color="black">(</font>vl<font color="black">)</font>, Managed<font color="black">(</font>b<font color="black">)</font><font color="black">{</font> <font color="black">}</font>
+    BeanProperty<font color="black">(</font>string <font color="blue">name</font>, string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> r, <font color="blue">bool</font> b<font color="black">=</font><font color="blue">true</font><font color="black">)</font><font color="black">:</font>
+      Name<font color="black">(</font><font color="blue">name</font><font color="black">)</font>, Type<font color="black">(</font>type<font color="black">)</font>, StrValue<font color="black">(</font>vl<font color="black">)</font>, IsBeanRef<font color="black">(</font>r<font color="black">)</font>, Managed<font color="black">(</font>b<font color="black">)</font><font color="black">{</font> <font color="black">}</font>
 
     <font color="green">/** 
      * Set a object's property.

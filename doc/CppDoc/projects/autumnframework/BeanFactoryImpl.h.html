@@ -40,9 +40,6 @@ BeanFactoryImpl.h
 
 <font color="blue">class</font> BeanFactoryImpl<font color="black">:</font><font color="blue">public</font> IBeanFactory<font color="black">{</font>
 <font color="blue">private</font><font color="black">:</font>
-    <font color="green">/** The singleton's instance */</font>
-    <font color="blue">static</font> IBeanFactory<font color="black">*</font> Instance;
-
     <font color="green">/** 
      * Autumn configuration
      */</font>
@@ -58,23 +55,13 @@ BeanFactoryImpl.h
      */</font>
     TypeManager<font color="black">*</font> ManagerOfType;
 
+<font color="blue">public</font><font color="black">:</font>
     <font color="green">/** 
      * Constructor
      * @param config Configuration resource
      */</font>
     BeanFactoryImpl<font color="black">(</font>IResource<font color="black">*</font> config<font color="black">)</font>;
 
-<font color="blue">public</font><font color="black">:</font>
-    <font color="green">/**
-     *Get this singleton's instance 
-     * @param config Configuration resource
-     * @return Instance of IBeanFactory
-     */</font>
-    <font color="blue">static</font> IBeanFactory<font color="black">*</font> getInstance<font color="black">(</font>IResource<font color="black">*</font> config<font color="black">)</font>;
-
-    <font color="green">/** Get this singleton's instance */</font>
-    <font color="blue">static</font> IBeanFactory<font color="black">*</font> getInstance<font color="black">(</font><font color="black">)</font>;
-    
     <font color="green">/** 
      * Get a bean with bean's name
      * @param name Bean's name
@@ -102,11 +89,6 @@ BeanFactoryImpl.h
      */</font>
     virtual <font color="blue">bool</font> isSingleton<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
 
-    <font color="green">/** Get type manager */</font>
-    TypeManager<font color="black">*</font> getTypeManager<font color="black">(</font><font color="black">)</font><font color="black">{</font>
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType;
-    <font color="black">}</font>
-    
     <font color="green">/** Destructor */</font>
     virtual ~BeanFactoryImpl<font color="black">(</font><font color="black">)</font>;
 <font color="black">}</font>;
