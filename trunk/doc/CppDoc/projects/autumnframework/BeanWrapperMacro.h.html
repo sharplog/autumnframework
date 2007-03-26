@@ -57,39 +57,44 @@ BeanWrapperMacro.h
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> NULL;                                         \
     <font color="black">}</font>                                                               \
                                                                     \
-    ~##bean##_Wrapper<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                            \
+    ~bean##_Wrapper<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                              \
         <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">)</font> <font color="black">{</font>                                         \
-            <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getDestroyable<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>                          \
+            <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Destroyable<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>                             \
                 <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>destroyBean<font color="black">(</font><font color="black">)</font>;                                \
             <font color="black">}</font>                                                       \
-            <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean;                                     \
+            <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>hasDeletor<font color="black">(</font><font color="black">)</font> <font color="black">)</font>                                \
+                <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>deleteBean<font color="black">(</font><font color="black">)</font>;                                 \
+            <font color="blue">else</font>                                                    \
+                <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean;                                 \
         <font color="black">}</font>                                                           \
     <font color="black">}</font>                                                               \
                                                                     \
     <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean; <font color="black">}</font>                   \
-                                                                    \
-    string trimString<font color="black">(</font><font color="blue">const</font> string v<font color="black">)</font><font color="black">{</font>                              \
-        string s<font color="black">=</font>v;                                                 \
-        <font color="blue">for</font><font color="black">(</font><font color="blue">int</font> i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>s.size<font color="black">(</font><font color="black">)</font>; <font color="black">)</font><font color="black">{</font>                                 \
-            <font color="blue">if</font><font color="black">(</font> isspace<font color="black">(</font>s.at<font color="black">(</font>i<font color="black">)</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>                                 \
-                s.erase<font color="black">(</font>i,<font color="maroon">1</font><font color="black">)</font>;                                       \
-            <font color="black">}</font>                                                       \
-            <font color="blue">else</font> i<font color="black">+</font><font color="black">+</font>;                                               \
-        <font color="black">}</font>                                                           \
-        <font color="blue">return</font> s;                                                   \
-    <font color="black">}</font>
+    <font color="blue">void</font>  setBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="black">(</font>bean<font color="black">*</font><font color="black">)</font>p; <font color="black">}</font>
 
-<font color="green">/** 
+<font color="blue">#define</font> AUTUMNBEAN_CREATOR<font color="black">(</font><font color="black">)</font>                                        \
+<font color="blue">int</font> operateCreator<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> p, <font color="blue">int</font> num, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> op, string<font color="black">&</font> args, <font color="blue">void</font><font color="black">*</font><font color="black">&</font> pr<font color="black">)</font>  \
+<font color="black">{</font>
+
+<font color="blue">#define</font> AUTUMNBEAN_CREATOR_END<font color="black">(</font><font color="black">)</font>                                    \
+        <font color="blue">return</font> <font color="maroon">-1</font>;                                                  \
+    <font color="blue">return</font> <font color="maroon">0</font>;                                                       \
+<font color="black">}</font>
+
+ <font color="green">/** 
  * Create a bean without parameter
  * @param bean The bean name, it is user's class name
  * @return NULL if failed
 */</font>
 <font color="blue">#define</font> AUTUMNBEAN_CONSTRUCTOR<font color="black">(</font>bean<font color="black">)</font>                                \
-    <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                             \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> NULL;                                         \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font><font color="black">)</font>;                                   \
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean;                                         \
-    <font color="black">}</font>
+    <font color="blue">if</font><font color="black">(</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>                                                 \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font><font color="black">)</font>;                          \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">""</font>;                                              \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
 
 <font color="green">/** 
  * Create a bean with parameters
@@ -99,38 +104,153 @@ BeanWrapperMacro.h
  * @param type The first parameter's type
  * @return NULL if failed
  */</font>
-<font color="blue">#define</font> AUTUMNBEAN_CON_PARAMS<font color="black">(</font>bean, param_num, type<font color="black">)</font>                \
-    <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> pPrams, <font color="blue">int</font> num<font color="black">)</font><font color="black">{</font>                       \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> NULL;                                         \
-        <font color="blue">if</font><font color="black">(</font> num <font color="black">!</font><font color="black">=</font> param_num<font color="black">)</font><font color="black">{</font>                                      \
-            <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean;                                     \
+<font color="blue">#define</font> AUTUMNBEAN_CONSTRUCTOR_1P<font color="black">(</font>bean, type<font color="black">)</font>                       \
+    <font color="blue">if</font><font color="black">(</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">)</font><font color="black">{</font>                                                 \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font><font color="black">*</font><font color="black">(</font>type<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font>;              \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> #type <font color="maroon">"|"</font>;                                       \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+<font color="blue">#define</font> AUTUMNBEAN_CONSTRUCTOR_2P<font color="black">(</font>bean, type1, type2<font color="black">)</font>               \
+    <font color="blue">if</font><font color="black">(</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">2</font> <font color="black">)</font><font color="black">{</font>                                                 \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font><font color="black">*</font><font color="black">(</font>type1<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type2<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font><font color="black">)</font>;             \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> #type1 <font color="maroon">"|"</font> #type2 <font color="maroon">"|"</font>;                           \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+<font color="blue">#define</font> AUTUMNBEAN_CONSTRUCTOR_13P<font color="black">(</font>bean, type1, type2, type3, type4,\
+                                type5, type6, type7, type8, type9,  \
+                                type10, type11, type12, type13<font color="black">)</font>     \
+    <font color="blue">if</font><font color="black">(</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">13</font> <font color="black">)</font><font color="black">{</font>                                                \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font><font color="black">*</font><font color="black">(</font>type1<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type2<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type3<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">2</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type4<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">3</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type5<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">4</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type6<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">5</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type7<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">6</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type8<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">7</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type9<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">8</font><font color="black">]</font>,              \
+                                        <font color="black">*</font><font color="black">(</font>type10<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">9</font><font color="black">]</font>,             \
+                                        <font color="black">*</font><font color="black">(</font>type11<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">10</font><font color="black">]</font>,            \
+                                        <font color="black">*</font><font color="black">(</font>type12<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">11</font><font color="black">]</font>,            \
+                                        <font color="black">*</font><font color="black">(</font>type13<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">12</font><font color="black">]</font><font color="black">)</font>;           \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> #type1 <font color="maroon">"|"</font> #type2 <font color="maroon">"|"</font> #type3 <font color="maroon">"|"</font> #type4 <font color="maroon">"|"</font>      \
+                   #type5 <font color="maroon">"|"</font> #type6 <font color="maroon">"|"</font> #type7 <font color="maroon">"|"</font> #type8 <font color="maroon">"|"</font>      \
+                   #type9 <font color="maroon">"|"</font> #type10 <font color="maroon">"|"</font> #type11 <font color="maroon">"|"</font> #type12 <font color="maroon">"|"</font>   \
+                   #type13 <font color="maroon">"|"</font>;                                     \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+<font color="blue">else</font>
+
+ <font color="green">/** 
+ * Create a bean with static factory method without parameter
+ * @param bean The bean name, it is user's class name
+ * @param method The static factory method name
+ * @return NULL if failed
+*/</font>
+<font color="blue">#define</font> AUTUMNBEAN_CON_METHOD<font color="black">(</font>bean, method<font color="black">)</font>                         \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font> <font color="black">)</font><font color="black">{</font>       \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> bean<font color="black">:</font><font color="black">:</font>method<font color="black">(</font><font color="black">)</font>;                      \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font>;                                       \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+<font color="green">/** 
+ * Create a bean with static factory method with parameters
+ * This is the first part of creating function.
+ * @param bean The bean name, it is user's class name
+ * @param method The static factory method name
+ * @param param_num The number of constructor's parameters
+ * @param type The first parameter's type
+ * @return NULL if failed
+ */</font>
+<font color="blue">#define</font> AUTUMNBEAN_CON_METHOD_1P<font color="black">(</font>bean, method, type<font color="black">)</font>                \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font><font color="black">+</font><font color="maroon">1</font> <font color="black">)</font><font color="black">{</font>     \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> bean<font color="black">:</font><font color="black">:</font>method<font color="black">(</font><font color="black">*</font><font color="black">(</font>type<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font><font color="black">)</font>;          \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font> #type <font color="maroon">"|"</font>;                             \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+<font color="blue">#define</font> AUTUMNBEAN_CON_METHOD_2P<font color="black">(</font>bean, method, type1, type2<font color="black">)</font>        \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">1</font><font color="black">+</font><font color="maroon">2</font> <font color="black">)</font><font color="black">{</font>     \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> bean<font color="black">:</font><font color="black">:</font>method<font color="black">(</font><font color="black">*</font><font color="black">(</font>type1<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font>,          \
+                                            <font color="black">*</font><font color="black">(</font>type2<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">2</font><font color="black">]</font><font color="black">)</font>;         \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font> #type1 <font color="maroon">"|"</font> #type2 <font color="maroon">"|"</font>;                 \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+ <font color="green">/** 
+ * Create a bean with factory without parameter
+ * @param factory The factory name
+ * @param method The factory method name
+ * @return NULL if failed
+*/</font>
+<font color="blue">#define</font> AUTUMNBEAN_CON_FACTORY<font color="black">(</font>factory, method<font color="black">)</font>                     \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">2</font> <font color="black">)</font><font color="black">{</font>       \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="black">(</font><font color="black">(</font>factory<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>method<font color="black">(</font><font color="black">)</font>;          \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font> #factory <font color="maroon">"|"</font>;                          \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
+
+<font color="green">/** 
+ * Create a bean with factory with parameters
+ * This is the first part of creating function.
+ * @param factory The factory name
+ * @param method The factory method name
+ * @param param_num The number of constructor's parameters
+ * @param type The first parameter's type
+ * @return NULL if failed
+ */</font>
+<font color="blue">#define</font> AUTUMNBEAN_CON_FACTORY_1P<font color="black">(</font>factory, method, type<font color="black">)</font>            \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">2</font><font color="black">+</font><font color="maroon">1</font> <font color="black">)</font><font color="black">{</font>     \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font><font color="black">{</font>                                   \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="black">(</font><font color="black">(</font>factory<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>method<font color="black">(</font><font color="black">*</font><font color="black">(</font>type<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">2</font><font color="black">]</font><font color="black">)</font>;  \
         <font color="black">}</font>                                                           \
-                                                                    \
-        <font color="blue">int</font> i <font color="black">=</font> num;                                                \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="blue">new</font> bean<font color="black">(</font>                                     \
-            <font color="black">*</font><font color="black">(</font>type<font color="black">*</font><font color="black">)</font>pPrams<font color="black">[</font><font color="black">-</font><font color="black">-</font>i<font color="black">]</font>
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font> #factory <font color="maroon">"|"</font> #type <font color="maroon">"|"</font>;                \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
 
-<font color="green">/** 
- * Add the next parameter for constructor
- * @param type The parameter's type
- */</font>
-<font color="blue">#define</font> AUTUMNBEAN_CON_PARAM<font color="black">(</font>type<font color="black">)</font>                                  \
-            ,<font color="black">*</font><font color="black">(</font>type<font color="black">*</font><font color="black">)</font>pPrams<font color="black">[</font><font color="black">-</font><font color="black">-</font>i<font color="black">]</font>
+<font color="blue">#define</font> AUTUMNBEAN_CON_FACTORY_2P<font color="black">(</font>factory, method, type1, type2<font color="black">)</font>    \
+    <font color="blue">if</font><font color="black">(</font> <font color="black">(</font><font color="black">(</font>string<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>compare<font color="black">(</font>#method<font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">2</font><font color="black">+</font><font color="maroon">2</font> <font color="black">)</font><font color="black">{</font>     \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                                \
+            pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean <font color="black">=</font> <font color="black">(</font><font color="black">(</font>factory<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">1</font><font color="black">]</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>method<font color="black">(</font><font color="black">*</font><font color="black">(</font>type1<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">2</font><font color="black">]</font>,  \
+                                                        <font color="black">*</font><font color="black">(</font>type2<font color="black">*</font><font color="black">)</font>p<font color="black">[</font><font color="maroon">3</font><font color="black">]</font><font color="black">)</font>; \
+        <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                          \
+            args <font color="black">=</font> <font color="maroon">"string|"</font> #factory <font color="maroon">"|"</font> #type1 <font color="maroon">"|"</font> #type2 <font color="maroon">"|"</font>;    \
+        <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                             \
+    <font color="black">}</font>                                                               \
+    <font color="blue">else</font>
 
-<font color="green">/** 
- * End of the parameter list and end of creating function
- */</font>
-<font color="blue">#define</font> AUTUMNBEAN_CON_PARAMS_END<font color="black">(</font><font color="black">)</font>                                 \
-            <font color="black">)</font>;                                                      \
-                                                                    \
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean;                                         \
-    <font color="black">}</font>
-    
-<font color="green">/** 
+ <font color="green">/** 
  * Initializing function
  * @param init The class's initializing function
  */</font>
 <font color="blue">#define</font> AUTUMNBEAN_INIT<font color="black">(</font>init<font color="black">)</font>                                       \
+    <font color="blue">bool</font> Initializable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">true</font>; <font color="black">}</font>                            \
     <font color="blue">void</font> initializeBean<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                          \
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean<font color="black">-</font><font color="black">&#62;</font>init<font color="black">(</font><font color="black">)</font>;                                        \
     <font color="black">}</font>
@@ -140,6 +260,7 @@ BeanWrapperMacro.h
  * @param init The class's destroying function
  */</font>
 <font color="blue">#define</font> AUTUMNBEAN_DESTROY<font color="black">(</font>destroy<font color="black">)</font>                                 \
+    <font color="blue">bool</font> Destroyable<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="blue">true</font>; <font color="black">}</font>                              \
     <font color="blue">void</font> destroyBean<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                             \
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean<font color="black">-</font><font color="black">&#62;</font>destroy<font color="black">(</font><font color="black">)</font>;                                     \
     <font color="black">}</font>
@@ -148,8 +269,8 @@ BeanWrapperMacro.h
  * bean's setter, the first part
  */</font>
 <font color="blue">#define</font> AUTUMNBEAN_SETTER<font color="black">(</font><font color="black">)</font>                                         \
-    <font color="blue">int</font> setBeanProperty<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>,                           \
-            <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> type, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font><font color="black">{</font>
+    <font color="blue">int</font> operateBeanProperty<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> op,       \
+            string<font color="black">&</font> type, <font color="blue">void</font><font color="black">*</font> value<font color="black">)</font><font color="black">{</font>
 
 <font color="green">/** 
  * Add property
@@ -158,17 +279,34 @@ BeanWrapperMacro.h
  * @return 0 for success and -1 for failure
  */</font>
 <font color="blue">#define</font> AUTUMNBEAN_PROPERTY<font color="black">(</font>pname, ptype<font color="black">)</font>                           \
-        <font color="blue">if</font><font color="black">(</font><font color="black">!</font>strcmp<font color="black">(</font>#pname, <font color="blue">name</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font>                                 \
-                <font color="black">!</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>trimString<font color="black">(</font>#ptype<font color="black">)</font>.compare<font color="black">(</font>type<font color="black">)</font><font color="black">)</font><font color="black">{</font>           \
-            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean<font color="black">-</font><font color="black">&#62;</font>set##pname<font color="black">(</font><font color="black">*</font><font color="black">(</font>ptype<font color="black">*</font><font color="black">)</font>value<font color="black">)</font>;                \
+        <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>#pname, <font color="blue">name</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>                                \
+            <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"setvalue"</font><font color="black">)</font> <font color="black">)</font>                           \
+                <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean<font color="black">-</font><font color="black">&#62;</font>set##pname<font color="black">(</font><font color="black">*</font><font color="black">(</font>ptype<font color="black">*</font><font color="black">)</font>value<font color="black">)</font>;            \
+            <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                      \
+                type <font color="black">=</font> #ptype;                                      \
+            <font color="blue">else</font>                                                    \
+                <font color="blue">return</font> <font color="maroon">-1</font>;                                          \
         <font color="black">}</font>                                                           \
         <font color="blue">else</font> 
+
 <font color="green">/** 
- * the last part of bean's setter
+ * the last part of a bean's setter
  */</font>
 <font color="blue">#define</font> AUTUMNBEAN_SETTER_END<font color="black">(</font><font color="black">)</font>                                     \
             <font color="blue">return</font> <font color="maroon">-1</font>;                                              \
         <font color="blue">return</font> <font color="maroon">0</font>;                                                   \
+    <font color="black">}</font>
+    
+<font color="green">/** 
+ * If a bean has deletor, must use it to delete the bean.
+ * This maybe be usefule when a bean is created with static factory method.
+ * @param bean The bean name, it is user's class name
+ * @param method The deletor name
+ */</font>
+<font color="blue">#define</font> AUTUMNBEAN_DELETOR<font color="black">(</font>bean, method<font color="black">)</font>                            \
+    <font color="blue">bool</font> hasDeletor<font color="black">(</font><font color="black">)</font><font color="black">{</font><font color="blue">return</font> <font color="blue">true</font>;<font color="black">}</font>                                 \
+    <font color="blue">void</font> deleteBean<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                              \
+        bean<font color="black">:</font><font color="black">:</font>method<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pBean<font color="black">)</font>;                                  \
     <font color="black">}</font>
     
 <font color="green">/** 
@@ -232,16 +370,24 @@ AUTUMN_##bean##_Proxy _AUTUMN_##bean##_Proxy_;
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>setBeanName<font color="black">(</font>#type<font color="black">)</font>;                                   \
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">=</font> NULL;                                         \
     <font color="black">}</font>                                                               \
-    <font color="blue">void</font><font color="black">*</font> createBean<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                             \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">=</font> NULL;                                         \
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">=</font> <font color="blue">new</font> type<font color="black">(</font><font color="black">)</font>;                                   \
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType;                                         \
+    <font color="blue">int</font> operateCreator<font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font> p, <font color="blue">int</font> num, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> op, string<font color="black">&</font> args, <font color="blue">void</font><font color="black">*</font><font color="black">&</font> pr<font color="black">)</font><font color="black">{</font> \
+        <font color="blue">if</font><font color="black">(</font> num <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>                                             \
+            <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"create"</font> <font color="black">)</font> <font color="black">)</font>                            \
+                pr <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">=</font> <font color="blue">new</font> type<font color="black">(</font><font color="black">)</font>;                      \
+            <font color="blue">else</font> <font color="blue">if</font> <font color="black">(</font> <font color="black">!</font>strcmp<font color="black">(</font>op, <font color="maroon">"gettype"</font><font color="black">)</font> <font color="black">)</font>                      \
+                args <font color="black">=</font> <font color="maroon">""</font>;                                          \
+            <font color="blue">else</font> <font color="blue">return</font> <font color="maroon">-1</font>;                                         \
+        <font color="black">}</font>                                                           \
+        <font color="blue">else</font>                                                        \
+            <font color="blue">return</font> <font color="maroon">-1</font>;                                              \
+        <font color="blue">return</font> <font color="maroon">0</font>;                                                   \
     <font color="black">}</font>                                                               \
-    ~##type##_Type<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                               \
+    ~type##_Type<font color="black">(</font><font color="black">)</font><font color="black">{</font>                                                 \
         <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">)</font>                                           \
             <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType;                                     \
     <font color="black">}</font>                                                               \
     <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font><font color="black">)</font><font color="black">{</font> <font color="blue">return</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">)</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType; <font color="black">}</font>                   \
+    <font color="blue">void</font>  setBean<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>pType <font color="black">=</font> <font color="black">(</font>type<font color="black">*</font><font color="black">)</font>p; <font color="black">}</font>               \
 <font color="black">}</font>;                                                                  \
                                                                     \
 <font color="blue">extern</font> <font color="maroon">"C"</font><font color="black">{</font>                                                         \

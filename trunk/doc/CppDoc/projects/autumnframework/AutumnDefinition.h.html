@@ -35,13 +35,14 @@ AutumnDefinition.h
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     string  Name;
     
-    <font color="green">/** the initial type of property value */</font>
+    <font color="green">/** the initial type of property value, be set in config file or by wrapper */</font>
     string  Type;
     
-    <font color="green">/** the type is as when injecting */</font>
-    string  InjectType;
-    
+    <font color="green">/** Value strings */</font>
     StrValueList Value; 
+    
+    <font color="green">/** the type is a ref of bean or not */</font>
+    <font color="blue">bool</font> IsBeanRef;
 
     <font color="green">/** Property be managed by Autumn framework or not. */</font>
     <font color="blue">bool</font>    Managed;
@@ -54,12 +55,6 @@ AutumnDefinition.h
 
     <font color="green">/** POCO name */</font>
     string  ClassName;
-
-    <font color="green">/** POCO has intializing function or not */</font>
-    <font color="blue">bool</font>    Initializable;
-    
-    <font color="green">/** POCO has destroying function or not */</font>
-    <font color="blue">bool</font>    Destroyable;
 
     <font color="green">/** POCO as a singleton */</font>
     <font color="blue">bool</font>    Singleton;
@@ -81,9 +76,6 @@ AutumnDefinition.h
 
     <font color="green">/** Class derived from IBasicType or ICombinedType */</font>
     string ClassName;
-
-    <font color="green">/** Type is basic type or not. */</font>
-    <font color="blue">bool</font> IsBasic;
 <font color="black">}</font> TType;
 
 <font color="green">/** struct to store library configuration */</font>

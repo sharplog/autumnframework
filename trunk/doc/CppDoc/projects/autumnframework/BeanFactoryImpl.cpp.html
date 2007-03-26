@@ -30,6 +30,7 @@ BeanFactoryImpl.cpp
 <font color="blue">#include</font> <font color="maroon">"BeanFactoryImpl.h"</font>
 <font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
 <font color="blue">#include</font> <font color="maroon">"IBeanWrapper.h"</font>
+<font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 <font color="blue">#include</font> <font color="maroon">"ObjectType.h"</font>
 
 <font color="green">/** 
@@ -39,8 +40,6 @@ BeanFactoryImpl.cpp
  * @since 2006-12-5
  */</font>
 <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> LogBeanName <font color="black">=</font> <font color="maroon">"AutumnFrameworkLog"</font>;
-
-IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> NULL;
 
 <font color="green">/** 
  * Constructor
@@ -52,27 +51,25 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>BeanFacto
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean <font color="black">=</font> <font color="blue">new</font> BeanManager<font color="black">(</font><font color="black">)</font>;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType <font color="black">=</font> <font color="blue">new</font> TypeManager<font color="black">(</font><font color="black">)</font>;
 
-    <font color="green">// Add each bean as a basic type. Do this before adding customized types,</font>
-    <font color="green">// or the customized types will be added to type manager twice.</font>
-    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> beanClasses <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getAllBeanClasses<font color="black">(</font><font color="black">)</font>;
-    <font color="blue">for</font><font color="black">(</font><font color="blue">int</font> i <font color="black">=</font> <font color="maroon">0</font>; i<font color="black">&#60;</font>beanClasses.size<font color="black">(</font><font color="black">)</font>; i<font color="black">+</font><font color="black">+</font><font color="black">)</font>
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>setBasicType<font color="black">(</font>beanClasses<font color="black">[</font>i<font color="black">]</font>, <font color="blue">new</font> ObjectType<font color="black">)</font>;
-
+    <font color="green">// Add a bean maker to TypeManager to make all beans.</font>
+    <font color="green">// it is deleted in TypeManager destructor.</font>
+    IAutumnType<font color="black">*</font> pt <font color="black">=</font> <font color="blue">new</font> ObjectType<font color="black">(</font><font color="blue">this</font><font color="black">)</font>;
+    pt<font color="black">-</font><font color="black">&#62;</font>setTypeManager<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">)</font>;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>setBeanMaker<font color="black">(</font>pt<font color="black">)</font>;
+    
     <font color="green">// Add customized types</font>
+    <font color="green">// it is deleted in TypeManager destructor.</font>
     vector<font color="black">&#60;</font>TypeConfig<font color="black">&#62;</font><font color="black">*</font> types <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getAllTypes<font color="black">(</font><font color="black">)</font>;
     <font color="blue">for</font><font color="black">(</font><font color="blue">int</font> j <font color="black">=</font> <font color="maroon">0</font>; j<font color="black">&#60;</font>types<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font>; j<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         TypeConfig tc <font color="black">=</font> <font color="black">(</font><font color="black">*</font>types<font color="black">)</font><font color="black">[</font>j<font color="black">]</font>;
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>setBeanConfig<font color="black">(</font>tc.Name, tc.BeanCfg<font color="black">)</font>;
 
-        <font color="blue">void</font><font color="black">*</font> p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>tc.Name<font color="black">)</font>;
-        <font color="blue">if</font><font color="black">(</font> tc.IsBasic <font color="black">)</font> <font color="black">{</font>
-            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>setBasicType<font color="black">(</font>tc.Name, <font color="black">(</font>IBasicType<font color="black">*</font><font color="black">)</font>p, <font color="blue">true</font><font color="black">)</font>;
-        <font color="black">}</font>
-        <font color="blue">else</font><font color="black">{</font>
-            ICombinedType<font color="black">*</font> pc <font color="black">=</font> <font color="black">(</font>ICombinedType<font color="black">*</font><font color="black">)</font>p;
-            pc<font color="black">-</font><font color="black">&#62;</font>setTypeManager<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">)</font>;
-            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>setCombinedType<font color="black">(</font>tc.Name, pc, <font color="blue">true</font><font color="black">)</font>;
-        <font color="black">}</font>
+        IAutumnType<font color="black">*</font> pt <font color="black">=</font><font color="black">(</font>IAutumnType<font color="black">*</font><font color="black">)</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>tc.Name<font color="black">)</font>;
+        pt<font color="black">-</font><font color="black">&#62;</font>setTypeManager<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">)</font>;
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>addTypeBean<font color="black">(</font>pt<font color="black">)</font>;
+        IBeanWrapper<font color="black">*</font> pw <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>releaseBean<font color="black">(</font>pt<font color="black">)</font>;
+        pw<font color="black">-</font><font color="black">&#62;</font>setBean<font color="black">(</font>NULL<font color="black">)</font>;
+        <font color="blue">delete</font> pw;
     <font color="black">}</font>
     
     <font color="green">// use logger configured by user</font>
@@ -89,28 +86,11 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
     
     AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"BeanFactoryImpl-&#62;~BeanFactoryImpl"</font><font color="black">)</font>;
 
-    <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config;
     <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean;
-    BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> NULL;
-<font color="black">}</font>
+    <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType;
 
-<font color="green">/** 
- * Get this singleton's instance
- * @param config Configuration resource
- */</font>
-IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font>IResource<font color="black">*</font> config<font color="black">)</font>
-<font color="black">{</font>
-    <font color="blue">if</font><font color="black">(</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font><font color="black">=</font> NULL <font color="black">)</font>
-        BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> <font color="blue">new</font> BeanFactoryImpl<font color="black">(</font>config<font color="black">)</font>;
-    <font color="blue">return</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance;
-<font color="black">}</font>
-
-<font color="green">/** Get this singleton's instance */</font>
-IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font>
-<font color="black">{</font>
-    <font color="blue">if</font><font color="black">(</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font>
-        <font color="blue">return</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>Instance;
-    <font color="blue">throw</font> <font color="blue">new</font> NonInstanceEx<font color="black">(</font><font color="maroon">"BeanFactoryImpl"</font>, <font color="maroon">"getInstance"</font>, <font color="maroon">"Instance is NULL"</font><font color="black">)</font>;
+    <font color="green">// Config will be used when deleting ManagerOfBean.</font>
+    <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config;
 <font color="black">}</font>
 
 <font color="green">/** 
@@ -125,7 +105,10 @@ IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</f
 
     BeanConfig<font color="black">*</font> bc <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getBeanConfig<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
     <font color="green">// Not found</font>
-    <font color="blue">if</font><font color="black">(</font> bc <font color="black">=</font><font color="black">=</font> NULL <font color="black">)</font> <font color="blue">return</font> NULL;
+    <font color="blue">if</font><font color="black">(</font> bc <font color="black">=</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
+        AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font><font color="blue">error</font><font color="black">(</font><font color="maroon">"BeanFactoryImpl-&#62;getBean: bean["</font> <font color="black">+</font> <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"]'s config is not found"</font><font color="black">)</font>;
+        <font color="blue">return</font> NULL;
+    <font color="black">}</font>
 
     <font color="green">// If singleton</font>
     <font color="blue">if</font><font color="black">(</font> bc<font color="black">-</font><font color="black">&#62;</font>isSingleton<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
@@ -146,7 +129,8 @@ IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</f
     <font color="green">//Create bean</font>
     PropertyList<font color="black">*</font> pargs <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getConArgs<font color="black">(</font><font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> pargs<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>   <font color="green">//No constructor argument</font>
-        p <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>createBean<font color="black">(</font><font color="black">)</font>;
+        <font color="blue">void</font> <font color="black">*</font><font color="black">*</font> pDummy;
+        p <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>createBean<font color="black">(</font>pDummy, <font color="maroon">0</font><font color="black">)</font>;
     <font color="black">}</font>
     <font color="blue">else</font><font color="black">{</font>                       <font color="green">//Has constructor argments</font>
         <font color="blue">int</font> num <font color="black">=</font> pargs<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font>;
@@ -175,7 +159,7 @@ IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</f
     <font color="black">}</font>
 
     <font color="green">//Initialize bean</font>
-    <font color="blue">if</font><font color="black">(</font> pw<font color="black">-</font><font color="black">&#62;</font>getInitializable<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+    <font color="blue">if</font><font color="black">(</font> pw<font color="black">-</font><font color="black">&#62;</font>Initializable<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
         pw<font color="black">-</font><font color="black">&#62;</font>initializeBean<font color="black">(</font><font color="black">)</font>;
     <font color="black">}</font>
 
@@ -221,13 +205,13 @@ IBeanFactory<font color="black">*</font> BeanFactoryImpl<font color="black">:</f
         <font color="blue">return</font> <font color="blue">false</font>;
 <font color="black">}</font>
 
-<font color="green">/** Get IBeanFactory instance */</font>
-IBeanFactory<font color="black">*</font> getBeanFactoryWithXML<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> file<font color="black">)</font>
+<font color="green">/** Get IBeanFactory */</font>
+IBeanFactory<font color="black">*</font> getBeanFactoryWithXML<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> xmlFile<font color="black">)</font>
 <font color="black">{</font>
-    <font color="blue">return</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="blue">new</font> XMLResource<font color="black">(</font>file<font color="black">)</font><font color="black">)</font>;
+    <font color="blue">return</font> <font color="blue">new</font> BeanFactoryImpl<font color="black">(</font><font color="blue">new</font> XMLResource<font color="black">(</font>xmlFile<font color="black">)</font><font color="black">)</font>;
 <font color="black">}</font>
 
-<font color="green">/** Delete IBeanFactory instance */</font>
+<font color="green">/** Delete IBeanFactory */</font>
 <font color="blue">void</font> deleteBeanFactory<font color="black">(</font>IBeanFactory<font color="black">*</font> p<font color="black">)</font>
 <font color="black">{</font>
     <font color="blue">delete</font> p;
