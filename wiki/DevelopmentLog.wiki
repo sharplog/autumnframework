@@ -1,6 +1,9 @@
 #summary Development log.
 #labels Featured
 
+== 03/30/2007 ==
+Compile and test with VC++ 2005.
+
 == 03/22/2007 ==
  * erase bean's attributes: initializable and destroyable. bean supports init and destroy function however, it's decided by definition of bean wrapper.
  * optimize TypeManager object.
