@@ -1,4 +1,4 @@
-# The platforms Autumn supported.
+#summary The platforms Autumn supported.
 
  * WindowsXP with VC++ 6.0/VC++ 2005
  * Linux Ubuntu 6.06 with GCC 4.0.3 
