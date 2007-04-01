@@ -21,29 +21,25 @@ Type是指注入数据的类型。Autumn除了支持C++的基本类型（void除
 == 2.2. Autumn结构 ==
 http://autumnframework.googlecode.com/svn/trunk/doc/img/Autumn%20Structure.png
 
-_待写_
+Autumn的结构如上图所示。Autumn核心主要包括：
+ * Bean Factory，用来创建和释放Bean。
+ * Bean Manager，用来管理所有创建的Bean。
+ * Type Manager，管理着Autumn所支持的数据类型，用来创建作注入用的数据。
+ * Autumn Config，管理着所有配置信息，包括Bean的配置、库的配置。Bean Factory依靠这些配置信息来创建Bean。
+
+作为用户编写的应用主要包括动态库及主程序。用户程序跟Autumn核心之间的交互就是由Bean Wrapper和配置文件来完成的。
+ * Bean Wrapper，封装了跟Bean打交道的一些方法和信息。
+ * Configuration File，Autumn的配置文件，描述了所有的库及Bean的信息。
 
 = 3. 使用Autumn=
-
-== 实例化bean ==
+== 3.1. 写POCO ==
+== 3.2. 写Bean Wrapper ==
+=== 实例化bean ===
 实例化bean有三种方式：构造方法、静态工厂方法、实例工厂。这三种方式只能选用其一。一个bean的wrapper不能同时支持两种或两种以上的实例化方式。但当选用某一种方式时，可以有多个实例化的方法。比如，Autumn支持参数个数不同的多个构造方法，或方法名称不同的多个工厂方法。
+== 3.3. 写主程序 ==
+== 3.4. 编译程序 ==
+== 3.5. 写配置文件 ==
+== 3.6. 运行程序 ==
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
