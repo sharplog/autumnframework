@@ -1,5 +1,6 @@
 
 OBJSFILE=makeObjects
 DEPENDFILE=makeDepend
+DLLNAME=Autumn
+DLLLIBNAME=lib$(DLLNAME)$(DLLSUFFIX)
 CP= cp -f
-
