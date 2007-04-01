@@ -19,7 +19,7 @@ Library是实现Bean的动态库或程序。一般情况下将Bean放在动态�
 === Type ===
 Type是指注入数据的类型。Autumn除了支持C++的基本类型（void除外）外，还支持用户自定义类型。如果用户有自定义的数据类型用来注入，需要在配置文件中进行配置一个Type。
 == 2.2. Autumn结构 ==
-http://byfiles.storage.msn.com/x1pN1mp8dKYgTEblR-2Cf-Hadbq7Qbn0oNhzMkInCY_3_dFtarzzCjKoslEq4xt4HMi8C_nhxGc_aUZbXHenLW8NevIdVD4KPmMFqiGVTj7chi6dMnr32Vjww
+http://autumnframework.googlecode.com/svn/trunk/doc/img/Autumn%20Structure.png
 
 _待写_
 
@@ -30,6 +30,9 @@ _待写_
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
+
+
 
 
 
