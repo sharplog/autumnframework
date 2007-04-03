@@ -33,9 +33,48 @@ Autumn的结构如上图所示。Autumn核心主要包括：
 
 = 3. 使用Autumn=
 == 3.1. 写POCO ==
+写普通的C++程序，用和不用Autumn，写法基本上是一样的，不需要继承什么特殊的接口或基类。但有两点需要注意：
+ # *当注入类型为指针类型时，不要释放注入的数据，因为这些数据由Autumn创建及释放。*
+ # *属性设置方法的命名遵循setXXX的形式，XXX是属性名称。*
 == 3.2. 写Bean Wrapper ==
-=== 实例化bean ===
-实例化bean有三种方式：构造方法、静态工厂方法、实例工厂。这三种方式只能选用其一。一个bean的wrapper不能同时支持两种或两种以上的实例化方式。但当选用某一种方式时，可以有多个实例化的方法。比如，Autumn支持参数个数不同的多个构造方法，或方法名称不同的多个工厂方法。
+Wrapper是Autumn用来创建、释放Bean，及对Bean进行注入的设施。程序员使用Autumn提供的宏定义来完成Wrapper的编写，然后跟应用程序一起编译成动态库，或可执行程序。这些宏在头文件_BeanWrapperMacro.h_ 中定义。定义Wrapper，除了必需的AUTUMNBEAN(_beanName_)和AUTUMNBEAN_END(_beanName_)首尾两个宏以外，还有Bean的实例化方式、属性设置方法、初始化方法、销毁方法、释放方法以及本地Bean的定义等。下面是一个Wrapper的例子：
+{{{
+//Wrapper的开始，必须用AUTUMNBEAN
+AUTUMNBEAN(BeanTypeBean)
+
+//定义Bean的实例化方式，这个Bean有两个构造方法：一个没有参数，一个有1个参数
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CONSTRUCTOR(BeanTypeBean)
+
+AUTUMNBEAN_CONSTRUCTOR_1P(BeanTypeBean, BasicTypesBean*)
+AUTUMNBEAN_CREATOR_END()
+
+//定义Bean的属性设置方法，有两个属性：Int和CStr
+AUTUMNBEAN_SETTER()
+AUTUMNBEAN_PROPERTY(Int, BasicTypesBean*)
+AUTUMNBEAN_PROPERTY(CStr, BasicTypesBean)
+AUTUMNBEAN_SETTER_END()
+
+//Wrapper定义的结束，用AUTUMNBEAN_END
+AUTUMNBEAN_END(BeanTypeBean)
+
+//如果BeanTypeBean是本地Bean，则加下面的声明
+//AUTUMN_LOCALBEAN(BeanTypeBean)
+}}}
+
+下面逐一介绍Wrapper的各个方面：
+=== 3.2.1. 开始 ===
+=== 3.2.2. 实例化 ===
+Bean实例化方式的定义由宏AUTUMNBEAN_CREATOR()开头，由AUTUMNBEAN_CREATOR_END()结尾。
+实例化Bean有三种方式：构造方法、静态工厂方法、实例工厂。在Autumn中，这三种方式只能选用其一。一个bean的wrapper不能同时支持两种或两种以上的实例化方式。但当选用某一种方式时，可以有多个实例化的方法。比如，Autumn支持参数个数不同的多个构造方法，或方法名称不同的多个工厂方法。
+ # 构造方法
+ # 静态工厂方法
+ # 实例工厂
+=== 3.2.3. 属性设置 ===
+=== 3.2.4. 初始化及析构回调 ===
+=== 3.2.5. 销毁 ===
+=== 3.2.6. 结束 ===
+=== 3.2.7. 本地化 ===
 == 3.3. 写主程序 ==
 == 3.4. 编译程序 ==
 == 3.5. 写配置文件 ==
@@ -43,3 +82,8 @@ Autumn的结构如上图所示。Autumn核心主要包括：
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
+
+
+
+
