@@ -37,7 +37,7 @@ Autumn的结构如上图所示。Autumn核心主要包括：
  # *当注入类型为指针类型时，不要释放注入的数据，因为这些数据由Autumn创建及释放。*
  # *属性设置方法的命名遵循setXXX的形式，XXX是属性名称。*
 == 3.2. 写Bean Wrapper ==
-Wrapper是Autumn用来创建、释放Bean，及对Bean进行注入的设施。程序员使用Autumn提供的宏定义来完成Wrapper的编写，然后跟应用程序一起编译成动态库，或可执行程序。这些宏在头文件_BeanWrapperMacro.h_ 中定义。定义Wrapper，除了必需的AUTUMNBEAN(_beanName_)和AUTUMNBEAN_END(_beanName_)首尾两个宏以外，还有Bean的实例化方式、属性设置方法、初始化方法、销毁方法、释放方法以及本地Bean的定义等。Wrapper都写在一个.cpp文件中，一个文件中可以定义多个Bean的Wrapper，需要包括的头文件有：
+Wrapper是Autumn用来创建、释放Bean，及对Bean进行注入的设施。程序员使用Autumn提供的宏定义来完成Wrapper的编写，然后跟应用程序一起编译成动态库，或可执行程序。这些宏在头文件[http://autumnframework.googlecode.com/svn/trunk/doc/CppDoc/projects/autumnframework/BeanWrapperMacro.h.html BeanWrapperMacro.h]中定义。定义Wrapper，除了必需的AUTUMNBEAN(_beanName_)和AUTUMNBEAN_END(_beanName_)首尾两个宏以外，还有Bean的实例化方式、属性设置方法、初始化方法、销毁方法、释放方法以及本地Bean的定义等。Wrapper都写在一个.cpp文件中，一个文件中可以定义多个Bean的Wrapper，需要包括的头文件有：
  * _BeanWrapperMacro.h_
  * 用户定义Bean的头文件
  * 如果是本地Bean，要包含_LocalBean.h_
@@ -104,6 +104,7 @@ AUTUMNBEAN_CONSTRUCTOR_2P(beanName, type1, type2)
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
 
 
 
