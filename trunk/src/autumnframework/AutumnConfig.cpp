@@ -82,9 +82,6 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	// create BeanConfig
 	auto_ptr<BeanConfig> pb(new BeanConfig(bean, pw, pd));
 	this->Beans.insert(make_pair(bean.Name, pb.release()));
-
-	// add class to BeanClasses
-	this->addBeanClassName(bean.ClassName);
 }
 
 /** Deal with each type */
@@ -118,16 +115,6 @@ void AutumnConfig::processType(TType& type, ILibrary* pl)
 
 	// add to Types
 	this->Types.push_back(tc);
-}
-
-void AutumnConfig::addBeanClassName(string name)
-{
-	int i;
-	for(i=0; i<this->BeanClasses.size(); i++){
-		if( this->BeanClasses[i].compare(name) == 0 ) break;
-	}
-	if( i == this->BeanClasses.size() ) 
-		this->BeanClasses.push_back(name);
 }
 
 string AutumnConfig::mangleName(string objType, string  op, string objName)
