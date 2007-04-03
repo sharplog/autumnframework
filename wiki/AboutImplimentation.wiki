@@ -1,16 +1,13 @@
 #summary Something about implimentation.
 
-= Introduction =
-
-Add your content here.
-
-
-= 对注入类型的支持 =
+= 功能 =
+== 注入类型 ==
   * *map*
 由于将map<string, void`*`>强制转换成map<string, classA`*`>应用，可能会出错（http://sharplogautumn.spaces.live.com/blog/cns!13AC373D7F3EAA87!126.entry ），所以应在应用中生成和释放map。可以采用某种方式（比如模板或宏），让应用很容易的自定义一个map基本类型。
   * *对象的引用*
   * *远程引用，WebService？*
-
+== 注入方式 ==
+修改一个Wrapper的setBeanPropertyValue()方法及Wrapper关于属性设置的宏定义，可以很容易的支持属性设置方法的重载。
 = 自身实现框架 =
   * *微内核？*
   * *关于Wrapper*
