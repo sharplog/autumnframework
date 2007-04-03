@@ -1,4 +1,5 @@
 #summary 这是Autumn Framework的手册，正在编写中。
+#labels Featured
 
 = 1. 简介 =
 Autumn Framework是一个C++的依赖注入（DI）框架，它的功能是模仿JAVA领域中的Spring框架来的。但它的功能没有Spring那么强大，当前只是提供依赖注入功能，而且尽量做到对源代码的不侵入。因为C++没有象JAVA那样的动态反射机制，不能很容易地在运行时得到注入的一些相关信息，所以在使用Autumn的时候，需要做一些工作来让Autumn框架知道注入时所需要的一些信息，即需要程序员来定义一些Wrapper。
