@@ -45,9 +45,6 @@ class AutumnConfig{
 	/** All Beans */
 	map<string, BeanConfig*> Beans;
 
-	/** All bean classes,  */
-	vector<string> BeanClasses;
-
 	/** All customized types,  */
 	vector<TypeConfig> Types;
 	
@@ -60,9 +57,6 @@ class AutumnConfig{
 	/** Deal with each type */
 	void processType(TType& type, ILibrary* pl);
 
-	/** Add bean class name */
-	void addBeanClassName(string name);
-	
 	/** 
 	 * Name mangler
 	 * @param objType Type of object
@@ -89,11 +83,6 @@ public:
 	/** Get all customized types */
 	vector<TypeConfig>* getAllTypes(){
 		return &this->Types;
-	}
-	
-	/** Get all bean class names */
-	vector<string> getAllBeanClasses(){
-		return this->BeanClasses;
 	}
 };
 #endif
