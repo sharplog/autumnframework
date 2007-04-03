@@ -91,7 +91,86 @@ AUTUMNBEAN_CONSTRUCTOR_2P(beanName, type1, type2)
 其中type1, type2分别指出了构造方法两个参数的类型。如果构造方法有更多的参数，现在_BeanWrapperMacro.h_ 中还没有相对应的宏，不过，可以参照上面这几个宏，来定义具有更多参数的构造方法的宏。（为了测试的需要，我在_BeanWrapperMacro.h_ 中定义了一个具有13个构造参数的宏。）
 如前面的那个例子所示，我们可以为一个Bean定义多个构造方法，但是这些构造方法的参数个数必须不同。现在不支持相同参数个数、不同参数类型的构造方法重载。下面的静态工厂方法和实例工厂也一样，支持参数个数不同的方法重载，不支持仅参数类型不同的方法重载。
 ==== 2. 静态工厂方法 ====
+静态工厂方法是指如Singleton模式的创建方法，这些方法都是POCO类的静态方法。采用静态工厂方法创建实例的类，一般都不允许直接使用构造方法来创建实例，如Singleton模式。静态工厂方法由AUTUMNBEAN_CON_METHOD(beanName, method)一系列宏来完成。如果没有构造参数，可直接用
+{{{
+AUTUMNBEAN_CON_METHOD(beanName, method)
+}}}
+method是静态工厂方法的名称。如果有一个构造参数，可以用如下宏定义：
+{{{
+AUTUMNBEAN_CON_METHOD_1P(beanName, method, type)
+}}}
+其中type指出了构造参数的类型。如果有两个构造参数，就用AUTUMNBEAN_CON_METHOD_2P(beanName, method, type1, type2)。如果有更多构造参数，可以自己参照以上这些宏来定义相应的宏，进行使用。静态工厂方法的例子如下：
+{{{
+#include "BeanWrapperMacro.h"
+#include "FactoryMethodBean.h"
+
+AUTUMNBEAN(ProductA_M)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CON_METHOD_1P(ProductA_M, getInstance, string)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_DELETOR(ProductA_M, deleteInstance)
+AUTUMNBEAN_END(ProductA_M)
+
+AUTUMNBEAN(ProductB_M)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CON_METHOD(ProductB_M, getInstance)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_DELETOR(ProductB_M, deleteInstance)
+AUTUMNBEAN_END(ProductB_M)
+}}}
 ==== 3. 实例工厂 ====
+实例工厂对应于抽象工厂模式。可以使用AUTUMNBEAN_CON_FACTORY(factory, method)一系列宏来完成。因为是由工厂及其方法来创建Bean，所以这些宏不需要Bean的Name，而是需要工厂的类型及工厂的方法。没有构造参数时，可直接用如下宏定义：
+{{{
+AUTUMNBEAN_CON_FACTORY(factory, method)
+}}}
+其中，factory指出了抽象工厂的类名，method指出了抽象工厂创建这个产品（Bean）的方法。如果有一个构造参数，用如下宏定义：
+{{{
+AUTUMNBEAN_CON_FACTORY_1P(factory, method, type)
+}}}
+其中type指出了构造参数的类型。跟前面的构造方法及静态工厂方法类似，如果有两个构造参数，就用AUTUMNBEAN_CON_FACTORY_2P(factory, method, type1, type2)。如果有更多构造参数，就自己定义相对应的宏。
+
+为了使用实例工厂，需要把具体工厂的类也定义为Bean。这样，Autumn才能够创建工厂的实例，用工厂的实例来创建产品的实例。实例工厂的Wrapper例子如下，先是具体工厂Bean的Wrapper，然后是产品Bean的Wrapper：
+{{{
+AUTUMNBEAN(Factory1)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CONSTRUCTOR(Factory1)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_END(Factory1)
+
+AUTUMNBEAN(Factory2)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CONSTRUCTOR(Factory2)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_END(Factory2)
+}}}
+这儿，Factory1和Facotry2都是具体工厂，是抽象工厂IFacotry的具体实现。
+{{{
+//product A
+AUTUMNBEAN(IProductA)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CON_FACTORY_1P(IFactory, createProductA, string)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_END(IProductA)
+
+//product B
+AUTUMNBEAN(IProductB)
+
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CON_FACTORY_1P(IFactory, createProductB, string)
+AUTUMNBEAN_CREATOR_END()
+
+AUTUMNBEAN_END(IProductB)
+}}}
 === 3.2.3. 属性设置 ===
 === 3.2.4. 初始化及析构回调 ===
 === 3.2.5. 销毁 ===
@@ -104,13 +183,3 @@ AUTUMNBEAN_CONSTRUCTOR_2P(beanName, type1, type2)
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
-
-
-
-
-
-
-
-
-
-
