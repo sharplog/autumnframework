@@ -37,8 +37,15 @@ Autumn的结构如上图所示。Autumn核心主要包括：
  # *当注入类型为指针类型时，不要释放注入的数据，因为这些数据由Autumn创建及释放。*
  # *属性设置方法的命名遵循setXXX的形式，XXX是属性名称。*
 == 3.2. 写Bean Wrapper ==
-Wrapper是Autumn用来创建、释放Bean，及对Bean进行注入的设施。程序员使用Autumn提供的宏定义来完成Wrapper的编写，然后跟应用程序一起编译成动态库，或可执行程序。这些宏在头文件_BeanWrapperMacro.h_ 中定义。定义Wrapper，除了必需的AUTUMNBEAN(_beanName_)和AUTUMNBEAN_END(_beanName_)首尾两个宏以外，还有Bean的实例化方式、属性设置方法、初始化方法、销毁方法、释放方法以及本地Bean的定义等。下面是一个Wrapper的例子：
+Wrapper是Autumn用来创建、释放Bean，及对Bean进行注入的设施。程序员使用Autumn提供的宏定义来完成Wrapper的编写，然后跟应用程序一起编译成动态库，或可执行程序。这些宏在头文件_BeanWrapperMacro.h_ 中定义。定义Wrapper，除了必需的AUTUMNBEAN(_beanName_)和AUTUMNBEAN_END(_beanName_)首尾两个宏以外，还有Bean的实例化方式、属性设置方法、初始化方法、销毁方法、释放方法以及本地Bean的定义等。Wrapper都写在一个.cpp文件中，一个文件中可以定义多个Bean的Wrapper，需要包括的头文件有：
+ * _BeanWrapperMacro.h_
+ * 用户定义Bean的头文件
+ * 如果是本地Bean，要包含_LocalBean.h_
+下面是一个Wrapper的例子：
 {{{
+#include "BeanWrapperMacro.h"
+#include "BeanTypeBean.h"
+
 //Wrapper的开始，必须用AUTUMNBEAN
 AUTUMNBEAN(BeanTypeBean)
 
@@ -64,12 +71,27 @@ AUTUMNBEAN_END(BeanTypeBean)
 
 下面逐一介绍Wrapper的各个方面：
 === 3.2.1. 开始 ===
+每个Wrapper定义的开始必须是AUTUMNBEAN(beanName)，其中beanName是Bean的名称，它必须是POCO的类名。如果你看一下头文件_BeanWrapperMacro.h_ 就会知道为什么了。因为Wrapper中将用它来声明成员、来创建Bean等。
 === 3.2.2. 实例化 ===
 Bean实例化方式的定义由宏AUTUMNBEAN_CREATOR()开头，由AUTUMNBEAN_CREATOR_END()结尾。
 实例化Bean有三种方式：构造方法、静态工厂方法、实例工厂。在Autumn中，这三种方式只能选用其一。一个bean的wrapper不能同时支持两种或两种以上的实例化方式。但当选用某一种方式时，可以有多个实例化的方法。比如，Autumn支持参数个数不同的多个构造方法，或方法名称不同的多个工厂方法。
- # 构造方法
- # 静态工厂方法
- # 实例工厂
+==== 1. 构造方法 ====
+构造方法由AUTUMNBEAN_CONSTRUCTOR(beanName)的一系列宏来完成。如果构造方法没有参数，直接用
+{{{
+AUTUMNBEAN_CONSTRUCTOR(beanName)
+}}}
+就可以了。如果构造方法有一个参数，可以用如下宏定义：
+{{{
+AUTUMNBEAN_CONSTRUCTOR_1P(beanName, type)
+}}}
+其中type指出了构造参数的类型。如果有构造方法有两个参数，可以用如下宏来定义：
+{{{
+AUTUMNBEAN_CONSTRUCTOR_2P(beanName, type1, type2)
+}}}
+其中type1, type2分别指出了构造方法两个参数的类型。如果构造方法有更多的参数，现在_BeanWrapperMacro.h_ 中还没有相对应的宏，不过，可以参照上面这几个宏，来定义具有更多参数的构造方法的宏。（为了测试的需要，我在_BeanWrapperMacro.h_ 中定义了一个具有13个构造参数的宏。）
+如前面的那个例子所示，我们可以为一个Bean定义多个构造方法，但是这些构造方法的参数个数必须不同。现在不支持相同参数个数、不同参数类型的构造方法重载。下面的静态工厂方法和实例工厂也一样，支持参数个数不同的方法重载，不支持仅参数类型不同的方法重载。
+==== 2. 静态工厂方法 ====
+==== 3. 实例工厂 ====
 === 3.2.3. 属性设置 ===
 === 3.2.4. 初始化及析构回调 ===
 === 3.2.5. 销毁 ===
@@ -82,6 +104,10 @@ Bean实例化方式的定义由宏AUTUMNBEAN_CREATOR()开头，由AUTUMNBEAN_CRE
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
+
+
+
 
 
 
