@@ -85,7 +85,7 @@ AUTUMNBEAN_CONSTRUCTOR(beanName)
 {{{
 AUTUMNBEAN_CONSTRUCTOR_1P(beanName, type)
 }}}
-其中type指出了构造参数的类型。如果有构造方法有两个参数，可以用如下宏来定义：
+其中type指出了构造参数的类型，该类型应该是Autumn支持的类型，或是Bean的类型（即类名），不应该是自定义类型，除非你让Autumn知道你的自定义类型（见3.7. 自定义类型）。如果有构造方法有两个参数，可以用如下宏来定义：
 {{{
 AUTUMNBEAN_CONSTRUCTOR_2P(beanName, type1, type2)
 }}}
@@ -173,6 +173,11 @@ AUTUMNBEAN_CREATOR_END()
 AUTUMNBEAN_END(IProductB)
 }}}
 === 3.2.3. 属性设置 ===
+属性设置由宏AUTUMNBEAN_SETTER()开始，由宏AUTUMNBEAN_SETTER_END()结束。对于每一个属性，采用如下宏定义：
+{{{
+AUTUMNBEAN_PROPERTY(pname, ptype)
+}}}
+pname是属性的名称，对应于POCO的setXXX()方法中的XXX部分；ptype是属性的类型，跟构造时的参数类型一样，ptype应该是Autumn支持的类型，或者是类名。如果
 === 3.2.4. 初始化及析构回调 ===
 === 3.2.5. 销毁 ===
 === 3.2.6. 结束 ===
