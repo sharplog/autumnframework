@@ -177,11 +177,49 @@ AUTUMNBEAN_END(IProductB)
 {{{
 AUTUMNBEAN_PROPERTY(pname, ptype)
 }}}
-pname是属性的名称，对应于POCO的setXXX()方法中的XXX部分；ptype是属性的类型，跟构造时的参数类型一样，ptype应该是Autumn支持的类型，或者是类名。如果
+pname是属性的名称，对应于POCO的setXXX()方法中的XXX部分；ptype是属性的类型，跟构造时的参数类型一样，ptype应该是Autumn支持的类型，或者是类名。现在，Autumn不支持属性设置方法的重载，即对同一个属性，Wrapper中只能定义一次。下面是一个属性设置的例子：
+{{{
+AUTUMNBEAN_SETTER()
+AUTUMNBEAN_PROPERTY(Char,char)	
+AUTUMNBEAN_PROPERTY(UInt,unsigned int)
+AUTUMNBEAN_PROPERTY(CStr,char*)	
+AUTUMNBEAN_PROPERTY(IntP,int*)	
+AUTUMNBEAN_SETTER_END()
+}}}
+这四个属性的名称分别为Char、UInt、CStr和IntP，对应的参数类型分别为char、unsigned int、char*和int*。
 === 3.2.4. 初始化及析构回调 ===
+==== 1. 初始化回调 ====
+有些POCO在创建之后，不能马上被使用，需要把相关属性设置完后，执行一个初始化方法，然后再进行使用。如果在Wrapper中说明了这个初始化方法，Autumn就会在创建Bean，并将各属性注入完成后，回调该初始化方法来对Bean进行初始化。初始化方法用下面这个宏来说明：
+{{{
+AUTUMNBEAN_INIT(initMethod)
+}}}
+其中initMethod是POCO的一个方法，用来进行初始化操作。
+
+只要在Wrapper中说明了初始化方法，Autumn就会回调这个方法，不需要在Autumn的配置文件中进行配置。
+==== 2. 析构回调 ====
+析构回调跟初始化回调相对应，是在调用delete释放Bean之前调用的一个方法，一般用来对Bean所用的资源进行释放或预处理，以保证Bean正确地被释放。析构回调方法用下面这个宏来说明：
+{{{
+AUTUMNBEAN_DESTROY(destroyMethod)
+}}}
+其中destroyMethod是POCO的一个方法，用来进行析构前的预处理。
+
+同样，只要在Wrapper中说明了析构回调方法，Autumn就会回调这个方法，不需要在Autumn的配置文件中进行配置。
 === 3.2.5. 销毁 ===
+一般情况下，Autumn调用delete来释放Bean。但在有些情况下，直接调用delete可能不合适，特别是那些用静态工厂方法创建的Bean，它们可能不能随便delete，只有在某些情况下才允许delete。所以这些POCO需要实现一个用来销毁实例的静态方法（对应于创建实例的静态工厂方法）。如果在Wrapper中说明了这个方法，Autumn将调用这个方法来释放Bean，而不是调用delete。用下面这个宏来说明销毁实例的方法：
+{{{
+AUTUMNBEAN_DELETOR(beanName, deleteMethod)
+}}}
+其中，deleteMethod是POCO的一个静态方法，它有一个参数，是这个POCO的指针类型。
 === 3.2.6. 结束 ===
+至此，Wrapper对象中可以定义的内容都介绍完了，在Wrapper定义的最后，必须用下面这个宏来结束：
+{{{
+AUTUMNBEAN_END(beanName)
+}}}
 === 3.2.7. 本地化 ===
+如果一个Bean的实现不是放在动态库中，而是在主程序中，那么必须将这个Bean声明为本地化的Bean。即在Bean的Wrapper定义完成之后，再用下面这个宏声明一下：
+{{{
+AUTUMN_LOCALBEAN(beanName)
+}}}
 == 3.3. 写主程序 ==
 == 3.4. 编译程序 ==
 === 3.4.1. 编译动态库 ===
@@ -199,3 +237,4 @@ pname是属性的名称，对应于POCO的setXXX()方法中的XXX部分；ptype�
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
