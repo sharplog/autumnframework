@@ -221,6 +221,71 @@ AUTUMNBEAN_END(beanName)
 AUTUMN_LOCALBEAN(beanName)
 }}}
 == 3.3. 写主程序 ==
+主程序中使用BeanFacotry来取得Bean。需要包含头文件IBeanFactory.h。Autumn中现在没有应用上下文之类的东西。使用如下方法来取得和释放BeanFactory：
+{{{
+/** Get IBeanFactory instance */
+IBeanFactory* getBeanFactoryWithXML(const char* file);
+/** Delete IBeanFactory instance */
+void deleteBeanFactory(IBeanFactory* p);
+}}}
+其中file是Autumn的配置文件名。BeanFactory不是单例模式，每次调用getBeanFactoryWithXML()方法都会产生一个新的实例。BeanFactory有下面几个方法可供使用：
+{{{
+	/** 
+	 * Get a bean with bean's name
+	 * @param name Bean's name
+	 * @return A pointer to the bean
+	 */
+	virtual void* getBean(string name);
+
+	/** 
+	 * Free a bean
+	 * @param p A pointer to the bean
+	 */
+	virtual void freeBean(void* p);
+	
+	/** 
+	 * A bean exists or not
+	 * @param name Bean's name
+	 * @return True if it exists, or false.
+	 */
+	virtual bool containsBean(string name);
+
+	/** 
+	 * A bean is a singleton or not
+	 * @param name Bean's name
+	 * @return True if it's a singleton, or false.
+	 */
+	virtual bool isSingleton(string name);
+}}}
+下面是一段主程序的例子：
+{{{
+#include <iostream>
+#include <exception>
+#include "Action.h"
+#include "IBeanFactory.h"
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+	try{
+		IBeanFactory* bf;
+		bf = getBeanFactoryWithXML("autumnDemo.xml");
+
+		Action* pa = (Action*)bf->getBean("TheAction");
+		cout<<pa->excute("Vicent")<<endl;
+		bf->freeBean(pa);
+		
+		deleteBeanFactory(bf);
+		cout<<"OK!"<<endl;
+	}catch (exception* e ) {
+		cout<<"Exception: "<<e->what()<<endl;
+		delete e;
+	}
+	return 0;
+}
+}}}
+
 == 3.4. 编译程序 ==
 === 3.4.1. 编译动态库 ===
 === 3.4.2. 编译主程序 ===
