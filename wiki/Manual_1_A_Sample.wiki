@@ -103,15 +103,24 @@ We should implement a wrapper for each of LowerAction and UpperAction. We can do
 #include "UpperAction.h"
 
 AUTUMNBEAN(LowerAction)
+
+AUTUMNBEAN_CREATOR()
 AUTUMNBEAN_CONSTRUCTOR(LowerAction)
+AUTUMNBEAN_CREATOR_END()
+
 AUTUMNBEAN_SETTER()
 AUTUMNBEAN_PROPERTY(Message, char*)
 AUTUMNBEAN_SETTER_END()
 AUTUMNBEAN_END(LowerAction)
+
 AUTUMN_LOCALBEAN(LowerAction)
 
 AUTUMNBEAN(UpperAction)
+
+AUTUMNBEAN_CREATOR()
 AUTUMNBEAN_CONSTRUCTOR(UpperAction)
+AUTUMNBEAN_CREATOR_END()
+
 AUTUMNBEAN_SETTER()
 AUTUMNBEAN_PROPERTY(Message, char*)
 AUTUMNBEAN_SETTER_END()
@@ -155,7 +164,7 @@ Configuration file AutumnDemo.xml defines injection rule:
 		<beans>
 			<bean class="LowerAction" name="TheAction">
 				<properties>
-					<property name="Message" type="char*">
+					<property name="Message">
 						<value>Hello</value>
 					</property>
 				</properties>
@@ -175,18 +184,27 @@ The ActionExp.cpp file like:
 
 
 AUTUMNBEAN(LowerAction)
+
+AUTUMNBEAN_CREATOR()
 AUTUMNBEAN_CONSTRUCTOR(LowerAction)
+AUTUMNBEAN_CREATOR_END()
+
 AUTUMNBEAN_SETTER()
 AUTUMNBEAN_PROPERTY(Message, char*)
 AUTUMNBEAN_SETTER_END()
 AUTUMNBEAN_END(LowerAction)
 
 AUTUMNBEAN(UpperAction)
+
+AUTUMNBEAN_CREATOR()
 AUTUMNBEAN_CONSTRUCTOR(UpperAction)
+AUTUMNBEAN_CREATOR_END()
+
 AUTUMNBEAN_SETTER()
 AUTUMNBEAN_PROPERTY(Message, char*)
 AUTUMNBEAN_SETTER_END()
 AUTUMNBEAN_END(UpperAction)
+
 }}}
 The configuration file like:
 {{{
@@ -196,7 +214,7 @@ The configuration file like:
 		<beans>
 			<bean class="LowerAction" name="TheAction">
 				<properties>
-					<property name="Message" type="char*">
+					<property name="Message">
 						<value>Hello</value>
 					</property>
 				</properties>
