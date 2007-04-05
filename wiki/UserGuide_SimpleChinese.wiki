@@ -310,14 +310,22 @@ Autumn中有一个特殊的库：主程序，它的path定死了，为"local“�
  * *factory-bean:* 指明工厂实例的Bean名称。它必须是在Autumn中的Bean，所以采用实例工厂创建Bean时，必须为具体的工厂实现定义Wrapper，并在Autumn中定义为Bean。
  * *factory-method:* 当采用静态工厂方法或工厂实例的方式来创建Bean时，用来指明工厂方法。
 ==== 2. 构造参数 ====
+Autumn支持构造子注入。构造参数<argument>有一个属性type和两个元素<value>、<ref>：
+ * *type:* 它不是必须的，如果指定了type，Autumn将按照它来创建构造参数，否则，将按照Wrapper中定义的类型来创建构造参数。
+ * *value:* 用来指定参数的值。它可以是多个，但在当前Autumn，只有第一个有用。
+ * *ref:* 如果注入的是Bean的话，就使用<ref>，它的属性bean指出了Bean的名称。
 
+<value>和<ref>只能选用其一。
 ==== 3. 属性注入 ====
+Autumn也支持属性注入。属性<property>的配置跟构造参数类似，只是多了一个必须的属性：name。name指出了Bean属性的名称，它必须跟Wrapper中定义的属性名称相同。
 ==== 4. 依赖 ====
+Autumn允许为一个Bean指定它所依赖的Bean，以保证先创建这些被依赖的Bean。被依赖的Bean应该是一些单例，即其singleton属性应该设为true，否则没有意义。
 === 3.5.3. Type ===
 == 3.6. 运行程序 ==
 == 3.7. 自定义类型 ==
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
 
 
