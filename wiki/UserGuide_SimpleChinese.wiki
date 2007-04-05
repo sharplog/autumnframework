@@ -321,9 +321,17 @@ Autumn也支持属性注入。属性<property>的配置跟构造参数类似，�
 ==== 4. 依赖 ====
 Autumn允许为一个Bean指定它所依赖的Bean，以保证先创建这些被依赖的Bean。被依赖的Bean应该是一些单例，即其singleton属性应该设为true，否则没有意义。
 === 3.5.3. Type ===
+一个库中除了Bean，还可以有自定义类型，由<type>标签来定义。它只有两个属性：
+ * *name:* 用来指出类型的名称，不是必须的，如果没有指明的话，就采用class的值。
+ * *class:* 用来指出自定义类型的类名，是必须的。Autumn将根据这个类名查找相应的Wrapper。
 == 3.6. 运行程序 ==
-== 3.7. 自定义类型 ==
+运行程序没有特别之处，只是将Autumn的动态库放在系统能够找到得的地方。
 
+如果配置了名为“AutumnFrameworkLog”的Bean，Autumn将会采用这个Bean来记日志。Autumn提供了一个日志实现：FileLogger，可以为它配置日志文件名称及日志级别（示例可以参见源码目录下test\FrameworkTest.xml）。如果定义了日志，Autumn注入过程的一些信息为记录下来。
+== 3.7. 自定义类型 ==
+Autumn支持自定义类型。自定义类型的实现需要继承接口类IAutumnType，并实现其中的纯虚函数。在实现时，可以使用TypeManager。
+
+自定义类型的Wrapper用一个宏就可以定义：AUTUMNTYPE(typeName)。
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
 
