@@ -1,4 +1,4 @@
-#summary 这是Autumn Framework的手册，正在编写中。
+#summary 这是Autumn Framework Ver0.3.0的中文手册。
 #labels Featured
 
 = 1. 简介 =
@@ -334,6 +334,5 @@ Autumn支持自定义类型。自定义类型的实现需要继承接口类IAutu
 自定义类型的Wrapper用一个宏就可以定义：AUTUMNTYPE(typeName)。
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
-
 
 
