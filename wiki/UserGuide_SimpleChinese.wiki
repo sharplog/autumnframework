@@ -287,13 +287,30 @@ int main(int argc, char* argv[])
 }}}
 
 == 3.4. 编译程序 ==
+采用模块形式，我们的应用会由多个动态库和一个简单的主程序组成。
 === 3.4.1. 编译动态库 ===
+一般情况下，因为Wrapper跟POCO关系比较大，所以我们将Wrapper编译在动态库里。编译时需要连接Autumn的动态库，在windows平台上是AutumnFramework.dll，在其它平台上是libAutumn.so。
 === 3.4.2. 编译主程序 ===
+因为应用的动态库是由Autumn动态装入的，所以在编译主程序时不需要连接应用的动态库，但需要连接Autumn的动态库。
 == 3.5. 写配置文件 ==
+当前，Autumn的配置文件是比较简单的，具体可以参见[http://autumnframework.googlecode.com/files/Autumn-0.3.0.xsd schema]。可用任何XML文件编辑器来编写Autumn的配置文件。根标签是<autumn>，其下由若干<library>组成。
 === 3.5.1. 库 ===
+库，就是指动态库，它有三个属性：name、path和namespace，其中path是必需的，它设置不正确，会使Autumn找不到动态库。namespace当前没有用处。
+
+Autumn中有一个特殊的库：主程序，它的path定死了，为"local“。
+
+<library>标签下是<beans>标签和<types>标签，其下分别放置本库所有的Bean和自定义Type。
 === 3.5.2. Bean ===
-==== 1. 属性 ====
-==== 2. 构造注入 ====
+一个Bean共有以下几个方面需要配置。
+==== 1. Bean属性 ====
+<bean>的属性有以下几个：
+ * *name:* Bean的名称，调用BeanFactory的getBean()方法，传入的就是这个名字。它不是必需的，如果没有定义，就采用class的值。
+ * *class:* Bean的POCO类名，是必需的。Autumn将根据这个类名查找相应的Wrapper，来进行Bean的创建、注入等操作。
+ * *singleton:* 指明该Bean是否为单例，如果值为true，则在BeanFactory中只保留一个实例，不管对其调用多少次getBean()。如果值为false，则每次对该Bean调用getBean()时都创建一个新的实例。如果一个POCO本身采用了单例模式实现，在这儿最好也将本属性设为true，否则可能会出错。（当然，如果你在Wrapper中也指定了销毁方法的话，可能不会出错。）
+ * *factory-bean:* 指明工厂实例的Bean名称。它必须是在Autumn中的Bean，所以采用实例工厂创建Bean时，必须为具体的工厂实现定义Wrapper，并在Autumn中定义为Bean。
+ * *factory-method:* 当采用静态工厂方法或工厂实例的方式来创建Bean时，用来指明工厂方法。
+==== 2. 构造参数 ====
+
 ==== 3. 属性注入 ====
 ==== 4. 依赖 ====
 === 3.5.3. Type ===
@@ -302,4 +319,5 @@ int main(int argc, char* argv[])
 
 = 4. 注意事项 =
  * 因为Autumn框架负责注入数据的创建及释放，所以，如果在应用程序中释放注入数据的话，可能会在程序运行时出错。
+
 
