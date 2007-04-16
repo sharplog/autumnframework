@@ -1,6 +1,9 @@
 #summary Development log.
 #labels Featured
 
+== 04/16/2007 ==
+Move the defination of instance factory method from product's wrapper into factory's wrapper. That is more resonable because those methods are factory's.
+
 == 04/05/2007 ==
 Complete writing simple chinese user guide.
 
