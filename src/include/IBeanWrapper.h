@@ -86,9 +86,9 @@ public:
 	}
 	
 	
-	string getConArgTypes(void** pPrams, int num);
+	string getConArgTypes(string& ConMethod, int num);
 
-	void* createBean(void** pPrams, int num);
+	void* createBean(string& ConMethod, void** pPrams, int num);
 
 	virtual void deleteBean();
 	
@@ -98,7 +98,7 @@ public:
 
 	virtual int operateBeanProperty(const char* name, const char* op, string& type, void* value);
 	
-	virtual int operateCreator(void** p, int num, const char* op, string& args, void*& pr);
+	virtual int operateCreator(string& ConMethod, void** p, int num, const char* op, string& args, void*& pr);
 		
 	/** Destructor */
 	virtual ~IBeanWrapper();

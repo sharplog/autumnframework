@@ -116,31 +116,50 @@ void* BeanFactoryImpl::getBean(string name)
 	}
 
 	//Use auto_ptr to free pw if exception happens?
-	auto_ptr<IBeanWrapper> pw( bc->createWrapper() );
+	auto_ptr<IBeanWrapper> pw(bc->createWrapper());
+
+	// if use factory, use factory's wrapper to create bean.
+	// pwc only to create bean, it may be bean wrapper or factory's wrapper.
+	IBeanWrapper* pwc = NULL;
+	if( ! bc->getFactoryBeanName().empty()) {
+		void* pf = this->getBean(bc->getFactoryBeanName());
+		if( pf == NULL){
+			throw new CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
+				string("Create Bean [") + name + "] failed! Get factory [" +
+				bc->getFactoryBeanName() + "] failed!");
+		}
+		pwc = this->ManagerOfBean->getBeanWrapper(pf);
+	}
+	if( NULL == pwc ) pwc = pw.get();
 
 	//Create bean
-	PropertyList* pargs = bc->getConArgs();
-	if( pargs->size() == 0 ){	//No constructor argument
-		void ** pDummy;
-		p = pw->createBean(pDummy, 0);
-	}
-	else{						//Has constructor argments
-		int num = pargs->size();
-
-		typedef void* void_ptr;
+	typedef void* void_ptr;
+	PropertyList* pargs = bc->getConArgs(pwc);
+	int num = pargs->size();
+	if( num > 0 ){	//Has constructor argments
 		auto_ptr<void_ptr> pp( new void_ptr[num] );
 		void_ptr* pv = pp.get();
 
 		for(i=0; i<num; i++){
+			// add argument into pw, not pwc
 			pv[i] = (*pargs)[i]->takeoutValue(pw.get(), this->ManagerOfType);
 		}
-		p = pw->createBean(pv, num);
+		p = pwc->createBean(bc->getConMethodName(), pv, num);
 	}
+	else{
+		void_ptr* pDummy;
+		p = pwc->createBean(bc->getConMethodName(), pDummy, num);
+	}	
+
 	if( NULL == p){
 		throw new CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
 			string("Create Bean [") + name + "] failed!");
 	}
-	
+	//if bean created by factory, it should be set into pw.
+	if( ! bc->getFactoryBeanName().empty()) {
+		pw->setBean(p);
+	}
+		
 	//Set singleton
 	pw->setSingleton(bc->isSingleton());
 

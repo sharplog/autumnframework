@@ -66,6 +66,11 @@ public:
 	IBeanWrapper* releaseBean(void* p);
 
 	/** 
+	 * @param p Pointer to the bean.
+	 */
+	IBeanWrapper* getBeanWrapper(void* p);
+
+	/** 
 	 * Add a bean
 	 * @param name bean's name
 	 * @param pw Pointer to bean's wrapper

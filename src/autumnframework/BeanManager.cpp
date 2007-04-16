@@ -90,6 +90,12 @@ IBeanWrapper* BeanManager::releaseBean(void* p){
 	return (IBeanWrapper*)pw;
 }
 
+IBeanWrapper* BeanManager::getBeanWrapper(void* p){
+	TPointer pw = (TPointer)NULL;
+	this->Beans.searchElement((TPointer)p, pw);
+	return (IBeanWrapper*)pw;
+}
+
 /** 
  * Add a bean
  * @param name Bean's name

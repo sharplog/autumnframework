@@ -64,5 +64,11 @@ public:
 	 * @param tm The type manager to generate value
 	 */
 	void* takeoutValue(IBeanWrapper* pw, TypeManager* tm);
+
+	/** Set property's type if it is empty */
+	void setType(string type){
+		if( this->Type.empty() )
+			this->Type = type;
+	}
 };
 #endif

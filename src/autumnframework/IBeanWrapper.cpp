@@ -19,12 +19,12 @@
 #include "LocalLibrary.h"
 #include "AutumnException.h"
 
-string IBeanWrapper::getConArgTypes(void** pPrams, int num)
+string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 {
 	string types;
 	void* pDummy;
 
-	int rtn = operateCreator(pPrams, num, opGetConArgType, types, pDummy);
+	int rtn = operateCreator(ConMethod, &pDummy, num, opGetConArgType, types, pDummy);
 	if( rtn )
 		throw new MissDefinitionEx("IBeanWrapper", 
 				"getConArgTypes", 
@@ -33,12 +33,12 @@ string IBeanWrapper::getConArgTypes(void** pPrams, int num)
 	return types;
 }
 
-void* IBeanWrapper::createBean(void** pPrams, int num)
+void* IBeanWrapper::createBean(string& ConMethod, void** pPrams, int num)
 {
 	string sDummy;
 	void* pBean;
 
-	int rtn = operateCreator(pPrams, num, opCreateBean, sDummy, pBean);
+	int rtn = operateCreator(ConMethod, pPrams, num, opCreateBean, sDummy, pBean);
 	if( rtn )
 		throw new MissDefinitionEx("IBeanWrapper", 
 				"createBean(void**, int)", 
@@ -78,7 +78,7 @@ int IBeanWrapper::operateBeanProperty(const char* name, const char* op, string& 
 	return -1;
 }
 
-int IBeanWrapper::operateCreator(void** p, int num, const char* op, string& args, void*& pr)
+int IBeanWrapper::operateCreator(string& ConMethod, void** p, int num, const char* op, string& args, void*& pr)
 {
 	throw new MissDefinitionEx("IBeanWrapper", "operateCreator", 
 			"Definition of bean[" + this->BeanName + 

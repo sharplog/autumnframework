@@ -127,17 +127,18 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	string isSingleton("false");
 	
 	if( name != NULL) bean.Name = name;
-	if( classname != NULL )bean.ClassName = classname;
+	if( classname != NULL ) bean.ClassName = classname;
 	if( singleton != NULL ) isSingleton = singleton;
-
+	if( factory != NULL ) bean.FactoryBean = factory;
+	
 	if( bean.ClassName.empty() ){
 		throw new XMLParsingEx("XMLResource", "parseBean", 
 			string("Error when parsing type '") + bean.Name + 
 			"'. There is no class name.");
 	}
-	if( bean.Name.empty() ){
-		bean.Name = bean.ClassName;
-	}
+	if( bean.Name.empty() ) bean.Name = bean.ClassName;
+	if( factoryMthd != NULL ) bean.ConMethodName = factoryMthd;
+	else bean.ConMethodName = bean.ClassName;
 
 	bean.Singleton = this->boolAttribute(isSingleton, "singleton");
 	
@@ -153,31 +154,6 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 			this->parseProperty(proNode, *pprop, true);
 			bean.Properties.push_back(*pprop);
 		}
-	}
-
-	// factory pattern, set factory method as the first argument
-	// this depends on the BeanWrapperMacro.
-	if( factoryMthd != NULL ){
-		TProperty factoryMthdArg;
-
-		factoryMthdArg.Type = "string";
-		factoryMthdArg.Value.push_back(string(factoryMthd));
-		factoryMthdArg.IsBeanRef = false;
-		factoryMthdArg.Managed = true;
-		bean.ConArgs.push_back(factoryMthdArg);
-	}
-	
-	// factory pattern, set factory instance as the next argument
-	if( factory != NULL ){
-		TProperty factoryArg;
-		
-		// setting type to bean's class name only to make TypeManager to get factory
-		// instance from BeanFacotry. This depends on the implement of TypeManager.
-		factoryArg.Type = bean.ClassName;
-		factoryArg.Value.push_back(string(factory));
-		factoryArg.IsBeanRef = true;
-		factoryArg.Managed = true;
-		bean.ConArgs.push_back(factoryArg);
 	}
 	
 	// Constructor argument
