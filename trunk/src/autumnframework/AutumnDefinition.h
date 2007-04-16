@@ -59,6 +59,15 @@ typedef struct{
 
 	/** Depended objects, should be singleton. */
 	StrValueList DependedObjects;
+
+	/** Facotry bean name*/
+	string FactoryBean;
+
+	/**
+	 * Constructor method name. It may be bean's class name, bean's static 
+	 * factory method name or a factory's creating method name.
+	 */
+	string ConMethodName;
 } TBean;
 
 /** struct to store customized type configuration */

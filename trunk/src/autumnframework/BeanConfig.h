@@ -55,8 +55,20 @@ class BeanConfig{
 	/** Bean's properties */
 	PropertyList *Properties;
 
+	/** Facotry bean name*/
+	string FactoryBean;
+
+	/**
+	 * Constructor method name. It may be bean's class name, bean's static 
+	 * factory method name or a factory's creating method name.
+	 */
+	string ConMethodName;
+
 	/** Bean is singleton or not */
 	bool Singleton;
+
+	/** Constructor arguments' types are got or not */
+	bool GotArgTypes;
 
 public:
 	/** Constructor */
@@ -68,10 +80,11 @@ public:
 	/** Create bean's wrapper */
 	IBeanWrapper* createWrapper();
 	
-	/** Get constructor's arguments */
-	PropertyList *getConArgs() const{
-		return this->ConArgs;
-	}
+	/** 
+	 * Get constructor's arguments
+	 * @param pw The bean wrapper to get constructor arguments' types.
+	 */
+	PropertyList *getConArgs(IBeanWrapper* pw);
 
 	/** Get bean's properties */
 	PropertyList *getProperties() const{
@@ -81,6 +94,16 @@ public:
 	/** Get depended objects list */
 	StrValueList& getDependedObjects() {
 		return this->DependedObjects;
+	}
+
+	/** Get factory bean name */
+	string getFactoryBeanName(){
+		return this->FactoryBean;
+	}
+
+	/** Get constructor method name */
+	string getConMethodName(){
+		return this->ConMethodName;
 	}
 
 	/** Get status of being singleton or not */
