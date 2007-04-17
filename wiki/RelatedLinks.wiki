@@ -1,0 +1,7 @@
+#summary Any link related to Autumn framework.
+
+= DI =
+ * [http://michaelfeathers.typepad.com/michael_feathers_blog/2006/10/dependency_inje.html Michael Feathers' Blog: Dependency Injection in C++]
+= AOP =
+ * [http://www.aspectc.org/ The Home of AspectC++]
+
