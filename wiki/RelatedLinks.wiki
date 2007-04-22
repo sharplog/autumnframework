@@ -7,4 +7,7 @@
 = AOP =
  * [http://www.aspectc.org/ The Home of AspectC++]
 
+= Parsing C++ =
+ * [http://www.nobugs.org/developer/parsingcpp/ Parsing C++ at nobugs.org]
+
 
