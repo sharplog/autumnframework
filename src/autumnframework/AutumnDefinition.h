@@ -70,15 +70,6 @@ typedef struct{
 	string ConMethodName;
 } TBean;
 
-/** struct to store customized type configuration */
-typedef struct{
-	/** Type name */
-	string Name;
-
-	/** Class derived from IBasicType or ICombinedType */
-	string ClassName;
-} TType;
-
 /** struct to store library configuration */
 typedef struct{
 	/** Library's name. "local" is special for main program */
@@ -93,8 +84,8 @@ typedef struct{
 	/** beans in library */
 	vector<TBean> Beans;
 	
-	/** customized types */
-	vector<TType> Types;
+	/** customized type's name */
+	vector<string> TypeNames;
 } TLibrary;
 
 #endif

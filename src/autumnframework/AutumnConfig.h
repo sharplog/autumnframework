@@ -31,13 +31,6 @@ using namespace std;
  * @version 0.1.0
  * @since 2006-12-6
  */
-
-/** A struct to store type configure */
-typedef struct{
-	string Name;
-	BeanConfig* BeanCfg;
-}TypeConfig;
-
 class AutumnConfig{
 	/** All dynamic libraries */
 	vector<ILibrary*> Libs;
@@ -46,7 +39,7 @@ class AutumnConfig{
 	map<string, BeanConfig*> Beans;
 
 	/** All customized types,  */
-	vector<TypeConfig> Types;
+	vector<string> TypeNames;
 	
 	/** Deal with each dynamic library */
 	void processLibrary(TLibrary& lib);
@@ -54,9 +47,6 @@ class AutumnConfig{
 	/** Deal with each bean */
 	void processBean(TBean& bean, ILibrary* pl);
 	
-	/** Deal with each type */
-	void processType(TType& type, ILibrary* pl);
-
 	/** 
 	 * Name mangler
 	 * @param objType Type of object
@@ -81,8 +71,8 @@ public:
 	BeanConfig* getBeanConfig(string name);
 	
 	/** Get all customized types */
-	vector<TypeConfig>* getAllTypes(){
-		return &this->Types;
+	vector<string>* getAllTypes(){
+		return &this->TypeNames;
 	}
 };
 #endif

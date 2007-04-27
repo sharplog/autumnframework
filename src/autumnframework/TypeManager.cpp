@@ -99,9 +99,28 @@ TypeManager::TypeManager()
  */
 TypeManager::~TypeManager(){
 	AutumnLog::getInstance()->debug("TypeManager->~TypeManager");
-	for(vector<IAutumnType*>::iterator it = this->TypeList.begin(); it != this->TypeList.end(); it++){
-			delete it[0];
+
+	void (*pf)(IBeanWrapper*);
+	vector<IAutumnType*>::iterator it;
+	vector<IBeanWrapper*>::iterator itw;
+
+	// delete wrappers, wrapper will delete type maker
+	for(itw = this->WrapperList.begin(); itw != this->WrapperList.end(); itw++){
+		for(it = this->TypeList.begin(); it != this->TypeList.end(); it++){
+			if( *it == (*itw)->getBean() ) {
+				this->TypeList.erase(it);
+				break;
+			}
+		}
+		pf = (*itw)->getWrapperDeleter();
+		pf(*itw);
 	}
+	
+	// delete inline type maker
+	for(it = this->TypeList.begin(); it != this->TypeList.end(); it++){
+			delete *it;
+	}
+	
 	delete this->beanMaker;
 }
 
@@ -123,8 +142,21 @@ void TypeManager::addTypeBean(IAutumnType* at)
 	vector<IAutumnType*>::iterator tmp;
 	for( tmp=this->TypeList.begin(); tmp!=this->TypeList.end(); tmp++){
 		if( tmp[0] == at){
-			this->TypeList.erase(tmp);
+			return;
 		}
 	}
 	this->TypeList.push_back(at);
+}
+
+void TypeManager::addTypeBean(IBeanWrapper* pw)
+{
+	this->addTypeBean((IAutumnType*)pw->getBean());
+	
+	vector<IBeanWrapper*>::iterator tmp;
+	for( tmp=this->WrapperList.begin(); tmp!=this->WrapperList.end(); tmp++){
+		if( tmp[0] == pw){
+			return;
+		}
+	}
+	this->WrapperList.push_back(pw);
 }

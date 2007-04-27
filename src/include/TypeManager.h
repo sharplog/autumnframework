@@ -20,6 +20,7 @@
 #include <string>
 #include <vector>
 #include "IAutumnType.h"
+#include "IBeanWrapper.h"
 
 /** 
  * Maitain all type makers.
@@ -33,6 +34,9 @@ private:
 	/** Type makers */
 	vector<IAutumnType*> TypeList;
 
+	/** Type maker wrappers */
+	vector<IBeanWrapper*> WrapperList;
+	
 	/** a type maker to create bean type value */
 	IAutumnType* beanMaker;
 public:
@@ -47,10 +51,16 @@ public:
 	~TypeManager();
 	
 	/** 
-	 * Set a couple of name and AutumnType into list
+	 * Set a AutumnType into list
 	 * @param at A pointer to type maker
 	*/
 	void addTypeBean(IAutumnType* at);
+	
+	/** 
+	 * Set a AutumnType and its wrapper into list
+	 * @param pw Type maker's wrapper
+	*/
+	void addTypeBean(IBeanWrapper* pw);
 	
 	/** 
 	 * Erase a type maker from list

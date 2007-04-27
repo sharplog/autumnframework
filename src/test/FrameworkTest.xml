@@ -242,7 +242,7 @@
 			
 		</beans>
 		<types>
-			<type class="MyBasicType" name="MyData" />
+			<bean class="MyBasicType" name="MyData" />
 		</types>
 	</library>
 	
