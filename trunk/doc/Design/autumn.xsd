@@ -27,7 +27,7 @@
 				<xs:element name="types" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="type" maxOccurs="unbounded"/>
+							<xs:element ref="bean" minOccurs="0" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
