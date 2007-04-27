@@ -49,8 +49,8 @@ void AutumnConfig::processLibrary(TLibrary& lib)
 		this->processBean(lib.Beans[i], pl);
 	}
 
-	for(i=0; i<lib.Types.size(); i++){
-		this->processType(lib.Types[i], pl);
+	for(i=0; i<lib.TypeNames.size(); i++){
+		this->TypeNames.push_back(lib.TypeNames[i]);
 	}
 }
 
@@ -84,39 +84,6 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	this->Beans.insert(make_pair(bean.Name, pb.release()));
 }
 
-/** Deal with each type */
-void AutumnConfig::processType(TType& type, ILibrary* pl)
-{
-	// get type wrapper maker function
-	string funName = this->mangleName("type", "create", type.ClassName);
-	WrapperMaker* pw = (WrapperMaker*)pl->getFunction(funName);
-	if( pw == NULL ){
-		throw new NotFoundEx("AutumnConfig", "processType", 
-			"Geting WrapperMaker failed for class '" + type.ClassName + "'.");
-	}
-	
-	// get type wrapper freer function
-	funName = this->mangleName("type", "delete", type.ClassName);
-	WrapperFreer* pd = (WrapperFreer*)pl->getFunction(funName);
-	if( pd == NULL ){
-		throw new NotFoundEx("AutumnConfig", "processType", 
-			"Geting WrapperFreer failed for class '" + type.ClassName + "'.");
-	}
-	
-	TypeConfig tc;
-	
-	// create BeanConfig for type config, each type class as a singleton bean
-	TBean bf;
-	bf.Name = type.Name;
-	bf.ClassName = type.ClassName;
-	bf.Singleton = true;
-	tc.BeanCfg = new BeanConfig(bf, pw, pd);
-	tc.Name = type.Name;
-
-	// add to Types
-	this->Types.push_back(tc);
-}
-
 string AutumnConfig::mangleName(string objType, string  op, string objName)
 {
 	if( objType == "bean" ){
@@ -124,12 +91,6 @@ string AutumnConfig::mangleName(string objType, string  op, string objName)
 			return "create_" + objName + "_Wrapper";
 		else if( op == "delete" )
 			return "delete_" + objName + "_Wrapper";
-	}
-	else if( objType == "type" ){
-		if( op == "create" )
-			return "create_" + objName + "_Type";
-		else if( op == "delete" )
-			return "delete_" + objName + "_Type";
 	}
 	throw new NotFoundEx("AutumnConfig", "mangleName", 
 		"type[" + objType + "]->operation[" + op +"] is not found!");

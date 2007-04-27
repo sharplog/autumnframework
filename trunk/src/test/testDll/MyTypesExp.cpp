@@ -4,7 +4,12 @@
 #include "MyTypeBean.h"
 
 // MyBasicType
-AUTUMNTYPE(MyBasicType)
+//AUTUMNTYPE(MyBasicType)
+AUTUMNBEAN(MyBasicType)
+AUTUMNBEAN_CREATOR()
+AUTUMNBEAN_CONSTRUCTOR(MyBasicType)
+AUTUMNBEAN_CREATOR_END()
+AUTUMNBEAN_END(MyBasicType)
 
 // MyTypeBean
 AUTUMNBEAN(MyTypeBean)

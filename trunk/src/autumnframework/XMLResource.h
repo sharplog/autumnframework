@@ -39,9 +39,6 @@ private:
 	/** Parse bean */
 	void parseBean(XMLNode& xml, TBean& bean);
 
-	/** Parse type */
-	void parseType(XMLNode& xml, TType& type);
-
 	/** Parse Property */
 	void parseProperty(XMLNode& xml, TProperty& prop, bool isProp);
 

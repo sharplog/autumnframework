@@ -346,49 +346,4 @@ public:																\
 																	\
 AUTUMN_##bean##_Proxy _AUTUMN_##bean##_Proxy_;
 
-/** 
- * Define a customized type wrapper, like bean wrapper
- * @param type the class devided from IBasicType or ICombinedType
- */
-#define AUTUMNTYPE(type)											\
-class type##_Type:public IBeanWrapper{								\
-	type * pType;													\
-																	\
-public:																\
-	type##_Type(){													\
-		this->setBeanName(#type);									\
-		this->pType = NULL;											\
-	}																\
-	int operateCreator(string& ConMethod, void** p, int num,		\
-						const char* op, string& args, void*& pr){	\
-		if( num == 0 ){												\
-			if( !strcmp(op, "create" ) )							\
-				pr = this->pType = new type();						\
-			else if ( !strcmp(op, "gettype") )						\
-				args = "";											\
-			else return -1;											\
-		}															\
-		else														\
-			return -1;												\
-		return 0;													\
-	}																\
-	~type##_Type(){													\
-		if( this->pType )											\
-			delete this->pType;										\
-	}																\
-	void* getBean(){ return (void*)this->pType; }					\
-	void  setBean(void* p){ this->pType = (type*)p; }				\
-};																	\
-																	\
-extern "C"{															\
-	DLL_EXPORT IBeanWrapper* create_##type##_Type();				\
-	DLL_EXPORT void delete_##type##_Type(IBeanWrapper*);			\
-	IBeanWrapper* create_##type##_Type(){							\
-		return new type##_Type;										\
-	}																\
-	void delete_##type##_Type(IBeanWrapper* p){						\
-		delete p;													\
-	}																\
-}
-
 #endif

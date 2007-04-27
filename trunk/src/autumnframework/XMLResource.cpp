@@ -60,7 +60,6 @@ XMLResource::XMLResource(const char* path)
 void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 {
 	XMLCSTR beanTag="bean";
-	XMLCSTR typeTag="type";
 
 	// parsing attributes
 	XMLCSTR name = xml.getAttribute("name");
@@ -84,14 +83,12 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 	// parsing beans
 	int i, pos, n = 0;
 	XMLNode beans = xml.getChildNode("beans");
-	if( ! beans.isEmpty() ) {
-		n= beans.nChildNode(beanTag);
-		for( pos=0, i=0; i<n; i++ ){
-			auto_ptr<TBean> pbean(new TBean);
-			XMLNode beanNode = beans.getChildNode(beanTag, &pos);
-			this->parseBean(beanNode, *pbean);
-			lib.Beans.push_back(*pbean);
-		}
+	n= beans.nChildNode(beanTag);
+	for( pos=0, i=0; i<n; i++ ){
+		auto_ptr<TBean> pbean(new TBean);
+		XMLNode beanNode = beans.getChildNode(beanTag, &pos);
+		this->parseBean(beanNode, *pbean);
+		lib.Beans.push_back(*pbean);
 	}
 	if( n==0 ){
 		throw new XMLParsingEx("XMLResource", "parseLibrary", 
@@ -99,14 +96,15 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 			"'. There is no element '" + beanTag + "'.");
 	}
 
-	// parsing types
+	// parsing types, type is a bean.
 	XMLNode types = xml.getChildNode("types");
-	 n = types.nChildNode(typeTag);
+	n = types.nChildNode(beanTag);
 	for(pos=0, i=0; i<n; i++ ){
-		auto_ptr<TType> ptype(new TType);
-		XMLNode typeNode = types.getChildNode(typeTag, &pos);
-		this->parseType(typeNode, *ptype);
-		lib.Types.push_back(*ptype);
+		auto_ptr<TBean> pbean(new TBean);
+		XMLNode typeNode = types.getChildNode(beanTag, &pos);
+		this->parseBean(typeNode, *pbean);
+		lib.Beans.push_back(*pbean);
+		lib.TypeNames.push_back(pbean->Name);
 	}
 }
 
@@ -178,26 +176,6 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 		}
 	}
 	
-}
-
-/** Parse type */
-void XMLResource::parseType(XMLNode& xml, TType& type)
-{
-	// parsing attributes
-	XMLCSTR name = xml.getAttribute("name");
-	XMLCSTR classname = xml.getAttribute("class");
-
-	if( name	  != NULL ) type.Name = name;
-	if( classname != NULL ) type.ClassName = classname;
-	
-	if( type.ClassName.empty()){
-		throw new XMLParsingEx("XMLResource", "parseType", 
-			string("Error when parsing type '") + type.Name + 
-			"'. There is no class name.");
-	}
-	
-	if( type.Name.empty() )
-		type.Name = type.ClassName;
 }
 
 /* Parse Property */
