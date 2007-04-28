@@ -1,6 +1,11 @@
 #summary Development log.
 #labels Featured
 
+== 04/27/2007 ==
+ * change "type" to "bean", remove "type" element in configure file.
+ * optimize creating and deleting customized type bean.
+ * *begin to write AutumnGen code.*
+
 == 04/16/2007 ==
 Move the defination of instance factory method from product's wrapper into factory's wrapper. That is more resonable because those methods are factory's.
 
