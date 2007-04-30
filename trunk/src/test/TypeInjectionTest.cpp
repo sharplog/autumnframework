@@ -2,6 +2,7 @@
 #include <cmath>
 #include "TypeInjectionTest.h"
 #include "IBasicTypesBean.h"
+#include "IMultiBase.h"
 
 void TypeInjectionTest::setUp()
 {
@@ -138,4 +139,15 @@ void TypeInjectionTest::testCustomizedType()
 	CPPUNIT_ASSERT(b->getInt() == 100);
 	CPPUNIT_ASSERT(b->getString().compare("Hi, MyData!") == 0);
 	this->bf->freeBean(b);
+}
+
+void TypeInjectionTest::testMultiInherite()
+{
+	IBase1* b1 = (IBase1*)this->bf->getBean("MultiBase");
+	IBase2* b2 = (IBase2*)this->bf->getBean("MultiBase");
+	
+	CPPUNIT_ASSERT(b1->f1() == 1);
+	CPPUNIT_ASSERT(b2->f2() == 2);
+	this->bf->freeBean(b1);
+	this->bf->freeBean(b2);
 }

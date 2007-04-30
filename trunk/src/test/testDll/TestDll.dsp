@@ -116,6 +116,10 @@ SOURCE=.\FactoryMethodBeanExp.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\MultiInheriteBeanExp.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyTypesExp.cpp
 # End Source File
 # Begin Source File
@@ -156,11 +160,19 @@ SOURCE=.\IFactory.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\IMultiBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\InitDestBean.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\include\IProduct.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MultiInheriteBean.h
 # End Source File
 # Begin Source File
 
