@@ -16,6 +16,9 @@ class TypeInjectionTest{
 	CPPUNIT_TEST(testInjectFromLibElse);
 	CPPUNIT_TEST(testLocalBean);
 	CPPUNIT_TEST(testCustomizedType);
+
+	// not support multiple inheritance now.
+	//CPPUNIT_TEST(testMultiInherite);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -34,6 +37,7 @@ public:
 	void testInjectFromLibElse();
 	void testLocalBean();
 	void testCustomizedType();
+	void testMultiInherite();
 };
 
 #endif
