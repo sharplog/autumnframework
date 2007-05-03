@@ -83,17 +83,101 @@ LINK32=link.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=.\AutumnGen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\ClassElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\ElmtFactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Enum_UnionElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\FieldElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\HeadFile.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MethodElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\NamespaceElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\StructElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\TypedefElmt.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Util.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=.\ClassElmt.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\ElmtFactory.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Enum_UnionElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FieldElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\GenException.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\HeadFile.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\IElement.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MethodElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\NamespaceElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\StructElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\TypedefElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Util.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"
