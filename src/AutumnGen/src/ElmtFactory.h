@@ -40,9 +40,10 @@ public:
 	
 	/** 
 	 * make a element from string
-	 * @param s A part of head file
+	 * @param s Content of head file
+	 * @param idx begin position to parse a element
 	 */
-	IElement* makeElmt(string& s);
+	IElement* makeElmt(string& s, int& idx);
 
 	~ElmtFactory();
 };

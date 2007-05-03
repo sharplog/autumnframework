@@ -18,8 +18,9 @@
 #define AUTUMN_IELEMENT_H
 
 #include <string>
+#include <vector>
 
-using namespace;
+using namespace std;
 
 /** 
  * interface of elements in c++ head file
@@ -28,11 +29,17 @@ class IElement{
 	/** name of this element. some elements may have no name. */
 	string Name;
 
-	/** A comment for this element */
+	/** 
+	 * A comment for this element. 
+	 * will be used for parsing @id for AOP, unused now.
+	 */
 	string Comment;
 
 	/** this element's scope, public, protected or private */
 	string Scope;
+
+	/** children */
+	vector<IElement*> ChildElmts;
 
 public:
 	/** Some element type in c++ head file, the others are ignored. */
@@ -48,15 +55,18 @@ public:
 
 	/** 
 	 * The string is a element of this type or not.
-	 * @param s A part of head file.
+	 * @param s the whole content of head file.
+	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s) = 0;
+	virtual bool isThisType(string& s, int idx) = 0;
 
 	/** 
 	 * Clone a element of this type from string s.
-	 * @param s A part of head file.
+	 * @param s the whole content of head file.
+	 * @param idx In: position to start parsing, 
+	 *			  Out: the position after this element.
 	 */
-	virtual IElement* clone(string& s) = 0;
+	virtual IElement* clone(string& s, int& idx) = 0;
 
 	/** Return the type of this element. */
 	ElmtType getType() = 0;
@@ -65,7 +75,7 @@ public:
 	string genWrapperPart() = 0;
 	
 	/** Set a comment for this element. */
-	void setComment(string& comm){
+	void setComment(string comm){
 		this->Comment = comm;
 	}
 
@@ -75,23 +85,33 @@ public:
 	}
 	
 	/** Set the element's scope: public, protected or private. */
-	void setScope(string& scope){
+	void setScope(string scope){
 		this->Scope = scope;
 	}
 
 	/** Get the element's scope: public, protected or private. */
-	string getScope(string& scope){
+	string getScope(){
 		return this->Scope;
 	}
 
 	/** Set the name of this element. */
-	void setName(string& name){
+	void setName(string name){
 		this->Name = name;
 	}
 	
 	/** Return the name of this element. */
 	string getName(){
 		return this->Name;
+	}
+
+	/** Add a child element to this element */
+	void addChild(IElement* e){
+		this->ChildElmts.push_back(e);
+	}
+
+	/** Get all children */
+	vector<IElement*> getChildren(){
+		return this->ChildElmts;
 	}
 };
 
