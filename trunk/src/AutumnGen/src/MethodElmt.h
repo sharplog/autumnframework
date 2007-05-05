@@ -24,6 +24,14 @@
  */
 class MethodElmt: public IElement{
 
+	vector<string> Parameters;
+
+	string ReturnType;
+
+	bool IsStatic;
+
+	bool IsVirtual;
+
 public:
 	/** 
 	 * The string is a element of this type or not.
@@ -37,14 +45,20 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx In: position to start parsing, 
 	 *			  Out: the position after this element.
+	 * !!Notice: if clone failed, idx should not be changed!
 	 */
 	virtual IElement* clone(string& s, int& idx);
 
-	/** Generate wrapper part of this element */
-	string genWrapperPart();
+	/** 
+	 * Generate wrapper part of this element.
+	 * It's useless for method element.
+	 */
+	virtual string genWrapperPart(){
+		return "";
+	}
 
 	/** Return the type of this element. */
-	ElmtType getType(){
+	IElement::ElmtType getType(){
 		return IElement::METHOD;
 	}
 	
@@ -52,7 +66,7 @@ public:
 	string genWrapper4ECM(string classname);
 
 	/** Generate wrapper part for execVoidMethod() */
-	string genWrapper4EVM();
+	string genWrapper4EVM(string classname);
 
 	/** Generate wrapper part for getParamTypes() */
 	string genWrapper4GPT();

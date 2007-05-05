@@ -14,6 +14,118 @@
  * limitations under the License.
  */
 
+#include <sstream>
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "MethodElmt.h"
+
+bool MethodElmt::isThisType(string& s, int idx)
+{
+	return false;
+}
+
+IElement* MethodElmt::clone(string& s, int& idx0)
+{
+	return NULL;
+}
+
+string MethodElmt::genWrapper4ECM(string classname)
+{
+	string methodname = this->getName();
+	int paramnum = this->Parameters.size();
+	ostringstream os;
+
+	// only generate for constructor and creating method
+	if( methodname != classname && 
+			this->ReturnType[this->ReturnType.size()-1] != '*' )
+		return os.str();
+
+	
+	os << "\t\tif( !method.compare(\"" + methodname + "\") && num == " <<
+		paramnum << ")"	<< endl;
+
+	if( methodname == classname ) {					// constructor
+		os<<"\t\t\treturn this->pBean = new " + methodname + "(";
+	}
+	else if( this->IsStatic && 
+			this->ReturnType == (classname + "*") )	{// static factory method
+		os<<"\t\t\treturn this->pBean = " + classname + 
+			"::" + methodname + "(";
+	}
+	else if( this->IsStatic ) {						// static method
+		os<<"\t\t\treturn " + classname + "::" + methodname + "(";
+	}
+	else{
+		os<<"\t\t\treturn this->pBean->" + methodname + "(";
+	}
+	
+	if( paramnum > 0 ){
+		os << endl;
+		for( int i=0; i<paramnum - 1; i++){
+			os << "\t\t\t\t\t*(" + this->Parameters[i] + "*)Prams[" <<i<< "],";
+			os << endl;
+		}
+		os<<"\t\t\t\t\t*(" + this->Parameters[i] + "*)Prams[" <<i<< "]";
+
+	}
+	os << ");" << endl;
+
+	return os.str();
+}
+
+string MethodElmt::genWrapper4EVM(string classname)
+{
+	string methodname = this->getName();
+	int paramnum = this->Parameters.size();
+	ostringstream os;
+
+	// only generate for methods that return void
+	if( this->ReturnType.compare("void") )
+		return os.str();
+
+	os << "if( !method.compare(\"" + methodname + "\") && num == " <<
+		paramnum << ")"	<< endl;
+
+	if( this->IsStatic ) {						// static method
+		os<<"\t\t\t" + classname + "::" + methodname + "(";
+	}
+	else{
+		os<<"\t\t\tthis->pBean->" + methodname + "(";
+	}
+	
+	if( paramnum > 0 ){
+		os << endl;
+		for( int i=0; i<paramnum - 1; i++){
+			os << "\t\t\t\t\t*(" + this->Parameters[i] + "*)Prams[" <<i<< "],";
+			os << endl;
+		}
+		os<<"\t\t\t\t\t*(" + this->Parameters[i] + "*)Prams[" <<i<< "]";
+
+	}
+	os << ");" << endl;
+	os << "\t\telse ";
+
+	return os.str();
+}
+
+string MethodElmt::genWrapper4GPT()
+{
+	int paramnum = this->Parameters.size();
+	ostringstream os;
+
+	os << "if( !method.compare(\"" + this->getName() + "\") && num == " <<
+		paramnum << ")"	<< endl;
+	os<<"\t\t\ttypes += \"\"";
+	
+	if( paramnum > 0 ){
+		for( int i=0; i<paramnum - 1; i++){
+			os << endl;
+			os << "\t\t\t\t\t+ \"" + this->Parameters[i] + "|\"";
+		}
+	}
+	os << ";" << endl;
+	os << "\t\telse ";
+
+	return os.str();
+}

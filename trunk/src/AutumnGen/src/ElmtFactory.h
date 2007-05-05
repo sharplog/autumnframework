@@ -32,18 +32,18 @@ class ElmtFactory{
 	/** the list of elements, each type has a instance */
 	vector<IElement*> Elements;
 
-	ElmtFactory(){}
+	ElmtFactory();
 
 public:
 	/** Get the instance of this singleton */
-	ElmtFactory* getInstance();
+	//static ElmtFactory* getInstance();
 	
 	/** 
 	 * make a element from string
 	 * @param s Content of head file
 	 * @param idx begin position to parse a element
 	 */
-	IElement* makeElmt(string& s, int& idx);
+	static IElement* makeElmt(string& s, int& idx);
 
 	~ElmtFactory();
 };

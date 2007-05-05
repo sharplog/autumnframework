@@ -25,7 +25,7 @@
 
 ElmtFactory* ElmtFactory::instance = NULL;
 
-ElmtFactory* ElmtFactory::getInstance()
+ElmtFactory::ElmtFactory()
 {
 	this->Elements.push_back(new ClassElmt);
 	this->Elements.push_back(new Enum_UnionElmt);
@@ -38,9 +38,13 @@ ElmtFactory* ElmtFactory::getInstance()
 
 IElement* ElmtFactory::makeElmt(string& s, int& idx)
 {
-	for(int i=0; i<this->Elements.size(); i++){
-		if( this->Elements[i]->isThisType(s, idx) )
-			return this->Elements[i]->clone(s, idx);
+	if( ElmtFactory::instance == NULL )
+		ElmtFactory::instance = new ElmtFactory;
+
+	for(int i=0; i<ElmtFactory::instance->Elements.size(); i++){
+		IElement* e = ElmtFactory::instance->Elements[i];
+		if( e->isThisType(s, idx) )
+			return e->clone(s, idx);
 	}
 	return NULL;
 }

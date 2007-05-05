@@ -65,14 +65,15 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx In: position to start parsing, 
 	 *			  Out: the position after this element.
+	 * !!Notice: if clone failed, idx should not be changed!
 	 */
 	virtual IElement* clone(string& s, int& idx) = 0;
 
 	/** Return the type of this element. */
-	ElmtType getType() = 0;
+	virtual IElement::ElmtType getType() = 0;
 
 	/** Generate wrapper part of this element */
-	string genWrapperPart() = 0;
+	virtual string genWrapperPart() = 0;
 	
 	/** Set a comment for this element. */
 	void setComment(string comm){
