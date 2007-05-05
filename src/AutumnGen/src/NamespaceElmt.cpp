@@ -17,3 +17,66 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "NamespaceElmt.h"
+
+bool NamespaceElmt::isThisType(string& s, int idx)
+{
+	string r = s.substr(idx);
+
+	if( !Util::startWith(r, "namespace") )
+		return false;
+
+	int brace = Util::indexOf(r, '{');
+	int semicolon = Util::indexOf(r, ';');
+
+	return ( string::npos != brace && brace < semicolon );
+}
+
+IElement* NamespaceElmt::clone(string& s, int& idx0)
+{
+	// s is the whole content of head file
+	string rest = s.substr(idx0);
+
+	int brace = Util::indexOf(rest, '{');
+	int endbrace = Util::findMatching(rest, '{', '}');
+	if( string::npos == endbrace )
+		throw GenException("Can't find matching '}' for namespace.", 
+				Util::lineno(s, idx0));
+
+	NamespaceElmt* e = new NamespaceElmt;
+	e->setName( Util::getLastWord(rest.substr(0, brace-1)) );
+
+	int idx, ridx;
+	idx = idx0 + brace + 1;
+	while( idx < idx0 + endbrace ){
+		rest = s.substr(idx);
+
+		if( ridx = Util::irrelevantLen(rest) ){
+			idx += ridx;
+		}
+		else{
+			IElement* child = ElmtFactory::makeElmt(s, idx);
+			if( child == NULL )
+				idx += Util::unrecognisedLen(rest);
+			else
+				e->addChild(child);
+		}
+	}
+	// modify idx0 only when successed
+	idx0 = idx0 + endbrace + 1;
+	return e;
+}
+
+string NamespaceElmt::genWrapperPart()
+{
+	string s="";
+	vector<IElement*> children = this->getChildren();
+
+	// generate nothing for namespace itself.
+	for( int i=0; i<children.size(); i++){
+		if( children[i]->getType() == IElement::CLASS )
+			s += children[i]->genWrapperPart();
+	}
+
+	return s;
+}

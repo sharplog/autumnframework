@@ -24,6 +24,26 @@
  */
 class ClassElmt: public IElement{
 
+	vector<string> BaseClass;
+
+	/** Generate wrapper's head, constructor and destructor */
+	string genWrapperHead();
+
+	/** Generate wrapper's tail, export functions */
+	string genWrapperTail();
+	
+	/** Generate wrapper part of execCreateMethod() */
+	string genWrapper4ECM();
+
+	/** Generate wrapper part of execVoidMethod() */
+	string genWrapper4EVM();
+
+	/** Generate wrapper part of getParamTypes() */
+	string genWrapper4GPT();
+
+	/** Generate wrapper part for local bean */
+	string genWrapper4Local();
+
 public:
 	/** 
 	 * The string is a element of this type or not.
@@ -37,6 +57,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx In: position to start parsing, 
 	 *			  Out: the position after this element.
+	 * !!Notice: if clone failed, idx should not be changed!
 	 */
 	virtual IElement* clone(string& s, int& idx);
 
@@ -44,7 +65,7 @@ public:
 	string genWrapperPart();
 
 	/** Return the type of this element. */
-	ElmtType getType(){
+	IElement::ElmtType getType(){
 		return IElement::CLASS;
 	}
 	

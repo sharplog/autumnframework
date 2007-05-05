@@ -17,3 +17,20 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "Enum_UnionElmt.h"
+
+bool Enum_UnionElmt::isThisType(string& s, int idx)
+{
+	return false;
+}
+
+IElement* Enum_UnionElmt::clone(string& s, int& idx0)
+{
+	return NULL;
+}
+
+string Enum_UnionElmt::genWrapperPart()
+{
+	return "";
+}
+

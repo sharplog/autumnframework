@@ -17,3 +17,20 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "TypedefElmt.h"
+
+bool TypedefElmt::isThisType(string& s, int idx)
+{
+	return false;
+}
+
+IElement* TypedefElmt::clone(string& s, int& idx0)
+{
+	return NULL;
+}
+
+string TypedefElmt::genWrapperPart()
+{
+	return "";
+}
+

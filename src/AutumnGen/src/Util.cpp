@@ -14,6 +14,7 @@
 * limitations under the License.
 */
 
+#include <cctype>
 #include "Util.h"
 
 int Util::lineno(string& s, int idx)
@@ -92,7 +93,7 @@ int Util::literalLen(string& s)
 	return 0;
 }
 
-int Util::irrelevantLen(string&s)
+int Util::irrelevantLen(string& s)
 {
 	int w, c, p, l;
 	string rest = s;
@@ -108,6 +109,28 @@ int Util::irrelevantLen(string&s)
 		l = l + w + c + p;
 	} while( w + c + p > 0 );
 	return l;
+}
+
+int Util::unrecognisedLen(string& s)
+{
+	int brace = Util::indexOf(s, '{');
+	int semicolon = Util::indexOf(s, ';');
+
+	if( string::npos == semicolon && string::npos == brace )
+		return s.length();
+	
+	if( string::npos != semicolon && string::npos == brace )
+		return semicolon + 1;
+
+	if( string::npos != semicolon && string::npos != brace &&
+			semicolon < brace )
+		return semicolon + 1;
+
+	int idx = Util::findMatching(s, '{', '}');
+	if( string::npos == idx )
+		return s.length();
+	else
+		return idx + 1;
 }
 
 int Util::findMatching(string& s, char c1, char c2)
@@ -161,8 +184,8 @@ bool Util::startWith(string& s, string t)
 
 string Util::filenameOf(string s)
 {
-	int idx1 = s.find_last_of(s, "/");
-	int idx2 = s.find_last_of(s, "\\");
+	string::size_type idx1 = s.find_last_of('/');
+	string::size_type idx2 = s.find_last_of('\\');
 
 	if( idx1 == string::npos && idx2 == string::npos ) return s;
 	if( idx1 == string::npos && idx2 != string::npos ) return s.substr(idx2);
@@ -193,4 +216,20 @@ int Util::skip(string& s)
 		l = l + w + c + t;
 	} while( w + c + t > 0 );
 	return l;
+}
+
+string Util::getLastWord(string s)
+{
+	string word;
+
+	int idx1 = s.length() - 1;
+	while( idx1 >= 0 && isspace(s[idx1]) ) idx1--;
+
+	int idx2 = idx1;
+	while( idx2 >= 0 && !isspace(s[idx2]) ) idx2--;
+
+	if( idx2 < idx1 )
+		word = s.substr(idx2+1, idx1);
+	
+	return word;
 }

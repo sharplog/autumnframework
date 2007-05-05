@@ -17,3 +17,21 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "FieldElmt.h"
+
+bool FieldElmt::isThisType(string& s, int idx)
+{
+	return false;
+}
+
+IElement* FieldElmt::clone(string& s, int& idx0)
+{
+	return NULL;
+}
+
+string FieldElmt::genWrapperPart()
+{
+	return "";
+}
+
+

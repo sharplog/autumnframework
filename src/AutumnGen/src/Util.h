@@ -58,6 +58,14 @@ public:
 	 */
 	static int irrelevantLen(string&s);
 
+	/** 
+	 * if has un-recognised part, return a nonzero number.
+	 * it may the length of using ..., or friendly ..., or extern ...,
+	 * or template ... .
+	 * it may not the whole length of the un-recognised part.
+	 */
+	static int unrecognisedLen(string&s);
+
 	/**
      * Matches braces and is C-aware. It skips string literals and comments.
 	 * This function can't match quotes, because skip function skips quotes.
@@ -86,6 +94,9 @@ public:
 
 	/** is special char or not */
 	static bool isSpecialChar(char c);
+
+	/** get the last word seperated by white sapce */
+	static string getLastWord(string s);
 };
 
 #endif

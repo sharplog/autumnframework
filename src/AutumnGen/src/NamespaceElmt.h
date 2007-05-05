@@ -37,6 +37,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx In: position to start parsing, 
 	 *			  Out: the position after this element.
+	 * !!Notice: if clone failed, idx should not be changed!
 	 */
 	virtual IElement* clone(string& s, int& idx);
 
@@ -44,7 +45,7 @@ public:
 	string genWrapperPart();
 
 	/** Return the type of this element. */
-	ElmtType getType(){
+	IElement::ElmtType getType(){
 		return IElement::NAMESAPCE;
 	}
 	

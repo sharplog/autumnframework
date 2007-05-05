@@ -17,3 +17,21 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "StructElmt.h"
+
+bool StructElmt::isThisType(string& s, int idx)
+{
+	return false;
+}
+
+IElement* StructElmt::clone(string& s, int& idx0)
+{
+	return NULL;
+}
+
+string StructElmt::genWrapperPart()
+{
+	return "";
+}
+
+
