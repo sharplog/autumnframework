@@ -60,7 +60,7 @@ typedef struct{
 	/** Depended objects, should be singleton. */
 	StrValueList DependedObjects;
 
-	/** Facotry bean name*/
+	/** Factory bean name*/
 	string FactoryBean;
 
 	/**
