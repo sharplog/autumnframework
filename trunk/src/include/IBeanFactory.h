@@ -46,7 +46,7 @@ private:
 public:
 	/**
 	 * Get this singleton's instance
-	 * @param file Configuration xml file
+	 * @param file Configuration XML file
 	 * @return Instance of IBeanFactory
 	 */
 	//static IBeanFactory* getInstanceWithXML(const char* file);

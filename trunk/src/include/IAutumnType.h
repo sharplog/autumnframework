@@ -44,10 +44,10 @@ public:
 	 */
 	virtual void* createValue(const string type, const vector<string>& vl, vector<string>::iterator& it) = 0;
 
-	/** Free the space where p point, include it's memeber's space */
+	/** Free the space where p point, include it's member's space */
 	virtual void freeValue(void* p, const string type) = 0;
 	
-	/** Free the space where p point, don't free it's memeber's space */
+	/** Free the space where p point, don't free it's member's space */
 	virtual void freeSelfSpace(void* p) = 0;
 
 	/** Is this type or not */
