@@ -82,7 +82,7 @@ public:
 	  }
 };
 
-/** Exception of not having something's definition */
+/** Exception of not having something definition */
 class MissDefinitionEx: public InitException{
 public:
 	MissDefinitionEx(string cname, string mname, string msg):
@@ -90,7 +90,7 @@ public:
 	  }
 };
 
-/** Exceptionn of having non value */
+/** Exception of having non value */
 class NonValueEx: public InitException{
 public:
 	NonValueEx(string cname, string mname, string msg):
@@ -98,7 +98,7 @@ public:
 	  }
 };
 
-/** Exceptionn of having non instance */
+/** Exception of having non instance */
 class NonInstanceEx: public InitException{
 public:
 	NonInstanceEx(string cname, string mname, string msg):
@@ -106,7 +106,7 @@ public:
 	  }
 };
 
-/** Exception of not found the object opreated on */
+/** Exception of not found the object operated on */
 class NotFoundEx: public InitException{
 public:
 	NotFoundEx(string cname, string mname, string msg):
@@ -122,7 +122,7 @@ public:
 	  }
 };
 
-/** Parsing xml file error */
+/** Parsing XML file error */
 class XMLParsingEx: public InitException{
 public:
 	XMLParsingEx(string cname, string mname, string msg):

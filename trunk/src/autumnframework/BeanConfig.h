@@ -55,7 +55,7 @@ class BeanConfig{
 	/** Bean's properties */
 	PropertyList *Properties;
 
-	/** Facotry bean name*/
+	/** Factory bean name*/
 	string FactoryBean;
 
 	/**
