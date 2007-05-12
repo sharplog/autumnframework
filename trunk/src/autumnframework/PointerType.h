@@ -46,7 +46,7 @@ public:
 	*/
 	void freeValue(void* p, const string type);
 	
-	/** Free the space where p points, don't free it's memeber's space */
+	/** Free the space where p points, don't free it's member's space */
 	void freeSelfSpace(void* p){
 		delete (void**)p;
 	}

@@ -131,7 +131,7 @@ void* BeanFactoryImpl::getBean(string name)
 	typedef void* void_ptr;
 	PropertyList* pargs = bc->getConArgs(pwc);
 	int num = pargs->size();
-	if( num > 0 ){	//Has constructor argments
+	if( num > 0 ){	//Has constructor arguments
 		auto_ptr<void_ptr> pp( new void_ptr[num] );
 		void_ptr* pv = pp.get();
 
