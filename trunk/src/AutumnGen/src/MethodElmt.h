@@ -18,21 +18,41 @@
 #define AUTUMN_METHODELMT_H
 
 #include "IElement.h"
+#include "Parameter.h"
 
 /** 
  * Method element
  */
 class MethodElmt: public IElement{
+	/** the known attributes of member method */
+	vector<string> KnownAttrs;
 
-	vector<string> Parameters;
+	vector<Parameter*> Parameters;
 
+	/** 
+	 * If a method has no return type and it's not a constructor, 
+	 * it means returning a int.
+	 */
 	string ReturnType;
 
 	bool IsStatic;
 
 	bool IsVirtual;
 
+	/** parse method name and return type */
+	void parseNameAndRetType(string s);
+
+	/** parse method parameter type*/
+	void parseParams(string s);
+
 public:
+	/** constructor */
+	MethodElmt();
+	~MethodElmt(){
+		for( int i=0; i<this->Parameters.size(); i++)
+			delete this->Parameters[i];
+	}
+	
 	/** 
 	 * The string is a element of this type or not.
 	 * @param s the whole content of head file.

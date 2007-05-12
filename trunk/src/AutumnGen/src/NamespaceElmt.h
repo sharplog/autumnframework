@@ -24,6 +24,9 @@
  */
 class NamespaceElmt: public IElement{
 
+	/** father namespace */
+	string Supper;
+
 public:
 	/** 
 	 * The string is a element of this type or not.
@@ -49,5 +52,14 @@ public:
 		return IElement::NAMESAPCE;
 	}
 	
+	/** set Supper */
+	void setSupper(string s){
+		this->Supper = s;
+	}
+
+	/** return Supper */
+	string getSupper(){
+		return this->Supper;
+	}
 };
 #endif

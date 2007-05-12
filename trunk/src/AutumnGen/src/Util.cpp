@@ -226,10 +226,49 @@ string Util::getLastWord(string s)
 	while( idx1 >= 0 && isspace(s[idx1]) ) idx1--;
 
 	int idx2 = idx1;
-	while( idx2 >= 0 && !isspace(s[idx2]) ) idx2--;
+	while( idx2 >= 0 && !isspace(s[idx2]) && !isSpecialChar(s[idx2])) idx2--;
 
 	if( idx2 < idx1 )
 		word = s.substr(idx2+1, idx1);
 	
 	return word;
+}
+
+string Util::replaceComment(string s)
+{
+	int idx = 0, ridx;
+	string rest;
+	while( idx <s.size() ){
+		rest = s.substr(idx);
+		// can't replace /* in a literal string 
+		if( ridx = Util::literalLen(rest) )
+			idx += ridx;
+		else if( ridx = Util::commentLen(rest) )
+			s.replace(idx, ridx, 1, ' ');
+		else
+			idx ++;
+	}
+
+	return s;
+}
+
+string Util::trim(string s)
+{
+	int idx1, idx2, len = s.length();
+	
+	idx1 = 0, idx2 = len -1;
+	while( idx1 <= len - 1 && isspace(s[idx1]) ) idx1 ++;
+	while( idx2 > idx1 && isspace(s[idx2]) ) idx2 --;
+
+	return s.substr(idx1, idx2 - idx1 + 1);
+}
+
+string Util::trimall(string s)
+{
+	for( int i=0; i<s.length(); )
+		if( isspace(s[i]) ) 
+			s.erase(i, 1);
+		else
+			i++;
+	return s;
 }

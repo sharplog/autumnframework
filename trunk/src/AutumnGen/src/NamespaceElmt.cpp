@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+#include <sstream>
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
@@ -69,14 +70,26 @@ IElement* NamespaceElmt::clone(string& s, int& idx0)
 
 string NamespaceElmt::genWrapperPart()
 {
-	string s="";
-	vector<IElement*> children = this->getChildren();
+	ostringstream os;
+	string scopename = "";
 
-	// generate nothing for namespace itself.
+	if( ! this->getSupper().empty() ){
+		scopename = this->getSupper() + "::";
+	}
+	scopename += this->getName();
+	os << "using namespace " << scopename << ";" << endl;
+
+	// only generate namespace and class for wrapper
+	vector<IElement*> children = this->getChildren();
 	for( int i=0; i<children.size(); i++){
-		if( children[i]->getType() == IElement::CLASS )
-			s += children[i]->genWrapperPart();
+		IElement* e = children[i];
+		if( e->getType() == IElement::NAMESAPCE ) {
+			((NamespaceElmt*)e)->setSupper(scopename);
+			os << e->genWrapperPart();
+		}
+		else if( e->getType() == IElement::CLASS )
+			os << e->genWrapperPart();
 	}
 
-	return s;
+	return os.str();
 }
