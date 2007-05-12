@@ -89,6 +89,9 @@
 					<xs:documentation>The name of a factory method to use to create this object</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
+			<xs:attribute name="init-method"/>
+			<xs:attribute name="destroy-method"/>
+			<xs:attribute name="delete-method"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="property" type="propertyType"/>
