@@ -62,7 +62,11 @@ class BeanConfig{
 	 * Constructor method name. It may be bean's class name, bean's static 
 	 * factory method name or a factory's creating method name.
 	 */
-	string ConMethodName;
+	string ConMethod;
+
+	string InitMethod;
+	string DestroyMethod;
+	string DeleteMethod;
 
 	/** Bean is singleton or not */
 	bool Singleton;
@@ -102,8 +106,8 @@ public:
 	}
 
 	/** Get constructor method name */
-	string getConMethodName(){
-		return this->ConMethodName;
+	string getConMethod(){
+		return this->ConMethod;
 	}
 
 	/** Get status of being singleton or not */

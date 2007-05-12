@@ -39,11 +39,11 @@ class MethodElmt: public IElement{
 
 	bool IsVirtual;
 
-	/** parse method name and return type */
-	void parseNameAndRetType(string s);
+	/** parse method name and return type for m */
+	void parseNameAndRetType(MethodElmt* m, string s);
 
 	/** parse method parameter type*/
-	void parseParams(string s);
+	void parseParams(MethodElmt* m, string s);
 
 public:
 	/** constructor */

@@ -139,11 +139,11 @@ void* BeanFactoryImpl::getBean(string name)
 			// add argument into pw, not pwc
 			pv[i] = (*pargs)[i]->takeoutValue(pw.get(), this->ManagerOfType);
 		}
-		p = pwc->createBean(bc->getConMethodName(), pv, num);
+		p = pwc->execCreateMethod(bc->getConMethod(), pv, num);
 	}
 	else{
 		void_ptr* pDummy;
-		p = pwc->createBean(bc->getConMethodName(), pDummy, num);
+		p = pwc->execCreateMethod(bc->getConMethod(), pDummy, num);
 	}	
 
 	if( NULL == p){
@@ -154,9 +154,6 @@ void* BeanFactoryImpl::getBean(string name)
 	if( ! bc->getFactoryBeanName().empty()) {
 		pw->setBean(p);
 	}
-		
-	//Set singleton
-	pw->setSingleton(bc->isSingleton());
 
 	//Set properties
 	PropertyList* props = bc->getProperties();
@@ -165,8 +162,9 @@ void* BeanFactoryImpl::getBean(string name)
 	}
 
 	//Initialize bean
-	if( pw->Initializable() ){
-		pw->initializeBean();
+	string initmethod = pw->getInitMethod();
+	if( !initmethod.empty() ){
+		pw->execVoidMethod(initmethod, NULL, 0);
 	}
 
 	//Add to bean manager

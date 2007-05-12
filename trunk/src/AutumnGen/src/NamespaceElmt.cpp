@@ -30,7 +30,8 @@ bool NamespaceElmt::isThisType(string& s, int idx)
 	int brace = Util::indexOf(r, '{');
 	int semicolon = Util::indexOf(r, ';');
 
-	return ( string::npos != brace && brace < semicolon );
+	return ( string::npos != brace && 
+		( string::npos == semicolon || brace < semicolon ) );
 }
 
 IElement* NamespaceElmt::clone(string& s, int& idx0)
@@ -45,7 +46,7 @@ IElement* NamespaceElmt::clone(string& s, int& idx0)
 				Util::lineno(s, idx0));
 
 	NamespaceElmt* e = new NamespaceElmt;
-	e->setName( Util::getLastWord(rest.substr(0, brace-1)) );
+	e->setName( Util::getLastWord(rest.substr(0, brace)) );
 
 	int idx, ridx;
 	idx = idx0 + brace + 1;
@@ -77,7 +78,7 @@ string NamespaceElmt::genWrapperPart()
 		scopename = this->getSupper() + "::";
 	}
 	scopename += this->getName();
-	os << "using namespace " << scopename << ";" << endl;
+	os << "using namespace " << scopename << ";" << endl << endl;
 
 	// only generate namespace and class for wrapper
 	vector<IElement*> children = this->getChildren();

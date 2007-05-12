@@ -14,17 +14,39 @@
  * limitations under the License.
  */
 
-#include "HeadFile.h"
+#ifndef AUTUMN_PARAMETER_H
+#define AUTUMN_PARAMETER_H
 
-void main(int argc, char** argv)
-{
-	//string basename="Method";
-	//string basename="Class";
-	string basename="Skip";
+#include <string>
 
-	string inf = "..\\test\\" + basename + ".h";
-	string outf = "..\\test\\output\\" + basename + "_Wrapper.cpp";
+class Parameter{
+	/** Type is pure data type, doesn't contain "const" or '&' */
+	string Type;
 
-	HeadFile h(inf);
-	h.genWrapper(outf);
-}
+	bool IsConst;
+	bool IsReference;
+	
+	string Name;
+	string DefaultValue;
+
+public:
+	Parameter(string s);
+
+	string getType(){
+		return this->Type;
+	}
+
+	bool isConst(){
+		return this->IsConst;
+	}
+
+	bool isReference(){
+		return this->IsReference;
+	}
+
+	bool isVoid(){
+		return 0 == this->Type.compare("void");
+	}
+};
+
+#endif

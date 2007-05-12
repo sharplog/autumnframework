@@ -40,7 +40,14 @@ bool MethodElmt::isThisType(string& s, int idx)
 	int brace = Util::indexOf(rest, '{');
 	int bracket = Util::indexOf(rest, '(');
 
-	return (bracket!=string::npos && ( bracket<semicolon || bracket<brace ));
+	if( string::npos == bracket )
+		return false;
+	if( semicolon != string::npos && semicolon < bracket )
+		return false;
+	if( brace != string::npos &&  brace < bracket ) 
+		return false;
+	
+	return true;
 }
 
 //
@@ -52,18 +59,19 @@ IElement* MethodElmt::clone(string& s, int& idx0)
 {
 	string rest = s.substr(idx0);
 	int endbracket = Util::findMatching(rest, '(', ')');
-	string mthdstr = Util::replaceComment(rest.substr(0, endbracket));
+	string mthdstr = Util::replaceComment(rest.substr(0, endbracket + 1));
 
 	MethodElmt* e = new MethodElmt;
 
 	int bracket = Util::indexOf(mthdstr, '(');
-	string hs = mthdstr.substr(0, bracket-1);
+	string hs = mthdstr.substr(0, bracket);
 
 	e->IsVirtual = ( string::npos != Util::indexOf(hs, "virtual") );
 	e->IsStatic = ( string::npos != Util::indexOf(hs, "static") );
 
-	this->parseNameAndRetType(hs);
-	this->parseParams(mthdstr.substr(bracket + 1, mthdstr.length() - bracket - 1));
+	this->parseNameAndRetType(e, hs);
+	this->parseParams(e, mthdstr.substr(bracket + 1, 
+								mthdstr.length() - bracket - 2));
 
 	int semicolon = Util::indexOf(rest, ';');
 	int brace = Util::indexOf(rest, '{');
@@ -95,7 +103,7 @@ string MethodElmt::genWrapper4ECM(string classname)
 
 	
 	os << "\t\tif( !method.compare(\"" + methodname + "\") && num == " <<
-		paramnum << ")"	<< endl;
+		paramnum << " )"	<< endl;
 
 	if( methodname == classname ) {					// constructor
 		os<<"\t\t\treturn this->pBean = new " + methodname + "(";
@@ -139,7 +147,7 @@ string MethodElmt::genWrapper4EVM(string classname)
 		return os.str();
 
 	os << "if( !method.compare(\"" + methodname + "\") && num == " <<
-		paramnum << ")"	<< endl;
+		paramnum << " )"	<< endl;
 
 	if( this->IsStatic ) {						// static method
 		os<<"\t\t\t" + classname + "::" + methodname + "(";
@@ -151,11 +159,11 @@ string MethodElmt::genWrapper4EVM(string classname)
 	if( paramnum > 0 ){
 		os << endl;
 		for( int i=0; i<paramnum - 1; i++){
-			os << "\t\t\t\t\t*(" + this->Parameters[i]->getType()
+			os << "\t\t\t\t\t\t *(" + this->Parameters[i]->getType()
 			   << "*)Prams[" <<i<< "],";
 			os << endl;
 		}
-		os << "\t\t\t\t\t*(" + this->Parameters[i]->getType()
+		os << "\t\t\t\t\t\t *(" + this->Parameters[i]->getType()
 		   << "*)Prams[" <<i<< "]";
 
 	}
@@ -167,17 +175,21 @@ string MethodElmt::genWrapper4EVM(string classname)
 
 string MethodElmt::genWrapper4GPT()
 {
+	string methodname = this->getName();
 	int paramnum = this->Parameters.size();
 	ostringstream os;
 
+	if( '~' == methodname[0] )	// destructor
+		return os.str();
+
 	os << "if( !method.compare(\"" + this->getName() + "\") && num == " <<
-		paramnum << ")"	<< endl;
-	os<<"\t\t\ttypes += \"\"";
+		paramnum << " )"	<< endl;
+	os<<"\t\t\ttypes = string(\"\")";
 	
 	if( paramnum > 0 ){
-		for( int i=0; i<paramnum - 1; i++){
+		for( int i=0; i<paramnum; i++){
 			os << endl;
-			os << "\t\t\t\t\t+ \"" 
+			os << "\t\t\t\t  + \"" 
 			   << this->Parameters[i]->getType() + "|\"";
 		}
 	}
@@ -188,23 +200,23 @@ string MethodElmt::genWrapper4GPT()
 }
 
 // s should has no comments
-void MethodElmt::parseNameAndRetType(string s)
+void MethodElmt::parseNameAndRetType(MethodElmt* e, string s)
 {
 	int idx;
 
 	// is destructor
 	if( string::npos != (idx = s.find('~', 0)) ){
-		this->setName( Util::trimall(s.substr(idx)) );
+		e->setName( Util::trimall(s.substr(idx)) );
 		// destructor has no return type
 		return;
 	}
 
 	// is overloading operator
 	if( string::npos != (idx = s.find("operator", 0)) )
-		this->setName( Util::trimall(s.substr(idx)) );
+		e->setName( Util::trimall(s.substr(idx)) );
 	else {	// is other
 		string name = Util::getLastWord(s);
-		this->setName(name);
+		e->setName(name);
 		idx = Util::indexOf(s, name);
 	}
 	
@@ -215,13 +227,51 @@ void MethodElmt::parseNameAndRetType(string s)
 		if( string::npos != (idx = Util::indexOf(rt, *it)) )
 			rt.erase(idx, it->length());
 	}
-	this->ReturnType = Util::trim(rt);
+	e->ReturnType = Util::trim(rt);
 	
 	return;
 }
 
 // s is the string between '(' and ')', and should has no comments.
-void MethodElmt::parseParams(string s)
+void MethodElmt::parseParams(MethodElmt* e, string s)
 {
-// Copes with void func(void)
+	string rest = s;
+	while( !rest.empty() ){
+		// get a parameter's string
+		int tempDepth = 0;	// Depth of template scope
+		int idx = 0;
+		while( idx < rest.length() && (rest[idx] != ',' || tempDepth > 0) ){
+			if( rest[idx] == '=' ){
+				// let idx skip literal string if has
+				int l;
+				string temps = rest.substr(idx + 1);
+				if( l = Util::whiteSapceLen(temps) ){
+					temps = temps.substr(l);
+					idx += l;
+				}
+				if( l = Util::literalLen(temps) )
+					idx += l;
+			}
+			else if( rest[idx] == '<' )
+					tempDepth ++;
+			else if( rest[idx] == '>' )
+				tempDepth --;
+
+			idx ++;
+		}
+
+		string pstr = Util::trim(rest.substr(0, idx));
+		if( !pstr.empty() ){
+			Parameter* p = new Parameter(pstr);
+			if( !p->isVoid() )	// Copes with void func(void)
+				e->Parameters.push_back(p);
+			else
+				delete p;
+		}
+
+		if( idx < rest.length() ) 
+			rest = rest.substr(idx + 1);
+		else
+			break;
+	}
 }

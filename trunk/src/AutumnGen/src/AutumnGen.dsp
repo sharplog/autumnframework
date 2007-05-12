@@ -117,6 +117,10 @@ SOURCE=.\NamespaceElmt.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Parameter.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\StructElmt.cpp
 # End Source File
 # Begin Source File
@@ -166,6 +170,10 @@ SOURCE=.\MethodElmt.h
 # Begin Source File
 
 SOURCE=.\NamespaceElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Parameter.h
 # End Source File
 # Begin Source File
 

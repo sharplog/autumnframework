@@ -36,13 +36,14 @@ using namespace std;
 /** 
  * Wrapper of bean
  * 
- * @version 0.1.0
- * @since 2006-12-04
+ * @version 0.7.0
+ * @since 2007-04-27
  */
 
 class DLL_IM_EXPORT IBeanWrapper{
 	typedef void WrapperFreer(IBeanWrapper*);
 	
+	/** bean name */
 	string BeanName;
 
 	/** pointers of parameters, using long type */
@@ -55,17 +56,30 @@ class DLL_IM_EXPORT IBeanWrapper{
 	 * bean's property 
 	 */
 	bool Singleton;								// is singleton or not
+	string InitMethod;							// init method name
+	string DestroyMethod;						// destroy method name
+	string DeleteMethod;						// destruct method name
 	
 public:
 	virtual void* getBean() = 0;
 	virtual void  setBean(void*) = 0;
+	virtual void* execCreateMethod(string& method, void** pPrams, int num) = 0;
+	virtual int   execVoidMethod(string& method, void** pPrams, int num) = 0;
+	virtual int   getParamTypes (string& method, string& types, int num) = 0;
 	
-	virtual bool hasDeletor(){return false;}	// has deletor or not
-	virtual bool Destroyable(){ return false; }	// has initialize function or not
-	virtual bool Initializable(){ return false; }// has destroy function or not
-
-	void setBeanName(string name){ this->BeanName = name; }
+	string getConArgTypes(string& ConMethod, int num);
+	
+	void   setBeanName(string s){ this->BeanName = s; }
 	string getBeanName(){ return this->BeanName; }
+	
+	void   setInitMethod(string s){ this->InitMethod = s; }
+	string getInitMethod(){ return this->InitMethod; }
+	
+	void   setDestroyMethod(string s){ this->DestroyMethod = s; }
+	string getDestroyMethod(){ return this->DestroyMethod; }
+	
+	void   setDeleteMethod(string s){ this->DeleteMethod = s; }
+	string getDeleteMethod(){ return this->DeleteMethod; }
 	
 	void setSingleton(bool s){ this->Singleton = s; }
 	bool getSingleton() { return this->Singleton; }
@@ -77,29 +91,16 @@ public:
 	vector<TPointer> getParameter(){ return this->Parameters; }
 
 	int setBeanPropertyValue(const char* name, void* value){
-		string dummy;
-		return this->operateBeanProperty(name, opSetPropValue, dummy, value);
+		return this->execVoidMethod(string("set") +name, &value, 1);
 	}
 	
 	int getBeanPropertyType(const char* name, string& type){
-		return this->operateBeanProperty(name, opGetPropType, type, NULL);
+		return this->getParamTypes(string("set") + name, type, 1);
 	}
 	
+	/** if has deleteMethod, use this to delete bean */
+	bool deleteBean();
 	
-	string getConArgTypes(string& ConMethod, int num);
-
-	void* createBean(string& ConMethod, void** pPrams, int num);
-
-	virtual void deleteBean();
-	
-	virtual void initializeBean();
-
-	virtual void destroyBean();
-
-	virtual int operateBeanProperty(const char* name, const char* op, string& type, void* value);
-	
-	virtual int operateCreator(string& ConMethod, void** p, int num, const char* op, string& args, void*& pr);
-		
 	/** Destructor */
 	virtual ~IBeanWrapper();
 };
