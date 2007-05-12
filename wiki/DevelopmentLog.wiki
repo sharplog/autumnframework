@@ -1,6 +1,10 @@
 #summary Development log.
 #labels Featured
 
+== 05/12/2007 ==
+ * AutumnGen has been written and passed some simple tests. It doesn't support local bean now. 
+ * Autumn framework and its schema have some according changement also. Schema support init-method, destroy-method and delete-method(this method is for some bean like singletons ).
+
 == 04/27/2007 ==
  * change "type" to "bean", remove "type" element in configure file.
  * optimize creating and deleting customized type bean.
