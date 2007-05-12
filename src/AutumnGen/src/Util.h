@@ -95,8 +95,22 @@ public:
 	/** is special char or not */
 	static bool isSpecialChar(char c);
 
-	/** get the last word seperated by white sapce */
+	/** get the last word separated by white space or special char */
 	static string getLastWord(string s);
+
+	/** replace comment with white space */
+	static string replaceComment(string s);
+
+	/** erase white spaces at head and tail */
+	static string trim(string s);
+
+	/** erase all white spaces in the string */
+	static string trimall(string s);
+
+	/** 
+	 * split a string into some words separated by white space or
+	 * special char. A special char is a word also. 
+	 */
 };
 
 #endif

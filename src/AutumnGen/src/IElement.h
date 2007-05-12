@@ -114,6 +114,11 @@ public:
 	vector<IElement*> getChildren(){
 		return this->ChildElmts;
 	}
+
+	virtual ~IElement(){
+		for(int i=0; i<this->ChildElmts.size(); i++)
+			delete this->ChildElmts[i];
+	}
 };
 
 #endif
