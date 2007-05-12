@@ -48,16 +48,16 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 	ClassElmt* e = new ClassElmt;
 
 	// parsing name and base classes
-	string basestr = rest.substr(0, brace-1);
+	string basestr = rest.substr(0, brace);
 	int colon = Util::indexOf(basestr, ':');
 	if( colon == string::npos )
 		e->setName( Util::getLastWord(basestr) );
 	else {
-		e->setName( Util::getLastWord(basestr.substr(0, colon-1)) );
+		e->setName( Util::getLastWord(basestr.substr(0, colon)) );
 
 		int comma = Util::indexOf(basestr, ',');
 		while( comma != string::npos ){
-			this->BaseClass.push_back( Util::getLastWord(basestr.substr(0, comma-1)) );
+			this->BaseClass.push_back( Util::getLastWord(basestr.substr(0, comma)) );
 			basestr = basestr.substr(comma+1);
 			comma = Util::indexOf(basestr, ',');
 		}
@@ -92,11 +92,14 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 			if( child == NULL )
 				idx += Util::unrecognisedLen(rest);
 			else{
+				child->setScope(scope);
 				e->addChild(child);
-				e->setScope(scope);
 			}
 		}
 	}
+
+	this->addDefaultCon(e);
+
 	// modify idx0 only when successed
 	idx0 = idx0 + endbrace + 1;
 	return e;
@@ -132,18 +135,8 @@ string ClassElmt::genWrapperHead()
 	"	}"													<< endl <<
 	""														<< endl <<
 	"	~" + wrappername + "(){"							<< endl <<
-	"		if( this->pBean ) {"							<< endl <<
-	"			string method = this->getDestroyMethod();"	<< endl <<
-	"			if( !method.empty() )"						<< endl <<
-	"				this->execVoidMethod(method, NULL, 0);"	<< endl <<
-	"			method = this->getDeleteMethod();"			<< endl <<
-	"			if( !method.empty() ) {"					<< endl <<
-	"				void* p = this->pBean;"					<< endl <<
-	"				this->execVoidMethod(method, &p, 1);"	<< endl <<
-	"			}"											<< endl <<
-	"			else"										<< endl <<
-	"				delete this->pBean;"					<< endl <<
-	"		}"												<< endl <<
+	"		if( this->pBean && !this->deleteBean() )"		<< endl <<
+	"			delete this->pBean;"						<< endl <<
 	"	}"													<< endl <<
 	""														<< endl <<
 	"	void* getBean(){ return (void*)this->pBean; }"		<< endl <<
@@ -180,41 +173,23 @@ string ClassElmt::genWrapperTail()
 
 string ClassElmt::genWrapper4ECM()
 {
-	int i;
-	
 	vector<IElement*> children = this->getChildren();
-
-	for( i=0; i<children.size(); i++){
-		IElement* e = children[i];
-		if( e->getType() == IElement::METHOD &&
-				e->getName() == this->getName() ) {
-			break;
-		}
-	}
-
-	// add a default public constructor
-	if( i == children.size() ){
-		MethodElmt* m = new MethodElmt;
-		m->setName(this->getName());
-		m->setScope("public");
-		this->addChild(m);
-	}
 
 	ostringstream os;
 	os<<
 	"	void* execCreateMethod(string& method, void** Prams, int num)" <<endl<<
 	"	{"															   <<endl;
 
-	for( i=0; i<children.size(); i++){
+	for( int i=0; i<children.size(); i++){
 		IElement* e = children[i];
 		if( e->getType() == IElement::METHOD && e->getScope() == "public" ) {
 			os << ((MethodElmt*)e)->genWrapper4ECM(this->getName());
 		}
 	}
-	os<<
-	"		return NULL;"	<<endl<<
-	"	}"					<<endl<<
-	""						<<endl;
+	os						<< endl <<
+	"		return NULL;"	<< endl <<
+	"	}"					<< endl <<
+	""						<< endl;
 	
 	return os.str();
 }
@@ -229,19 +204,31 @@ string ClassElmt::genWrapper4EVM()
 	"	{"															<<endl<<
 	"		";
 
+	bool hasOut = false;
 	for( int i=0; i<children.size(); i++){
 		IElement* e = children[i];
 		if( e->getType() == IElement::METHOD && e->getScope() == "public" ) {
-			os << ((MethodElmt*)e)->genWrapper4EVM(this->getName());
+			string ws = ((MethodElmt*)e)->genWrapper4EVM(this->getName());
+			if( !ws.empty() ){
+				os << ws;
+				hasOut = true;
+			}
 		}
 	}
-	os<<
-	"			return -1;"		<< endl <<
-	""							<< endl <<
-	"		return 0;"			<< endl <<
-	"	}"						<< endl <<
-	""							<< endl;
-	
+
+	if( hasOut )
+		os							<< endl <<
+		"			return -1;"		<< endl <<
+		""							<< endl <<
+		"		return 0;"			<< endl <<
+		"	}"						<< endl <<
+		""							<< endl;
+	else
+		os <<
+				"return -1;"		<< endl <<
+		"	}"						<< endl <<
+		""							<< endl;
+
 	return os.str();
 }
 
@@ -255,18 +242,30 @@ string ClassElmt::genWrapper4GPT()
 	"	{"															<<endl<<
 	"		";
 
+	bool hasOut = false;
 	for( int i=0; i<children.size(); i++){
 		IElement* e = children[i];
 		if( e->getType() == IElement::METHOD && e->getScope() == "public" ) {
-			os << ((MethodElmt*)e)->genWrapper4GPT();
+			string ws = ((MethodElmt*)e)->genWrapper4GPT();
+			if( !ws.empty() ){
+				os << ws;
+				hasOut = true;
+			}
 		}
 	}
-	os<<
-	"			return -1;"		<< endl <<
-	""							<< endl <<
-	"		return 0;"			<< endl <<
-	"	}"						<< endl <<
-	""							<< endl;
+	if( hasOut )
+		os							<< endl <<
+		"			return -1;"		<< endl <<
+		""							<< endl <<
+		"		return 0;"			<< endl <<
+		"	}"						<< endl <<
+		""							<< endl;
+	else
+		os << 
+				"return -1;"		<< endl <<
+		"	}"						<< endl <<
+		""							<< endl;
+
 	
 	return os.str();
 }
@@ -292,4 +291,26 @@ string ClassElmt::genWrapper4Local()
 	"AUTUMN_" + classname + "_Proxy _AUTUMN_" + classname + "_Proxy_;" <<endl;
 
 	return os.str();
+}
+
+void ClassElmt::addDefaultCon(ClassElmt* c)
+{
+	vector<IElement*> children = c->getChildren();
+	
+	int i;
+	for( i=0; i<children.size(); i++){
+		IElement* e = children[i];
+		if( e->getType() == IElement::METHOD &&
+				e->getName() == c->getName() ) {
+			break;
+		}
+	}
+
+	// add a default public constructor
+	if( i >= children.size() ){
+		MethodElmt* m = new MethodElmt;
+		m->setName(c->getName());
+		m->setScope(string("public"));
+		c->addChild(m);
+	}
 }

@@ -15,7 +15,10 @@
 */
 
 #include <cctype>
+#include <vector>
 #include "Util.h"
+
+using namespace std;
 
 int Util::lineno(string& s, int idx)
 {
@@ -45,7 +48,7 @@ int Util::commentLen(string& s)
 		delta = 1;
 	}
 	else if( s.compare(0, 2, "/*") == 0 ){
-		idx = s.find_first_of("*/");
+		idx = s.find("*/", 0);
 		delta = 2;
 	}
 	else{
@@ -137,37 +140,46 @@ int Util::findMatching(string& s, char c1, char c2)
 {
 	int depth = 0;
 	for( int i = 0; i < s.length(); i++ ) {
-	   if( s[i] == c1 )
+		if( s[i] == c1 )
 		   depth++;
-	   else if( s[i] == c2 ) {
+		else if( s[i] == c2 ) {
 		   depth--;
 		   if( depth == 0 )
 			   return i;
-	   } else {
-		   i += skip(s.substr(i));
-	   }
+		}
+		else {
+		   int l = skip(s.substr(i));
+		   if( l > 0)
+			   i += l - 1;		// -1
+		}
 	}
 	return string::npos;
 }
 
 int Util::indexOf(string& s, string t)
 {
-	for( int i = 0; i < s.length(); i++ ){
+	for( int i = 0; i < s.length(); ){
+		int l;
 		if( Util::startWith(s.substr(i), t) )
 			return i;
-		else
-			i += skip(s.substr(i));
+		else if( l = skip(s.substr(i)) )
+			i += l;
+		else 
+			i++;
 	}
 	return string::npos;
 }
 
 int Util::indexOf(string& s, char c)
 {
-	for (int i = 0; i < s.length(); i++) {
+	for (int i = 0; i < s.length(); ) {
+		int l;
 		if (s[i] == c)
 			return i;
-		else
-			i += skip(s.substr(i));
+		else if( l = skip(s.substr(i)) )
+			i += l;
+		else 
+			i++;
 	}
 	return string::npos;
 }
@@ -187,10 +199,13 @@ string Util::filenameOf(string s)
 	string::size_type idx1 = s.find_last_of('/');
 	string::size_type idx2 = s.find_last_of('\\');
 
-	if( idx1 == string::npos && idx2 == string::npos ) return s;
-	if( idx1 == string::npos && idx2 != string::npos ) return s.substr(idx2);
-	if( idx1 != string::npos && idx2 == string::npos ) return s.substr(idx1);
-	return s.substr(idx1>idx2 ? idx1 : idx2);
+	if( idx1 == string::npos && idx2 == string::npos )
+		return s;
+	if( idx1 == string::npos && idx2 != string::npos )
+		return s.substr(idx2 + 1);
+	if( idx1 != string::npos && idx2 == string::npos )
+		return s.substr(idx1 + 1);
+	return s.substr(idx1>idx2 ? idx1 + 1 : idx2 + 1);
 }
 
 bool Util::isSpecialChar(char c)
@@ -229,7 +244,7 @@ string Util::getLastWord(string s)
 	while( idx2 >= 0 && !isspace(s[idx2]) && !isSpecialChar(s[idx2])) idx2--;
 
 	if( idx2 < idx1 )
-		word = s.substr(idx2+1, idx1);
+		word = s.substr(idx2+1, idx1 - idx2);
 	
 	return word;
 }
@@ -271,4 +286,40 @@ string Util::trimall(string s)
 		else
 			i++;
 	return s;
+}
+
+bool Util::isPrimType(string w)
+{
+	vector<string> primitives;
+	primitives.push_back("void");
+	primitives.push_back("bool");
+	primitives.push_back("char");
+	primitives.push_back("short");
+	primitives.push_back("int");
+	primitives.push_back("float");
+	primitives.push_back("double");
+	primitives.push_back("long");
+	primitives.push_back("singed");
+	primitives.push_back("unsinged");
+
+	for( int i=0; i<primitives.size(); i++)
+		if( primitives[i].compare(w) == 0 )
+			return true;
+		
+	return false;
+}
+
+bool Util::isStruTypeKey(string w)
+{
+	vector<string> keys;
+	keys.push_back("struct");
+	keys.push_back("class");
+	keys.push_back("enum");
+	keys.push_back("union");
+
+	for( int i=0; i<keys.size(); i++)
+		if( keys[i].compare(w) == 0 )
+			return true;
+
+	return false;
 }

@@ -107,10 +107,11 @@ public:
 	/** erase all white spaces in the string */
 	static string trimall(string s);
 
-	/** 
-	 * split a string into some words separated by white space or
-	 * special char. A special char is a word also. 
-	 */
+	/** a word is primitive data type or not */
+	static bool isPrimType(string w);
+
+	/** a word is struct data type key or not */
+	static bool isStruTypeKey(string w);
 };
 
 #endif

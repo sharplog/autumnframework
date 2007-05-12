@@ -44,6 +44,9 @@ class ClassElmt: public IElement{
 	/** Generate wrapper part for local bean */
 	string genWrapper4Local();
 
+	/** Add a default constructor for c if it has not */
+	void addDefaultCon(ClassElmt* c);
+
 public:
 	/** 
 	 * The string is a element of this type or not.

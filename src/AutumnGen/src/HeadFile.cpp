@@ -22,6 +22,8 @@
 #include "ElmtFactory.h"
 #include "HeadFile.h"
 
+using namespace std;
+
 HeadFile::HeadFile(string infile)
 {
 	string fileContent, rest;
@@ -60,6 +62,7 @@ void HeadFile::genWrapper(string outfile)
 	}
 
 	wf << this->licenseInfo();
+	wf << "#include \"IBeanWrapper.h\"" <<endl;
 	wf << "#include \"" << this->filename << "\"" << endl;
 	wf << endl;
 	

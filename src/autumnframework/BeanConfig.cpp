@@ -41,7 +41,10 @@ BeanConfig::BeanConfig(TBean& beandef, WrapperMaker* wc, WrapperFreer* wd)
 	this->DependedObjects = beandef.DependedObjects;
 	this->Singleton = beandef.Singleton;
 	this->FactoryBean = beandef.FactoryBean;
-	this->ConMethodName = beandef.ConMethodName;
+	this->ConMethod = beandef.ConMethod;
+	this->InitMethod = beandef.InitMethod;
+	this->DestroyMethod = beandef.DestroyMethod;
+	this->DeleteMethod = beandef.DeleteMethod;
 	this->GotArgTypes = false;
 	this->ConArgs = new PropertyList;
 	this->Properties = new PropertyList;
@@ -88,6 +91,11 @@ IBeanWrapper* BeanConfig::createWrapper()
 {
 	IBeanWrapper* p = this->WrapperCreater();
 	p->setWrapperDeleter(this->WrapperDeleter);
+		
+	p->setSingleton( this->Singleton );
+	p->setInitMethod( this->InitMethod );
+	p->setDestroyMethod( this->DestroyMethod );
+	p->setDeleteMethod( this->DeleteMethod );
 
 	return p;
 }
@@ -96,7 +104,7 @@ PropertyList* BeanConfig::getConArgs(IBeanWrapper* pw) {
 	int argNum = this->ConArgs->size();
 
 	if( !this->GotArgTypes && argNum > 0 ){
-		string ConArgTypes = pw->getConArgTypes(this->getConMethodName(), argNum);
+		string ConArgTypes = pw->getConArgTypes(this->getConMethod(), argNum);
 		
 		string tmpType;
 		int start, end = -1;

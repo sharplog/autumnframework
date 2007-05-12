@@ -67,7 +67,11 @@ typedef struct{
 	 * Constructor method name. It may be bean's class name, bean's static 
 	 * factory method name or a factory's creating method name.
 	 */
-	string ConMethodName;
+	string ConMethod;
+
+	string InitMethod;
+	string DestroyMethod;
+	string DeleteMethod;
 } TBean;
 
 /** struct to store library configuration */

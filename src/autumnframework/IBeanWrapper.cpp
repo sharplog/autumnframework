@@ -22,9 +22,8 @@
 string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 {
 	string types;
-	void* pDummy;
 
-	int rtn = operateCreator(ConMethod, &pDummy, num, opGetConArgType, types, pDummy);
+	int rtn = this->getParamTypes(ConMethod, types, num);
 	if( rtn )
 		throw new MissDefinitionEx("IBeanWrapper", 
 				"getConArgTypes", 
@@ -33,58 +32,34 @@ string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 	return types;
 }
 
-void* IBeanWrapper::createBean(string& ConMethod, void** pPrams, int num)
+bool IBeanWrapper::deleteBean()
 {
-	string sDummy;
-	void* pBean;
-
-	int rtn = operateCreator(ConMethod, pPrams, num, opCreateBean, sDummy, pBean);
-	if( rtn )
-		throw new MissDefinitionEx("IBeanWrapper", 
-				"createBean(void**, int)", 
-				"Creating bean[" + this->BeanName + "] failed!");
-
-	return pBean;
-}
-
-void IBeanWrapper::deleteBean()
-{
-	throw new MissDefinitionEx("IBeanWrapper", 
-		"deleteBean()", 
-		"Definition of bean[" + this->BeanName + "] deleteBean() method is missing!");
-}
-
-void IBeanWrapper::initializeBean()
-{
-	throw new MissDefinitionEx("IBeanWrapper", 
-			"initializeBean", 
-			"Definition of bean[" + this->BeanName + "] initializeBean method is missing!");
-}
-
-void IBeanWrapper::destroyBean()
-{
-	throw new MissDefinitionEx("IBeanWrapper", 
-			"destoryBean", 
-			"Definition of bean[" + this->BeanName + "] destoryBean method is missing!");
-}
-
-int IBeanWrapper::operateBeanProperty(const char* name, const char* op, string& type, void* value)
-{
-	throw new MissDefinitionEx("IBeanWrapper", 
-			"operateBeanProperty", 
-			"Definition of bean[" + this->BeanName + "] set/get " +
-				name + " method is missing!");
-	//avoid warning for some compiler
-	return -1;
-}
-
-int IBeanWrapper::operateCreator(string& ConMethod, void** p, int num, const char* op, string& args, void*& pr)
-{
-	throw new MissDefinitionEx("IBeanWrapper", "operateCreator", 
-			"Definition of bean[" + this->BeanName + 
-			"] create/gettype method is missing!");
-	//avoid warning for some compiler
-	return -1;
+	if( this->getBean() == NULL )
+		return true;
+	
+	string method = this->getDestroyMethod();
+	if( !method.empty() ){
+		if( this->execVoidMethod(method, NULL, 0) < 0 ) {
+			throw new MissDefinitionEx("IBeanWrapper", 
+					"deleteBean", 
+					"Executing destory-method [" + method + "] of bean [" + 
+					this->BeanName + "] failed!");
+		}
+	}
+	
+	method = this->getDeleteMethod();
+	if( !method.empty() ) {
+		void* p = this->getBean();
+		if( this->execVoidMethod(method, &p, 1) < 0 ) {
+			throw new MissDefinitionEx("IBeanWrapper", 
+					"deleteBean", 
+					"Executing delete-method [" + method + "] of bean [" + 
+					this->BeanName + "] failed!");
+		}
+		return true;
+	}
+	else
+		return false;
 }
 
 /** 

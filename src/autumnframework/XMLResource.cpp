@@ -121,6 +121,9 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	XMLCSTR singleton	= xml.getAttribute("singleton");
 	XMLCSTR factory		= xml.getAttribute("factory-bean");
 	XMLCSTR factoryMthd	= xml.getAttribute("factory-method");
+	XMLCSTR initMthd	= xml.getAttribute("init-method");
+	XMLCSTR destroyMthd	= xml.getAttribute("destroy-method");
+	XMLCSTR deleteMthd	= xml.getAttribute("delete-method");
 	
 	string isSingleton("false");
 	
@@ -135,8 +138,12 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 			"'. There is no class name.");
 	}
 	if( bean.Name.empty() ) bean.Name = bean.ClassName;
-	if( factoryMthd != NULL ) bean.ConMethodName = factoryMthd;
-	else bean.ConMethodName = bean.ClassName;
+	if( factoryMthd != NULL ) bean.ConMethod = factoryMthd;
+	else bean.ConMethod = bean.ClassName;
+
+	if( initMthd != NULL ) bean.InitMethod = initMthd;
+	if( destroyMthd != NULL ) bean.DestroyMethod = destroyMthd;
+	if( deleteMthd != NULL ) bean.DeleteMethod = deleteMthd;
 
 	bean.Singleton = this->boolAttribute(isSingleton, "singleton");
 	
