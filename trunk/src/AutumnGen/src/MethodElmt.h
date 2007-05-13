@@ -73,7 +73,13 @@ public:
 	 * Generate wrapper part of this element.
 	 * It's useless for method element.
 	 */
-	virtual string genWrapperPart(){
+	/** Generate wrapper .h file part of this element */
+	virtual string genWrapperH(){
+		return "";
+	}
+	
+	/** Generate wrapper .cpp file part of this element */
+	virtual string genWrapperCPP(){
 		return "";
 	}
 

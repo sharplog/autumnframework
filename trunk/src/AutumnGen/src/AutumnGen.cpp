@@ -18,13 +18,13 @@
 
 void main(int argc, char** argv)
 {
-	//string basename="Method";
+	string basename="Namespace";
 	//string basename="Class";
-	string basename="Skip";
+	//string basename="Method";
+	//string basename="Skip";
 
 	string inf = "..\\test\\" + basename + ".h";
-	string outf = "..\\test\\output\\" + basename + "_Wrapper.cpp";
 
-	HeadFile h(inf);
-	h.genWrapper(outf);
+	HeadFile h(inf, "..\\test\\output");
+	h.genWrapper();
 }

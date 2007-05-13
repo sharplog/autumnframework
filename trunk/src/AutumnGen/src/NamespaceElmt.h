@@ -44,8 +44,11 @@ public:
 	 */
 	virtual IElement* clone(string& s, int& idx);
 
-	/** Generate wrapper part of this element */
-	string genWrapperPart();
+	/** Generate wrapper .h file part of this element */
+	virtual string genWrapperH();
+	
+	/** Generate wrapper .cpp file part of this element */
+	virtual string genWrapperCPP();
 
 	/** Return the type of this element. */
 	IElement::ElmtType getType(){

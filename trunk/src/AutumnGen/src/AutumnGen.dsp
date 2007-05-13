@@ -97,14 +97,6 @@ SOURCE=.\ElmtFactory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\Enum_UnionElmt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\FieldElmt.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\HeadFile.cpp
 # End Source File
 # Begin Source File
@@ -118,14 +110,6 @@ SOURCE=.\NamespaceElmt.cpp
 # Begin Source File
 
 SOURCE=.\Parameter.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\StructElmt.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\TypedefElmt.cpp
 # End Source File
 # Begin Source File
 

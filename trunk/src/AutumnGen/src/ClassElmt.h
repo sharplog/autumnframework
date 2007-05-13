@@ -26,8 +26,8 @@ class ClassElmt: public IElement{
 
 	vector<string> BaseClass;
 
-	/** Generate wrapper's head, constructor and destructor */
-	string genWrapperHead();
+	/** wrapper's suffix behind class name */
+	static string WrapperSuffix;
 
 	/** Generate wrapper's tail, export functions */
 	string genWrapperTail();
@@ -41,8 +41,11 @@ class ClassElmt: public IElement{
 	/** Generate wrapper part of getParamTypes() */
 	string genWrapper4GPT();
 
-	/** Generate wrapper part for local bean */
-	string genWrapper4Local();
+	/** Generate wrapper .h file part for local bean */
+	string genWrapperH4Local();
+
+	/** Generate wrapper .cpp file part for local bean */
+	string genWrapperCPP4Local();
 
 	/** Add a default constructor for c if it has not */
 	void addDefaultCon(ClassElmt* c);
@@ -64,8 +67,11 @@ public:
 	 */
 	virtual IElement* clone(string& s, int& idx);
 
-	/** Generate wrapper part of this element */
-	string genWrapperPart();
+	/** Generate wrapper .h file part of this element */
+	virtual string genWrapperH();
+	
+	/** Generate wrapper .cpp file part of this element */
+	virtual string genWrapperCPP();
 
 	/** Return the type of this element. */
 	IElement::ElmtType getType(){

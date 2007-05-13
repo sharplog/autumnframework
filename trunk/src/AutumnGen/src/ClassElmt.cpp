@@ -21,6 +21,8 @@
 #include "MethodElmt.h"
 #include "ClassElmt.h"
 
+string ClassElmt::WrapperSuffix = "_Wrapper";
+
 bool ClassElmt::isThisType(string& s, int idx)
 {
 	string r = s.substr(idx);
@@ -105,11 +107,10 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 	return e;
 }
 
-string ClassElmt::genWrapperPart()
+string ClassElmt::genWrapperCPP()
 {
 	string ws = "";
 
-	ws += this->genWrapperHead();
 	ws += this->genWrapper4ECM();
 	ws += this->genWrapper4EVM();
 	ws += this->genWrapper4GPT();
@@ -118,10 +119,10 @@ string ClassElmt::genWrapperPart()
 	return ws;
 }
 
-string ClassElmt::genWrapperHead()
+string ClassElmt::genWrapperH()
 {
 	string classname = this->getName();
-	string wrappername = classname + "_Wrapper";
+	string wrappername = classname + ClassElmt::WrapperSuffix;
 	ostringstream os;
 
 	os << 
@@ -143,8 +144,20 @@ string ClassElmt::genWrapperHead()
 	"	void  setBean(void* p){"							<< endl <<
 	"		this->pBean = (" + classname + "*)p;"			<< endl <<
 	"	}"													<< endl <<
-	""														<< endl;
-
+	""														<< endl <<
+	"	void* execCreateMethod(string& method, void** Prams, int num);"<<endl<<
+	""																<<endl<<
+	"	int execVoidMethod(string& method, void** Prams, int num);"	<<endl<<
+	""																<<endl<<
+	"	int getParamTypes(string& method, string& types, int num);"	<<endl<<
+	""																<<endl<<
+	"};"															<<endl<<
+	""																<<endl<<
+	"extern \"C\"{"													<<endl<<
+	"	DLL_EXPORT IBeanWrapper* create_" + wrappername + "();"		<<endl<<
+	"	DLL_EXPORT void delete_" + wrappername + "(IBeanWrapper*);" <<endl<<
+	"}"																<<endl<<
+	""																<<endl;
 	return os.str();
 }
 
@@ -154,11 +167,7 @@ string ClassElmt::genWrapperTail()
 	ostringstream os;
 
 	os <<
-	"};"														<< endl <<
-	""															<< endl <<
 	"extern \"C\"{"												<< endl <<
-	"	DLL_EXPORT IBeanWrapper* create_" + wrappername + "();"	<< endl <<
-	"	DLL_EXPORT void delete_" + wrappername + "(IBeanWrapper*);" << endl <<
 	"	IBeanWrapper* create_" + wrappername + "(){"			<< endl <<
 	"		return new " + wrappername + ";"					<< endl <<
 	"	}"														<< endl <<
@@ -174,11 +183,13 @@ string ClassElmt::genWrapperTail()
 string ClassElmt::genWrapper4ECM()
 {
 	vector<IElement*> children = this->getChildren();
+	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
 
 	ostringstream os;
 	os<<
-	"	void* execCreateMethod(string& method, void** Prams, int num)" <<endl<<
-	"	{"															   <<endl;
+	"void* "<< wrappername << "::" <<
+	"execCreateMethod(string& method, void** Prams, int num)" << endl <<
+	"{" <<endl;
 
 	for( int i=0; i<children.size(); i++){
 		IElement* e = children[i];
@@ -186,10 +197,10 @@ string ClassElmt::genWrapper4ECM()
 			os << ((MethodElmt*)e)->genWrapper4ECM(this->getName());
 		}
 	}
-	os						<< endl <<
-	"		return NULL;"	<< endl <<
-	"	}"					<< endl <<
-	""						<< endl;
+	os					<< endl <<
+	"	return NULL;"	<< endl <<
+	"}"					<< endl <<
+	""					<< endl;
 	
 	return os.str();
 }
@@ -197,12 +208,14 @@ string ClassElmt::genWrapper4ECM()
 string ClassElmt::genWrapper4EVM()
 {
 	vector<IElement*> children = this->getChildren();
+	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
 
 	ostringstream os;
 	os<<
-	"	int execVoidMethod(string& method, void** Prams, int num)"	<<endl<<
-	"	{"															<<endl<<
-	"		";
+	"int "<< wrappername << "::" <<
+	"execVoidMethod(string& method, void** Prams, int num)"	<<endl<<
+	"{" <<endl<<
+	"	";
 
 	bool hasOut = false;
 	for( int i=0; i<children.size(); i++){
@@ -217,17 +230,17 @@ string ClassElmt::genWrapper4EVM()
 	}
 
 	if( hasOut )
-		os							<< endl <<
-		"			return -1;"		<< endl <<
-		""							<< endl <<
-		"		return 0;"			<< endl <<
-		"	}"						<< endl <<
-		""							<< endl;
+		os						<< endl <<
+		"		return -1;"		<< endl <<
+		""						<< endl <<
+		"	return 0;"			<< endl <<
+		"}"						<< endl <<
+		""						<< endl;
 	else
 		os <<
-				"return -1;"		<< endl <<
-		"	}"						<< endl <<
-		""							<< endl;
+			"return -1;"		<< endl <<
+		"}"						<< endl <<
+		""						<< endl;
 
 	return os.str();
 }
@@ -235,12 +248,14 @@ string ClassElmt::genWrapper4EVM()
 string ClassElmt::genWrapper4GPT()
 {
 	vector<IElement*> children = this->getChildren();
+	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
 
 	ostringstream os;
 	os<<
-	"	int getParamTypes(string& method, string& types, int num)"	<<endl<<
-	"	{"															<<endl<<
-	"		";
+	"int "<< wrappername << "::" <<
+	"getParamTypes(string& method, string& types, int num)"	<<endl<<
+	"{" <<endl<<
+	"	";
 
 	bool hasOut = false;
 	for( int i=0; i<children.size(); i++){
@@ -254,31 +269,43 @@ string ClassElmt::genWrapper4GPT()
 		}
 	}
 	if( hasOut )
-		os							<< endl <<
-		"			return -1;"		<< endl <<
-		""							<< endl <<
-		"		return 0;"			<< endl <<
-		"	}"						<< endl <<
-		""							<< endl;
+		os						<< endl <<
+		"		return -1;"		<< endl <<
+		""						<< endl <<
+		"	return 0;"			<< endl <<
+		"}"						<< endl <<
+		""						<< endl;
 	else
 		os << 
-				"return -1;"		<< endl <<
-		"	}"						<< endl <<
-		""							<< endl;
+			"return -1;"		<< endl <<
+		"}"						<< endl <<
+		""						<< endl;
 
 	
 	return os.str();
 }
 
-string ClassElmt::genWrapper4Local()
+string ClassElmt::genWrapperH4Local()
+{
+	string classname = this->getName();
+	ostringstream os;
+
+	os 
+	<< "AUTUMN_" + classname + "_Local _AUTUMN_" + classname + "_Local_;"
+	<< endl;
+
+	return os.str();
+}
+
+string ClassElmt::genWrapperCPP4Local()
 {
 	string classname = this->getName();
 	ostringstream os;
 
 	os <<
-	"class AUTUMN_" + classname + "_Proxy{"						<< endl <<
+	"class AUTUMN_" + classname + "_Local{"						<< endl <<
 	"public:"													<< endl <<
-	"	AUTUMN_" + classname + "_Proxy(){"						<< endl <<
+	"	AUTUMN_" + classname + "_Local(){"						<< endl <<
 	"		registerLocalFunction("								<< endl <<
 	"				\"create_" + classname + "_Wrapper\","		<< endl <<
 	"				(void*)create_" + classname + "_Wrapper);"	<< endl <<
@@ -287,8 +314,7 @@ string ClassElmt::genWrapper4Local()
 	"				(void*)delete_" + classname + "_Wrapper);"	<< endl <<
 	"	}"														<< endl <<
 	"};"														<< endl <<
-	""															<< endl <<
-	"AUTUMN_" + classname + "_Proxy _AUTUMN_" + classname + "_Proxy_;" <<endl;
+	""															<< endl;
 
 	return os.str();
 }
