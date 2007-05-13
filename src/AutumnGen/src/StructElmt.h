@@ -25,12 +25,15 @@
 class StructElmt: public IElement{
 
 public:
+	// !!! the following is not implemented now.!!!
 	/** 
 	 * The string is a element of this type or not.
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx);
+	virtual bool isThisType(string& s, int idx){
+		return false;
+	}
 
 	/** 
 	 * Clone a element of this type from string s.
@@ -39,10 +42,19 @@ public:
 	 *			  Out: the position after this element.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx);
+	virtual IElement* clone(string& s, int& idx){
+		return NULL;
+	}
 
-	/** Generate wrapper part of this element */
-	string genWrapperPart();
+	/** Generate wrapper .h file part of this element */
+	virtual string genWrapperH(){
+		return "";
+	}
+	
+	/** Generate wrapper .cpp file part of this element */
+	virtual string genWrapperCPP(){
+		return "";
+	}
 
 	/** Return the type of this element. */
 	IElement::ElmtType getType(){

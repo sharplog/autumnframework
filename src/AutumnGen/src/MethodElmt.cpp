@@ -102,32 +102,32 @@ string MethodElmt::genWrapper4ECM(string classname)
 		return os.str();
 
 	
-	os << "\t\tif( !method.compare(\"" + methodname + "\") && num == " <<
+	os << "\tif( !method.compare(\"" + methodname + "\") && num == " <<
 		paramnum << " )"	<< endl;
 
 	if( methodname == classname ) {					// constructor
-		os<<"\t\t\treturn this->pBean = new " + methodname + "(";
+		os<<"\t\treturn this->pBean = new " + methodname + "(";
 	}
 	else if( this->IsStatic && 
 			this->ReturnType == (classname + "*") )	{// static factory method
-		os<<"\t\t\treturn this->pBean = " + classname + 
+		os<<"\t\treturn this->pBean = " + classname + 
 			"::" + methodname + "(";
 	}
 	else if( this->IsStatic ) {						// static method
-		os<<"\t\t\treturn " + classname + "::" + methodname + "(";
+		os<<"\t\treturn " + classname + "::" + methodname + "(";
 	}
 	else{
-		os<<"\t\t\treturn this->pBean->" + methodname + "(";
+		os<<"\t\treturn this->pBean->" + methodname + "(";
 	}
 	
 	if( paramnum > 0 ){
 		os << endl;
 		for( int i=0; i<paramnum - 1; i++){
-			os << "\t\t\t\t\t*(" + this->Parameters[i]->getType()
+			os << "\t\t\t\t*(" + this->Parameters[i]->getType()
 			   << "*)Prams[" <<i<< "],";
 			os << endl;
 		}
-		os << "\t\t\t\t\t*(" + this->Parameters[i]->getType()
+		os << "\t\t\t\t*(" + this->Parameters[i]->getType()
 		   << "*)Prams[" <<i<< "]";
 
 	}
@@ -150,25 +150,25 @@ string MethodElmt::genWrapper4EVM(string classname)
 		paramnum << " )"	<< endl;
 
 	if( this->IsStatic ) {						// static method
-		os<<"\t\t\t" + classname + "::" + methodname + "(";
+		os<<"\t\t" + classname + "::" + methodname + "(";
 	}
 	else{
-		os<<"\t\t\tthis->pBean->" + methodname + "(";
+		os<<"\t\tthis->pBean->" + methodname + "(";
 	}
 	
 	if( paramnum > 0 ){
 		os << endl;
 		for( int i=0; i<paramnum - 1; i++){
-			os << "\t\t\t\t\t\t *(" + this->Parameters[i]->getType()
+			os << "\t\t\t\t\t *(" + this->Parameters[i]->getType()
 			   << "*)Prams[" <<i<< "],";
 			os << endl;
 		}
-		os << "\t\t\t\t\t\t *(" + this->Parameters[i]->getType()
+		os << "\t\t\t\t\t *(" + this->Parameters[i]->getType()
 		   << "*)Prams[" <<i<< "]";
 
 	}
 	os << ");" << endl;
-	os << "\t\telse ";
+	os << "\telse ";
 
 	return os.str();
 }
@@ -184,17 +184,17 @@ string MethodElmt::genWrapper4GPT()
 
 	os << "if( !method.compare(\"" + this->getName() + "\") && num == " <<
 		paramnum << " )"	<< endl;
-	os<<"\t\t\ttypes = string(\"\")";
+	os<<"\t\ttypes = string(\"\")";
 	
 	if( paramnum > 0 ){
 		for( int i=0; i<paramnum; i++){
 			os << endl;
-			os << "\t\t\t\t  + \"" 
+			os << "\t\t\t  + \"" 
 			   << this->Parameters[i]->getType() + "|\"";
 		}
 	}
 	os << ";" << endl;
-	os << "\t\telse ";
+	os << "\telse ";
 
 	return os.str();
 }

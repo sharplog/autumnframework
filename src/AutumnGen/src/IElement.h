@@ -72,8 +72,11 @@ public:
 	/** Return the type of this element. */
 	virtual IElement::ElmtType getType() = 0;
 
-	/** Generate wrapper part of this element */
-	virtual string genWrapperPart() = 0;
+	/** Generate wrapper .h file part of this element */
+	virtual string genWrapperH() = 0;
+	
+	/** Generate wrapper .cpp file part of this element */
+	virtual string genWrapperCPP() = 0;
 	
 	/** Set a comment for this element. */
 	void setComment(string comm){

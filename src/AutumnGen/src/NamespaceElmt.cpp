@@ -69,7 +69,7 @@ IElement* NamespaceElmt::clone(string& s, int& idx0)
 	return e;
 }
 
-string NamespaceElmt::genWrapperPart()
+string NamespaceElmt::genWrapperH()
 {
 	ostringstream os;
 	string scopename = "";
@@ -86,10 +86,28 @@ string NamespaceElmt::genWrapperPart()
 		IElement* e = children[i];
 		if( e->getType() == IElement::NAMESAPCE ) {
 			((NamespaceElmt*)e)->setSupper(scopename);
-			os << e->genWrapperPart();
+			os << e->genWrapperH();
 		}
 		else if( e->getType() == IElement::CLASS )
-			os << e->genWrapperPart();
+			os << e->genWrapperH();
+	}
+
+	return os.str();
+}
+
+string NamespaceElmt::genWrapperCPP()
+{
+	ostringstream os;
+
+	// only generate namespace and class for wrapper
+	vector<IElement*> children = this->getChildren();
+	for( int i=0; i<children.size(); i++){
+		IElement* e = children[i];
+		if( e->getType() == IElement::NAMESAPCE ) {
+			os << e->genWrapperCPP();
+		}
+		else if( e->getType() == IElement::CLASS )
+			os << e->genWrapperCPP();
 	}
 
 	return os.str();

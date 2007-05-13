@@ -89,8 +89,11 @@ public:
 	//以t为单字的开始，避免t在一个大的单词中
 	static bool startWith(string& s, string t);
 
-	/** parse file name from a path */
-	static string filenameOf(string s);
+	/** parse base name from a file path */
+	static string basenameOf(string s);
+
+	/** parse directory from a file path */
+	static string dirOf(string s);
 
 	/** is special char or not */
 	static bool isSpecialChar(char c);
@@ -112,6 +115,9 @@ public:
 
 	/** a word is struct data type key or not */
 	static bool isStruTypeKey(string w);
+
+	/** converts a string to uppercase */
+	static string toUpper(string s);
 };
 
 #endif

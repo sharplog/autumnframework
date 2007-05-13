@@ -24,11 +24,17 @@
 
 using namespace std;
 
-HeadFile::HeadFile(string infile)
+string HeadFile::WrapperSuffix = "_Wrapper";
+
+HeadFile::HeadFile(string infile, string outpath)
 {
 	string fileContent, rest;
 
-	this->filename = Util::filenameOf(infile);
+	this->Basename = Util::basenameOf(infile);
+	if( outpath.empty() )
+		this->OutPath = Util::dirOf(infile);
+	else
+		this->OutPath = outpath;
 	this->readFile(infile, fileContent);
 
 	int idx = 0, ridx;
@@ -54,16 +60,28 @@ HeadFile::~HeadFile()
 		delete this->Elements[i];
 }
 
-void HeadFile::genWrapper(string outfile)
+void HeadFile::genWrapper()
 {
+	this->genWrapperH();
+	this->genWrapperCPP();
+}
+
+void HeadFile::genWrapperH()
+{
+	string filebase = this->Basename + HeadFile::WrapperSuffix;
+	string outfile = this->OutPath + "/" + filebase + ".h";
+
 	ofstream wf(outfile.c_str());
 	if( !wf.is_open() ){
 		throw GenException("Can't open file to write: " + outfile);
 	}
 
 	wf << this->licenseInfo();
-	wf << "#include \"IBeanWrapper.h\"" <<endl;
-	wf << "#include \"" << this->filename << "\"" << endl;
+	wf << "#ifndef " << Util::toUpper(filebase) << "_H" << endl;
+	wf << "#define " << Util::toUpper(filebase) << "_H" << endl;
+	wf << endl;
+	wf << "#include \"IBeanWrapper.h\"" << endl;
+	wf << "#include \"" << this->Basename << ".h\"" << endl;
 	wf << endl;
 	
 	for( int i=0; i<this->Elements.size(); i++){
@@ -72,7 +90,35 @@ void HeadFile::genWrapper(string outfile)
 		// only generate namespace and class
 		if( e->getType() == IElement::NAMESAPCE ||
 				e->getType() == IElement::CLASS ){
-			wf << e->genWrapperPart();
+			wf << e->genWrapperH();
+		}
+	}
+
+	wf << "#endif" << endl;
+	wf.close();
+}
+
+void HeadFile::genWrapperCPP()
+{
+	string filebase = this->Basename + HeadFile::WrapperSuffix;
+	string outfile = this->OutPath + "/" + filebase + ".cpp";
+
+	ofstream wf(outfile.c_str());
+	if( !wf.is_open() ){
+		throw GenException("Can't open file to write: " + outfile);
+	}
+
+	wf << this->licenseInfo();
+	wf << "#include \"" << filebase << ".h\"" << endl;
+	wf << endl;
+	
+	for( int i=0; i<this->Elements.size(); i++){
+		IElement* e = this->Elements[i];
+
+		// only generate namespace and class
+		if( e->getType() == IElement::NAMESAPCE ||
+				e->getType() == IElement::CLASS ){
+			wf << e->genWrapperCPP();
 		}
 	}
 

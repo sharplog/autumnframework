@@ -194,18 +194,39 @@ bool Util::startWith(string& s, string t)
 	return false;
 }
 
-string Util::filenameOf(string s)
+string Util::basenameOf(string s)
+{
+	string::size_type idx1 = s.find_last_of('/');
+	string::size_type idx2 = s.find_last_of('\\');
+	string fname;
+
+	if( idx1 == string::npos && idx2 == string::npos )
+		fname = s;
+	else if( idx1 == string::npos && idx2 != string::npos )
+		fname = s.substr(idx2 + 1);
+	else if( idx1 != string::npos && idx2 == string::npos )
+		fname = s.substr(idx1 + 1);
+	else
+		fname = s.substr(idx1>idx2 ? idx1 + 1 : idx2 + 1);
+
+	string::size_type idx = fname.find_last_of('.');
+	return fname.substr(0, idx);
+}
+
+
+string Util::dirOf(string s)
 {
 	string::size_type idx1 = s.find_last_of('/');
 	string::size_type idx2 = s.find_last_of('\\');
 
 	if( idx1 == string::npos && idx2 == string::npos )
-		return s;
-	if( idx1 == string::npos && idx2 != string::npos )
-		return s.substr(idx2 + 1);
-	if( idx1 != string::npos && idx2 == string::npos )
-		return s.substr(idx1 + 1);
-	return s.substr(idx1>idx2 ? idx1 + 1 : idx2 + 1);
+		return "";
+	else if( idx1 == string::npos && idx2 != string::npos )
+		return s.substr(0, idx2);
+	else if( idx1 != string::npos && idx2 == string::npos )
+		return s.substr(0, idx1);
+	else
+		return s.substr(0, idx1>idx2 ? idx1 : idx2);
 }
 
 bool Util::isSpecialChar(char c)
@@ -322,4 +343,14 @@ bool Util::isStruTypeKey(string w)
 			return true;
 
 	return false;
+}
+
+string Util::toUpper(string s)
+{
+	string t = s;
+
+	for( int i=0; i<t.length(); i++)
+		t[i] = toupper(t[i]);
+
+	return t;
 }
