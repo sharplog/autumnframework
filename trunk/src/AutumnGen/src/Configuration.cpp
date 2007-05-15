@@ -14,39 +14,9 @@
  * limitations under the License.
  */
 
-#ifndef AUTUMNGEN_PARAMETER_H
-#define AUTUMNGEN_PARAMETER_H
+#include "Configuration.h"
 
-#include <string>
-
-class Parameter{
-	/** Type is pure data type, doesn't contain "const" or '&' */
-	string Type;
-
-	bool IsConst;
-	bool IsReference;
-	
-	string Name;
-	string DefaultValue;
-
-public:
-	Parameter(string s);
-
-	string getType(){
-		return this->Type;
-	}
-
-	bool isConst(){
-		return this->IsConst;
-	}
-
-	bool isReference(){
-		return this->IsReference;
-	}
-
-	bool isVoid(){
-		return 0 == this->Type.compare("void");
-	}
-};
-
-#endif
+string Configuration::ClassWrapperSuffix = "_Wrapper";
+string Configuration::FileWrapperSuffix = "_Wrapper";
+string Configuration::HeadFileSuffix = ".h";
+string Configuration::ImplFileSuffix = ".cpp";

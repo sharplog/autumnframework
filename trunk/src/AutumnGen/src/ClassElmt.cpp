@@ -17,11 +17,10 @@
 #include <sstream>
 #include "GenException.h"
 #include "Util.h"
+#include "Configuration.h"
 #include "ElmtFactory.h"
 #include "MethodElmt.h"
 #include "ClassElmt.h"
-
-string ClassElmt::WrapperSuffix = "_Wrapper";
 
 bool ClassElmt::isThisType(string& s, int idx)
 {
@@ -109,23 +108,38 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 
 string ClassElmt::genWrapperCPP()
 {
-	string ws = "";
+	// needn't create wrapper for abstract class
+	if( this->isAbstract() )
+		return "";
 
-	ws += this->genWrapper4ECM();
-	ws += this->genWrapper4EVM();
-	ws += this->genWrapper4GPT();
-	ws += this->genWrapperTail();
+	ostringstream os;
+	os <<
+	"/**"													<< endl <<
+	" * Wrapper methods for " << this->getName()			<< endl <<
+	" */"													<< endl;
+	os << this->genWrapper4ECM();
+	os << this->genWrapper4EVM();
+	os << this->genWrapper4GPT();
+	os << this->genWrapperTail();
+	os << this->genWrapperCPP4Local();
 
-	return ws;
+	return os.str();
 }
 
 string ClassElmt::genWrapperH()
 {
+	// needn't create wrapper for abstract class
+	if( this->isAbstract() )
+		return "";
+
 	string classname = this->getName();
-	string wrappername = classname + ClassElmt::WrapperSuffix;
+	string wrappername = classname + Configuration::getCWS();
 	ostringstream os;
 
-	os << 
+	os <<
+	"/**"													<< endl <<
+	" * Wrapper for " << classname							<< endl <<
+	" */"													<< endl <<
 	"class " + wrappername + ": public IBeanWrapper{"		<< endl <<
 	"	" + classname + "* pBean;"							<< endl <<
 	""														<< endl <<
@@ -158,12 +172,14 @@ string ClassElmt::genWrapperH()
 	"	DLL_EXPORT void delete_" + wrappername + "(IBeanWrapper*);" <<endl<<
 	"}"																<<endl<<
 	""																<<endl;
+	os << this->genWrapperH4Local();
+	
 	return os.str();
 }
 
 string ClassElmt::genWrapperTail()
 {
-	string wrappername = this->getName() + "_Wrapper";
+	string wrappername = this->getName() + Configuration::getCWS();
 	ostringstream os;
 
 	os <<
@@ -183,7 +199,7 @@ string ClassElmt::genWrapperTail()
 string ClassElmt::genWrapper4ECM()
 {
 	vector<IElement*> children = this->getChildren();
-	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
+	string wrappername = this->getName() + Configuration::getCWS();
 
 	ostringstream os;
 	os<<
@@ -208,7 +224,7 @@ string ClassElmt::genWrapper4ECM()
 string ClassElmt::genWrapper4EVM()
 {
 	vector<IElement*> children = this->getChildren();
-	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
+	string wrappername = this->getName() + Configuration::getCWS();
 
 	ostringstream os;
 	os<<
@@ -248,7 +264,7 @@ string ClassElmt::genWrapper4EVM()
 string ClassElmt::genWrapper4GPT()
 {
 	vector<IElement*> children = this->getChildren();
-	string wrappername = this->getName() + ClassElmt::WrapperSuffix;
+	string wrappername = this->getName() + Configuration::getCWS();
 
 	ostringstream os;
 	os<<
@@ -285,33 +301,35 @@ string ClassElmt::genWrapper4GPT()
 	return os.str();
 }
 
-string ClassElmt::genWrapperH4Local()
+string ClassElmt::genWrapperCPP4Local()
 {
-	string classname = this->getName();
+	string wrappername = this->getName() + Configuration::getCWS();
 	ostringstream os;
 
 	os 
-	<< "AUTUMN_" + classname + "_Local _AUTUMN_" + classname + "_Local_;"
-	<< endl;
+	<< "AUTUMN_" + wrappername + "_Local _AUTUMN_" + wrappername + "_Local_;"
+	<< endl << endl;
 
 	return os.str();
 }
 
-string ClassElmt::genWrapperCPP4Local()
+string ClassElmt::genWrapperH4Local()
 {
-	string classname = this->getName();
+	string wrappername = this->getName() + Configuration::getCWS();
 	ostringstream os;
 
+	// the register name of function must use "_Wrapper", it must be
+	// consistent with Autumn framework.
 	os <<
-	"class AUTUMN_" + classname + "_Local{"						<< endl <<
+	"class AUTUMN_" + wrappername + "_Local{"					<< endl <<
 	"public:"													<< endl <<
-	"	AUTUMN_" + classname + "_Local(){"						<< endl <<
+	"	AUTUMN_" + wrappername + "_Local(){"					<< endl <<
 	"		registerLocalFunction("								<< endl <<
-	"				\"create_" + classname + "_Wrapper\","		<< endl <<
-	"				(void*)create_" + classname + "_Wrapper);"	<< endl <<
+	"				\"create_" + this->getName() + "_Wrapper\","<< endl <<
+	"				(void*)create_" + wrappername + ");"		<< endl <<
 	"		registerLocalFunction("								<< endl <<
-	"				\"delete_" + classname + "_Wrapper\","		<< endl <<
-	"				(void*)delete_" + classname + "_Wrapper);"	<< endl <<
+	"				\"delete_" + this->getName() + "_Wrapper\","<< endl <<
+	"				(void*)delete_" + wrappername + ");"		<< endl <<
 	"	}"														<< endl <<
 	"};"														<< endl <<
 	""															<< endl;
@@ -339,4 +357,19 @@ void ClassElmt::addDefaultCon(ClassElmt* c)
 		m->setScope(string("public"));
 		c->addChild(m);
 	}
+}
+
+bool ClassElmt::isAbstract()
+{
+	vector<IElement*> children = this->getChildren();
+	
+	for(int i=0; i<children.size(); i++){
+		IElement* e = children[i];
+		if( e->getType() == IElement::METHOD ) {
+			if( ((MethodElmt*)e)->isPureVirtual() )
+				return true;
+		}
+	}
+
+	return false;
 }

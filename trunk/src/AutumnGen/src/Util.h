@@ -14,10 +14,11 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_UTIL_H
-#define AUTUMN_UTIL_H
+#ifndef AUTUMNGEN_UTIL_H
+#define AUTUMNGEN_UTIL_H
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -118,6 +119,11 @@ public:
 
 	/** converts a string to uppercase */
 	static string toUpper(string s);
+
+	/** output message */
+	static void outputMessage(string s){
+		cout << s << endl;
+	}
 };
 
 #endif

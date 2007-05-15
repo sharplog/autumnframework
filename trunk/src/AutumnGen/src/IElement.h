@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_IELEMENT_H
-#define AUTUMN_IELEMENT_H
+#ifndef AUTUMNGEN_IELEMENT_H
+#define AUTUMNGEN_IELEMENT_H
 
 #include <string>
 #include <vector>

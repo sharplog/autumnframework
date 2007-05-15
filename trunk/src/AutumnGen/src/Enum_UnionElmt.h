@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_ENUM_UNIONELMT_H
-#define AUTUMN_ENUM_UNIONELMT_H
+#ifndef AUTUMNGEN_ENUM_UNIONELMT_H
+#define AUTUMNGEN_ENUM_UNIONELMT_H
 
 #include "IElement.h"
 

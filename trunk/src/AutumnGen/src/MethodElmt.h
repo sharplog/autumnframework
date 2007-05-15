@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_METHODELMT_H
-#define AUTUMN_METHODELMT_H
+#ifndef AUTUMNGEN_METHODELMT_H
+#define AUTUMNGEN_METHODELMT_H
 
 #include "IElement.h"
 #include "Parameter.h"
@@ -38,6 +38,8 @@ class MethodElmt: public IElement{
 	bool IsStatic;
 
 	bool IsVirtual;
+
+	bool PureVirtual;
 
 	/** parse method name and return type for m */
 	void parseNameAndRetType(MethodElmt* m, string s);
@@ -96,5 +98,10 @@ public:
 
 	/** Generate wrapper part for getParamTypes() */
 	string genWrapper4GPT();
+
+	/** This method is pure virtual or not */
+	bool isPureVirtual(){
+		return this->PureVirtual;
+	}
 };
 #endif

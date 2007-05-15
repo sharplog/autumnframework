@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_GENEXCEPTION_H
-#define AUTUMN_GENEXCEPTION_H
+#ifndef AUTUMNGEN_GENEXCEPTION_H
+#define AUTUMNGEN_GENEXCEPTION_H
 
 #include <iostream>
 #include <string>

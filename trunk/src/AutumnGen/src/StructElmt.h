@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_STRUCTELMT_H
-#define AUTUMN_STRUCTELMT_H
+#ifndef AUTUMNGEN_STRUCTELMT_H
+#define AUTUMNGEN_STRUCTELMT_H
 
 #include "IElement.h"
 

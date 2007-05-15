@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_HEADFILE_H
-#define AUTUMN_HEADFILE_H
+#ifndef AUTUMNGEN_HEADFILE_H
+#define AUTUMNGEN_HEADFILE_H
 
 #include "IElement.h"
 
@@ -24,11 +24,11 @@
  */
 class HeadFile{
 
+	/** the original file name */ 
+	string filename;
+
 	/** head file's base name, not contain .h */
 	string Basename;
-
-	/** wrapper file's suffix behind base name */
-	static string WrapperSuffix;
 
 	/** output path */
 	string OutPath;
@@ -43,8 +43,12 @@ class HeadFile{
 	/** license information */
 	static string licenseInfo();
 
-	/** generate wrapper's .h file */
-	void genWrapperH();
+	/** 
+	 * generate wrapper's .h file.
+	 * If has no .h file, don't generate .cpp file.
+	 * @return 0, has generated a .h file, other value, has no .h file.
+	 **/
+	int genWrapperH();
 
 	/** generate wrapper's .cpp file */
 	void genWrapperCPP();
@@ -60,11 +64,6 @@ public:
 
 	/** for AOP, no implementation now */
 	void genProxy(string outfile){}
-
-	/** set wrapper file's suffix */
-	void setWrapperSuffix(string s){
-		HeadFile::WrapperSuffix = s;
-	}
 };
 
 #endif
