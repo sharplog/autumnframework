@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_CLASSELMT_H
-#define AUTUMN_CLASSELMT_H
+#ifndef AUTUMNGEN_CLASSELMT_H
+#define AUTUMNGEN_CLASSELMT_H
 
 #include "IElement.h"
 
@@ -25,9 +25,6 @@
 class ClassElmt: public IElement{
 
 	vector<string> BaseClass;
-
-	/** wrapper's suffix behind class name */
-	static string WrapperSuffix;
 
 	/** Generate wrapper's tail, export functions */
 	string genWrapperTail();
@@ -49,6 +46,9 @@ class ClassElmt: public IElement{
 
 	/** Add a default constructor for c if it has not */
 	void addDefaultCon(ClassElmt* c);
+
+	/** This class is abstract or not */
+	bool isAbstract();
 
 public:
 	/** 

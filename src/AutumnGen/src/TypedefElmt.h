@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_TYPEDEFELMT_H
-#define AUTUMN_TYPEDEFELMT_H
+#ifndef AUTUMNGEN_TYPEDEFELMT_H
+#define AUTUMNGEN_TYPEDEFELMT_H
 
 #include "IElement.h"
 

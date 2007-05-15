@@ -20,21 +20,21 @@
 #include "GenException.h"
 #include "Util.h"
 #include "ElmtFactory.h"
+#include "Configuration.h"
 #include "HeadFile.h"
 
 using namespace std;
 
-string HeadFile::WrapperSuffix = "_Wrapper";
-
 HeadFile::HeadFile(string infile, string outpath)
 {
-	string fileContent, rest;
-
+	this->filename = infile;
 	this->Basename = Util::basenameOf(infile);
 	if( outpath.empty() )
 		this->OutPath = Util::dirOf(infile);
 	else
 		this->OutPath = outpath;
+
+	string fileContent, rest;
 	this->readFile(infile, fileContent);
 
 	int idx = 0, ridx;
@@ -62,14 +62,31 @@ HeadFile::~HeadFile()
 
 void HeadFile::genWrapper()
 {
-	this->genWrapperH();
-	this->genWrapperCPP();
+	if( 0 == this->genWrapperH() )
+		this->genWrapperCPP();
 }
 
-void HeadFile::genWrapperH()
+int HeadFile::genWrapperH()
 {
-	string filebase = this->Basename + HeadFile::WrapperSuffix;
-	string outfile = this->OutPath + "/" + filebase + ".h";
+	string filebase = this->Basename + Configuration::getFWS();
+	string outfile = this->OutPath + "/" + filebase + Configuration::getHFS();
+
+	string ws;
+	// only generate namespace and class
+	for( int i=0; i<this->Elements.size(); i++){
+		IElement* e = this->Elements[i];
+		if( e->getType() == IElement::NAMESAPCE ||
+				e->getType() == IElement::CLASS ){
+			ws += e->genWrapperH();
+		}
+	}
+
+	if( Util::trimall(ws).empty() ) {
+		// is not a error.
+		Util::outputMessage("has nothing to generate for file: " + 
+				this->filename);
+		return -1;
+	}
 
 	ofstream wf(outfile.c_str());
 	if( !wf.is_open() ){
@@ -83,25 +100,31 @@ void HeadFile::genWrapperH()
 	wf << "#include \"IBeanWrapper.h\"" << endl;
 	wf << "#include \"" << this->Basename << ".h\"" << endl;
 	wf << endl;
-	
-	for( int i=0; i<this->Elements.size(); i++){
-		IElement* e = this->Elements[i];
-
-		// only generate namespace and class
-		if( e->getType() == IElement::NAMESAPCE ||
-				e->getType() == IElement::CLASS ){
-			wf << e->genWrapperH();
-		}
-	}
-
-	wf << "#endif" << endl;
+	wf << ws;
+	wf << "#endif";
+	wf << endl;
 	wf.close();
+
+	return 0;
 }
 
 void HeadFile::genWrapperCPP()
 {
-	string filebase = this->Basename + HeadFile::WrapperSuffix;
-	string outfile = this->OutPath + "/" + filebase + ".cpp";
+	string filebase = this->Basename + Configuration::getFWS();
+	string outfile = this->OutPath + "/" + filebase + Configuration::getIFS();
+
+	string ws;
+	// only generate namespace and class
+	for( int i=0; i<this->Elements.size(); i++){
+		IElement* e = this->Elements[i];
+		if( e->getType() == IElement::NAMESAPCE ||
+				e->getType() == IElement::CLASS ){
+			ws += e->genWrapperCPP();
+		}
+	}
+	
+	// if has generated a .h file, continue to generate the .cpp file.
+	// So, doesn't judge ws is empty or not.
 
 	ofstream wf(outfile.c_str());
 	if( !wf.is_open() ){
@@ -111,17 +134,7 @@ void HeadFile::genWrapperCPP()
 	wf << this->licenseInfo();
 	wf << "#include \"" << filebase << ".h\"" << endl;
 	wf << endl;
-	
-	for( int i=0; i<this->Elements.size(); i++){
-		IElement* e = this->Elements[i];
-
-		// only generate namespace and class
-		if( e->getType() == IElement::NAMESAPCE ||
-				e->getType() == IElement::CLASS ){
-			wf << e->genWrapperCPP();
-		}
-	}
-
+	wf << ws;
 	wf.close();
 }
 

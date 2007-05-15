@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_NAMESPACEELMT_H
-#define AUTUMN_NAMESPACEELMT_H
+#ifndef AUTUMNGEN_NAMESPACEELMT_H
+#define AUTUMNGEN_NAMESPACEELMT_H
 
 #include "IElement.h"
 

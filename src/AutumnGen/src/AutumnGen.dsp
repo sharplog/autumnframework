@@ -93,6 +93,10 @@ SOURCE=.\ClassElmt.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Configuration.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ElmtFactory.cpp
 # End Source File
 # Begin Source File
@@ -122,6 +126,10 @@ SOURCE=.\Util.cpp
 # Begin Source File
 
 SOURCE=.\ClassElmt.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Configuration.h
 # End Source File
 # Begin Source File
 

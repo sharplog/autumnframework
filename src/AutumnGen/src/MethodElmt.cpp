@@ -25,6 +25,10 @@ MethodElmt::MethodElmt()
 	this->KnownAttrs.push_back("virtual");
 	this->KnownAttrs.push_back("static");
 	this->KnownAttrs.push_back("inline");
+
+	this->IsStatic = false;
+	this->IsVirtual = false;
+	this->PureVirtual = false;
 }
 
 bool MethodElmt::isThisType(string& s, int idx)
@@ -77,6 +81,10 @@ IElement* MethodElmt::clone(string& s, int& idx0)
 	int brace = Util::indexOf(rest, '{');
 	if( string::npos != semicolon && 
 			(string::npos == brace || semicolon < brace) ) {
+		// pure virtual, like f() = 0;
+		string ts = rest.substr(endbracket + 1, semicolon - endbracket - 1);
+		e->PureVirtual = (ts.find('=', 0) != string::npos);
+
 		idx0 += semicolon + 1;
 	}
 	else {

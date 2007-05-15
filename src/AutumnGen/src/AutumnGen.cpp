@@ -18,9 +18,9 @@
 
 void main(int argc, char** argv)
 {
-	string basename="Namespace";
+	//string basename="Namespace";
 	//string basename="Class";
-	//string basename="Method";
+	string basename="Method";
 	//string basename="Skip";
 
 	string inf = "..\\test\\" + basename + ".h";

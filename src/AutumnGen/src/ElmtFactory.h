@@ -14,8 +14,8 @@
 * limitations under the License.
 */
 
-#ifndef AUTUMN_ELMTFACTORY_H
-#define AUTUMN_ELMTFACTORY_H
+#ifndef AUTUMNGEN_ELMTFACTORY_H
+#define AUTUMNGEN_ELMTFACTORY_H
 
 #include <vector>
 #include "IElement.h"
