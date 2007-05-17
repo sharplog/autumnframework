@@ -54,7 +54,7 @@ class HeadFile{
 	void genWrapperCPP();
 	
 public:
-	HeadFile(string infile, string outpath = "");
+	HeadFile(string infile);
 	~HeadFile();
 
 	/** 
