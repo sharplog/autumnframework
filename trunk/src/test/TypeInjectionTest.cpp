@@ -17,7 +17,7 @@ void TypeInjectionTest::tearDown()
 void TypeInjectionTest::testBasicType()
 {
 	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("BasicTypesBean1");
-
+//
 	CPPUNIT_ASSERT(b->getChar() == 'c');
 	CPPUNIT_ASSERT(b->getUChar() == 'u');
 	CPPUNIT_ASSERT(b->getShort() == 123);

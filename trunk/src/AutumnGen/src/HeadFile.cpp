@@ -69,7 +69,11 @@ void HeadFile::genWrapper()
 int HeadFile::genWrapperH()
 {
 	string filebase = this->Basename + Configuration::getFWS();
-	string outfile = this->OutPath + "/" + filebase + Configuration::getHFS();
+	string outfile;
+	
+	if( !this->OutPath.empty() )
+		outfile = this->OutPath + "/";
+	outfile += filebase + Configuration::getHFS();
 
 	string ws;
 	// only generate namespace and class
@@ -111,7 +115,11 @@ int HeadFile::genWrapperH()
 void HeadFile::genWrapperCPP()
 {
 	string filebase = this->Basename + Configuration::getFWS();
-	string outfile = this->OutPath + "/" + filebase + Configuration::getIFS();
+	string outfile;
+	
+	if( !this->OutPath.empty() )
+		outfile = this->OutPath + "/";
+	outfile += filebase + Configuration::getIFS();
 
 	string ws;
 	// only generate namespace and class

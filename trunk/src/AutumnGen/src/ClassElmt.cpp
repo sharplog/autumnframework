@@ -108,9 +108,9 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 
 string ClassElmt::genWrapperCPP()
 {
-	// needn't create wrapper for abstract class
-	if( this->isAbstract() )
-		return "";
+	// abstract class needs a wrapper also.
+	//if( this->isAbstract() )
+	//	return "";
 
 	ostringstream os;
 	os <<
@@ -128,9 +128,9 @@ string ClassElmt::genWrapperCPP()
 
 string ClassElmt::genWrapperH()
 {
-	// needn't create wrapper for abstract class
-	if( this->isAbstract() )
-		return "";
+	// abstract class needs a wrapper also.
+	//if( this->isAbstract() )
+	//	return "";
 
 	string classname = this->getName();
 	string wrappername = classname + Configuration::getCWS();
@@ -337,6 +337,10 @@ string ClassElmt::genWrapperH4Local()
 
 void ClassElmt::addDefaultCon(ClassElmt* c)
 {
+	// abstract class can't have constructor
+	if( c->isAbstract() )
+		return;
+
 	vector<IElement*> children = c->getChildren();
 	
 	int i;

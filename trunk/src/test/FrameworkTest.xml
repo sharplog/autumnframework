@@ -156,7 +156,7 @@
 			</bean>
 			
 			<!-- InitDestBean test destroyable and initializable property -->
-			<bean class="InitDestBean" name="InitDestBean1">
+			<bean class="InitDestBean" name="InitDestBean1" init-method="initialize" destroy-method="destroy">
 				<constructor-arg>
 					<argument type="SingletonBean*">
 						<value>SingletonBean1</value>
@@ -231,14 +231,14 @@
 			</bean>
 			
 			<!-- Test static factory method -->
-			<bean class="ProductA_M" name="ProductAM" factory-method="getInstance">
+			<bean class="ProductA_M" name="ProductAM" factory-method="getInstance" delete-method="deleteInstance">
 				<constructor-arg>
 					<argument>
 						<value>name_AM</value>
 					</argument>
 				</constructor-arg>
 			</bean>
-			<bean class="ProductB_M" name="ProductBM" factory-method="getInstance"/>
+			<bean class="ProductB_M" name="ProductBM" factory-method="getInstance" delete-method="deleteInstance"/>
 			
 			<!-- Test multiple inherite -->
 			<bean class="Multi_Bean" name="MultiBase" />

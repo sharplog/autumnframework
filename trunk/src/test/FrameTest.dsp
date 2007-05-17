@@ -95,7 +95,7 @@ SOURCE=.\FrameTestMain.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\LocalBeanExp.cpp
+SOURCE=.\LocalBean_Wrapper.cpp
 # End Source File
 # Begin Source File
 
@@ -112,6 +112,10 @@ SOURCE=.\FactoryTest.h
 # Begin Source File
 
 SOURCE=.\LocalBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\LocalBean_Wrapper.h
 # End Source File
 # Begin Source File
 
