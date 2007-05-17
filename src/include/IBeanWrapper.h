@@ -27,8 +27,14 @@
 	#else
 		#define DLL_IM_EXPORT _declspec(dllimport)
 	#endif
+	#ifdef _USRDLL
+		#define DLL_EXPORT _declspec(dllexport)
+	#else
+		#define DLL_EXPORT 
+	#endif
 #else
 	#define DLL_IM_EXPORT
+	#define DLL_EXPORT 
 #endif
 
 using namespace std;
@@ -94,9 +100,7 @@ public:
 		return this->execVoidMethod(string("set") +name, &value, 1);
 	}
 	
-	int getBeanPropertyType(const char* name, string& type){
-		return this->getParamTypes(string("set") + name, type, 1);
-	}
+	int getBeanPropertyType(const char* name, string& type);
 	
 	/** if has deleteMethod, use this to delete bean */
 	bool deleteBean();

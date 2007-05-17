@@ -100,35 +100,51 @@ PostBuild_Cmds=copy          debug\TestDll_D.dll          ..\lib\         	copy 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\BasicTypesBeanExp.cpp
+SOURCE=.\BasicTypesBean_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\BeanTypeBeanExp.cpp
+SOURCE=.\BeanTypeBean_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\FactoryExp.cpp
+SOURCE=.\Factories_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\FactoryMethodBeanExp.cpp
+SOURCE=.\FactoryMethodBean.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MultiInheriteBeanExp.cpp
+SOURCE=.\FactoryMethodBean_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MyTypesExp.cpp
+SOURCE=.\InitDestBean_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ProductsExp.cpp
+SOURCE=.\IProduct_Wrapper.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\SingInitDestBeanExp.cpp
+SOURCE=.\MultiInheriteBean_Wrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyBasicType_Wrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyTypeBean_Wrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SelfManagedBean_Wrapper.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\SingletonBean_Wrapper.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -140,7 +156,15 @@ SOURCE=.\BasicTypesBean.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\BasicTypesBean_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\BeanTypeBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BeanTypeBean_Wrapper.h
 # End Source File
 # Begin Source File
 
@@ -148,7 +172,15 @@ SOURCE=.\Factories.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Factories_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\FactoryMethodBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\FactoryMethodBean_Wrapper.h
 # End Source File
 # Begin Source File
 
@@ -168,7 +200,15 @@ SOURCE=.\InitDestBean.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\InitDestBean_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\IProduct.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\IProduct_Wrapper.h
 # End Source File
 # Begin Source File
 
@@ -176,7 +216,15 @@ SOURCE=.\MultiInheriteBean.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MultiInheriteBean_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\MyBasicType.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\MyBasicType_Wrapper.h
 # End Source File
 # Begin Source File
 
@@ -192,6 +240,10 @@ SOURCE=.\MyTypeBean.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\MyTypeBean_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\Products.h
 # End Source File
 # Begin Source File
@@ -200,7 +252,15 @@ SOURCE=.\SelfManagedBean.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\SelfManagedBean_Wrapper.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\SingletonBean.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SingletonBean_Wrapper.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

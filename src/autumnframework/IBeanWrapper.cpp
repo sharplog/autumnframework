@@ -32,6 +32,14 @@ string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 	return types;
 }
 
+int IBeanWrapper::getBeanPropertyType(const char* name, string& type){
+	int rtn = this->getParamTypes(string("set") + name, type, 1);
+	if( 0 == rtn)
+		// erase '|'
+		type = type.substr(0, type.length() - 1 );
+	return rtn;
+}
+
 bool IBeanWrapper::deleteBean()
 {
 	if( this->getBean() == NULL )
