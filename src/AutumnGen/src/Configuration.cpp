@@ -14,9 +14,30 @@
  * limitations under the License.
  */
 
+#include <map>
 #include "Configuration.h"
+
+using namespace std;
 
 string Configuration::ClassWrapperSuffix = "_Wrapper";
 string Configuration::FileWrapperSuffix = "_Wrapper";
 string Configuration::HeadFileSuffix = ".h";
 string Configuration::ImplFileSuffix = ".cpp";
+string Configuration::OutPath = "";
+
+void Configuration::setConfigs(map<string, string>& cons)
+{
+	map<string, string>::iterator it = cons.begin();
+	while( it != cons.end() ){
+		if( it->first.compare("-out") == 0 )
+			Configuration::OutPath = it->second;
+		else if( it->first.compare("-hsuf") == 0 )
+			Configuration::HeadFileSuffix = it->second;
+		else if( it->first.compare("-isuf") == 0 )
+			Configuration::ImplFileSuffix = it->second;
+		else if( it->first.compare("-wsuf") == 0 )
+			Configuration::FileWrapperSuffix = it->second;
+
+		it++;
+	}
+}

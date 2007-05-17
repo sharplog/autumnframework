@@ -18,11 +18,15 @@
 #define AUTUMNGEN_CONFIGURATION_H
 
 #include <string>
+#include <map>
 
 using namespace std;
 
 class Configuration{
-	/** suffix of wrapper class name, like _Wrapper */
+	/**
+	 * suffix of wrapper class name, like _Wrapper.
+	 * This must be consistent with Autumn framework, user can't set it.
+	 */
 	static string ClassWrapperSuffix;
 
 	/** suffix of wrapper file name, like _Wrapper */
@@ -34,7 +38,12 @@ class Configuration{
 	/** suffix of implementation file, like .cpp, .cc, etc */
 	static string ImplFileSuffix;
 
+	/** out put path to generated file */
+	static string OutPath;
+	
 public:
+	static void setConfigs(map<string, string>& cons);
+
 	static string getCWS()	{
 		return Configuration::ClassWrapperSuffix;
 	}
@@ -49,6 +58,10 @@ public:
 	
 	static string getIFS(){
 		return Configuration::ImplFileSuffix;
+	}
+
+	static string getOutPath(){
+		return Configuration::OutPath;
 	}
 };
 

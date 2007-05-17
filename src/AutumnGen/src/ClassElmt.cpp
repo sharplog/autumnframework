@@ -318,17 +318,15 @@ string ClassElmt::genWrapperH4Local()
 	string wrappername = this->getName() + Configuration::getCWS();
 	ostringstream os;
 
-	// the register name of function must use "_Wrapper", it must be
-	// consistent with Autumn framework.
 	os <<
 	"class AUTUMN_" + wrappername + "_Local{"					<< endl <<
 	"public:"													<< endl <<
 	"	AUTUMN_" + wrappername + "_Local(){"					<< endl <<
 	"		registerLocalFunction("								<< endl <<
-	"				\"create_" + this->getName() + "_Wrapper\","<< endl <<
+	"				\"create_" + wrappername + "\","			<< endl <<
 	"				(void*)create_" + wrappername + ");"		<< endl <<
 	"		registerLocalFunction("								<< endl <<
-	"				\"delete_" + this->getName() + "_Wrapper\","<< endl <<
+	"				\"delete_" + wrappername + "\","			<< endl <<
 	"				(void*)delete_" + wrappername + ");"		<< endl <<
 	"	}"														<< endl <<
 	"};"														<< endl <<

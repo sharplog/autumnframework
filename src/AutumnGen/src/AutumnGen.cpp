@@ -14,17 +14,90 @@
  * limitations under the License.
  */
 
+#include <cstring>
+#include <iostream>
+#include <map>
 #include "HeadFile.h"
+#include "Configuration.h"
+
+using namespace std;
+
+const string Version = "0.1.0";
+
+void displayUsage()
+{
+	cout <<
+	"Usage:"														  <<endl<<
+	"AutumnGen [options] files"										  <<endl<<
+	""																  <<endl<<
+	"Options:"														  <<endl<<
+	"-h             display this help message."						  <<endl<<
+	"-v             display AutumnGen's version message."			  <<endl<<
+	"-out <path>    output path to generate file. default is the same"<<endl<<
+	"               as input file."									  <<endl<<
+	"-hsuf <suffix> suffix of c++ head file, default is \".h\"."	  <<endl<<
+	"-isuf <suffix> suffix of c++ implementation file, default is \".cpp\"."<<endl<<
+	"-wsuf <suffix> the string appended to input file name, to compose"<<endl<<
+	"               the output file name. default is \"_Wrapper\"."	  <<endl<<
+	""																  <<endl;
+}
+
+void parseArgs(int& ac, char** av)
+{
+	map<string, string> configs;
+	int i = 0;
+
+	while( i < ac ){
+		if( !strcmp(av[i], "-h") ){
+			displayUsage();
+
+			for(int j = i ; j + 1 < ac ; ++j)
+				av[j] = av[j + 1];
+
+			ac -= 1;
+		}
+		else if( !strcmp(av[i], "-v") ){
+			cout <<"Autumn generator, version \"" << Version << "\"." << endl;
+
+			for(int j = i ; j + 1 < ac ; ++j)
+				av[j] = av[j + 1];
+
+			ac -= 1;
+		}
+		else if( !strcmp(av[i], "-out")  ||
+				 !strcmp(av[i], "-hsuf") ||
+				 !strcmp(av[i], "-isuf") ||
+				 !strcmp(av[i], "-wsuf") ){
+			if( i + 1 >= ac ){
+				cout << "AutumnGen: argument expected for some options!"<<endl;
+				exit(1);
+			}
+			configs.insert(make_pair(av[i], av[i+1]));
+
+			for(int j = i ; j + 2 < ac ; ++j)
+				av[j] = av[j + 2];
+
+			ac -= 2;
+		}
+		else
+			++i;
+	}
+
+	Configuration::setConfigs(configs);
+}
 
 void main(int argc, char** argv)
 {
-	//string basename="Namespace";
-	//string basename="Class";
-	string basename="Method";
-	//string basename="Skip";
+	if( argc == 1){
+		displayUsage();
+		return;
+	}
 
-	string inf = "..\\test\\" + basename + ".h";
+	parseArgs(argc, argv);
 
-	HeadFile h(inf, "..\\test\\output");
-	h.genWrapper();
+	// argv[0] is the program name
+	for( int i=1; i<argc; i++){
+		HeadFile h(argv[i]);
+		h.genWrapper();
+	}
 }

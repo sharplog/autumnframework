@@ -25,14 +25,14 @@
 
 using namespace std;
 
-HeadFile::HeadFile(string infile, string outpath)
+HeadFile::HeadFile(string infile)
 {
 	this->filename = infile;
 	this->Basename = Util::basenameOf(infile);
-	if( outpath.empty() )
+	if( Configuration::getOutPath().empty() )
 		this->OutPath = Util::dirOf(infile);
 	else
-		this->OutPath = outpath;
+		this->OutPath = Configuration::getOutPath();
 
 	string fileContent, rest;
 	this->readFile(infile, fileContent);

@@ -34,25 +34,4 @@ public:
 	}
 };
 
-/** Exception when parsing a element */
-//class ParsingException{
-//	string msg;
-//	int revIdx;
-//public:
-//	/** 
-//	 * @param msg Error message
-//	 * @param revIdx Index from the end
-//	 */
-//	ParsingException(string msg, int revIdx){
-//		this->msg = msg;
-//		this->revIdx = revIdx;
-//	}
-//	string getMsg(){ 
-//		return this->msg;
-//	}
-//	int getRevIdx(){
-//		return this->revIdx;
-//	}
-//};
-
 #endif
