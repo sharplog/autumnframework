@@ -1,6 +1,12 @@
 #summary Development log.
 #labels Featured
 
+== 05/18/2007 ==
+ * has ported to solaris.
+ * fix a bug: can't judge return type like "classXXX *" correctly.
+ * add makefile for AutumnGen.
+ * use CC to generate dependency.
+
 == 05/17/2007 ==
 AutumnGen has been passed tests with Autumn framework on windows.
 
