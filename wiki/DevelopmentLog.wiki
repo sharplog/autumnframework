@@ -2,10 +2,11 @@
 #labels Featured
 
 == 05/18/2007 ==
- * has ported to solaris.
+ * has ported to solaris and ubuntu.
  * fix a bug: can't judge return type like "classXXX `*`" correctly.
  * add makefile for AutumnGen.
  * use CC to generate dependency.
+ * Wrapper file is generated when compiling, not included in source package.
 
 == 05/17/2007 ==
 AutumnGen has been passed tests with Autumn framework on windows.
@@ -69,4 +70,3 @@ fix three bugs:
 
 == 03/05/2007 ==
   * release 0.1.0 version.
-
