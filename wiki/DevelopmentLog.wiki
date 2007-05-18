@@ -3,7 +3,7 @@
 
 == 05/18/2007 ==
  * has ported to solaris.
- * fix a bug: can't judge return type like "classXXX *" correctly.
+ * fix a bug: can't judge return type like "classXXX `*`" correctly.
  * add makefile for AutumnGen.
  * use CC to generate dependency.
 
@@ -69,3 +69,4 @@ fix three bugs:
 
 == 03/05/2007 ==
   * release 0.1.0 version.
+
