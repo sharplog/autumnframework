@@ -9,7 +9,7 @@ include $(OBJSFILE)
 
 $(DLLLIBNAME):$(OBJS)
 	$(DLLMAKER) $(DLLLDFLAGS) -o $@ $(OBJS)
-	$(CP) ./$(DLLLIBNAME) ../lib/
+	$(CP) $@ ../lib/
 
 all:: $(DLLLIBNAME)
 
@@ -20,7 +20,7 @@ clean::
 test::
 
 depend::
-	$(CXX) -I../include -MM *.cpp >$(DEPENDFILE)
+	$(CXX) -I../include $(DEPFLAGS) *.cpp >$(DEPENDFILE)
 	@echo "OBJS= \\" >$(OBJSFILE)
 	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
 	@echo >>$(OBJSFILE)

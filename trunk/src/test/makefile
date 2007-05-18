@@ -24,6 +24,8 @@ all:: $(EXENAME)
 
 clean::
 	$(RM) *.o ./$(EXENAME)
+	$(RM) AutumnFramework.log AutumnApp.log
+	$(RM) lib/TestDll.dll lib/TestDll2.dll
 
 test:: $(EXENAME)
 	@$(LDLIBPATH)=$($(LDLIBPATH)):../lib;	\
@@ -31,7 +33,7 @@ test:: $(EXENAME)
 	sh ./runtest
 
 depend::
-	$(CXX) -I../include -I./include -MM *.cpp >$(DEPENDFILE)
+	$(CXX) -I../include -I./include $(DEPFLAGS) *.cpp >$(DEPENDFILE)
 	@echo "OBJS= \\" >$(OBJSFILE)
 	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
 	@echo >>$(OBJSFILE)

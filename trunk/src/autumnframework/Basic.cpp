@@ -20,8 +20,4 @@
  * some const define
  */
 
-const char opGetPropType[]	= "gettype";
-const char opSetPropValue[] = "setvalue";
-const char opCreateBean[]	= "create";
-const char opGetConArgType[]= "gettype";
 const char typeSeparator	= '|';

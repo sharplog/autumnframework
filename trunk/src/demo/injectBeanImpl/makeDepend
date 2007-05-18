@@ -1,5 +1,18 @@
-ActionExp.o: ActionExp.cpp ../../include/BeanWrapperMacro.h \
-  ../../include/IBeanWrapper.h ../../include/Basic.h LowerAction.h \
-  ../include/Action.h UpperAction.h
-LowerAction.o: LowerAction.cpp LowerAction.h ../include/Action.h
-UpperAction.o: UpperAction.cpp UpperAction.h ../include/Action.h
+LowerAction.o : LowerAction.cpp
+LowerAction.o : LowerAction.h
+LowerAction.o : ../include/Action.h
+LowerAction_Wrapper.o : LowerAction_Wrapper.cpp
+LowerAction_Wrapper.o : LowerAction_Wrapper.h
+LowerAction_Wrapper.o : ../../include/IBeanWrapper.h
+LowerAction_Wrapper.o : ../../include/Basic.h
+LowerAction_Wrapper.o : LowerAction.h
+LowerAction_Wrapper.o : ../include/Action.h
+UpperAction.o : UpperAction.cpp
+UpperAction.o : UpperAction.h
+UpperAction.o : ../include/Action.h
+UpperAction_Wrapper.o : UpperAction_Wrapper.cpp
+UpperAction_Wrapper.o : UpperAction_Wrapper.h
+UpperAction_Wrapper.o : ../../include/IBeanWrapper.h
+UpperAction_Wrapper.o : ../../include/Basic.h
+UpperAction_Wrapper.o : UpperAction.h
+UpperAction_Wrapper.o : ../include/Action.h

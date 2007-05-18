@@ -130,7 +130,8 @@ string MethodElmt::genWrapper4ECM(string classname)
 	
 	if( paramnum > 0 ){
 		os << endl;
-		for( int i=0; i<paramnum - 1; i++){
+		int i;
+		for( i=0; i<paramnum - 1; i++ ){
 			os << "\t\t\t\t*(" + this->Parameters[i]->getType()
 			   << "*)Prams[" <<i<< "],";
 			os << endl;
@@ -166,7 +167,8 @@ string MethodElmt::genWrapper4EVM(string classname)
 	
 	if( paramnum > 0 ){
 		os << endl;
-		for( int i=0; i<paramnum - 1; i++){
+		int i;
+		for( i=0; i<paramnum - 1; i++ ){
 			os << "\t\t\t\t\t *(" + this->Parameters[i]->getType()
 			   << "*)Prams[" <<i<< "],";
 			os << endl;

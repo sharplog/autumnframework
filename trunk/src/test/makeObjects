@@ -1,6 +1,6 @@
 OBJS= \
 FactoryTest.o \
 FrameTestMain.o \
-LocalBeanExp.o \
+LocalBean_Wrapper.o \
 TypeInjectionTest.o \
 
