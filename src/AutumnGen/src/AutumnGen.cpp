@@ -15,6 +15,7 @@
  */
 
 #include <cstring>
+#include <string>
 #include <iostream>
 #include <map>
 #include "HeadFile.h"
@@ -72,7 +73,7 @@ void parseArgs(int& ac, char** av)
 				cout << "AutumnGen: argument expected for some options!"<<endl;
 				exit(1);
 			}
-			configs.insert(make_pair(av[i], av[i+1]));
+			configs.insert(make_pair(string(av[i]), string(av[i+1])));
 
 			for(int j = i ; j + 2 < ac ; ++j)
 				av[j] = av[j + 2];
@@ -86,11 +87,11 @@ void parseArgs(int& ac, char** av)
 	Configuration::setConfigs(configs);
 }
 
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
 	if( argc == 1){
 		displayUsage();
-		return;
+		return 0;
 	}
 
 	parseArgs(argc, argv);
@@ -100,4 +101,6 @@ void main(int argc, char** argv)
 		HeadFile h(argv[i]);
 		h.genWrapper();
 	}
+	
+	return 0;
 }

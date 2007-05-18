@@ -35,10 +35,6 @@ typedef vector<string>::iterator StrIterator;
 /** A type represents pointer */
 typedef long TPointer;
 
-extern const char opGetPropType[];
-extern const char opSetPropValue[];
-extern const char opCreateBean[];
-extern const char opGetConArgType[];
 extern const char typeSeparator;
 
 #endif 

@@ -16,6 +16,8 @@ all:: $(EXENAME)
 
 clean::
 	$(RM) *.o ./$(EXENAME)
+	$(RM) AutumnFramework.log
+	$(RM) ../lib/injectBeanImpl.dll ../lib/injectBeanImpl_D.dll
 
 test:: 
 	@$(LDLIBPATH)=$($(LDLIBPATH)):../../lib;   \
@@ -23,7 +25,7 @@ test::
 	sh ./runtest
 
 depend::
-	$(CXX) -I../../include -I../include -MM *.cpp >$(DEPENDFILE)
+	$(CXX) -I../../include -I../include $(DEPFLAGS) *.cpp >$(DEPENDFILE)
 	@echo "OBJS= \\" >$(OBJSFILE)
 	@ls *.cpp | sed -e 's/cpp$$/o \\/' >>$(OBJSFILE)
 	@echo >>$(OBJSFILE)

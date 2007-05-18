@@ -6,9 +6,9 @@ BeanConfig.o \
 BeanFactoryImpl.o \
 BeanManager.o \
 BeanProperty.o \
+FileLogger_Wrapper.o \
 IBeanWrapper.o \
 LocalLibrary.o \
-LoggerExport.o \
 PointerType.o \
 TypeManager.o \
 ValueWrapper.o \

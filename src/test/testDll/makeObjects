@@ -1,9 +1,14 @@
 OBJS= \
-BasicTypesBeanExp.o \
-BeanTypeBeanExp.o \
-FactoryExp.o \
-FactoryMethodBeanExp.o \
-MyTypesExp.o \
-ProductsExp.o \
-SingInitDestBeanExp.o \
+BasicTypesBean_Wrapper.o \
+BeanTypeBean_Wrapper.o \
+Factories_Wrapper.o \
+FactoryMethodBean.o \
+FactoryMethodBean_Wrapper.o \
+IProduct_Wrapper.o \
+InitDestBean_Wrapper.o \
+MultiInheriteBean_Wrapper.o \
+MyBasicType_Wrapper.o \
+MyTypeBean_Wrapper.o \
+SelfManagedBean_Wrapper.o \
+SingletonBean_Wrapper.o \
 

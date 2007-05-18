@@ -360,8 +360,8 @@ XMLNode XMLNode::openFileHelper(XMLCSTR filename, XMLCSTR tag)
     if (pResults.error != eXMLErrorNone)
     {
         // create message
-        char message[2000],*s1="",*s3=""; XMLCSTR s2=_T("");
-        if (pResults.error==eXMLErrorFirstTagNotFound) { s1="First Tag should be '"; s2=tag; s3="'.\n"; }
+        char message[2000],s1[128]="",s3[128]=""; XMLCSTR s2=_T("");
+        if (pResults.error==eXMLErrorFirstTagNotFound) { strcpy(s1,"First Tag should be '"); s2=tag; strcpy(s3,"'.\n"); }
         sprintf(message,
 #ifdef _XMLUNICODE
             "XML Parsing error inside file '%S'.\n%S\nAt line %i, column %i.\n%s%S%s"
