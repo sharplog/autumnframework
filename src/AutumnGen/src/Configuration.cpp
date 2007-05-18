@@ -41,3 +41,4 @@ void Configuration::setConfigs(map<string, string>& cons)
 		it++;
 	}
 }
+

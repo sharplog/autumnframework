@@ -1,145 +1,60 @@
-AutumnConfig.o : AutumnConfig.cpp
-AutumnConfig.o : AutumnDefinition.h
-AutumnConfig.o : ../include/Basic.h
-AutumnConfig.o : AutumnException.h
-AutumnConfig.o : AutumnLog.h
-AutumnConfig.o : ILogAdapter.h
-AutumnConfig.o : ../include/IBeanWrapper.h
-AutumnConfig.o : ILibrary.h
-AutumnConfig.o : LocalLibrary.h
-AutumnConfig.o : DynamicLibrary.h
-AutumnConfig.o : AutumnConfig.h
-AutumnConfig.o : IResource.h
-AutumnConfig.o : BeanConfig.h
-AutumnConfig.o : BeanProperty.h
-AutumnConfig.o : ../include/TypeManager.h
-AutumnConfig.o : ../include/IAutumnType.h
-AutumnConfig.o : ValueWrapper.h
-AutumnLog.o : AutumnLog.cpp
-AutumnLog.o : AutumnLog.h
-AutumnLog.o : ILogAdapter.h
-AutumnLog.o : ../include/IBeanWrapper.h
-AutumnLog.o : ../include/Basic.h
-AutumnLog.o : ConsoleLogger.h
-AutumnLog.o : FileLogger.h
-AutumnLog.o : AutumnException.h
-Basic.o : Basic.cpp
-Basic.o : ../include/Basic.h
-BeanConfig.o : BeanConfig.cpp
-BeanConfig.o : BeanConfig.h
-BeanConfig.o : ../include/IBeanWrapper.h
-BeanConfig.o : ../include/Basic.h
-BeanConfig.o : BeanProperty.h
-BeanConfig.o : ../include/TypeManager.h
-BeanConfig.o : ../include/IAutumnType.h
-BeanConfig.o : ValueWrapper.h
-BeanConfig.o : AutumnDefinition.h
-BeanConfig.o : AutumnException.h
-BeanConfig.o : AutumnLog.h
-BeanConfig.o : ILogAdapter.h
-BeanFactoryImpl.o : BeanFactoryImpl.cpp
-BeanFactoryImpl.o : XMLResource.h
-BeanFactoryImpl.o : xmlParser.h
-BeanFactoryImpl.o : IResource.h
-BeanFactoryImpl.o : AutumnDefinition.h
-BeanFactoryImpl.o : ../include/Basic.h
-BeanFactoryImpl.o : BeanConfig.h
-BeanFactoryImpl.o : ../include/IBeanWrapper.h
-BeanFactoryImpl.o : BeanProperty.h
-BeanFactoryImpl.o : ../include/TypeManager.h
-BeanFactoryImpl.o : ../include/IAutumnType.h
-BeanFactoryImpl.o : ValueWrapper.h
-BeanFactoryImpl.o : BeanManager.h
-BeanFactoryImpl.o : MapHashTable.h
-BeanFactoryImpl.o : ../include/IBeanFactory.h
-BeanFactoryImpl.o : BeanFactoryImpl.h
-BeanFactoryImpl.o : AutumnConfig.h
-BeanFactoryImpl.o : ILibrary.h
-BeanFactoryImpl.o : AutumnException.h
-BeanFactoryImpl.o : AutumnLog.h
-BeanFactoryImpl.o : ILogAdapter.h
-BeanFactoryImpl.o : ObjectType.h
-BeanManager.o : BeanManager.cpp
-BeanManager.o : ValueWrapper.h
-BeanManager.o : ../include/Basic.h
-BeanManager.o : ../include/TypeManager.h
-BeanManager.o : ../include/IAutumnType.h
-BeanManager.o : ../include/IBeanWrapper.h
-BeanManager.o : BeanManager.h
-BeanManager.o : MapHashTable.h
-BeanManager.o : AutumnLog.h
-BeanManager.o : ILogAdapter.h
-BeanProperty.o : BeanProperty.cpp
-BeanProperty.o : ../include/Basic.h
-BeanProperty.o : ValueWrapper.h
-BeanProperty.o : ../include/TypeManager.h
-BeanProperty.o : ../include/IAutumnType.h
-BeanProperty.o : ../include/IBeanWrapper.h
-BeanProperty.o : BeanProperty.h
-BeanProperty.o : AutumnException.h
-BeanProperty.o : AutumnLog.h
-BeanProperty.o : ILogAdapter.h
-FileLogger_Wrapper.o : FileLogger_Wrapper.cpp
-FileLogger_Wrapper.o : FileLogger_Wrapper.h
-FileLogger_Wrapper.o : ../include/IBeanWrapper.h
-FileLogger_Wrapper.o : ../include/Basic.h
-FileLogger_Wrapper.o : FileLogger.h
-FileLogger_Wrapper.o : ILogAdapter.h
-FileLogger_Wrapper.o : AutumnException.h
-FileLogger_Wrapper.o : AutumnLog.h
-IBeanWrapper.o : IBeanWrapper.cpp
-IBeanWrapper.o : ValueWrapper.h
-IBeanWrapper.o : ../include/Basic.h
-IBeanWrapper.o : ../include/TypeManager.h
-IBeanWrapper.o : ../include/IAutumnType.h
-IBeanWrapper.o : ../include/IBeanWrapper.h
-IBeanWrapper.o : LocalLibrary.h
-IBeanWrapper.o : ILibrary.h
-IBeanWrapper.o : AutumnException.h
-IBeanWrapper.o : AutumnLog.h
-IBeanWrapper.o : ILogAdapter.h
-LocalLibrary.o : LocalLibrary.cpp
-LocalLibrary.o : AutumnException.h
-LocalLibrary.o : AutumnLog.h
-LocalLibrary.o : ILogAdapter.h
-LocalLibrary.o : ../include/IBeanWrapper.h
-LocalLibrary.o : ../include/Basic.h
-LocalLibrary.o : LocalLibrary.h
-LocalLibrary.o : ILibrary.h
-PointerType.o : PointerType.cpp
-PointerType.o : PointerType.h
-PointerType.o : ../include/Basic.h
-PointerType.o : ../include/IAutumnType.h
-PointerType.o : ../include/TypeManager.h
-PointerType.o : ../include/IBeanWrapper.h
-TypeManager.o : TypeManager.cpp
-TypeManager.o : ../include/TypeManager.h
-TypeManager.o : ../include/IAutumnType.h
-TypeManager.o : ../include/IBeanWrapper.h
-TypeManager.o : ../include/Basic.h
-TypeManager.o : BasicType.h
-TypeManager.o : AutumnException.h
-TypeManager.o : AutumnLog.h
-TypeManager.o : ILogAdapter.h
-TypeManager.o : PointerType.h
-TypeManager.o : StringType.h
-ValueWrapper.o : ValueWrapper.cpp
-ValueWrapper.o : ../include/IAutumnType.h
-ValueWrapper.o : ValueWrapper.h
-ValueWrapper.o : ../include/Basic.h
-ValueWrapper.o : ../include/TypeManager.h
-ValueWrapper.o : ../include/IBeanWrapper.h
-ValueWrapper.o : AutumnLog.h
-ValueWrapper.o : ILogAdapter.h
-XMLResource.o : XMLResource.cpp
-XMLResource.o : XMLResource.h
-XMLResource.o : xmlParser.h
-XMLResource.o : IResource.h
-XMLResource.o : AutumnDefinition.h
-XMLResource.o : ../include/Basic.h
-XMLResource.o : AutumnException.h
-XMLResource.o : AutumnLog.h
-XMLResource.o : ILogAdapter.h
-XMLResource.o : ../include/IBeanWrapper.h
-xmlParser.o : xmlParser.cpp
-xmlParser.o : xmlParser.h
+AutumnConfig.o: AutumnConfig.cpp AutumnDefinition.h ../include/Basic.h \
+  AutumnException.h AutumnLog.h ILogAdapter.h ../include/IBeanWrapper.h \
+  ../include/Basic.h ILibrary.h LocalLibrary.h DynamicLibrary.h \
+  AutumnConfig.h IResource.h BeanConfig.h BeanProperty.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ValueWrapper.h ../include/IAutumnType.h
+AutumnLog.o: AutumnLog.cpp AutumnLog.h ILogAdapter.h \
+  ../include/IBeanWrapper.h ../include/Basic.h ConsoleLogger.h \
+  FileLogger.h AutumnException.h
+Basic.o: Basic.cpp ../include/Basic.h
+BeanConfig.o: BeanConfig.cpp BeanConfig.h ../include/IBeanWrapper.h \
+  ../include/Basic.h BeanProperty.h ../include/Basic.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ValueWrapper.h ../include/IAutumnType.h \
+  AutumnDefinition.h AutumnException.h AutumnLog.h ILogAdapter.h
+BeanFactoryImpl.o: BeanFactoryImpl.cpp XMLResource.h xmlParser.h \
+  IResource.h AutumnDefinition.h ../include/Basic.h BeanConfig.h \
+  ../include/IBeanWrapper.h ../include/Basic.h BeanProperty.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ValueWrapper.h ../include/IAutumnType.h \
+  BeanManager.h MapHashTable.h ../include/IBeanFactory.h \
+  BeanFactoryImpl.h AutumnConfig.h ILibrary.h AutumnException.h \
+  AutumnLog.h ILogAdapter.h ObjectType.h
+BeanManager.o: BeanManager.cpp ValueWrapper.h ../include/Basic.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ../include/Basic.h ../include/IAutumnType.h \
+  BeanManager.h ../include/IBeanWrapper.h MapHashTable.h AutumnLog.h \
+  ILogAdapter.h
+BeanProperty.o: BeanProperty.cpp ../include/Basic.h ValueWrapper.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ../include/Basic.h ../include/IAutumnType.h \
+  BeanProperty.h ../include/IBeanWrapper.h AutumnException.h AutumnLog.h \
+  ILogAdapter.h
+FileLogger_Wrapper.o: FileLogger_Wrapper.cpp FileLogger_Wrapper.h \
+  ../include/IBeanWrapper.h ../include/Basic.h FileLogger.h ILogAdapter.h \
+  AutumnException.h AutumnLog.h
+IBeanWrapper.o: IBeanWrapper.cpp ValueWrapper.h ../include/Basic.h \
+  ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ../include/Basic.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h LocalLibrary.h ILibrary.h AutumnException.h \
+  AutumnLog.h ILogAdapter.h
+LocalLibrary.o: LocalLibrary.cpp AutumnException.h AutumnLog.h \
+  ILogAdapter.h ../include/IBeanWrapper.h ../include/Basic.h \
+  LocalLibrary.h ILibrary.h
+PointerType.o: PointerType.cpp PointerType.h ../include/Basic.h \
+  ../include/IAutumnType.h ../include/TypeManager.h \
+  ../include/IAutumnType.h ../include/IBeanWrapper.h ../include/Basic.h
+TypeManager.o: TypeManager.cpp ../include/TypeManager.h \
+  ../include/IAutumnType.h ../include/IBeanWrapper.h ../include/Basic.h \
+  ../include/IAutumnType.h BasicType.h ../include/Basic.h \
+  AutumnException.h AutumnLog.h ILogAdapter.h ../include/IBeanWrapper.h \
+  PointerType.h StringType.h
+ValueWrapper.o: ValueWrapper.cpp ../include/IAutumnType.h ValueWrapper.h \
+  ../include/Basic.h ../include/TypeManager.h ../include/IAutumnType.h \
+  ../include/IBeanWrapper.h ../include/Basic.h AutumnLog.h ILogAdapter.h \
+  ../include/IBeanWrapper.h
+XMLResource.o: XMLResource.cpp XMLResource.h xmlParser.h IResource.h \
+  AutumnDefinition.h ../include/Basic.h AutumnException.h AutumnLog.h \
+  ILogAdapter.h ../include/IBeanWrapper.h ../include/Basic.h
+xmlParser.o: xmlParser.cpp xmlParser.h

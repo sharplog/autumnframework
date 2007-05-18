@@ -97,7 +97,8 @@ public:
 	vector<TPointer> getParameter(){ return this->Parameters; }
 
 	int setBeanPropertyValue(const char* name, void* value){
-		return this->execVoidMethod(string("set") +name, &value, 1);
+		string method = string("set") + name;
+		return this->execVoidMethod(method, &value, 1);
 	}
 	
 	int getBeanPropertyType(const char* name, string& type);

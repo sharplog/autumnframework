@@ -148,8 +148,9 @@ int Util::findMatching(string& s, char c1, char c2)
 			   return i;
 		}
 		else {
-		   int l = skip(s.substr(i));
-		   if( l > 0)
+			string r = s.substr(i);
+			int l = Util::skip(r);
+			if( l > 0)
 			   i += l - 1;		// -1
 		}
 	}
@@ -160,9 +161,10 @@ int Util::indexOf(string& s, string t)
 {
 	for( int i = 0; i < s.length(); ){
 		int l;
-		if( Util::startWith(s.substr(i), t) )
+		string r = s.substr(i);
+		if( Util::startWith(r, t) )
 			return i;
-		else if( l = skip(s.substr(i)) )
+		else if( l = Util::skip(r) )
 			i += l;
 		else 
 			i++;
@@ -176,10 +178,13 @@ int Util::indexOf(string& s, char c)
 		int l;
 		if (s[i] == c)
 			return i;
-		else if( l = skip(s.substr(i)) )
-			i += l;
-		else 
-			i++;
+		else {
+			string r = s.substr(i);
+			if( l = Util::skip(r) )
+				i += l;
+			else 
+				i++;
+		}
 	}
 	return string::npos;
 }

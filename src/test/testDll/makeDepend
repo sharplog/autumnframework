@@ -1,75 +1,36 @@
-BasicTypesBean_Wrapper.o : BasicTypesBean_Wrapper.cpp
-BasicTypesBean_Wrapper.o : BasicTypesBean_Wrapper.h
-BasicTypesBean_Wrapper.o : ../../include/IBeanWrapper.h
-BasicTypesBean_Wrapper.o : ../../include/Basic.h
-BasicTypesBean_Wrapper.o : BasicTypesBean.h
-BasicTypesBean_Wrapper.o : ../include/IBasicTypesBean.h
-BeanTypeBean_Wrapper.o : BeanTypeBean_Wrapper.cpp
-BeanTypeBean_Wrapper.o : BeanTypeBean_Wrapper.h
-BeanTypeBean_Wrapper.o : ../../include/IBeanWrapper.h
-BeanTypeBean_Wrapper.o : ../../include/Basic.h
-BeanTypeBean_Wrapper.o : BeanTypeBean.h
-BeanTypeBean_Wrapper.o : ../include/IBasicTypesBean.h
-BeanTypeBean_Wrapper.o : BasicTypesBean.h
-Factories_Wrapper.o : Factories_Wrapper.cpp
-Factories_Wrapper.o : Factories_Wrapper.h
-Factories_Wrapper.o : ../../include/IBeanWrapper.h
-Factories_Wrapper.o : ../../include/Basic.h
-Factories_Wrapper.o : Factories.h
-Factories_Wrapper.o : Products.h
-Factories_Wrapper.o : ../include/IProduct.h
-Factories_Wrapper.o : IFactory.h
-FactoryMethodBean.o : FactoryMethodBean.cpp
-FactoryMethodBean.o : FactoryMethodBean.h
-FactoryMethodBean.o : ../include/IProduct.h
-FactoryMethodBean_Wrapper.o : FactoryMethodBean_Wrapper.cpp
-FactoryMethodBean_Wrapper.o : FactoryMethodBean_Wrapper.h
-FactoryMethodBean_Wrapper.o : ../../include/IBeanWrapper.h
-FactoryMethodBean_Wrapper.o : ../../include/Basic.h
-FactoryMethodBean_Wrapper.o : FactoryMethodBean.h
-FactoryMethodBean_Wrapper.o : ../include/IProduct.h
-IProduct_Wrapper.o : IProduct_Wrapper.cpp
-IProduct_Wrapper.o : IProduct_Wrapper.h
-IProduct_Wrapper.o : ../../include/IBeanWrapper.h
-IProduct_Wrapper.o : ../../include/Basic.h
-IProduct_Wrapper.o : ../include/IProduct.h
-InitDestBean_Wrapper.o : InitDestBean_Wrapper.cpp
-InitDestBean_Wrapper.o : InitDestBean_Wrapper.h
-InitDestBean_Wrapper.o : ../../include/IBeanWrapper.h
-InitDestBean_Wrapper.o : ../../include/Basic.h
-InitDestBean_Wrapper.o : InitDestBean.h
-InitDestBean_Wrapper.o : ../include/IBasicTypesBean.h
-InitDestBean_Wrapper.o : SingletonBean.h
-MultiInheriteBean_Wrapper.o : MultiInheriteBean_Wrapper.cpp
-MultiInheriteBean_Wrapper.o : MultiInheriteBean_Wrapper.h
-MultiInheriteBean_Wrapper.o : ../../include/IBeanWrapper.h
-MultiInheriteBean_Wrapper.o : ../../include/Basic.h
-MultiInheriteBean_Wrapper.o : MultiInheriteBean.h
-MultiInheriteBean_Wrapper.o : ../include/IMultiBase.h
-MyBasicType_Wrapper.o : MyBasicType_Wrapper.cpp
-MyBasicType_Wrapper.o : MyBasicType_Wrapper.h
-MyBasicType_Wrapper.o : ../../include/IBeanWrapper.h
-MyBasicType_Wrapper.o : ../../include/Basic.h
-MyBasicType_Wrapper.o : MyBasicType.h
-MyBasicType_Wrapper.o : ../../include/IAutumnType.h
-MyBasicType_Wrapper.o : MyData.h
-MyTypeBean_Wrapper.o : MyTypeBean_Wrapper.cpp
-MyTypeBean_Wrapper.o : MyTypeBean_Wrapper.h
-MyTypeBean_Wrapper.o : ../../include/IBeanWrapper.h
-MyTypeBean_Wrapper.o : ../../include/Basic.h
-MyTypeBean_Wrapper.o : MyTypeBean.h
-MyTypeBean_Wrapper.o : MyData.h
-MyTypeBean_Wrapper.o : ../include/IBasicTypesBean.h
-SelfManagedBean_Wrapper.o : SelfManagedBean_Wrapper.cpp
-SelfManagedBean_Wrapper.o : SelfManagedBean_Wrapper.h
-SelfManagedBean_Wrapper.o : ../../include/IBeanWrapper.h
-SelfManagedBean_Wrapper.o : ../../include/Basic.h
-SelfManagedBean_Wrapper.o : SelfManagedBean.h
-SelfManagedBean_Wrapper.o : ../include/IBasicTypesBean.h
-SelfManagedBean_Wrapper.o : SingletonBean.h
-SingletonBean_Wrapper.o : SingletonBean_Wrapper.cpp
-SingletonBean_Wrapper.o : SingletonBean_Wrapper.h
-SingletonBean_Wrapper.o : ../../include/IBeanWrapper.h
-SingletonBean_Wrapper.o : ../../include/Basic.h
-SingletonBean_Wrapper.o : SingletonBean.h
-SingletonBean_Wrapper.o : ../include/IBasicTypesBean.h
+BasicTypesBean_Wrapper.o: BasicTypesBean_Wrapper.cpp \
+  BasicTypesBean_Wrapper.h ../../include/IBeanWrapper.h \
+  ../../include/Basic.h BasicTypesBean.h ../include/IBasicTypesBean.h
+BeanTypeBean_Wrapper.o: BeanTypeBean_Wrapper.cpp BeanTypeBean_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h BeanTypeBean.h \
+  ../include/IBasicTypesBean.h BasicTypesBean.h
+Factories_Wrapper.o: Factories_Wrapper.cpp Factories_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h Factories.h \
+  Products.h ../include/IProduct.h IFactory.h
+FactoryMethodBean.o: FactoryMethodBean.cpp FactoryMethodBean.h \
+  ../include/IProduct.h
+FactoryMethodBean_Wrapper.o: FactoryMethodBean_Wrapper.cpp \
+  FactoryMethodBean_Wrapper.h ../../include/IBeanWrapper.h \
+  ../../include/Basic.h FactoryMethodBean.h ../include/IProduct.h
+IProduct_Wrapper.o: IProduct_Wrapper.cpp IProduct_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h \
+  ../include/IProduct.h
+InitDestBean_Wrapper.o: InitDestBean_Wrapper.cpp InitDestBean_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h InitDestBean.h \
+  ../include/IBasicTypesBean.h SingletonBean.h
+MultiInheriteBean_Wrapper.o: MultiInheriteBean_Wrapper.cpp \
+  MultiInheriteBean_Wrapper.h ../../include/IBeanWrapper.h \
+  ../../include/Basic.h MultiInheriteBean.h ../include/IMultiBase.h
+MyBasicType_Wrapper.o: MyBasicType_Wrapper.cpp MyBasicType_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h MyBasicType.h \
+  ../../include/IAutumnType.h MyData.h
+MyTypeBean_Wrapper.o: MyTypeBean_Wrapper.cpp MyTypeBean_Wrapper.h \
+  ../../include/IBeanWrapper.h ../../include/Basic.h MyTypeBean.h \
+  MyData.h ../include/IBasicTypesBean.h
+SelfManagedBean_Wrapper.o: SelfManagedBean_Wrapper.cpp \
+  SelfManagedBean_Wrapper.h ../../include/IBeanWrapper.h \
+  ../../include/Basic.h SelfManagedBean.h ../include/IBasicTypesBean.h \
+  SingletonBean.h
+SingletonBean_Wrapper.o: SingletonBean_Wrapper.cpp \
+  SingletonBean_Wrapper.h ../../include/IBeanWrapper.h \
+  ../../include/Basic.h SingletonBean.h ../include/IBasicTypesBean.h

@@ -1,22 +1,10 @@
-FactoryTest.o : FactoryTest.cpp
-FactoryTest.o : ./include/IProduct.h
-FactoryTest.o : FactoryTest.h
-FactoryTest.o : UnitTestMacro.h
-FactoryTest.o : ../include/IBeanFactory.h
-FrameTestMain.o : FrameTestMain.cpp
-FrameTestMain.o : TypeInjectionTest.h
-FrameTestMain.o : UnitTestMacro.h
-FrameTestMain.o : ../include/IBeanFactory.h
-FrameTestMain.o : FactoryTest.h
-LocalBean_Wrapper.o : LocalBean_Wrapper.cpp
-LocalBean_Wrapper.o : LocalBean_Wrapper.h
-LocalBean_Wrapper.o : ../include/IBeanWrapper.h
-LocalBean_Wrapper.o : ../include/Basic.h
-LocalBean_Wrapper.o : LocalBean.h
-LocalBean_Wrapper.o : ./include/IBasicTypesBean.h
-TypeInjectionTest.o : TypeInjectionTest.cpp
-TypeInjectionTest.o : TypeInjectionTest.h
-TypeInjectionTest.o : UnitTestMacro.h
-TypeInjectionTest.o : ../include/IBeanFactory.h
-TypeInjectionTest.o : ./include/IBasicTypesBean.h
-TypeInjectionTest.o : ./include/IMultiBase.h
+FactoryTest.o: FactoryTest.cpp include/IProduct.h FactoryTest.h \
+  UnitTestMacro.h ../include/IBeanFactory.h
+FrameTestMain.o: FrameTestMain.cpp TypeInjectionTest.h UnitTestMacro.h \
+  ../include/IBeanFactory.h FactoryTest.h
+LocalBean_Wrapper.o: LocalBean_Wrapper.cpp LocalBean_Wrapper.h \
+  ../include/IBeanWrapper.h ../include/Basic.h LocalBean.h \
+  include/IBasicTypesBean.h
+TypeInjectionTest.o: TypeInjectionTest.cpp TypeInjectionTest.h \
+  UnitTestMacro.h ../include/IBeanFactory.h include/IBasicTypesBean.h \
+  include/IMultiBase.h

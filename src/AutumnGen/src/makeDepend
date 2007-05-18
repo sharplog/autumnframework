@@ -1,51 +1,15 @@
-AutumnGen.o : AutumnGen.cpp
-AutumnGen.o : HeadFile.h
-AutumnGen.o : IElement.h
-AutumnGen.o : Configuration.h
-ClassElmt.o : ClassElmt.cpp
-ClassElmt.o : GenException.h
-ClassElmt.o : Util.h
-ClassElmt.o : Configuration.h
-ClassElmt.o : ElmtFactory.h
-ClassElmt.o : IElement.h
-ClassElmt.o : MethodElmt.h
-ClassElmt.o : Parameter.h
-ClassElmt.o : ClassElmt.h
-Configuration.o : Configuration.cpp
-Configuration.o : Configuration.h
-ElmtFactory.o : ElmtFactory.cpp
-ElmtFactory.o : ClassElmt.h
-ElmtFactory.o : IElement.h
-ElmtFactory.o : Enum_UnionElmt.h
-ElmtFactory.o : FieldElmt.h
-ElmtFactory.o : MethodElmt.h
-ElmtFactory.o : Parameter.h
-ElmtFactory.o : NamespaceElmt.h
-ElmtFactory.o : StructElmt.h
-ElmtFactory.o : TypedefElmt.h
-ElmtFactory.o : ElmtFactory.h
-HeadFile.o : HeadFile.cpp
-HeadFile.o : GenException.h
-HeadFile.o : Util.h
-HeadFile.o : ElmtFactory.h
-HeadFile.o : IElement.h
-HeadFile.o : Configuration.h
-HeadFile.o : HeadFile.h
-MethodElmt.o : MethodElmt.cpp
-MethodElmt.o : GenException.h
-MethodElmt.o : Util.h
-MethodElmt.o : ElmtFactory.h
-MethodElmt.o : IElement.h
-MethodElmt.o : MethodElmt.h
-MethodElmt.o : Parameter.h
-NamespaceElmt.o : NamespaceElmt.cpp
-NamespaceElmt.o : GenException.h
-NamespaceElmt.o : Util.h
-NamespaceElmt.o : ElmtFactory.h
-NamespaceElmt.o : IElement.h
-NamespaceElmt.o : NamespaceElmt.h
-Parameter.o : Parameter.cpp
-Parameter.o : Util.h
-Parameter.o : Parameter.h
-Util.o : Util.cpp
-Util.o : Util.h
+AutumnGen.o: AutumnGen.cpp HeadFile.h IElement.h Configuration.h
+ClassElmt.o: ClassElmt.cpp GenException.h Util.h Configuration.h \
+  ElmtFactory.h IElement.h MethodElmt.h Parameter.h ClassElmt.h
+Configuration.o: Configuration.cpp Configuration.h
+ElmtFactory.o: ElmtFactory.cpp ClassElmt.h IElement.h Enum_UnionElmt.h \
+  FieldElmt.h MethodElmt.h Parameter.h NamespaceElmt.h StructElmt.h \
+  TypedefElmt.h ElmtFactory.h
+HeadFile.o: HeadFile.cpp GenException.h Util.h ElmtFactory.h IElement.h \
+  Configuration.h HeadFile.h
+MethodElmt.o: MethodElmt.cpp GenException.h Util.h ElmtFactory.h \
+  IElement.h MethodElmt.h Parameter.h
+NamespaceElmt.o: NamespaceElmt.cpp GenException.h Util.h ElmtFactory.h \
+  IElement.h NamespaceElmt.h
+Parameter.o: Parameter.cpp Util.h Parameter.h
+Util.o: Util.cpp Util.h

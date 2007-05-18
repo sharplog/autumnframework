@@ -104,7 +104,8 @@ PropertyList* BeanConfig::getConArgs(IBeanWrapper* pw) {
 	int argNum = this->ConArgs->size();
 
 	if( !this->GotArgTypes && argNum > 0 ){
-		string ConArgTypes = pw->getConArgTypes(this->getConMethod(), argNum);
+		string conMethod = this->getConMethod();
+		string ConArgTypes = pw->getConArgTypes(conMethod, argNum);
 		
 		string tmpType;
 		int start, end = -1;

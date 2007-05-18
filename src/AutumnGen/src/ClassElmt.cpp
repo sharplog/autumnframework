@@ -375,3 +375,4 @@ bool ClassElmt::isAbstract()
 
 	return false;
 }
+
