@@ -1,0 +1,46 @@
+BasicTypesBean_Wrapper.cpp BasicTypesBean_Wrapper.h: BasicTypesBean.h
+	../../bin/$(WRAPGEN) BasicTypesBean.h
+BeanTypeBean_Wrapper.cpp BeanTypeBean_Wrapper.h: BeanTypeBean.h
+	../../bin/$(WRAPGEN) BeanTypeBean.h
+Factories_Wrapper.cpp Factories_Wrapper.h: Factories.h
+	../../bin/$(WRAPGEN) Factories.h
+FactoryMethodBean_Wrapper.cpp FactoryMethodBean_Wrapper.h: FactoryMethodBean.h
+	../../bin/$(WRAPGEN) FactoryMethodBean.h
+InitDestBean_Wrapper.cpp InitDestBean_Wrapper.h: InitDestBean.h
+	../../bin/$(WRAPGEN) InitDestBean.h
+MultiInheriteBean_Wrapper.cpp MultiInheriteBean_Wrapper.h: MultiInheriteBean.h
+	../../bin/$(WRAPGEN) MultiInheriteBean.h
+MyBasicType_Wrapper.cpp MyBasicType_Wrapper.h: MyBasicType.h
+	../../bin/$(WRAPGEN) MyBasicType.h
+MyTypeBean_Wrapper.cpp MyTypeBean_Wrapper.h: MyTypeBean.h
+	../../bin/$(WRAPGEN) MyTypeBean.h
+SelfManagedBean_Wrapper.cpp SelfManagedBean_Wrapper.h: SelfManagedBean.h
+	../../bin/$(WRAPGEN) SelfManagedBean.h
+SingletonBean_Wrapper.cpp SingletonBean_Wrapper.h: SingletonBean.h
+	../../bin/$(WRAPGEN) SingletonBean.h
+IProduct_Wrapper.cpp IProduct_Wrapper.h: ../include/IProduct.h
+	../../bin/$(WRAPGEN) -out . ../include/IProduct.h
+
+clean::
+	$(RM) BasicTypesBean_Wrapper.cpp
+	$(RM) BasicTypesBean_Wrapper.h
+	$(RM) BeanTypeBean_Wrapper.cpp
+	$(RM) BeanTypeBean_Wrapper.h
+	$(RM) Factories_Wrapper.cpp
+	$(RM) Factories_Wrapper.h
+	$(RM) FactoryMethodBean_Wrapper.cpp
+	$(RM) FactoryMethodBean_Wrapper.h
+	$(RM) IProduct_Wrapper.cpp
+	$(RM) IProduct_Wrapper.h
+	$(RM) InitDestBean_Wrapper.cpp
+	$(RM) InitDestBean_Wrapper.h
+	$(RM) MultiInheriteBean_Wrapper.cpp
+	$(RM) MultiInheriteBean_Wrapper.h
+	$(RM) MyBasicType_Wrapper.cpp
+	$(RM) MyBasicType_Wrapper.h
+	$(RM) MyTypeBean_Wrapper.cpp
+	$(RM) MyTypeBean_Wrapper.h
+	$(RM) SelfManagedBean_Wrapper.cpp
+	$(RM) SelfManagedBean_Wrapper.h
+	$(RM) SingletonBean_Wrapper.cpp
+	$(RM) SingletonBean_Wrapper.h

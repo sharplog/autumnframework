@@ -3,7 +3,7 @@
 include ./config/makeConfig
 include ./config/make.rules
 
-SUBDIRS=autumnframework demo test AutumnGen
+SUBDIRS=AutumnGen autumnframework demo test
 
 all test clean depend::
 	@for subdir in $(SUBDIRS);	\
