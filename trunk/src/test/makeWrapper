@@ -1,0 +1,6 @@
+LocalBean_Wrapper.cpp LocalBean_Wrapper.h: LocalBean.h
+	../bin/$(WRAPGEN) LocalBean.h
+
+clean::
+	$(RM) LocalBean_Wrapper.cpp
+	$(RM) LocalBean_Wrapper.h

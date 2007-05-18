@@ -1,6 +1,8 @@
 
 OBJSFILE=makeObjects
 DEPENDFILE=makeDepend
+WRAPPERDEP=makeWrapper
 DLLNAME=Autumn
+WRAPGEN=AutumnGen
 DLLLIBNAME=lib$(DLLNAME)$(DLLSUFFIX)
 CP= cp -f

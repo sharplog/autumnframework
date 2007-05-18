@@ -4,7 +4,7 @@ include ../../config/makeConfig
 include ../../config/make.rules
 include $(OBJSFILE)
 
-EXENAME=AutumnGen
+EXENAME=$(WRAPGEN)
 
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $<
