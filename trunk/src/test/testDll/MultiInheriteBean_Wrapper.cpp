@@ -24,7 +24,7 @@
 void* Multi_Base1_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("Multi_Base1") && num == 0 )
-		return this->pBean = new Multi_Base1();
+		return (void*)(this->pBean = new Multi_Base1());
 
 	return NULL;
 }
@@ -63,7 +63,7 @@ AUTUMN_Multi_Base1_Wrapper_Local _AUTUMN_Multi_Base1_Wrapper_Local_;
 void* Multi_Base2_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("Multi_Base2") && num == 0 )
-		return this->pBean = new Multi_Base2();
+		return (void*)(this->pBean = new Multi_Base2());
 
 	return NULL;
 }
@@ -102,7 +102,7 @@ AUTUMN_Multi_Base2_Wrapper_Local _AUTUMN_Multi_Base2_Wrapper_Local_;
 void* Multi_Bean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("Multi_Bean") && num == 0 )
-		return this->pBean = new Multi_Bean();
+		return (void*)(this->pBean = new Multi_Bean());
 
 	return NULL;
 }

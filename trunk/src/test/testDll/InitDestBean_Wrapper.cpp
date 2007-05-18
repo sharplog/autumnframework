@@ -24,12 +24,12 @@
 void* InitDestBean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("InitDestBean") && num == 1 )
-		return this->pBean = new InitDestBean(
-				*(SingletonBean**)Prams[0]);
+		return (void*)(this->pBean = new InitDestBean(
+				*(SingletonBean**)Prams[0]));
 	if( !method.compare("getCStr") && num == 0 )
-		return this->pBean->getCStr();
+		return (void*)(this->pBean->getCStr());
 	if( !method.compare("getUCStr") && num == 0 )
-		return this->pBean->getUCStr();
+		return (void*)(this->pBean->getUCStr());
 
 	return NULL;
 }
