@@ -129,6 +129,7 @@ void* BeanFactoryImpl::getBean(string name)
 
 	//Create bean
 	typedef void* void_ptr;
+	string conMethod = bc->getConMethod();
 	PropertyList* pargs = bc->getConArgs(pwc);
 	int num = pargs->size();
 	if( num > 0 ){	//Has constructor arguments
@@ -139,11 +140,11 @@ void* BeanFactoryImpl::getBean(string name)
 			// add argument into pw, not pwc
 			pv[i] = (*pargs)[i]->takeoutValue(pw.get(), this->ManagerOfType);
 		}
-		p = pwc->execCreateMethod(bc->getConMethod(), pv, num);
+		p = pwc->execCreateMethod(conMethod, pv, num);
 	}
 	else{
 		void_ptr* pDummy;
-		p = pwc->execCreateMethod(bc->getConMethod(), pDummy, num);
+		p = pwc->execCreateMethod(conMethod, pDummy, num);
 	}	
 
 	if( NULL == p){

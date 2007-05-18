@@ -1,3 +1,1 @@
-mainDemo.o : mainDemo.cpp
-mainDemo.o : ../include/Action.h
-mainDemo.o : ../../include/IBeanFactory.h
+mainDemo.o: mainDemo.cpp ../include/Action.h ../../include/IBeanFactory.h
