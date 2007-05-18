@@ -24,8 +24,8 @@
 void* ProductA_M_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("getInstance") && num == 1 )
-		return this->pBean = ProductA_M::getInstance(
-				*(string*)Prams[0]);
+		return (void*)(this->pBean = ProductA_M::getInstance(
+				*(string*)Prams[0]));
 
 	return NULL;
 }
@@ -74,7 +74,7 @@ AUTUMN_ProductA_M_Wrapper_Local _AUTUMN_ProductA_M_Wrapper_Local_;
 void* ProductB_M_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("getInstance") && num == 0 )
-		return this->pBean = ProductB_M::getInstance();
+		return (void*)(this->pBean = ProductB_M::getInstance());
 
 	return NULL;
 }

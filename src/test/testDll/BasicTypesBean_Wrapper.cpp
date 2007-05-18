@@ -24,9 +24,9 @@
 void* BasicTypesBean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("BasicTypesBean") && num == 0 )
-		return this->pBean = new BasicTypesBean();
+		return (void*)(this->pBean = new BasicTypesBean());
 	if( !method.compare("BasicTypesBean") && num == 13 )
-		return this->pBean = new BasicTypesBean(
+		return (void*)(this->pBean = new BasicTypesBean(
 				*(char*)Prams[0],
 				*(unsigned char*)Prams[1],
 				*(short*)Prams[2],
@@ -39,11 +39,11 @@ void* BasicTypesBean_Wrapper::execCreateMethod(string& method, void** Prams, int
 				*(double*)Prams[9],
 				*(string*)Prams[10],
 				*(char**)Prams[11],
-				*(unsigned char**)Prams[12]);
+				*(unsigned char**)Prams[12]));
 	if( !method.compare("getCStr") && num == 0 )
-		return this->pBean->getCStr();
+		return (void*)(this->pBean->getCStr());
 	if( !method.compare("getUCStr") && num == 0 )
-		return this->pBean->getUCStr();
+		return (void*)(this->pBean->getUCStr());
 
 	return NULL;
 }

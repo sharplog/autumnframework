@@ -24,15 +24,15 @@
 void* Factory1_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("createProductA") && num == 1 )
-		return this->pBean->createProductA(
-				*(string*)Prams[0]);
+		return (void*)(this->pBean->createProductA(
+				*(string*)Prams[0]));
 	if( !method.compare("createProductB") && num == 1 )
-		return this->pBean->createProductB(
-				*(string*)Prams[0]);
+		return (void*)(this->pBean->createProductB(
+				*(string*)Prams[0]));
 	if( !method.compare("createProductC") && num == 0 )
-		return this->pBean->createProductC();
+		return (void*)(this->pBean->createProductC());
 	if( !method.compare("Factory1") && num == 0 )
-		return this->pBean = new Factory1();
+		return (void*)(this->pBean = new Factory1());
 
 	return NULL;
 }
@@ -77,15 +77,15 @@ AUTUMN_Factory1_Wrapper_Local _AUTUMN_Factory1_Wrapper_Local_;
 void* Factory2_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("createProductA") && num == 1 )
-		return this->pBean->createProductA(
-				*(string*)Prams[0]);
+		return (void*)(this->pBean->createProductA(
+				*(string*)Prams[0]));
 	if( !method.compare("createProductB") && num == 1 )
-		return this->pBean->createProductB(
-				*(string*)Prams[0]);
+		return (void*)(this->pBean->createProductB(
+				*(string*)Prams[0]));
 	if( !method.compare("createProductC") && num == 0 )
-		return this->pBean->createProductC();
+		return (void*)(this->pBean->createProductC());
 	if( !method.compare("Factory2") && num == 0 )
-		return this->pBean = new Factory2();
+		return (void*)(this->pBean = new Factory2());
 
 	return NULL;
 }

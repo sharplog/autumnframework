@@ -114,18 +114,18 @@ string MethodElmt::genWrapper4ECM(string classname)
 		paramnum << " )"	<< endl;
 
 	if( methodname == classname ) {					// constructor
-		os<<"\t\treturn this->pBean = new " + methodname + "(";
+		os<<"\t\treturn (void*)(this->pBean = new " + methodname + "(";
 	}
-	else if( this->IsStatic && 
-			this->ReturnType == (classname + "*") )	{// static factory method
-		os<<"\t\treturn this->pBean = " + classname + 
+	else if( this->IsStatic &&						// static factory method
+			Util::trimall(this->ReturnType) == (classname + "*") )	{
+		os<<"\t\treturn (void*)(this->pBean = " + classname + 
 			"::" + methodname + "(";
 	}
 	else if( this->IsStatic ) {						// static method
-		os<<"\t\treturn " + classname + "::" + methodname + "(";
+		os<<"\t\treturn (void*)(" + classname + "::" + methodname + "(";
 	}
 	else{
-		os<<"\t\treturn this->pBean->" + methodname + "(";
+		os<<"\t\treturn (void*)(this->pBean->" + methodname + "(";
 	}
 	
 	if( paramnum > 0 ){
@@ -139,7 +139,7 @@ string MethodElmt::genWrapper4ECM(string classname)
 		   << "*)Prams[" <<i<< "]";
 
 	}
-	os << ");" << endl;
+	os << "));" << endl;
 
 	return os.str();
 }

@@ -24,14 +24,14 @@
 void* BeanTypeBean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("BeanTypeBean") && num == 0 )
-		return this->pBean = new BeanTypeBean();
+		return (void*)(this->pBean = new BeanTypeBean());
 	if( !method.compare("BeanTypeBean") && num == 1 )
-		return this->pBean = new BeanTypeBean(
-				*(IBasicTypesBean**)Prams[0]);
+		return (void*)(this->pBean = new BeanTypeBean(
+				*(IBasicTypesBean**)Prams[0]));
 	if( !method.compare("getCStr") && num == 0 )
-		return this->pBean->getCStr();
+		return (void*)(this->pBean->getCStr());
 	if( !method.compare("getUCStr") && num == 0 )
-		return this->pBean->getUCStr();
+		return (void*)(this->pBean->getUCStr());
 
 	return NULL;
 }

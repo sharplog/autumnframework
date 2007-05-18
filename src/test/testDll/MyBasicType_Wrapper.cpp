@@ -24,12 +24,12 @@
 void* MyBasicType_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("createValue") && num == 3 )
-		return this->pBean->createValue(
+		return (void*)(this->pBean->createValue(
 				*(string*)Prams[0],
 				*(vector<string>*)Prams[1],
-				*(vector<string>::iterator*)Prams[2]);
+				*(vector<string>::iterator*)Prams[2]));
 	if( !method.compare("MyBasicType") && num == 0 )
-		return this->pBean = new MyBasicType();
+		return (void*)(this->pBean = new MyBasicType());
 
 	return NULL;
 }
