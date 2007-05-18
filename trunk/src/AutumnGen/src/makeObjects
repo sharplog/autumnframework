@@ -1,0 +1,11 @@
+OBJS= \
+AutumnGen.o \
+ClassElmt.o \
+Configuration.o \
+ElmtFactory.o \
+HeadFile.o \
+MethodElmt.o \
+NamespaceElmt.o \
+Parameter.o \
+Util.o \
+
