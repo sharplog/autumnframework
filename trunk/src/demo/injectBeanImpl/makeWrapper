@@ -2,9 +2,3 @@ LowerAction_Wrapper.cpp LowerAction_Wrapper.h: LowerAction.h
 	../../bin/$(WRAPGEN) LowerAction.h
 UpperAction_Wrapper.cpp UpperAction_Wrapper.h: UpperAction.h
 	../../bin/$(WRAPGEN) UpperAction.h
-
-clean::
-	$(RM) LowerAction_Wrapper.cpp
-	$(RM) LowerAction_Wrapper.h
-	$(RM) UpperAction_Wrapper.cpp
-	$(RM) UpperAction_Wrapper.h
