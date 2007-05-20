@@ -30,5 +30,5 @@ Execute "make test" in source code top directory.
 
 
 == Install ==
-After compiling, the include and lib directories in source code top directory contain the destination files. You can copy them to where you want.
+After compiling, the bin, include and lib directories in source code top directory contain the destination files. You can copy them to where you want.
 
