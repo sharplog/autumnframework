@@ -18,7 +18,7 @@ public:
 	int f2(){ return 2;}	
 };
 
-class Multi_Bean: public IBase2, IBase1{
+class Multi_Bean: public IBase2, public IBase1{
 public:
 	int f1(){ return 1;}	
 	int f2(){ return 2;}	
