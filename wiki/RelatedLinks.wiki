@@ -5,6 +5,8 @@
  * [http://michaelfeathers.typepad.com/michael_feathers_blog/2006/10/dependency_inje.html Michael Feathers' Blog: Dependency Injection in C++]
  * [http://qtioccontainer.sourceforge.net/index.html Qt IOC Container] is a C++ application framework inspired by Inversion Of Control concept as demonstrated by Spring framework.
  * [http://carcino.gen.nz/tech/cpp/multiple_inheritance_this.php Multiple inheritance and the this pointer]
+ * [http://www.phpcompiler.org/doc/virtualinheritance.html Memory Layout for Multiple and Virtual Inheritance]
+ * [http://www.rcs.hu/Articles/RTTI_Part1.htm Advanced Run Time Type Identification in C++]
 
 = AOP =
  * [http://www.aspectc.org/ The Home of AspectC++]
@@ -12,5 +14,6 @@
 
 = Parsing C++ =
  * [http://www.nobugs.org/developer/parsingcpp/ Parsing C++ at nobugs.org]
+
 
 
