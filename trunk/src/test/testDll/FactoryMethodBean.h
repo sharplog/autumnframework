@@ -4,7 +4,7 @@
 
 #include "IProduct.h"
 
-class ProductA_M: IProductA{
+class ProductA_M: public IProductA{
 	string Name;
 	
 	static int RefNum;
