@@ -35,6 +35,9 @@ class ClassElmt: public IElement{
 	/** Generate wrapper part of execVoidMethod() */
 	string genWrapper4EVM();
 
+	/** Generate wrapper part of cast2Base() */
+	string genWrapper4Cast();
+
 	/** Generate wrapper part of getParamTypes() */
 	string genWrapper4GPT();
 

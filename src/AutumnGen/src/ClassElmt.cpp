@@ -58,7 +58,7 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 
 		int comma = Util::indexOf(basestr, ',');
 		while( comma != string::npos ){
-			this->BaseClass.push_back( Util::getLastWord(basestr.substr(0, comma)) );
+			e->BaseClass.push_back( Util::getLastWord(basestr.substr(0, comma)) );
 			basestr = basestr.substr(comma+1);
 			comma = Util::indexOf(basestr, ',');
 		}
@@ -120,6 +120,7 @@ string ClassElmt::genWrapperCPP()
 	os << this->genWrapper4ECM();
 	os << this->genWrapper4EVM();
 	os << this->genWrapper4GPT();
+	os << this->genWrapper4Cast();
 	os << this->genWrapperTail();
 	os << this->genWrapperCPP4Local();
 
@@ -164,6 +165,8 @@ string ClassElmt::genWrapperH()
 	"	int execVoidMethod(string& method, void** Prams, int num);"	<<endl<<
 	""																<<endl<<
 	"	int getParamTypes(string& method, string& types, int num);"	<<endl<<
+	""																<<endl<<
+	"	void* cast2Base(const string basename);"					<<endl<<
 	""																<<endl<<
 	"};"															<<endl<<
 	""																<<endl<<
@@ -297,6 +300,29 @@ string ClassElmt::genWrapper4GPT()
 		"}"						<< endl <<
 		""						<< endl;
 
+	
+	return os.str();
+}
+
+string ClassElmt::genWrapper4Cast()
+{
+	string wrappername = this->getName() + Configuration::getCWS();
+
+	ostringstream os;
+	os<<
+	"void* "<< wrappername << "::" <<
+	"cast2Base(const string basename)" << endl <<
+	"{" <<endl;
+
+	for( int i=0; i<this->BaseClass.size(); i++){
+		string base = this->BaseClass[i];
+		os << "	if( basename == \"" << base << "\" )" << endl <<
+			  "		return (" << base << "*)(this->pBean);" << endl;
+	}
+	os							<< endl <<
+	"	return this->pBean;"	<< endl <<
+	"}"							<< endl <<
+	""							<< endl;
 	
 	return os.str();
 }

@@ -72,6 +72,14 @@ public:
 	virtual void* execCreateMethod(string& method, void** pPrams, int num) = 0;
 	virtual int   execVoidMethod(string& method, void** pPrams, int num) = 0;
 	virtual int   getParamTypes (string& method, string& types, int num) = 0;
+
+	/** 
+	 * cast bean pointer to base class pointer.
+	 * @param basename base class name
+	 * @return base class pointer if basename is bean's base class
+	 *         or return bean pointer
+	 */
+	virtual void* cast2Base(const string basename) = 0;
 	
 	string getConArgTypes(string& ConMethod, int num);
 	

@@ -60,7 +60,7 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	}
 	
 	// use logger configured by user
-	void* p = this->getBean(LogBeanName);
+	void* p = this->getBean(LogBeanName, "ILogAdapter");
 	if( p != NULL ){
 		AutumnLog::getInstance()->injectLogger((ILogAdapter*)p);
 	}
@@ -82,10 +82,10 @@ BeanFactoryImpl::~BeanFactoryImpl()
 
 /** 
  * Get a bean with bean's name
- * @param name Bean's name
- * @return A pointer to the bean
+ * @param basename Bean's base class name
+ * @return A pointer to the bean or to its base class
  */
-void* BeanFactoryImpl::getBean(string name)
+void* BeanFactoryImpl::getBean(const string name, const string basename)
 {
 	void* p;
 	int i;
@@ -93,14 +93,16 @@ void* BeanFactoryImpl::getBean(string name)
 	BeanConfig* bc = this->Config->getBeanConfig(name);
 	// Not found
 	if( bc == NULL ){
-		AutumnLog::getInstance()->error("BeanFactoryImpl->getBean: bean[" + name + "]'s config is not found");
+		AutumnLog::getInstance()->error("BeanFactoryImpl->getBean: bean[" +
+				name + "]'s config is not found");
 		return NULL;
 	}
 
 	// If singleton
 	if( bc->isSingleton() ){
 		p = this->ManagerOfBean->getSingleton(name);
-		if( p != NULL) return p;
+		if( p != NULL) 
+			return this->ManagerOfBean->getBeanWrapper(p)->cast2Base(basename);
 	}
 
 	// Create depended objects, they should be singletons.
@@ -168,10 +170,11 @@ void* BeanFactoryImpl::getBean(string name)
 		pw->execVoidMethod(initmethod, NULL, 0);
 	}
 
+	IBeanWrapper* pw_tmp = pw.get();
 	//Add to bean manager
 	this->ManagerOfBean->addBean(name, pw.release());
 
-	return p;
+	return pw_tmp->cast2Base(basename);
 }
 
 /** 
