@@ -57,9 +57,10 @@ public:
 	/** 
 	 * Get a bean with bean's name
 	 * @param name Bean's name
-	 * @return A pointer to the bean
+	 * @param basename Bean's base class name
+	 * @return A pointer to the bean or to its base class
 	 */
-	virtual void* getBean(string name);
+	virtual void* getBean(const string name, const string basename = "");
 
 	/** 
 	 * Free a bean

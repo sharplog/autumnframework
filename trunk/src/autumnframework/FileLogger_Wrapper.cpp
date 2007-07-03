@@ -24,9 +24,9 @@
 void* FileLogger_Wrapper::execCreateMethod(string& method, void** Prams, int num)
 {
 	if( !method.compare("FileLogger") && num == 2 )
-		return this->pBean = new FileLogger(
+		return (void*)(this->pBean = new FileLogger(
 				*(string*)Prams[0],
-				*(int*)Prams[1]);
+				*(int*)Prams[1]));
 
 	return NULL;
 }
@@ -87,6 +87,14 @@ int FileLogger_Wrapper::getParamTypes(string& method, string& types, int num)
 		return -1;
 
 	return 0;
+}
+
+void* FileLogger_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "ILogAdapter" )
+		return (ILogAdapter*)(this->pBean);
+
+	return this->pBean;
 }
 
 extern "C"{
