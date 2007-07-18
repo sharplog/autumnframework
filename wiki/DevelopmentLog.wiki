@@ -1,6 +1,9 @@
 #summary Development log.
 #labels Featured
 
+== 07/04/2007 ==
+AutumnGen support multi-inheritance, but only for multiple father class, not for multiple father's father class.
+
 == 05/21/2007 ==
  * ported and tested on AIX5L.
  * release ver 0.4.0.
