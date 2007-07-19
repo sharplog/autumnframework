@@ -137,6 +137,10 @@ SOURCE=.\Configuration.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\DocCommentElmt.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\ElmtFactory.h
 # End Source File
 # Begin Source File

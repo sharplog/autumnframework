@@ -22,6 +22,8 @@
 
 using namespace std;
 
+class DocCommentElmt;
+
 /** 
  * interface of elements in c++ head file
  */
@@ -33,7 +35,7 @@ class IElement{
 	 * A comment for this element. 
 	 * will be used for parsing @id for AOP, unused now.
 	 */
-	string Comment;
+	DocCommentElmt* Comment;
 
 	/** this element's scope, public, protected or private */
 	string Scope;
@@ -50,7 +52,8 @@ public:
 		METHOD,
 		FIELD,
 		ENUM_UNION,
-		TYPEDEF
+		TYPEDEF,
+		DOCCOMMENT
 	};
 
 	/** 
@@ -79,12 +82,12 @@ public:
 	virtual string genWrapperCPP() = 0;
 	
 	/** Set a comment for this element. */
-	void setComment(string comm){
+	void setComment(DocCommentElmt* comm){
 		this->Comment = comm;
 	}
 
 	/** Get comment of this element */
-	string getComment(){
+	DocCommentElmt* getComment(){
 		return this->Comment;
 	}
 	
@@ -121,6 +124,8 @@ public:
 	virtual ~IElement(){
 		for(int i=0; i<this->ChildElmts.size(); i++)
 			delete this->ChildElmts[i];
+
+		delete this->Comment;
 	}
 };
 

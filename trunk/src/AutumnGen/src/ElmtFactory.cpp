@@ -22,6 +22,7 @@
 #include "StructElmt.h"
 #include "TypedefElmt.h"
 #include "ElmtFactory.h"
+#include "DocCommentElmt.h"
 
 ElmtFactory* ElmtFactory::instance = NULL;
 
@@ -34,6 +35,7 @@ ElmtFactory::ElmtFactory()
 	this->Elements.push_back(new NamespaceElmt);
 	this->Elements.push_back(new StructElmt);
 	this->Elements.push_back(new TypedefElmt);
+	this->Elements.push_back(new DocCommentElmt(""));
 }
 
 IElement* ElmtFactory::makeElmt(string& s, int& idx)
