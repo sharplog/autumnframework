@@ -43,8 +43,14 @@ public:
 	/** return the number of white spaces at the head of s */
 	static int whiteSapceLen(string& s);
 
+	/** the length of implementation comment at the head of s */
+	static int implCommentLen(string& s);
+
+	/** the length of document comment at the head of s */
+	static int DocCommentLen(string& s);
+
 	/** the length of comment at the head of s */
-	static int commentLen(string& s);
+	static int CommentLen(string& s);
 
 	/** the length of pre-processor at the head of s */
 	static int preProcessortLen(string& s);
@@ -54,7 +60,9 @@ public:
 
 	/** 
 	 * if has irrelevant part, return a nonzero number.
-	 * it may the length of white spaces, or of comment, of define and macro.
+	 * a irrelevant part isn't a element of C++.
+	 * it may the length of white spaces, or of implementation comment, 
+	 * of define and macro. Document comment is a element.
 	 * it may not the whole length of the irrelevant part.
 	 */
 	static int irrelevantLen(string&s);

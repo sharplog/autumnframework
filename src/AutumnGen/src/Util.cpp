@@ -36,7 +36,7 @@ int Util::whiteSapceLen(string& s)
 	return n;
 }
 
-int Util::commentLen(string& s)
+int Util::implCommentLen(string& s)
 {
 	int idx, delta;
 
@@ -47,7 +47,8 @@ int Util::commentLen(string& s)
 		idx = s.find_first_of('\n');
 		delta = 1;
 	}
-	else if( s.compare(0, 2, "/*") == 0 ){
+	// if s[2]=='*', this is a doc comment
+	else if( s.compare(0, 2, "/*") == 0 && s[2] != '*'){
 		idx = s.find("*/", 0);
 		delta = 2;
 	}
@@ -61,6 +62,33 @@ int Util::commentLen(string& s)
 		return idx + delta;
 }
 
+int Util::DocCommentLen(string& s)
+{
+	if( s.empty() || s.length() < 5 )
+		return 0;
+
+	if( s.compare(0, 3, "/**") == 0 && s[3] != '/'){
+		int idx = s.find("*/", 0);
+		if( idx == string::npos )
+			return s.length();		// the whole s
+		else
+			return idx + 2;
+	}
+
+	return 0;
+}
+
+int Util::CommentLen(string& s)
+{
+	int len;
+	
+	if( 0 != (len = Util::implCommentLen(s)) )
+		return len;
+	if( 0 != (len = Util::DocCommentLen(s)) )
+		return len;
+
+	return 0;
+}
 int Util::preProcessortLen(string& s)
 {
 	if( s.empty() || s[0] != '#' )
@@ -105,7 +133,7 @@ int Util::irrelevantLen(string& s)
 	do {
 		if( w = Util::whiteSapceLen(rest) )
 			rest = rest.substr(w);
-		if( c = Util::commentLen(rest) )
+		if( c = Util::implCommentLen(rest) )
 			rest = rest.substr(c);
 		if( p = Util::preProcessortLen(rest))
 			rest = rest.substr(p);
@@ -250,7 +278,7 @@ int Util::skip(string& s)
 	do {
 		if( w = Util::whiteSapceLen(rest) )
 			rest = rest.substr(w);
-		if( c = Util::commentLen(rest) )
+		if( c = Util::CommentLen(rest) )
 			rest = rest.substr(c);
 		if( t = Util::literalLen(rest))
 			rest = rest.substr(t);
@@ -284,7 +312,7 @@ string Util::replaceComment(string s)
 		// can't replace /* in a literal string 
 		if( ridx = Util::literalLen(rest) )
 			idx += ridx;
-		else if( ridx = Util::commentLen(rest) )
+		else if( ridx = Util::CommentLen(rest) )
 			s.replace(idx, ridx, 1, ' ');
 		else
 			idx ++;
