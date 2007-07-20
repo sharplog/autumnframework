@@ -57,6 +57,14 @@ int ProductA_M_Wrapper::getParamTypes(string& method, string& types, int num)
 	return 0;
 }
 
+void* ProductA_M_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IProductA" )
+		return (IProductA*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_ProductA_M_Wrapper(){
 		return new ProductA_M_Wrapper;
@@ -103,6 +111,14 @@ int ProductB_M_Wrapper::getParamTypes(string& method, string& types, int num)
 		return -1;
 
 	return 0;
+}
+
+void* ProductB_M_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IProductA" )
+		return (IProductA*)(this->pBean);
+
+	return this->pBean;
 }
 
 extern "C"{

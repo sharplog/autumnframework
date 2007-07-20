@@ -60,6 +60,14 @@ int Factory1_Wrapper::getParamTypes(string& method, string& types, int num)
 	return 0;
 }
 
+void* Factory1_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IFactory" )
+		return (IFactory*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_Factory1_Wrapper(){
 		return new Factory1_Wrapper;
@@ -111,6 +119,14 @@ int Factory2_Wrapper::getParamTypes(string& method, string& types, int num)
 		return -1;
 
 	return 0;
+}
+
+void* Factory2_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IFactory" )
+		return (IFactory*)(this->pBean);
+
+	return this->pBean;
 }
 
 extern "C"{

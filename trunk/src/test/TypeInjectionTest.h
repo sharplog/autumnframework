@@ -18,7 +18,7 @@ class TypeInjectionTest{
 	CPPUNIT_TEST(testCustomizedType);
 
 	// not support multiple inheritance now.
-	//CPPUNIT_TEST(testMultiInherite);
+	CPPUNIT_TEST(testMultiInherite);
 	CPPUNIT_TEST_SUITE_END();
 
 private:

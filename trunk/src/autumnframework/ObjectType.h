@@ -48,7 +48,7 @@ public:
 	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
 			string name = *it++;
-			void* p = this->Bf->getBean(name);
+			void* p = this->Bf->getBean(name, type);
 			if( p != NULL ) return p;
 			
 			throw new CreateBeanFailedEx("ObjectType", "createValue",
