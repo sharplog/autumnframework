@@ -56,6 +56,10 @@ public:
 		DOCCOMMENT
 	};
 
+	IElement(){
+		this->Comment = NULL;
+	}
+
 	/** 
 	 * The string is a element of this type or not.
 	 * @param s the whole content of head file.
@@ -86,7 +90,7 @@ public:
 		this->Comment = comm;
 	}
 
-	/** Get comment of this element */
+	/** Get document comment of this element */
 	DocCommentElmt* getComment(){
 		return this->Comment;
 	}

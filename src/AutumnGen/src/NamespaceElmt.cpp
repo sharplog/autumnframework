@@ -50,6 +50,7 @@ IElement* NamespaceElmt::clone(string& s, int& idx0)
 
 	int idx, ridx;
 	idx = idx0 + brace + 1;
+	DocCommentElmt* dc = NULL;
 	while( idx < idx0 + endbrace ){
 		rest = s.substr(idx);
 
@@ -60,10 +61,21 @@ IElement* NamespaceElmt::clone(string& s, int& idx0)
 			IElement* child = ElmtFactory::makeElmt(s, idx);
 			if( child == NULL )
 				idx += Util::unrecognisedLen(rest);
-			else
+			else {
 				e->addChild(child);
+
+				// if child is a document comment
+				if( child->getType() == IElement::DOCCOMMENT ){
+					dc = (DocCommentElmt*)child;
+				}
+				else if( dc != NULL ) {
+					child->associateComment(dc);
+					dc = NULL;
+				}
+			}
 		}
 	}
+	
 	// modify idx0 only when successed
 	idx0 = idx0 + endbrace + 1;
 	return e;

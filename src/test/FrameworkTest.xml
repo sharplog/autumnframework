@@ -241,8 +241,8 @@
 			<bean class="ProductB_M" name="ProductBM" factory-method="getInstance" delete-method="deleteInstance"/>
 			
 			<!-- Test multiple inherite -->
-			<bean class="Multi_Bean" name="MultiBase" />
-			<bean class="Multi_Bean1" name="MultiBean">
+			<bean class="Multi_Base1" name="MultiBase" />
+			<bean class="Multi_Bean" name="MultiBean1">
 				<constructor-arg>
 					<argument>
 						<ref bean="MultiBase" />
@@ -251,6 +251,19 @@
 				<properties>
 					<property name="B1">
 						<ref bean="MultiBase" />
+					</property>
+				</properties>
+			</bean>
+			<bean class="Multi_Base2" name="MultiBase2" />
+			<bean class="Multi_Bean" name="MultiBean2">
+				<constructor-arg>
+					<argument>
+						<ref bean="MultiBase2" />
+					</argument>
+				</constructor-arg>
+				<properties>
+					<property name="B1">
+						<ref bean="MultiBase2" />
 					</property>
 				</properties>
 			</bean>

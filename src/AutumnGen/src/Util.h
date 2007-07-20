@@ -95,7 +95,7 @@ public:
 	 */
 	static int indexOf(string& s, char c);
 	
-	//以t为单字的开始，避免t在一个大的单词中
+	/** s begins with t, and t is not embedded in a longer word. */
 	static bool startWith(string& s, string t);
 
 	/** parse base name from a file path */

@@ -19,6 +19,100 @@
 #include "MultiInheriteBean_Wrapper.h"
 
 /**
+ * Wrapper methods for Base1
+ */
+void* Base1_Wrapper::execCreateMethod(string& method, void** Prams, int num)
+{
+	if( !method.compare("Base1") && num == 0 )
+		return (void*)(this->pBean = new Base1());
+
+	return NULL;
+}
+
+int Base1_Wrapper::execVoidMethod(string& method, void** Prams, int num)
+{
+	return -1;
+}
+
+int Base1_Wrapper::getParamTypes(string& method, string& types, int num)
+{
+	if( !method.compare("f1") && num == 0 )
+		types = string("");
+	else if( !method.compare("Base1") && num == 0 )
+		types = string("");
+	else 
+		return -1;
+
+	return 0;
+}
+
+void* Base1_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IBase1" )
+		return (IBase1*)(this->pBean);
+
+	return this->pBean;
+}
+
+extern "C"{
+	IBeanWrapper* create_Base1_Wrapper(){
+		return new Base1_Wrapper;
+	}
+	void delete_Base1_Wrapper(IBeanWrapper* p){
+		delete p;
+	}
+}
+
+AUTUMN_Base1_Wrapper_Local _AUTUMN_Base1_Wrapper_Local_;
+
+/**
+ * Wrapper methods for Base2
+ */
+void* Base2_Wrapper::execCreateMethod(string& method, void** Prams, int num)
+{
+	if( !method.compare("Base2") && num == 0 )
+		return (void*)(this->pBean = new Base2());
+
+	return NULL;
+}
+
+int Base2_Wrapper::execVoidMethod(string& method, void** Prams, int num)
+{
+	return -1;
+}
+
+int Base2_Wrapper::getParamTypes(string& method, string& types, int num)
+{
+	if( !method.compare("f2") && num == 0 )
+		types = string("");
+	else if( !method.compare("Base2") && num == 0 )
+		types = string("");
+	else 
+		return -1;
+
+	return 0;
+}
+
+void* Base2_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IBase2" )
+		return (IBase2*)(this->pBean);
+
+	return this->pBean;
+}
+
+extern "C"{
+	IBeanWrapper* create_Base2_Wrapper(){
+		return new Base2_Wrapper;
+	}
+	void delete_Base2_Wrapper(IBeanWrapper* p){
+		delete p;
+	}
+}
+
+AUTUMN_Base2_Wrapper_Local _AUTUMN_Base2_Wrapper_Local_;
+
+/**
  * Wrapper methods for Multi_Base1
  */
 void* Multi_Base1_Wrapper::execCreateMethod(string& method, void** Prams, int num)
@@ -38,6 +132,10 @@ int Multi_Base1_Wrapper::getParamTypes(string& method, string& types, int num)
 {
 	if( !method.compare("f1") && num == 0 )
 		types = string("");
+	else if( !method.compare("f2") && num == 0 )
+		types = string("");
+	else if( !method.compare("f3") && num == 0 )
+		types = string("");
 	else if( !method.compare("Multi_Base1") && num == 0 )
 		types = string("");
 	else 
@@ -48,6 +146,10 @@ int Multi_Base1_Wrapper::getParamTypes(string& method, string& types, int num)
 
 void* Multi_Base1_Wrapper::cast2Base(const string basename)
 {
+	if( basename == "IBase3" )
+		return (IBase3*)(this->pBean);
+	if( basename == "IBase2" )
+		return (IBase2*)(this->pBean);
 	if( basename == "IBase1" )
 		return (IBase1*)(this->pBean);
 
@@ -64,6 +166,66 @@ extern "C"{
 }
 
 AUTUMN_Multi_Base1_Wrapper_Local _AUTUMN_Multi_Base1_Wrapper_Local_;
+
+/**
+ * Wrapper methods for Multi_Bean
+ */
+void* Multi_Bean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
+{
+	if( !method.compare("Multi_Bean") && num == 1 )
+		return (void*)(this->pBean = new Multi_Bean(
+				*(IBase2**)Prams[0]));
+
+	return NULL;
+}
+
+int Multi_Bean_Wrapper::execVoidMethod(string& method, void** Prams, int num)
+{
+	if( !method.compare("setB1") && num == 1 )
+		this->pBean->setB1(
+					 *(IBase1**)Prams[0]);
+	else 
+		return -1;
+
+	return 0;
+}
+
+int Multi_Bean_Wrapper::getParamTypes(string& method, string& types, int num)
+{
+	if( !method.compare("Multi_Bean") && num == 1 )
+		types = string("")
+			  + "IBase2*|";
+	else if( !method.compare("setB1") && num == 1 )
+		types = string("")
+			  + "IBase1*|";
+	else if( !method.compare("getB1") && num == 0 )
+		types = string("");
+	else if( !method.compare("getB2") && num == 0 )
+		types = string("");
+	else 
+		return -1;
+
+	return 0;
+}
+
+void* Multi_Bean_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IMulti_Bean" )
+		return (IMulti_Bean*)(this->pBean);
+
+	return this->pBean;
+}
+
+extern "C"{
+	IBeanWrapper* create_Multi_Bean_Wrapper(){
+		return new Multi_Bean_Wrapper;
+	}
+	void delete_Multi_Bean_Wrapper(IBeanWrapper* p){
+		delete p;
+	}
+}
+
+AUTUMN_Multi_Bean_Wrapper_Local _AUTUMN_Multi_Bean_Wrapper_Local_;
 
 /**
  * Wrapper methods for Multi_Base2
@@ -83,7 +245,7 @@ int Multi_Base2_Wrapper::execVoidMethod(string& method, void** Prams, int num)
 
 int Multi_Base2_Wrapper::getParamTypes(string& method, string& types, int num)
 {
-	if( !method.compare("f2") && num == 0 )
+	if( !method.compare("f3") && num == 0 )
 		types = string("");
 	else if( !method.compare("Multi_Base2") && num == 0 )
 		types = string("");
@@ -95,6 +257,14 @@ int Multi_Base2_Wrapper::getParamTypes(string& method, string& types, int num)
 
 void* Multi_Base2_Wrapper::cast2Base(const string basename)
 {
+	if( basename == "IBase3" )
+		return (IBase3*)(this->pBean);
+	if( basename == "Base2" )
+		return (Base2*)(this->pBean);
+	if( basename == "Base1" )
+		return (Base1*)(this->pBean);
+	if( basename == "IBase1" )
+		return (IBase1*)(this->pBean);
 	if( basename == "IBase2" )
 		return (IBase2*)(this->pBean);
 
@@ -111,119 +281,4 @@ extern "C"{
 }
 
 AUTUMN_Multi_Base2_Wrapper_Local _AUTUMN_Multi_Base2_Wrapper_Local_;
-
-/**
- * Wrapper methods for Multi_Bean
- */
-void* Multi_Bean_Wrapper::execCreateMethod(string& method, void** Prams, int num)
-{
-	if( !method.compare("Multi_Bean") && num == 0 )
-		return (void*)(this->pBean = new Multi_Bean());
-
-	return NULL;
-}
-
-int Multi_Bean_Wrapper::execVoidMethod(string& method, void** Prams, int num)
-{
-	return -1;
-}
-
-int Multi_Bean_Wrapper::getParamTypes(string& method, string& types, int num)
-{
-	if( !method.compare("f1") && num == 0 )
-		types = string("");
-	else if( !method.compare("f2") && num == 0 )
-		types = string("");
-	else if( !method.compare("f3") && num == 0 )
-		types = string("");
-	else if( !method.compare("Multi_Bean") && num == 0 )
-		types = string("");
-	else 
-		return -1;
-
-	return 0;
-}
-
-void* Multi_Bean_Wrapper::cast2Base(const string basename)
-{
-	if( basename == "IBase3" )
-		return (IBase3*)(this->pBean);
-	if( basename == "IBase2" )
-		return (IBase2*)(this->pBean);
-	if( basename == "IBase1" )
-		return (IBase1*)(this->pBean);
-
-	return this->pBean;
-}
-
-extern "C"{
-	IBeanWrapper* create_Multi_Bean_Wrapper(){
-		return new Multi_Bean_Wrapper;
-	}
-	void delete_Multi_Bean_Wrapper(IBeanWrapper* p){
-		delete p;
-	}
-}
-
-AUTUMN_Multi_Bean_Wrapper_Local _AUTUMN_Multi_Bean_Wrapper_Local_;
-
-/**
- * Wrapper methods for Multi_Bean1
- */
-void* Multi_Bean1_Wrapper::execCreateMethod(string& method, void** Prams, int num)
-{
-	if( !method.compare("Multi_Bean1") && num == 1 )
-		return (void*)(this->pBean = new Multi_Bean1(
-				*(IBase2**)Prams[0]));
-
-	return NULL;
-}
-
-int Multi_Bean1_Wrapper::execVoidMethod(string& method, void** Prams, int num)
-{
-	if( !method.compare("setB1") && num == 1 )
-		this->pBean->setB1(
-					 *(IBase1**)Prams[0]);
-	else 
-		return -1;
-
-	return 0;
-}
-
-int Multi_Bean1_Wrapper::getParamTypes(string& method, string& types, int num)
-{
-	if( !method.compare("Multi_Bean1") && num == 1 )
-		types = string("")
-			  + "IBase2*|";
-	else if( !method.compare("setB1") && num == 1 )
-		types = string("")
-			  + "IBase1*|";
-	else if( !method.compare("getB1") && num == 0 )
-		types = string("");
-	else if( !method.compare("getB2") && num == 0 )
-		types = string("");
-	else 
-		return -1;
-
-	return 0;
-}
-
-void* Multi_Bean1_Wrapper::cast2Base(const string basename)
-{
-	if( basename == "IMulti_Bean" )
-		return (IMulti_Bean*)(this->pBean);
-
-	return this->pBean;
-}
-
-extern "C"{
-	IBeanWrapper* create_Multi_Bean1_Wrapper(){
-		return new Multi_Bean1_Wrapper;
-	}
-	void delete_Multi_Bean1_Wrapper(IBeanWrapper* p){
-		delete p;
-	}
-}
-
-AUTUMN_Multi_Bean1_Wrapper_Local _AUTUMN_Multi_Bean1_Wrapper_Local_;
 

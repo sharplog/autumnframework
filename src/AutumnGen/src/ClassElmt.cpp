@@ -20,6 +20,7 @@
 #include "Configuration.h"
 #include "ElmtFactory.h"
 #include "MethodElmt.h"
+#include "DocCommentElmt.h"
 #include "ClassElmt.h"
 
 bool ClassElmt::isThisType(string& s, int idx)
@@ -69,6 +70,7 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 	int idx, ridx;
 	idx = idx0 + brace + 1;
 	string scope = "private";
+	DocCommentElmt* dc = NULL;
 
 	while( idx < idx0 + endbrace ){
 		rest = s.substr(idx);
@@ -95,6 +97,15 @@ IElement* ClassElmt::clone(string& s, int& idx0)
 			else{
 				child->setScope(scope);
 				e->addChild(child);
+
+				// if child is a document comment
+				if( child->getType() == IElement::DOCCOMMENT ){
+					dc = (DocCommentElmt*)child;
+				}
+				else if( dc != NULL ) {
+					child->associateComment(dc);
+					dc = NULL;
+				}
 			}
 		}
 	}
@@ -307,6 +318,7 @@ string ClassElmt::genWrapper4GPT()
 string ClassElmt::genWrapper4Cast()
 {
 	string wrappername = this->getName() + Configuration::getCWS();
+	DocCommentElmt* dc = this->getComment();
 
 	ostringstream os;
 	os<<
@@ -318,6 +330,14 @@ string ClassElmt::genWrapper4Cast()
 		string base = this->BaseClass[i];
 		os << "	if( basename == \"" << base << "\" )" << endl <<
 			  "		return (" << base << "*)(this->pBean);" << endl;
+	}
+	if( dc != NULL){
+		vector<string> bv = dc->valueOfTag("base");
+		for( int j=0; j<bv.size(); j++){
+			os << "	if( basename == \"" << bv[j] << "\" )" << endl <<
+				  "		return (" << bv[j] << "*)(this->pBean);" << endl;
+	}
+
 	}
 	os							<< endl <<
 	"	return this->pBean;"	<< endl <<

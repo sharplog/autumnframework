@@ -23,6 +23,104 @@
 #include "MultiInheriteBean.h"
 
 /**
+ * Wrapper for Base1
+ */
+class Base1_Wrapper: public IBeanWrapper{
+	Base1* pBean;
+
+public: 
+	Base1_Wrapper(){
+		this->setBeanName("Base1");
+		this->pBean = NULL;
+	}
+
+	~Base1_Wrapper(){
+		if( this->pBean && !this->deleteBean() )
+			delete this->pBean;
+	}
+
+	void* getBean(){ return (void*)this->pBean; }
+	void  setBean(void* p){
+		this->pBean = (Base1*)p;
+	}
+
+	void* execCreateMethod(string& method, void** Prams, int num);
+
+	int execVoidMethod(string& method, void** Prams, int num);
+
+	int getParamTypes(string& method, string& types, int num);
+
+	void* cast2Base(const string basename);
+
+};
+
+extern "C"{
+	DLL_EXPORT IBeanWrapper* create_Base1_Wrapper();
+	DLL_EXPORT void delete_Base1_Wrapper(IBeanWrapper*);
+}
+
+class AUTUMN_Base1_Wrapper_Local{
+public:
+	AUTUMN_Base1_Wrapper_Local(){
+		registerLocalFunction(
+				"create_Base1_Wrapper",
+				(void*)create_Base1_Wrapper);
+		registerLocalFunction(
+				"delete_Base1_Wrapper",
+				(void*)delete_Base1_Wrapper);
+	}
+};
+
+/**
+ * Wrapper for Base2
+ */
+class Base2_Wrapper: public IBeanWrapper{
+	Base2* pBean;
+
+public: 
+	Base2_Wrapper(){
+		this->setBeanName("Base2");
+		this->pBean = NULL;
+	}
+
+	~Base2_Wrapper(){
+		if( this->pBean && !this->deleteBean() )
+			delete this->pBean;
+	}
+
+	void* getBean(){ return (void*)this->pBean; }
+	void  setBean(void* p){
+		this->pBean = (Base2*)p;
+	}
+
+	void* execCreateMethod(string& method, void** Prams, int num);
+
+	int execVoidMethod(string& method, void** Prams, int num);
+
+	int getParamTypes(string& method, string& types, int num);
+
+	void* cast2Base(const string basename);
+
+};
+
+extern "C"{
+	DLL_EXPORT IBeanWrapper* create_Base2_Wrapper();
+	DLL_EXPORT void delete_Base2_Wrapper(IBeanWrapper*);
+}
+
+class AUTUMN_Base2_Wrapper_Local{
+public:
+	AUTUMN_Base2_Wrapper_Local(){
+		registerLocalFunction(
+				"create_Base2_Wrapper",
+				(void*)create_Base2_Wrapper);
+		registerLocalFunction(
+				"delete_Base2_Wrapper",
+				(void*)delete_Base2_Wrapper);
+	}
+};
+
+/**
  * Wrapper for Multi_Base1
  */
 class Multi_Base1_Wrapper: public IBeanWrapper{
@@ -68,55 +166,6 @@ public:
 		registerLocalFunction(
 				"delete_Multi_Base1_Wrapper",
 				(void*)delete_Multi_Base1_Wrapper);
-	}
-};
-
-/**
- * Wrapper for Multi_Base2
- */
-class Multi_Base2_Wrapper: public IBeanWrapper{
-	Multi_Base2* pBean;
-
-public: 
-	Multi_Base2_Wrapper(){
-		this->setBeanName("Multi_Base2");
-		this->pBean = NULL;
-	}
-
-	~Multi_Base2_Wrapper(){
-		if( this->pBean && !this->deleteBean() )
-			delete this->pBean;
-	}
-
-	void* getBean(){ return (void*)this->pBean; }
-	void  setBean(void* p){
-		this->pBean = (Multi_Base2*)p;
-	}
-
-	void* execCreateMethod(string& method, void** Prams, int num);
-
-	int execVoidMethod(string& method, void** Prams, int num);
-
-	int getParamTypes(string& method, string& types, int num);
-
-	void* cast2Base(const string basename);
-
-};
-
-extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Multi_Base2_Wrapper();
-	DLL_EXPORT void delete_Multi_Base2_Wrapper(IBeanWrapper*);
-}
-
-class AUTUMN_Multi_Base2_Wrapper_Local{
-public:
-	AUTUMN_Multi_Base2_Wrapper_Local(){
-		registerLocalFunction(
-				"create_Multi_Base2_Wrapper",
-				(void*)create_Multi_Base2_Wrapper);
-		registerLocalFunction(
-				"delete_Multi_Base2_Wrapper",
-				(void*)delete_Multi_Base2_Wrapper);
 	}
 };
 
@@ -170,25 +219,25 @@ public:
 };
 
 /**
- * Wrapper for Multi_Bean1
+ * Wrapper for Multi_Base2
  */
-class Multi_Bean1_Wrapper: public IBeanWrapper{
-	Multi_Bean1* pBean;
+class Multi_Base2_Wrapper: public IBeanWrapper{
+	Multi_Base2* pBean;
 
 public: 
-	Multi_Bean1_Wrapper(){
-		this->setBeanName("Multi_Bean1");
+	Multi_Base2_Wrapper(){
+		this->setBeanName("Multi_Base2");
 		this->pBean = NULL;
 	}
 
-	~Multi_Bean1_Wrapper(){
+	~Multi_Base2_Wrapper(){
 		if( this->pBean && !this->deleteBean() )
 			delete this->pBean;
 	}
 
 	void* getBean(){ return (void*)this->pBean; }
 	void  setBean(void* p){
-		this->pBean = (Multi_Bean1*)p;
+		this->pBean = (Multi_Base2*)p;
 	}
 
 	void* execCreateMethod(string& method, void** Prams, int num);
@@ -202,19 +251,19 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Multi_Bean1_Wrapper();
-	DLL_EXPORT void delete_Multi_Bean1_Wrapper(IBeanWrapper*);
+	DLL_EXPORT IBeanWrapper* create_Multi_Base2_Wrapper();
+	DLL_EXPORT void delete_Multi_Base2_Wrapper(IBeanWrapper*);
 }
 
-class AUTUMN_Multi_Bean1_Wrapper_Local{
+class AUTUMN_Multi_Base2_Wrapper_Local{
 public:
-	AUTUMN_Multi_Bean1_Wrapper_Local(){
+	AUTUMN_Multi_Base2_Wrapper_Local(){
 		registerLocalFunction(
-				"create_Multi_Bean1_Wrapper",
-				(void*)create_Multi_Bean1_Wrapper);
+				"create_Multi_Base2_Wrapper",
+				(void*)create_Multi_Base2_Wrapper);
 		registerLocalFunction(
-				"delete_Multi_Bean1_Wrapper",
-				(void*)delete_Multi_Bean1_Wrapper);
+				"delete_Multi_Base2_Wrapper",
+				(void*)delete_Multi_Base2_Wrapper);
 	}
 };
 
