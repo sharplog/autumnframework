@@ -95,6 +95,14 @@ int BeanTypeBean_Wrapper::getParamTypes(string& method, string& types, int num)
 	return 0;
 }
 
+void* BeanTypeBean_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IBasicTypesBean" )
+		return (IBasicTypesBean*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_BeanTypeBean_Wrapper(){
 		return new BeanTypeBean_Wrapper;

@@ -85,6 +85,14 @@ int SelfManagedBean_Wrapper::getParamTypes(string& method, string& types, int nu
 	return 0;
 }
 
+void* SelfManagedBean_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IBasicTypesBean" )
+		return (IBasicTypesBean*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_SelfManagedBean_Wrapper(){
 		return new SelfManagedBean_Wrapper;

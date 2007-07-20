@@ -242,6 +242,18 @@
 			
 			<!-- Test multiple inherite -->
 			<bean class="Multi_Bean" name="MultiBase" />
+			<bean class="Multi_Bean1" name="MultiBean">
+				<constructor-arg>
+					<argument>
+						<ref bean="MultiBase" />
+					</argument>
+				</constructor-arg>
+				<properties>
+					<property name="B1">
+						<ref bean="MultiBase" />
+					</property>
+				</properties>
+			</bean>
 			
 		</beans>
 		<types>

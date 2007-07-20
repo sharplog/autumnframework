@@ -63,6 +63,14 @@ int LowerAction_Wrapper::getParamTypes(string& method, string& types, int num)
 	return 0;
 }
 
+void* LowerAction_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "Action" )
+		return (Action*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_LowerAction_Wrapper(){
 		return new LowerAction_Wrapper;

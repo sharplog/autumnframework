@@ -81,8 +81,8 @@ public:
 	/** Generate wrapper .cpp file part of this element */
 	virtual string genWrapperCPP() = 0;
 	
-	/** Set a comment for this element. */
-	void setComment(DocCommentElmt* comm){
+	/** Associate a document comment with this element. */
+	void associateComment(DocCommentElmt* comm){
 		this->Comment = comm;
 	}
 
@@ -124,8 +124,6 @@ public:
 	virtual ~IElement(){
 		for(int i=0; i<this->ChildElmts.size(); i++)
 			delete this->ChildElmts[i];
-
-		delete this->Comment;
 	}
 };
 

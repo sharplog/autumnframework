@@ -17,7 +17,7 @@ void TypeInjectionTest::tearDown()
 void TypeInjectionTest::testBasicType()
 {
 	IBasicTypesBean* b = (IBasicTypesBean*)this->bf->getBean("BasicTypesBean1");
-//
+
 	CPPUNIT_ASSERT(b->getChar() == 'c');
 	CPPUNIT_ASSERT(b->getUChar() == 'u');
 	CPPUNIT_ASSERT(b->getShort() == 123);
@@ -143,11 +143,15 @@ void TypeInjectionTest::testCustomizedType()
 
 void TypeInjectionTest::testMultiInherite()
 {
-	IBase1* b1 = (IBase1*)this->bf->getBean("MultiBase");
-	IBase2* b2 = (IBase2*)this->bf->getBean("MultiBase");
+	IBase1* b1 = (IBase1*)this->bf->getBean("MultiBase", "IBase1");
+	IBase2* b2 = (IBase2*)this->bf->getBean("MultiBase", "IBase2");
+	IMulti_Bean* b3 = (IMulti_Bean*)this->bf->getBean("MultiBean");
 	
 	CPPUNIT_ASSERT(b1->f1() == 1);
 	CPPUNIT_ASSERT(b2->f2() == 2);
+	CPPUNIT_ASSERT(b3->getB1() == 1);
+	CPPUNIT_ASSERT(b3->getB2() == 2);
 	this->bf->freeBean(b1);
 	this->bf->freeBean(b2);
+	this->bf->freeBean(b3);
 }

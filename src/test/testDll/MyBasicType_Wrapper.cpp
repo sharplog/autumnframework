@@ -74,6 +74,14 @@ int MyBasicType_Wrapper::getParamTypes(string& method, string& types, int num)
 	return 0;
 }
 
+void* MyBasicType_Wrapper::cast2Base(const string basename)
+{
+	if( basename == "IAutumnType" )
+		return (IAutumnType*)(this->pBean);
+
+	return this->pBean;
+}
+
 extern "C"{
 	IBeanWrapper* create_MyBasicType_Wrapper(){
 		return new MyBasicType_Wrapper;

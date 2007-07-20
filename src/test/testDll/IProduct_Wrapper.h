@@ -50,6 +50,8 @@ public:
 
 	int getParamTypes(string& method, string& types, int num);
 
+	void* cast2Base(const string basename);
+
 };
 
 extern "C"{
@@ -97,6 +99,8 @@ public:
 
 	int getParamTypes(string& method, string& types, int num);
 
+	void* cast2Base(const string basename);
+
 };
 
 extern "C"{
@@ -143,6 +147,8 @@ public:
 	int execVoidMethod(string& method, void** Prams, int num);
 
 	int getParamTypes(string& method, string& types, int num);
+
+	void* cast2Base(const string basename);
 
 };
 

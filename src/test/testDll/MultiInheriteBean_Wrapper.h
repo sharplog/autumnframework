@@ -50,6 +50,8 @@ public:
 
 	int getParamTypes(string& method, string& types, int num);
 
+	void* cast2Base(const string basename);
+
 };
 
 extern "C"{
@@ -96,6 +98,8 @@ public:
 	int execVoidMethod(string& method, void** Prams, int num);
 
 	int getParamTypes(string& method, string& types, int num);
+
+	void* cast2Base(const string basename);
 
 };
 
@@ -144,6 +148,8 @@ public:
 
 	int getParamTypes(string& method, string& types, int num);
 
+	void* cast2Base(const string basename);
+
 };
 
 extern "C"{
@@ -160,6 +166,55 @@ public:
 		registerLocalFunction(
 				"delete_Multi_Bean_Wrapper",
 				(void*)delete_Multi_Bean_Wrapper);
+	}
+};
+
+/**
+ * Wrapper for Multi_Bean1
+ */
+class Multi_Bean1_Wrapper: public IBeanWrapper{
+	Multi_Bean1* pBean;
+
+public: 
+	Multi_Bean1_Wrapper(){
+		this->setBeanName("Multi_Bean1");
+		this->pBean = NULL;
+	}
+
+	~Multi_Bean1_Wrapper(){
+		if( this->pBean && !this->deleteBean() )
+			delete this->pBean;
+	}
+
+	void* getBean(){ return (void*)this->pBean; }
+	void  setBean(void* p){
+		this->pBean = (Multi_Bean1*)p;
+	}
+
+	void* execCreateMethod(string& method, void** Prams, int num);
+
+	int execVoidMethod(string& method, void** Prams, int num);
+
+	int getParamTypes(string& method, string& types, int num);
+
+	void* cast2Base(const string basename);
+
+};
+
+extern "C"{
+	DLL_EXPORT IBeanWrapper* create_Multi_Bean1_Wrapper();
+	DLL_EXPORT void delete_Multi_Bean1_Wrapper(IBeanWrapper*);
+}
+
+class AUTUMN_Multi_Bean1_Wrapper_Local{
+public:
+	AUTUMN_Multi_Bean1_Wrapper_Local(){
+		registerLocalFunction(
+				"create_Multi_Bean1_Wrapper",
+				(void*)create_Multi_Bean1_Wrapper);
+		registerLocalFunction(
+				"delete_Multi_Bean1_Wrapper",
+				(void*)delete_Multi_Bean1_Wrapper);
 	}
 };
 

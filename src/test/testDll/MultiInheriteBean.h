@@ -18,11 +18,22 @@ public:
 	int f2(){ return 2;}	
 };
 
-class Multi_Bean: public IBase2, public IBase1{
+class Multi_Bean: public IBase3, public IBase2, public IBase1{
 public:
 	int f1(){ return 1;}	
 	int f2(){ return 2;}	
+	int f3(){ return 3;}	
 
+};
+
+class Multi_Bean1: public IMulti_Bean{
+	IBase1* b1;
+	IBase2* b2;
+public:
+	Multi_Bean1(IBase2* b){ this->b2 = b; }
+	void setB1(IBase1* b){ this->b1 = b; }
+	int getB1(){ return b1->f1(); }
+	int getB2(){ return b2->f2(); }
 };
 
 #endif
