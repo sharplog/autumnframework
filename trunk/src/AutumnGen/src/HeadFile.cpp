@@ -38,6 +38,7 @@ HeadFile::HeadFile(string infile)
 	this->readFile(infile, fileContent);
 
 	int idx = 0, ridx;
+	DocCommentElmt* dc = NULL;
 	while( idx <fileContent.size() ){
 		rest = fileContent.substr(idx);
 
@@ -48,8 +49,18 @@ HeadFile::HeadFile(string infile)
 			IElement* e = ElmtFactory::makeElmt(fileContent, idx);
 			if( e == NULL )
 				idx += Util::unrecognisedLen(rest);
-			else
+			else{
 				this->Elements.push_back(e);
+
+				// if e is a document comment
+				if( e->getType() == IElement::DOCCOMMENT ){
+					dc = (DocCommentElmt*)e;
+				}
+				else if( dc != NULL ) {
+					e->associateComment(dc);
+					dc = NULL;
+				}
+			}
 		}
 	}
 }

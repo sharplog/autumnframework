@@ -17,13 +17,14 @@
 #ifndef AUTUMNGEN_DOCCOMMENT_H
 #define AUTUMNGEN_DOCCOMMENT_H
 
+#include <vector>
 #include "IElement.h"
 #include "Util.h"
 
 using namespace std;
 
 /** 
- * Document comment
+ * Document comment, the text between '/**' and '*'&'/'
  */
 class DocCommentElmt: public IElement{
 
@@ -77,10 +78,10 @@ public:
 	}
 	
 	/** 
-	 * return a value of a tag
+	 * return the value of a tag, the words after @tagname.
 	 * @param tag tag's name
 	 */
-	string getValueOf(const string& tag);
+	vector<string> valueOfTag(const string& tag);
 };
 
 #endif

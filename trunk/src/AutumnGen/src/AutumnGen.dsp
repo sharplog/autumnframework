@@ -101,6 +101,10 @@ SOURCE=.\Configuration.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\DocCommentElmt.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ElmtFactory.cpp
 # End Source File
 # Begin Source File
