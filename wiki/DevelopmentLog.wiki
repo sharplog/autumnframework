@@ -1,6 +1,9 @@
 #summary Development log.
 #labels Featured
 
+== 07/20/2007 ==
+Autumn framework and AutumnGen support multi-inheritance, including direct and indirect inheritance. Indirect inheritance should list base classes in doccomment.
+
 == 07/04/2007 ==
 AutumnGen support multi-inheritance, but only for multiple father classes, not for multiple father's father classes.
 
