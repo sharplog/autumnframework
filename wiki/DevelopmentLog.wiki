@@ -1,6 +1,10 @@
 #summary Development log.
 #labels Featured
 
+== 07/21/2007 ==
+ * fixed Issues1-3
+ * add namespace Autumn for Autumn framework.
+
 == 07/20/2007 ==
 Autumn framework and AutumnGen support multi-inheritance, including direct and indirect inheritance. Indirect inheritance should list base classes in doccomment.
 
