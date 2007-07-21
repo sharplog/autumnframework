@@ -34,7 +34,7 @@ void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 	
 	// if not return 0
 	if( rtn ){	
-		throw new SetPropertyFailedEx("BeanProperty", "setProperty", 
+		throw SetPropertyFailedEx("BeanProperty", "setProperty", 
 			string("Set property[") + this->Name + "] of Bean[" + 
 			pw->getBeanName() + "] failed!");
 	}

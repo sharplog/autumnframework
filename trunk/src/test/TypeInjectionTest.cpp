@@ -4,9 +4,11 @@
 #include "IBasicTypesBean.h"
 #include "IMultiBase.h"
 
+extern char TestConFile[];
+
 void TypeInjectionTest::setUp()
 {
-	this->bf = getBeanFactoryWithXML("FrameworkTest.xml");
+	this->bf = getBeanFactoryWithXML(TestConFile);
 }
 
 void TypeInjectionTest::tearDown()

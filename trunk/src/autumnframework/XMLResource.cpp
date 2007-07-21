@@ -33,11 +33,11 @@ XMLResource::XMLResource(const char* path)
 	XMLNode rootNode = XMLNode::parseFile(path, rootTag, &errRlt);
 	if( errRlt.error != eXMLErrorNone ){
 		if( errRlt.error == eXMLErrorFileNotFound ){
-			throw new XMLParsingEx("XMLResource", "XMLResource", 
+			throw XMLParsingEx("XMLResource", "XMLResource", 
 				string("File not found: ") + path + ". ");
 		}
 		else{
-			throw new XMLParsingEx("XMLResource", "XMLResource", 
+			throw XMLParsingEx("XMLResource", "XMLResource", 
 				string("Error when parsing file '") + path + "'. " + 
 				this->getErrorMsg(errRlt, rootTag));
 		}
@@ -51,7 +51,7 @@ XMLResource::XMLResource(const char* path)
 		this->LibsConfig.push_back(plib.release());
 	}
 	if( n == 0)
-		throw new XMLParsingEx("XMLResource", "XMLResource", 
+		throw XMLParsingEx("XMLResource", "XMLResource", 
 			string("Error when parsing tag '") + libTag + 
 			"'. There is no element '" + libTag + "'.");
 }
@@ -71,7 +71,7 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 	if( ns   != NULL ) lib.NS   = ns;
 
 	if( lib.Path.empty() ){
-		throw new XMLParsingEx("XMLResource", "parseLibrary", 
+		throw XMLParsingEx("XMLResource", "parseLibrary", 
 			string("Error when parsing library '") + lib.Name + 
 			"'. There is no path.");
 	}
@@ -91,7 +91,7 @@ void XMLResource::parseLibrary(XMLNode& xml, TLibrary& lib)
 		lib.Beans.push_back(*pbean);
 	}
 	if( n==0 ){
-		throw new XMLParsingEx("XMLResource", "parseLibrary", 
+		throw XMLParsingEx("XMLResource", "parseLibrary", 
 			string("Error when parsing tag '") + beanTag + 
 			"'. There is no element '" + beanTag + "'.");
 	}
@@ -133,7 +133,7 @@ void XMLResource::parseBean(XMLNode& xml, TBean& bean)
 	if( factory != NULL ) bean.FactoryBean = factory;
 	
 	if( bean.ClassName.empty() ){
-		throw new XMLParsingEx("XMLResource", "parseBean", 
+		throw XMLParsingEx("XMLResource", "parseBean", 
 			string("Error when parsing type '") + bean.Name + 
 			"'. There is no class name.");
 	}
@@ -192,7 +192,7 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop, bool isProp)
 	XMLCSTR name = xml.getAttribute("name");
 	if( name != NULL ) prop.Name = name;
 	if( prop.Name.empty() && isProp == true ){
-		throw new XMLParsingEx("XMLResource", "parseProperty", 
+		throw XMLParsingEx("XMLResource", "parseProperty", 
 			"Error when parsing property. There is no property name.");
 	}
 	
@@ -224,14 +224,14 @@ void XMLResource::parseProperty(XMLNode& xml, TProperty& prop, bool isProp)
 			prop.IsBeanRef = true;
 		}
 		else{
-			throw new XMLParsingEx("XMLResource", "parseProperty", 
+			throw XMLParsingEx("XMLResource", "parseProperty", 
 				"Error when parsing property '" + prop.Name + 
 				"'. There is no reference bean name .");
 		}
 	}
 	
 	if( n==0 && ref.isEmpty() ) {
-		throw new XMLParsingEx("XMLResource", "parseProperty", 
+		throw XMLParsingEx("XMLResource", "parseProperty", 
 			"Error when parsing property '" + prop.Name + 
 			"'. There is no value.");
 	}
@@ -258,7 +258,7 @@ bool XMLResource::boolAttribute(string value, string name)
 	else if( value.compare("false") == 0 )
 		return false;
 	else{
-		throw new XMLParsingEx("XMLResource", "boolAttribute", 
+		throw XMLParsingEx("XMLResource", "boolAttribute", 
 			"The value of '" + name + "' must be 'true' or 'false'.");
 		// useless, only avoid some compiler to warn
 		return true;

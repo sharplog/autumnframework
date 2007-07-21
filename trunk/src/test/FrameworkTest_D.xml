@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autumn xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="E:\Workplace\AutumnFramework\doc\Design\autumn.xsd">
+	<library path="./lib/TestDll_D.dll">
+		<beans>
+			<!-- BasicTypesBean1 tests property setter -->
+			<bean class="BasicTypesBean" name="BasicTypesBean1">
+				<properties>
+					<property name="Char">
+						<value>c</value>
+					</property>
+					<property name="UChar">
+						<value>u</value>
+					</property>
+					<property name="Short">
+						<value>123</value>
+					</property>
+					<property name="UShort">
+						<value>65530</value>
+					</property>
+					<property name="Int">
+						<value>70000</value>
+					</property>
+					<property name="UInt">
+						<value>77777</value>
+					</property>
+					<property name="Long">
+						<value>8000000</value>
+					</property>
+					<property name="ULong">
+						<value>4294967295</value>
+					</property>
+					<property name="Float">
+						<value>1.234567</value>
+					</property>
+					<property name="Double">
+						<value>1.23456789012345</value>
+					</property>
+					<property name="String">
+						<value>hello, String</value>
+					</property>
+					<property name="CStr">
+						<value>hello, CStr</value>
+					</property>
+					<property name="UCStr">
+						<value>hello, UCStr</value>
+					</property>
+				</properties>
+			</bean>
+			
+			<!-- BasicTypesBean2 tests constructor -->
+			<bean class="BasicTypesBean" name="BasicTypesBean2">
+				<constructor-arg>
+					<argument>
+						<value>c</value>
+					</argument>
+					<argument>
+						<value>u</value>
+					</argument>
+					<argument>
+						<value>123</value>
+					</argument>
+					<argument>
+						<value>65530</value>
+					</argument>
+					<argument>
+						<value>70000</value>
+					</argument>
+					<argument>
+						<value>77777</value>
+					</argument>
+					<argument>
+						<value>8000000</value>
+					</argument>
+					<argument>
+						<value>4294967295</value>
+					</argument>
+					<argument>
+						<value>1.234567</value>
+					</argument>
+					<argument>
+						<value>1.23456789012345</value>
+					</argument>
+					<argument>
+						<value>hello, String</value>
+					</argument>
+					<argument type="char*">
+						<value>hello, CStr</value>
+					</argument>
+					<argument type="unsigned char*">
+						<value>hello, UCStr</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			
+			<!-- BasicTypesBean3 tests pointer type -->
+			<bean class="BasicTypesBean" name="BasicTypesBean3">
+				<properties>
+					<property name="IntP">
+						<value>70000</value>
+					</property>
+					<property name="CStrP">
+						<value>hello, CStr</value>
+					</property>
+				</properties>
+			</bean>
+
+			<!-- BeanTypeBean test bean injection -->
+			<bean class="BeanTypeBean" name="BeanTypeBean1">
+				<properties>
+					<property name="Int">
+						<value>BasicTypesBean3</value>
+					</property>
+					<property name="CStr">
+						<ref bean="BasicTypesBean4"/>
+					</property>
+				</properties>
+			</bean>
+			<bean class="BeanTypeBean" name="BeanTypeBean2">
+				<constructor-arg>
+					<argument>
+						<value>BasicTypesBean3</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="BasicTypesBean" name="BasicTypesBean4">
+				<properties>
+					<property name="CStr">
+						<value>hello, CStr for bean4</value>
+					</property>
+				</properties>
+			</bean>
+			
+			<!-- BeanTypeBean3 test bean injection from another library -->
+			<bean class="BeanTypeBean" name="BeanTypeBean5">
+				<constructor-arg>
+					<argument>
+						<value>BasicTypesBean2-1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+
+			<!-- SingletonBean test singleton property -->
+			<bean class="SingletonBean" name="NotSingleton1">
+				<properties>
+					<property name="String">
+						<value>Not Singleton</value>
+					</property>
+				</properties>
+			</bean>
+			<bean class="SingletonBean" name="SingletonBean1" singleton="true">
+				<properties>
+					<property name="String">
+						<value>Singleton Bean</value>
+					</property>
+				</properties>
+			</bean>
+			
+			<!-- InitDestBean test destroyable and initializable property -->
+			<bean class="InitDestBean" name="InitDestBean1" init-method="initialize" destroy-method="destroy">
+				<constructor-arg>
+					<argument type="SingletonBean*">
+						<value>SingletonBean1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			
+			<!-- The fllowing is useless, self-managed property can't be used-->
+			<!-- SelfManagedBean test self-managed property -->
+			<!--
+			<bean class="SelfManagedBean" name="SelfManagedBean1">
+					<constructor-arg>
+						<argument name="arg1" type="SingletonBean*" autumn-manage="false">
+							<value>NotSingleton1</value>
+						</argument>
+					</constructor-arg>
+					<properties>
+						<property name="CStr" type="char*" autumn-manage="false">
+							<value>Hello, SelfManagedBean</value>
+						</property>
+					</properties>
+			</bean>
+			-->
+
+			<!-- MyTypeBean test customized types -->
+			<bean class="MyTypeBean" name="MyTypeBean1">
+				<properties>
+					<property name="MyData">
+						<value>100</value>
+						<value>Hi, MyData!</value>
+					</property>
+				</properties>
+			</bean>
+			
+			<!-- test factory -->
+			<bean class="Factory1" name="Factory11" singleton="true" />
+			<bean class="Factory2" name="Factory22" singleton="true" />
+			<bean class="IProductA" name="ProductA1" factory-bean="Factory11"  factory-method="createProductA">
+				<constructor-arg>
+					<argument>
+						<value>name_A1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="IProductB" name="ProductB1" factory-bean="Factory11" factory-method="createProductB">
+				<constructor-arg>
+					<argument>
+						<value>name_B1</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="IProductC" name="ProductC1" factory-bean="Factory11" factory-method="createProductC">
+				<properties>
+					<property name="Name">
+						<value>name_C1</value>
+					</property>
+				</properties>
+			</bean>
+			<bean class="IProductA" name="ProductA2"  factory-bean="Factory22" factory-method="createProductA">
+				<constructor-arg>
+					<argument>
+						<value>name_A2</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="IProductB" name="ProductB2" factory-bean="Factory22" factory-method="createProductB">
+				<constructor-arg>
+					<argument>
+						<value>name_B2</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			
+			<!-- Test static factory method -->
+			<bean class="ProductA_M" name="ProductAM" factory-method="getInstance" delete-method="deleteInstance">
+				<constructor-arg>
+					<argument>
+						<value>name_AM</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+			<bean class="ProductB_M" name="ProductBM" factory-method="getInstance" delete-method="deleteInstance"/>
+			
+			<!-- Test multiple inherite -->
+			<bean class="Multi_Base1" name="MultiBase" />
+			<bean class="Multi_Bean" name="MultiBean1">
+				<constructor-arg>
+					<argument>
+						<ref bean="MultiBase" />
+					</argument>
+				</constructor-arg>
+				<properties>
+					<property name="B1">
+						<ref bean="MultiBase" />
+					</property>
+				</properties>
+			</bean>
+			<bean class="Multi_Base2" name="MultiBase2" />
+			<bean class="Multi_Bean" name="MultiBean2">
+				<constructor-arg>
+					<argument>
+						<ref bean="MultiBase2" />
+					</argument>
+				</constructor-arg>
+				<properties>
+					<property name="B1">
+						<ref bean="MultiBase2" />
+					</property>
+				</properties>
+			</bean>
+			
+		</beans>
+		<types>
+			<bean class="MyBasicType" name="MyData" />
+		</types>
+	</library>
+	
+	<library path="./lib/TestDll2_D.dll">
+		<beans>
+			<bean class="BasicTypesBean" name="BasicTypesBean2-1">
+				<properties>
+					<property name="IntP">
+						<value>70021</value>
+					</property>
+					<property name="CStrP">
+						<value>hello, CStr2-1</value>
+					</property>
+				</properties>
+			</bean>
+		</beans>
+	</library>
+	
+	<library path="local">
+		<beans>
+			<bean class="LocalBean" name="LocalBean1">
+				<properties>
+					<property name="Int">
+						<value>BasicTypesBean3</value>
+					</property>
+					<property name="CStr">
+						<value>hello, Local Bean</value>
+					</property>
+				</properties>
+			</bean>
+			
+			<!-- Configure autumn framework logger bean -->
+			<bean class="FileLogger" name="AutumnFrameworkLog" singleton="true">
+				<constructor-arg>
+					<argument>
+						<value>AutumnApp.log</value>
+					</argument>
+					<argument>
+						<value>0</value>
+					</argument>
+				</constructor-arg>
+			</bean>
+		</beans>
+	</library>
+	
+</autumn>

@@ -59,7 +59,7 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 {
 	// the bean exists or not
 	if( this->Beans.find(bean.Name) != this->Beans.end() ){
-		throw new ReduplicateEx("AutumnConfig", "processBean", 
+		throw ReduplicateEx("AutumnConfig", "processBean", 
 			"Reduplicate defined bean [" + bean.Name + "]!");
 	}
 
@@ -67,7 +67,7 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	string funName = this->mangleName("bean", "create", bean.ClassName);
 	WrapperMaker* pw = (WrapperMaker*)pl->getFunction(funName);
 	if( pw == NULL ){
-		throw new NotFoundEx("AutumnConfig", "processBean", 
+		throw NotFoundEx("AutumnConfig", "processBean", 
 			"Geting WrapperMaker failed for class '" + bean.ClassName + "'.");
 	}
 
@@ -75,7 +75,7 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	funName = this->mangleName("bean", "delete", bean.ClassName);
 	WrapperFreer* pd = (WrapperFreer*)pl->getFunction(funName);
 	if( pd == NULL ){
-		throw new NotFoundEx("AutumnConfig", "processBean", 
+		throw NotFoundEx("AutumnConfig", "processBean", 
 			"Geting WrapperFreer failed for class '" + bean.ClassName + "'.");
 	}
 	
@@ -92,7 +92,7 @@ string AutumnConfig::mangleName(string objType, string  op, string objName)
 		else if( op == "delete" )
 			return "delete_" + objName + "_Wrapper";
 	}
-	throw new NotFoundEx("AutumnConfig", "mangleName", 
+	throw NotFoundEx("AutumnConfig", "mangleName", 
 		"type[" + objType + "]->operation[" + op +"] is not found!");
 }
 

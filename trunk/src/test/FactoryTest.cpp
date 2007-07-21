@@ -2,10 +2,11 @@
 #include "IProduct.h"
 #include "FactoryTest.h"
 
+extern char TestConFile[];
 
 void FactoryTest::setUp()
 {
-	this->bf = getBeanFactoryWithXML("FrameworkTest.xml");
+	this->bf = getBeanFactoryWithXML(TestConFile);
 }
 
 void FactoryTest::tearDown()

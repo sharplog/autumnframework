@@ -37,6 +37,6 @@ void* LocalLibrary::getFunction(string name)
 	map<string, void*>::iterator it=this->LocalFunctions.find(name);
 	if( it != this->LocalFunctions.end() )
 		return it->second;
-	throw new NotFoundEx("LocalLibrary", "getFunction", 
+	throw NotFoundEx("LocalLibrary", "getFunction", 
 		"function [" + name + "] not found!");
 }

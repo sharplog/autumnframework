@@ -121,7 +121,7 @@ void* BeanFactoryImpl::getBean(const string name, const string basename)
 	if( ! bc->getFactoryBeanName().empty()) {
 		void* pf = this->getBean(bc->getFactoryBeanName());
 		if( pf == NULL){
-			throw new CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
+			throw CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
 				string("Create Bean [") + name + "] failed! Get factory [" +
 				bc->getFactoryBeanName() + "] failed!");
 		}
@@ -145,12 +145,12 @@ void* BeanFactoryImpl::getBean(const string name, const string basename)
 		p = pwc->execCreateMethod(conMethod, pv, num);
 	}
 	else{
-		void_ptr* pDummy;
+		void_ptr* pDummy = NULL;
 		p = pwc->execCreateMethod(conMethod, pDummy, num);
 	}	
 
 	if( NULL == p){
-		throw new CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
+		throw CreateBeanFailedEx("BeanFactoryImpl", "getBean", 
 			string("Create Bean [") + name + "] failed!");
 	}
 	//if bean created by factory, it should be set into pw.
