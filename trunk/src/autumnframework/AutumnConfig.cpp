@@ -23,6 +23,8 @@
 #include "DynamicLibrary.h"
 #include "AutumnConfig.h"
 
+namespace Autumn{
+
 AutumnConfig::AutumnConfig(IResource* config)
 {
 	const vector<TLibrary*> *pLibs = config->getLibraries();
@@ -122,3 +124,5 @@ BeanConfig* AutumnConfig::getBeanConfig(string name)
 	else
 		return NULL;
 }
+
+} // End namespace Autumn

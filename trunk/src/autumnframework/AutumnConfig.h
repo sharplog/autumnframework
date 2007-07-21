@@ -26,6 +26,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Autumn configuration, include bean, library.
  * @version 0.1.0
@@ -75,4 +77,6 @@ public:
 		return &this->TypeNames;
 	}
 };
+
+} // End namespace Autumn
 #endif

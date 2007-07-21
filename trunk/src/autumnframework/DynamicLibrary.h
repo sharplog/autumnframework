@@ -41,6 +41,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Dynamic library 
  * @version 0.1.0
@@ -79,4 +81,6 @@ public:
 			"function [" + name + "] not found!");
 	}
 };
+
+} // End namespace Autumn
 #endif

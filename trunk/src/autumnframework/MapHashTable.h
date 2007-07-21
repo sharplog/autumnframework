@@ -19,6 +19,10 @@
 
 #include <map>
 
+using namespace std;
+
+namespace Autumn{
+
 /** 
  * Hash table template using map.
  * @param E Element type, must support operator "="
@@ -26,8 +30,6 @@
  * @version 0.1.0
  * @since 2006-12-8
  */
-
-using namespace std;
 
 template<class E, class K> class MapHashTable{
 private:
@@ -118,5 +120,7 @@ listElement(map<K, E>& m){
 		}
 	}
 }
+
+} // End namespace Autumn
 
 #endif

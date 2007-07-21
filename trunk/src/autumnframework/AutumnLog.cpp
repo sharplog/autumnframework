@@ -18,6 +18,8 @@
 #include "ConsoleLogger.h"
 #include "FileLogger.h"
 
+namespace Autumn{
+
 AutumnLog* AutumnLog::Instance = NULL;
 const string DefaultLogPath = "AutumnFramework.log";
 const int DefaultLogLevel = 2;
@@ -58,4 +60,6 @@ void AutumnLog::setDefaultLogger()
 		this->isDefault = true;
 	}
 }
+
+} // End namespace Autumn
 

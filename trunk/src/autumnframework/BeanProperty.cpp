@@ -21,6 +21,8 @@
 #include "BeanProperty.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 void BeanProperty::setProperty(IBeanWrapper* pw, TypeManager* tm)
 {
 	IAutumnType* at = tm->findTypeBean(this->Type);
@@ -53,3 +55,5 @@ void* BeanProperty::takeoutValue(IBeanWrapper* pw, TypeManager* tm)
 	pw->addParameter((TPointer)value.get());
 	return value.release()->getValuePointer();
 }
+
+} // End namespace Autumn

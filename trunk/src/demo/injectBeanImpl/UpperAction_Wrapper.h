@@ -25,7 +25,7 @@
 /**
  * Wrapper for UpperAction
  */
-class UpperAction_Wrapper: public IBeanWrapper{
+class UpperAction_Wrapper: public Autumn::IBeanWrapper{
 	UpperAction* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_UpperAction_Wrapper();
-	DLL_EXPORT void delete_UpperAction_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_UpperAction_Wrapper();
+	DLL_EXPORT void delete_UpperAction_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_UpperAction_Wrapper_Local{
 public:
 	AUTUMN_UpperAction_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_UpperAction_Wrapper",
 				(void*)create_UpperAction_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_UpperAction_Wrapper",
 				(void*)delete_UpperAction_Wrapper);
 	}

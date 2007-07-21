@@ -21,6 +21,8 @@
 #include "PointerType.h"
 #include "StringType.h"
 
+namespace Autumn{
+
 // The basic types
 const string charAT("char");
 const string ucharAT("unsignedchar");
@@ -160,3 +162,5 @@ void TypeManager::addTypeBean(IBeanWrapper* pw)
 	}
 	this->WrapperList.push_back(pw);
 }
+
+} // End namespace Autumn

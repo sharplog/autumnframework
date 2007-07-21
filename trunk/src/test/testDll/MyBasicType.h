@@ -8,6 +8,7 @@
 #include "MyData.h"
 
 using namespace std;
+using namespace Autumn;
 
 class MyBasicType: public IAutumnType{
 public:

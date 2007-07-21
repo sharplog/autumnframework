@@ -17,6 +17,8 @@
 #include "PointerType.h"
 #include "TypeManager.h"
 
+namespace Autumn{
+
 void* PointerType::createValue(const string type, const StrValueList& vl, StrIterator& it)
 {
 	string basicType = type.substr(0, type.size()-1); // erase the '*'
@@ -37,3 +39,5 @@ void PointerType::freeValue(void* p, string type)
 	at->freeValue(*(void**)p, basicType);
 	delete (void**)p;
 }
+
+} // End namespace Autumn

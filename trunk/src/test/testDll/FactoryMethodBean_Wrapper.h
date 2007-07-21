@@ -25,7 +25,7 @@
 /**
  * Wrapper for ProductA_M
  */
-class ProductA_M_Wrapper: public IBeanWrapper{
+class ProductA_M_Wrapper: public Autumn::IBeanWrapper{
 	ProductA_M* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_ProductA_M_Wrapper();
-	DLL_EXPORT void delete_ProductA_M_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_ProductA_M_Wrapper();
+	DLL_EXPORT void delete_ProductA_M_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_ProductA_M_Wrapper_Local{
 public:
 	AUTUMN_ProductA_M_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_ProductA_M_Wrapper",
 				(void*)create_ProductA_M_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_ProductA_M_Wrapper",
 				(void*)delete_ProductA_M_Wrapper);
 	}
@@ -74,7 +74,7 @@ public:
 /**
  * Wrapper for ProductB_M
  */
-class ProductB_M_Wrapper: public IBeanWrapper{
+class ProductB_M_Wrapper: public Autumn::IBeanWrapper{
 	ProductB_M* pBean;
 
 public: 
@@ -104,17 +104,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_ProductB_M_Wrapper();
-	DLL_EXPORT void delete_ProductB_M_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_ProductB_M_Wrapper();
+	DLL_EXPORT void delete_ProductB_M_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_ProductB_M_Wrapper_Local{
 public:
 	AUTUMN_ProductB_M_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_ProductB_M_Wrapper",
 				(void*)create_ProductB_M_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_ProductB_M_Wrapper",
 				(void*)delete_ProductB_M_Wrapper);
 	}

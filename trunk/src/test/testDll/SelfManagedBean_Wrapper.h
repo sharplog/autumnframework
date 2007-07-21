@@ -25,7 +25,7 @@
 /**
  * Wrapper for SelfManagedBean
  */
-class SelfManagedBean_Wrapper: public IBeanWrapper{
+class SelfManagedBean_Wrapper: public Autumn::IBeanWrapper{
 	SelfManagedBean* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_SelfManagedBean_Wrapper();
-	DLL_EXPORT void delete_SelfManagedBean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_SelfManagedBean_Wrapper();
+	DLL_EXPORT void delete_SelfManagedBean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_SelfManagedBean_Wrapper_Local{
 public:
 	AUTUMN_SelfManagedBean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_SelfManagedBean_Wrapper",
 				(void*)create_SelfManagedBean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_SelfManagedBean_Wrapper",
 				(void*)delete_SelfManagedBean_Wrapper);
 	}

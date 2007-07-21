@@ -21,6 +21,8 @@
 #include "IAutumnType.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 /** 
  * ValueType: string. Implementing this type not using template ValueType
  * is due to a VC6's bug.
@@ -60,5 +62,7 @@ public:
 		return type.compare("string") == 0;
 	}
 };
+
+} // End namespace Autumn
 
 #endif

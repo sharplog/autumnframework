@@ -25,7 +25,7 @@
 /**
  * Wrapper for Base1
  */
-class Base1_Wrapper: public IBeanWrapper{
+class Base1_Wrapper: public Autumn::IBeanWrapper{
 	Base1* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Base1_Wrapper();
-	DLL_EXPORT void delete_Base1_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Base1_Wrapper();
+	DLL_EXPORT void delete_Base1_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Base1_Wrapper_Local{
 public:
 	AUTUMN_Base1_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Base1_Wrapper",
 				(void*)create_Base1_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Base1_Wrapper",
 				(void*)delete_Base1_Wrapper);
 	}
@@ -74,7 +74,7 @@ public:
 /**
  * Wrapper for Base2
  */
-class Base2_Wrapper: public IBeanWrapper{
+class Base2_Wrapper: public Autumn::IBeanWrapper{
 	Base2* pBean;
 
 public: 
@@ -104,17 +104,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Base2_Wrapper();
-	DLL_EXPORT void delete_Base2_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Base2_Wrapper();
+	DLL_EXPORT void delete_Base2_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Base2_Wrapper_Local{
 public:
 	AUTUMN_Base2_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Base2_Wrapper",
 				(void*)create_Base2_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Base2_Wrapper",
 				(void*)delete_Base2_Wrapper);
 	}
@@ -123,7 +123,7 @@ public:
 /**
  * Wrapper for Multi_Base1
  */
-class Multi_Base1_Wrapper: public IBeanWrapper{
+class Multi_Base1_Wrapper: public Autumn::IBeanWrapper{
 	Multi_Base1* pBean;
 
 public: 
@@ -153,17 +153,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Multi_Base1_Wrapper();
-	DLL_EXPORT void delete_Multi_Base1_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Multi_Base1_Wrapper();
+	DLL_EXPORT void delete_Multi_Base1_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Multi_Base1_Wrapper_Local{
 public:
 	AUTUMN_Multi_Base1_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Multi_Base1_Wrapper",
 				(void*)create_Multi_Base1_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Multi_Base1_Wrapper",
 				(void*)delete_Multi_Base1_Wrapper);
 	}
@@ -172,7 +172,7 @@ public:
 /**
  * Wrapper for Multi_Bean
  */
-class Multi_Bean_Wrapper: public IBeanWrapper{
+class Multi_Bean_Wrapper: public Autumn::IBeanWrapper{
 	Multi_Bean* pBean;
 
 public: 
@@ -202,17 +202,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Multi_Bean_Wrapper();
-	DLL_EXPORT void delete_Multi_Bean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Multi_Bean_Wrapper();
+	DLL_EXPORT void delete_Multi_Bean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Multi_Bean_Wrapper_Local{
 public:
 	AUTUMN_Multi_Bean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Multi_Bean_Wrapper",
 				(void*)create_Multi_Bean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Multi_Bean_Wrapper",
 				(void*)delete_Multi_Bean_Wrapper);
 	}
@@ -221,7 +221,7 @@ public:
 /**
  * Wrapper for Multi_Base2
  */
-class Multi_Base2_Wrapper: public IBeanWrapper{
+class Multi_Base2_Wrapper: public Autumn::IBeanWrapper{
 	Multi_Base2* pBean;
 
 public: 
@@ -251,17 +251,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Multi_Base2_Wrapper();
-	DLL_EXPORT void delete_Multi_Base2_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Multi_Base2_Wrapper();
+	DLL_EXPORT void delete_Multi_Base2_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Multi_Base2_Wrapper_Local{
 public:
 	AUTUMN_Multi_Base2_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Multi_Base2_Wrapper",
 				(void*)create_Multi_Base2_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Multi_Base2_Wrapper",
 				(void*)delete_Multi_Base2_Wrapper);
 	}

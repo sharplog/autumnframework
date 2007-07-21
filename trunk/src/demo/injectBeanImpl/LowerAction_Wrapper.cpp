@@ -72,10 +72,10 @@ void* LowerAction_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_LowerAction_Wrapper(){
+	Autumn::IBeanWrapper* create_LowerAction_Wrapper(){
 		return new LowerAction_Wrapper;
 	}
-	void delete_LowerAction_Wrapper(IBeanWrapper* p){
+	void delete_LowerAction_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

@@ -19,6 +19,8 @@
 #include "LocalLibrary.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 {
 	string types;
@@ -88,6 +90,8 @@ IBeanWrapper::~IBeanWrapper()
 /** register local function for local library */
 void registerLocalFunction(const char* name, void* f)
 {
-	LocalLibrary::getInstance()->addFunction(name, f);
+	Autumn::LocalLibrary::getInstance()->addFunction(name, f);
 }
+
+} // End namespace Autumn
 

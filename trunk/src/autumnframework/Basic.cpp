@@ -20,4 +20,8 @@
  * some const define
  */
 
+namespace Autumn{
+
 const char typeSeparator	= '|';
+
+} // End namespace Autumn

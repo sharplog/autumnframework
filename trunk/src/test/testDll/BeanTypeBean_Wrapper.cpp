@@ -104,10 +104,10 @@ void* BeanTypeBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_BeanTypeBean_Wrapper(){
+	Autumn::IBeanWrapper* create_BeanTypeBean_Wrapper(){
 		return new BeanTypeBean_Wrapper;
 	}
-	void delete_BeanTypeBean_Wrapper(IBeanWrapper* p){
+	void delete_BeanTypeBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

@@ -92,10 +92,10 @@ void* MyTypeBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_MyTypeBean_Wrapper(){
+	Autumn::IBeanWrapper* create_MyTypeBean_Wrapper(){
 		return new MyTypeBean_Wrapper;
 	}
-	void delete_MyTypeBean_Wrapper(IBeanWrapper* p){
+	void delete_MyTypeBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

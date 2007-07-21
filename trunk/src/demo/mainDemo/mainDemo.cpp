@@ -15,17 +15,17 @@ const char xmlFile[] = "autumnDemo.xml";
 int main(int argc, char* argv[])
 {
 	try{
-		IBeanFactory* bf;
+		Autumn::IBeanFactory* bf;
 		if( argc > 1 )
-			bf = getBeanFactoryWithXML(argv[1]);
+			bf = Autumn::getBeanFactoryWithXML(argv[1]);
 		else
-			bf = getBeanFactoryWithXML(xmlFile);
+			bf = Autumn::getBeanFactoryWithXML(xmlFile);
 
 		Action* pa = (Action*)bf->getBean("TheAction");
 		cout<<pa->excute("Vicent")<<endl;
 		bf->freeBean(pa);
 		
-		deleteBeanFactory(bf);
+		Autumn::deleteBeanFactory(bf);
 		cout<<"OK!"<<endl;
 	}catch (const exception& e ) {
 		cout<<"Exception: "<<e.what()<<endl;

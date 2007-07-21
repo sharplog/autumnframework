@@ -39,6 +39,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Wrapper of bean
  * 
@@ -120,5 +122,7 @@ public:
 
 /** register local function for local library */
 DLL_IM_EXPORT void registerLocalFunction(const char* name, void* f);
+
+} // End namespace Autumn
 
 #endif

@@ -20,6 +20,8 @@
 #include <vector>
 #include "AutumnDefinition.h"
 
+namespace Autumn{
+
 /** 
  * Interface of configuration resource
  * @version 0.1.0
@@ -36,4 +38,6 @@ public:
 	/** Return all libraries configuration */
 	virtual const vector<TLibrary*>* getLibraries() const = 0;
 };
+
+} // End namespace Autumn
 #endif

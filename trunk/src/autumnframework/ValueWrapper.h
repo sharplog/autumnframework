@@ -24,6 +24,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /**
  * Parameter value for class constuctor or setter functions.
  * 
@@ -65,4 +67,6 @@ public:
 		return this->PointerOfValue;
 	}
 };
+
+} // End namespace Autumn
 #endif

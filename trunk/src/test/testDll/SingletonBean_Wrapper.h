@@ -25,7 +25,7 @@
 /**
  * Wrapper for SingletonBean
  */
-class SingletonBean_Wrapper: public IBeanWrapper{
+class SingletonBean_Wrapper: public Autumn::IBeanWrapper{
 	SingletonBean* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_SingletonBean_Wrapper();
-	DLL_EXPORT void delete_SingletonBean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_SingletonBean_Wrapper();
+	DLL_EXPORT void delete_SingletonBean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_SingletonBean_Wrapper_Local{
 public:
 	AUTUMN_SingletonBean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_SingletonBean_Wrapper",
 				(void*)create_SingletonBean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_SingletonBean_Wrapper",
 				(void*)delete_SingletonBean_Wrapper);
 	}

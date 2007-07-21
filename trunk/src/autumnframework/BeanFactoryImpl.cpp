@@ -31,6 +31,8 @@
  * @version 0.1.0
  * @since 2006-12-5
  */
+namespace Autumn{
+
 const char* LogBeanName = "AutumnFrameworkLog";
 
 /** 
@@ -224,3 +226,5 @@ void deleteBeanFactory(IBeanFactory* p)
 {
 	delete p;
 }
+
+} // End namespace Autumn

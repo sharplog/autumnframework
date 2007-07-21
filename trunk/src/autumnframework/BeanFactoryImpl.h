@@ -23,6 +23,8 @@
 #include "BeanManager.h"
 #include "TypeManager.h"
 
+namespace Autumn{
+
 /** 
  * BeanFactory implementation
  *
@@ -85,4 +87,6 @@ public:
 	/** Destructor */
 	virtual ~BeanFactoryImpl();
 };
+
+} // End namespace Autumn
 #endif

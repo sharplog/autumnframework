@@ -26,6 +26,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 typedef vector<BeanProperty*> PropertyList;
 typedef IBeanWrapper* WrapperMaker();
 typedef void WrapperFreer(IBeanWrapper*);
@@ -113,4 +115,6 @@ public:
 	/** Get status of being singleton or not */
 	bool isSingleton(){return this->Singleton;}
 };
+
+} // End namespace Autumn
 #endif

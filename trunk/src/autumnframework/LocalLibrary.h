@@ -23,6 +23,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Local library, if a bean is in main process
  * @version 0.1.0
@@ -48,5 +50,7 @@ public:
 	/** Get function address */
 	void* getFunction(string name);
 };
+
+} // End namespace Autumn
 
 #endif

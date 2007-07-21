@@ -83,10 +83,10 @@ void* MyBasicType_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_MyBasicType_Wrapper(){
+	Autumn::IBeanWrapper* create_MyBasicType_Wrapper(){
 		return new MyBasicType_Wrapper;
 	}
-	void delete_MyBasicType_Wrapper(IBeanWrapper* p){
+	void delete_MyBasicType_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

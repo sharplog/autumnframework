@@ -31,6 +31,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * BeanFactory, autumn framework's interface to programmer
  *
@@ -88,4 +90,6 @@ public:
 DLL_IM_EXPORT IBeanFactory* getBeanFactoryWithXML(const char* file);
 /** Delete IBeanFactory instance */
 DLL_IM_EXPORT void deleteBeanFactory(IBeanFactory* p);
+
+} // End namespace Autumn
 #endif

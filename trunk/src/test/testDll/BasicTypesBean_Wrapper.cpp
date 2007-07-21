@@ -206,10 +206,10 @@ void* BasicTypesBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_BasicTypesBean_Wrapper(){
+	Autumn::IBeanWrapper* create_BasicTypesBean_Wrapper(){
 		return new BasicTypesBean_Wrapper;
 	}
-	void delete_BasicTypesBean_Wrapper(IBeanWrapper* p){
+	void delete_BasicTypesBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
