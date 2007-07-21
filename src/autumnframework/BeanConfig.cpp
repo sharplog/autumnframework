@@ -113,7 +113,7 @@ PropertyList* BeanConfig::getConArgs(IBeanWrapper* pw) {
 			start = end + 1;
 			end = ConArgTypes.find(typeSeparator, start);
 			if( end == string::npos ){
-				throw new MissDefinitionEx("BeanConfig", "getConArgs", 
+				throw MissDefinitionEx("BeanConfig", "getConArgs", 
 					"the ConArgs' types are less than arguments!");
 			}
 			tmpType = ConArgTypes.substr(start, end - start);

@@ -25,7 +25,7 @@ string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 
 	int rtn = this->getParamTypes(ConMethod, types, num);
 	if( rtn )
-		throw new MissDefinitionEx("IBeanWrapper", 
+		throw MissDefinitionEx("IBeanWrapper", 
 				"getConArgTypes", 
 				"Getting bean[" + this->BeanName + "] constructor-arg types failed!");
 
@@ -49,7 +49,7 @@ bool IBeanWrapper::deleteBean()
 	string method = this->getDestroyMethod();
 	if( !method.empty() ){
 		if( this->execVoidMethod(method, NULL, 0) < 0 ) {
-			throw new MissDefinitionEx("IBeanWrapper", 
+			throw MissDefinitionEx("IBeanWrapper", 
 					"deleteBean", 
 					"Executing destory-method [" + method + "] of bean [" + 
 					this->BeanName + "] failed!");
@@ -60,7 +60,7 @@ bool IBeanWrapper::deleteBean()
 	if( !method.empty() ) {
 		void* p = this->getBean();
 		if( this->execVoidMethod(method, &p, 1) < 0 ) {
-			throw new MissDefinitionEx("IBeanWrapper", 
+			throw MissDefinitionEx("IBeanWrapper", 
 					"deleteBean", 
 					"Executing delete-method [" + method + "] of bean [" + 
 					this->BeanName + "] failed!");

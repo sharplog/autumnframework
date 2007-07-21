@@ -41,7 +41,7 @@ public:
 			string *p = new string(*it++);
 			return (void*)p; //*p is the value
 		}
-		throw new NonValueEx("StringType", "createValue",
+		throw NonValueEx("StringType", "createValue",
 			"There is no string in vector!");
 	}
 

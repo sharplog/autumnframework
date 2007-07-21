@@ -58,7 +58,7 @@ public:
 	DynamicLibrary(string name, string path):Name(name), Path(path){
 		this->Handle = _OPENDLL_(path.c_str());
 		if( this->Handle == NULL){
-			throw new NotFoundEx("DynamicLibrary", "DynamicLibrary", 
+			throw NotFoundEx("DynamicLibrary", "DynamicLibrary", 
 				"Library [" + path + "] not found!");
 		}
 	}
@@ -75,7 +75,7 @@ public:
 		void* p = _GETFUNCTION_(this->Handle, name.c_str());
 		if( p )
 			return p;
-		throw new NotFoundEx("DynamicLibrary", "getFunction", 
+		throw NotFoundEx("DynamicLibrary", "getFunction", 
 			"function [" + name + "] not found!");
 	}
 };

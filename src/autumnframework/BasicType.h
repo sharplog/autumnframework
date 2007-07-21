@@ -68,7 +68,7 @@ void* BasicType<T, createfun, freefun>::createValue(const string type, const Str
 		*p = createfun((*it++).c_str());
 		return (void*)p; //*p is the value
 	}
-	throw new NonValueEx("BasicType", "createValue",
+	throw NonValueEx("BasicType", "createValue",
 		"There is no string in vector!");
 }
 

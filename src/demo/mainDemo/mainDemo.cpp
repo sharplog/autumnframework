@@ -27,9 +27,8 @@ int main(int argc, char* argv[])
 		
 		deleteBeanFactory(bf);
 		cout<<"OK!"<<endl;
-	}catch (exception* e ) {
-		cout<<"Exception: "<<e->what()<<endl;
-		delete e;
+	}catch (const exception& e ) {
+		cout<<"Exception: "<<e.what()<<endl;
 	}
 	return 0;
 }

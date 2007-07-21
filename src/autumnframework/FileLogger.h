@@ -51,7 +51,7 @@ public:
 	FileLogger(string filepath, int level):Level(level){
 		this->Of.open(filepath.c_str(), ios::out | ios::app);
 		if( !this->Of.is_open() )
-			throw new InitException("FileLogger", "FileLogger", 
+			throw InitException("FileLogger", "FileLogger", 
 				string("Can't open file[" + filepath + "]."));
 	}
 	

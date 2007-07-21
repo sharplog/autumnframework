@@ -51,10 +51,10 @@ public:
 			void* p = this->Bf->getBean(name, type);
 			if( p != NULL ) return p;
 			
-			throw new CreateBeanFailedEx("ObjectType", "createValue",
+			throw CreateBeanFailedEx("ObjectType", "createValue",
 				"getBean[" + name + "] return NULL!");
 		}
-		throw new NonValueEx("ObjectType", "createValue",
+		throw NonValueEx("ObjectType", "createValue",
 			"There is no string in vector!");
 	}
 
