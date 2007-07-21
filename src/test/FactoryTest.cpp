@@ -6,12 +6,12 @@ extern char TestConFile[];
 
 void FactoryTest::setUp()
 {
-	this->bf = getBeanFactoryWithXML(TestConFile);
+	this->bf = Autumn::getBeanFactoryWithXML(TestConFile);
 }
 
 void FactoryTest::tearDown()
 {
-	deleteBeanFactory(this->bf);
+	Autumn::deleteBeanFactory(this->bf);
 }
 
 void FactoryTest::testInstanceFacotry()

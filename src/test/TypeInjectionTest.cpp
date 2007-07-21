@@ -8,12 +8,12 @@ extern char TestConFile[];
 
 void TypeInjectionTest::setUp()
 {
-	this->bf = getBeanFactoryWithXML(TestConFile);
+	this->bf = Autumn::getBeanFactoryWithXML(TestConFile);
 }
 
 void TypeInjectionTest::tearDown()
 {
-	deleteBeanFactory(this->bf);
+	Autumn::deleteBeanFactory(this->bf);
 }
 
 void TypeInjectionTest::testBasicType()

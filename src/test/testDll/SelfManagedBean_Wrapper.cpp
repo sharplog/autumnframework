@@ -94,10 +94,10 @@ void* SelfManagedBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_SelfManagedBean_Wrapper(){
+	Autumn::IBeanWrapper* create_SelfManagedBean_Wrapper(){
 		return new SelfManagedBean_Wrapper;
 	}
-	void delete_SelfManagedBean_Wrapper(IBeanWrapper* p){
+	void delete_SelfManagedBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

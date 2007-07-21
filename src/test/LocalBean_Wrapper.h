@@ -25,7 +25,7 @@
 /**
  * Wrapper for LocalBean
  */
-class LocalBean_Wrapper: public IBeanWrapper{
+class LocalBean_Wrapper: public Autumn::IBeanWrapper{
 	LocalBean* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_LocalBean_Wrapper();
-	DLL_EXPORT void delete_LocalBean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_LocalBean_Wrapper();
+	DLL_EXPORT void delete_LocalBean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_LocalBean_Wrapper_Local{
 public:
 	AUTUMN_LocalBean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_LocalBean_Wrapper",
 				(void*)create_LocalBean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_LocalBean_Wrapper",
 				(void*)delete_LocalBean_Wrapper);
 	}

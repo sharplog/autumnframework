@@ -20,7 +20,7 @@ class TypeInjectionTest{
 	CPPUNIT_TEST_SUITE_END();
 
 private:
-	IBeanFactory* bf;
+	Autumn::IBeanFactory* bf;
 
 public:
 	void setUp();

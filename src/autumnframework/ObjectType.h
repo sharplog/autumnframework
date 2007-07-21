@@ -21,6 +21,8 @@
 #include "IBeanFactory.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 /** 
  * Create object value and free it.
  * 
@@ -71,5 +73,7 @@ public:
 		return type.compare("autumnbean") == 0;
 	}
 };
+
+} // End namespace Autumn
 
 #endif

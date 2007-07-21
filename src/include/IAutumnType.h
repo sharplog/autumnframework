@@ -22,6 +22,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 class TypeManager;
 
 /** 
@@ -70,5 +72,7 @@ public:
 	 */
 	virtual ~IAutumnType(){}
 };
+
+} // End namespace Autumn
 
 #endif

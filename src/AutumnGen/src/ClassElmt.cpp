@@ -152,7 +152,7 @@ string ClassElmt::genWrapperH()
 	"/**"													<< endl <<
 	" * Wrapper for " << classname							<< endl <<
 	" */"													<< endl <<
-	"class " + wrappername + ": public IBeanWrapper{"		<< endl <<
+	"class " + wrappername + ": public Autumn::IBeanWrapper{"<< endl <<
 	"	" + classname + "* pBean;"							<< endl <<
 	""														<< endl <<
 	"public: "												<< endl <<
@@ -182,8 +182,8 @@ string ClassElmt::genWrapperH()
 	"};"															<<endl<<
 	""																<<endl<<
 	"extern \"C\"{"													<<endl<<
-	"	DLL_EXPORT IBeanWrapper* create_" + wrappername + "();"		<<endl<<
-	"	DLL_EXPORT void delete_" + wrappername + "(IBeanWrapper*);" <<endl<<
+	"	DLL_EXPORT Autumn::IBeanWrapper* create_" + wrappername + "();"<<endl<<
+	"	DLL_EXPORT void delete_" + wrappername + "(Autumn::IBeanWrapper*);"<<endl<<
 	"}"																<<endl<<
 	""																<<endl;
 	os << this->genWrapperH4Local();
@@ -198,10 +198,10 @@ string ClassElmt::genWrapperTail()
 
 	os <<
 	"extern \"C\"{"												<< endl <<
-	"	IBeanWrapper* create_" + wrappername + "(){"			<< endl <<
+	"	Autumn::IBeanWrapper* create_" + wrappername + "(){"	<< endl <<
 	"		return new " + wrappername + ";"					<< endl <<
 	"	}"														<< endl <<
-	"	void delete_" + wrappername + "(IBeanWrapper* p){"		<< endl <<
+	"	void delete_" + wrappername + "(Autumn::IBeanWrapper* p){"<< endl <<
 	"		delete p;"											<< endl <<
 	"	}"														<< endl <<
 	"}"															<< endl <<
@@ -368,10 +368,10 @@ string ClassElmt::genWrapperH4Local()
 	"class AUTUMN_" + wrappername + "_Local{"					<< endl <<
 	"public:"													<< endl <<
 	"	AUTUMN_" + wrappername + "_Local(){"					<< endl <<
-	"		registerLocalFunction("								<< endl <<
+	"		Autumn::registerLocalFunction("						<< endl <<
 	"				\"create_" + wrappername + "\","			<< endl <<
 	"				(void*)create_" + wrappername + ");"		<< endl <<
-	"		registerLocalFunction("								<< endl <<
+	"		Autumn::registerLocalFunction("						<< endl <<
 	"				\"delete_" + wrappername + "\","			<< endl <<
 	"				(void*)delete_" + wrappername + ");"		<< endl <<
 	"	}"														<< endl <<

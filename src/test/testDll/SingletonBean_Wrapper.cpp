@@ -92,10 +92,10 @@ void* SingletonBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_SingletonBean_Wrapper(){
+	Autumn::IBeanWrapper* create_SingletonBean_Wrapper(){
 		return new SingletonBean_Wrapper;
 	}
-	void delete_SingletonBean_Wrapper(IBeanWrapper* p){
+	void delete_SingletonBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

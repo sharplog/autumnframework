@@ -66,10 +66,10 @@ void* ProductA_M_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_ProductA_M_Wrapper(){
+	Autumn::IBeanWrapper* create_ProductA_M_Wrapper(){
 		return new ProductA_M_Wrapper;
 	}
-	void delete_ProductA_M_Wrapper(IBeanWrapper* p){
+	void delete_ProductA_M_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -122,10 +122,10 @@ void* ProductB_M_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_ProductB_M_Wrapper(){
+	Autumn::IBeanWrapper* create_ProductB_M_Wrapper(){
 		return new ProductB_M_Wrapper;
 	}
-	void delete_ProductB_M_Wrapper(IBeanWrapper* p){
+	void delete_ProductB_M_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

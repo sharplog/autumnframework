@@ -22,6 +22,8 @@
 #include "IAutumnType.h"
 #include "IBeanWrapper.h"
 
+namespace Autumn{
+
 /** 
  * Maitain all type makers.
  * 
@@ -73,5 +75,7 @@ public:
 	}
 
 };
+
+} // End namespace Autumn
 
 #endif

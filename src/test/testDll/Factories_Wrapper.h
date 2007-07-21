@@ -25,7 +25,7 @@
 /**
  * Wrapper for Factory1
  */
-class Factory1_Wrapper: public IBeanWrapper{
+class Factory1_Wrapper: public Autumn::IBeanWrapper{
 	Factory1* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Factory1_Wrapper();
-	DLL_EXPORT void delete_Factory1_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Factory1_Wrapper();
+	DLL_EXPORT void delete_Factory1_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Factory1_Wrapper_Local{
 public:
 	AUTUMN_Factory1_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Factory1_Wrapper",
 				(void*)create_Factory1_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Factory1_Wrapper",
 				(void*)delete_Factory1_Wrapper);
 	}
@@ -74,7 +74,7 @@ public:
 /**
  * Wrapper for Factory2
  */
-class Factory2_Wrapper: public IBeanWrapper{
+class Factory2_Wrapper: public Autumn::IBeanWrapper{
 	Factory2* pBean;
 
 public: 
@@ -104,17 +104,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_Factory2_Wrapper();
-	DLL_EXPORT void delete_Factory2_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_Factory2_Wrapper();
+	DLL_EXPORT void delete_Factory2_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_Factory2_Wrapper_Local{
 public:
 	AUTUMN_Factory2_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_Factory2_Wrapper",
 				(void*)create_Factory2_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_Factory2_Wrapper",
 				(void*)delete_Factory2_Wrapper);
 	}

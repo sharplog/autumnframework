@@ -25,6 +25,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Adapter for external log implementation
  * @version 0.1.0
@@ -81,4 +83,6 @@ public:
 		}
 	}
 };
+
+} // End namespace Autumn
 #endif

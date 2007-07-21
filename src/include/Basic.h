@@ -28,6 +28,8 @@ using namespace std;
  * @since 2006-11-25
  */
 
+namespace Autumn{
+	
 /** Value strings */
 typedef vector<string> StrValueList;
 typedef vector<string>::iterator StrIterator;
@@ -36,5 +38,7 @@ typedef vector<string>::iterator StrIterator;
 typedef long TPointer;
 
 extern const char typeSeparator;
+
+} // End namespace Autumn
 
 #endif 

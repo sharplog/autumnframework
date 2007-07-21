@@ -55,10 +55,10 @@ void* Base1_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Base1_Wrapper(){
+	Autumn::IBeanWrapper* create_Base1_Wrapper(){
 		return new Base1_Wrapper;
 	}
-	void delete_Base1_Wrapper(IBeanWrapper* p){
+	void delete_Base1_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -102,10 +102,10 @@ void* Base2_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Base2_Wrapper(){
+	Autumn::IBeanWrapper* create_Base2_Wrapper(){
 		return new Base2_Wrapper;
 	}
-	void delete_Base2_Wrapper(IBeanWrapper* p){
+	void delete_Base2_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -157,10 +157,10 @@ void* Multi_Base1_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Multi_Base1_Wrapper(){
+	Autumn::IBeanWrapper* create_Multi_Base1_Wrapper(){
 		return new Multi_Base1_Wrapper;
 	}
-	void delete_Multi_Base1_Wrapper(IBeanWrapper* p){
+	void delete_Multi_Base1_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -217,10 +217,10 @@ void* Multi_Bean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Multi_Bean_Wrapper(){
+	Autumn::IBeanWrapper* create_Multi_Bean_Wrapper(){
 		return new Multi_Bean_Wrapper;
 	}
-	void delete_Multi_Bean_Wrapper(IBeanWrapper* p){
+	void delete_Multi_Bean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -272,10 +272,10 @@ void* Multi_Base2_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Multi_Base2_Wrapper(){
+	Autumn::IBeanWrapper* create_Multi_Base2_Wrapper(){
 		return new Multi_Base2_Wrapper;
 	}
-	void delete_Multi_Base2_Wrapper(IBeanWrapper* p){
+	void delete_Multi_Base2_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

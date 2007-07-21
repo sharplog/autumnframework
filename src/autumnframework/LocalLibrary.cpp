@@ -18,6 +18,8 @@
 #include "AutumnException.h"
 #include "LocalLibrary.h"
 
+namespace Autumn{
+
 LocalLibrary* LocalLibrary::instance = NULL;
 
 LocalLibrary* LocalLibrary::getInstance()
@@ -40,3 +42,5 @@ void* LocalLibrary::getFunction(string name)
 	throw NotFoundEx("LocalLibrary", "getFunction", 
 		"function [" + name + "] not found!");
 }
+
+} // End namespace Autumn

@@ -96,10 +96,10 @@ void* InitDestBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_InitDestBean_Wrapper(){
+	Autumn::IBeanWrapper* create_InitDestBean_Wrapper(){
 		return new InitDestBean_Wrapper;
 	}
-	void delete_InitDestBean_Wrapper(IBeanWrapper* p){
+	void delete_InitDestBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

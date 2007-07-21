@@ -19,6 +19,8 @@
 #include "IBeanWrapper.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 /** erase space char */
 string trimString(const string v)
 {
@@ -125,4 +127,6 @@ PropertyList* BeanConfig::getConArgs(IBeanWrapper* pw) {
 	}
 	return this->ConArgs;
 }
+
+} // End namespace Autumn
 

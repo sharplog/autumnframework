@@ -22,6 +22,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Contains property's information
  * @version 0.1.0
@@ -64,4 +66,6 @@ public:
 		return this->Value;
 	}
 };
+
+} // End namespace Autumn
 #endif

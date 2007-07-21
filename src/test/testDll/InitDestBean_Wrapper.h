@@ -25,7 +25,7 @@
 /**
  * Wrapper for InitDestBean
  */
-class InitDestBean_Wrapper: public IBeanWrapper{
+class InitDestBean_Wrapper: public Autumn::IBeanWrapper{
 	InitDestBean* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_InitDestBean_Wrapper();
-	DLL_EXPORT void delete_InitDestBean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_InitDestBean_Wrapper();
+	DLL_EXPORT void delete_InitDestBean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_InitDestBean_Wrapper_Local{
 public:
 	AUTUMN_InitDestBean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_InitDestBean_Wrapper",
 				(void*)create_InitDestBean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_InitDestBean_Wrapper",
 				(void*)delete_InitDestBean_Wrapper);
 	}

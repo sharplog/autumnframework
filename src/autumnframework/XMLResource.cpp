@@ -20,6 +20,8 @@
 #include "xmlParser.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 /** 
  * Constructor, parse XML file 
  * @param path XML file path
@@ -264,4 +266,6 @@ bool XMLResource::boolAttribute(string value, string name)
 		return true;
 	}
 }
+
+} // End namespace Autumn
 

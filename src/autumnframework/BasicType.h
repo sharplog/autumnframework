@@ -21,6 +21,8 @@
 #include "IAutumnType.h"
 #include "AutumnException.h"
 
+namespace Autumn{
+
 /** 
  * Create correctly value and free it.
  * class T: the ture type of value, it must support evaluation operator(=); 
@@ -83,5 +85,7 @@ void BasicType<T, createfun, freefun>::freeSelfSpace(void* pp){
 	// free space of T
 	delete p;
 }
+
+} // End namespace Autumn
 
 #endif

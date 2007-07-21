@@ -23,6 +23,8 @@
 #include "IResource.h"
 #include "AutumnDefinition.h"
 
+namespace Autumn{
+
 /** 
  * Parse XML configuration file
  * @version 0.1.0
@@ -65,4 +67,6 @@ public:
 		return &this->LibsConfig;
 	}
 };
+
+} // End namespace Autumn
 #endif

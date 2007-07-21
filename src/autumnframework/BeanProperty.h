@@ -24,6 +24,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
  * Bean's property which will be set.
  * @version 0.1.0
@@ -71,4 +73,6 @@ public:
 			this->Type = type;
 	}
 };
+
+} // End namespace Autumn
 #endif

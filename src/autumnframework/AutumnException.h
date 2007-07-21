@@ -28,6 +28,8 @@ using namespace std;
  * @since 2006-11-30
  */
 
+namespace Autumn{
+
 /**  
  * AutumnFramework's root exception
  */
@@ -145,5 +147,7 @@ public:
 	  InjectionException(cname, mname, msg){
 	  }
 };
+
+} // End namespace Autumn
 #endif
 

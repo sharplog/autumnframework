@@ -69,10 +69,10 @@ void* Factory1_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Factory1_Wrapper(){
+	Autumn::IBeanWrapper* create_Factory1_Wrapper(){
 		return new Factory1_Wrapper;
 	}
-	void delete_Factory1_Wrapper(IBeanWrapper* p){
+	void delete_Factory1_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }
@@ -130,10 +130,10 @@ void* Factory2_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_Factory2_Wrapper(){
+	Autumn::IBeanWrapper* create_Factory2_Wrapper(){
 		return new Factory2_Wrapper;
 	}
-	void delete_Factory2_Wrapper(IBeanWrapper* p){
+	void delete_Factory2_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

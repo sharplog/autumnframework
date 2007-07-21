@@ -21,6 +21,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, IAutumnType* at):
   Type(type), Managed(managed), TypeBean(at){
 	StrIterator it = vl.begin();
@@ -38,3 +40,5 @@ ValueWrapper::~ValueWrapper(){
 		}
 	}
 }
+
+} // End namespace Autumn

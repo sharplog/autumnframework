@@ -25,8 +25,10 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** 
- * Maintains all created beans and dependence ralations in them.
+ * Maintains all created beans and dependence relations in them.
  * @version 0.1.0
  * @since 2006-12-9
  */
@@ -82,4 +84,6 @@ public:
 	 */
 	void* getSingleton(string name);
 };
+
+} // End namespace Autumn
 #endif

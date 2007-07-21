@@ -23,6 +23,8 @@
 
 using namespace std;
 
+namespace Autumn{
+
 /** struct to store property configuration */
 typedef struct{
 	string	Name;
@@ -91,5 +93,7 @@ typedef struct{
 	/** customized type's name */
 	vector<string> TypeNames;
 } TLibrary;
+
+} // End namespace Autumn
 
 #endif

@@ -20,6 +20,8 @@
 #include "Basic.h"
 #include "IAutumnType.h"
 
+namespace Autumn{
+
 /** 
  * Create correctly pointer value and free it.
  * 
@@ -55,5 +57,7 @@ public:
 		return type.at(type.size()-1) == '*';
 	}
 };
+
+} // End namespace Autumn
 
 #endif

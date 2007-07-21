@@ -22,6 +22,8 @@
 #include "IBeanWrapper.h"
 #include "FileLogger.h"
 
+using namespace Autumn;
+
 /**
  * Wrapper for FileLogger
  */

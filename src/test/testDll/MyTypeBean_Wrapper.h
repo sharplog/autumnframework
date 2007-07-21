@@ -25,7 +25,7 @@
 /**
  * Wrapper for MyTypeBean
  */
-class MyTypeBean_Wrapper: public IBeanWrapper{
+class MyTypeBean_Wrapper: public Autumn::IBeanWrapper{
 	MyTypeBean* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_MyTypeBean_Wrapper();
-	DLL_EXPORT void delete_MyTypeBean_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_MyTypeBean_Wrapper();
+	DLL_EXPORT void delete_MyTypeBean_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_MyTypeBean_Wrapper_Local{
 public:
 	AUTUMN_MyTypeBean_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_MyTypeBean_Wrapper",
 				(void*)create_MyTypeBean_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_MyTypeBean_Wrapper",
 				(void*)delete_MyTypeBean_Wrapper);
 	}

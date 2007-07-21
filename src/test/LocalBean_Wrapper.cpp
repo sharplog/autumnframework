@@ -98,10 +98,10 @@ void* LocalBean_Wrapper::cast2Base(const string basename)
 }
 
 extern "C"{
-	IBeanWrapper* create_LocalBean_Wrapper(){
+	Autumn::IBeanWrapper* create_LocalBean_Wrapper(){
 		return new LocalBean_Wrapper;
 	}
-	void delete_LocalBean_Wrapper(IBeanWrapper* p){
+	void delete_LocalBean_Wrapper(Autumn::IBeanWrapper* p){
 		delete p;
 	}
 }

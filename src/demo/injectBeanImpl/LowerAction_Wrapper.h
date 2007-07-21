@@ -25,7 +25,7 @@
 /**
  * Wrapper for LowerAction
  */
-class LowerAction_Wrapper: public IBeanWrapper{
+class LowerAction_Wrapper: public Autumn::IBeanWrapper{
 	LowerAction* pBean;
 
 public: 
@@ -55,17 +55,17 @@ public:
 };
 
 extern "C"{
-	DLL_EXPORT IBeanWrapper* create_LowerAction_Wrapper();
-	DLL_EXPORT void delete_LowerAction_Wrapper(IBeanWrapper*);
+	DLL_EXPORT Autumn::IBeanWrapper* create_LowerAction_Wrapper();
+	DLL_EXPORT void delete_LowerAction_Wrapper(Autumn::IBeanWrapper*);
 }
 
 class AUTUMN_LowerAction_Wrapper_Local{
 public:
 	AUTUMN_LowerAction_Wrapper_Local(){
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"create_LowerAction_Wrapper",
 				(void*)create_LowerAction_Wrapper);
-		registerLocalFunction(
+		Autumn::registerLocalFunction(
 				"delete_LowerAction_Wrapper",
 				(void*)delete_LowerAction_Wrapper);
 	}

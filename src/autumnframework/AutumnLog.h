@@ -20,6 +20,8 @@
 #include "ILogAdapter.h"
 #include "IBeanWrapper.h"
 
+namespace Autumn{
+
 /** 
  * Logger for AutumnFramework
  */
@@ -81,5 +83,7 @@ public:
 	}
 		
 };
+
+} // End namespace Autumn
 
 #endif

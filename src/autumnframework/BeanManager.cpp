@@ -24,6 +24,8 @@
  * @since 2006-12-18
  */
 
+namespace Autumn{
+
 const int BeanManager::HashDivisor = 997;
 
 BeanManager::~BeanManager()
@@ -135,3 +137,5 @@ void BeanManager::deleteSingleton(void* p)
 		}
 	}
 }
+
+} // End namespace Autumn
