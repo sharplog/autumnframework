@@ -19,9 +19,11 @@
 #include "LocalLibrary.h"
 #include "AutumnException.h"
 
+using namespace std;
+
 namespace Autumn{
 
-string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
+string IBeanWrapper::getConArgTypes(const string& ConMethod, int num)
 {
 	string types;
 
@@ -34,7 +36,8 @@ string IBeanWrapper::getConArgTypes(string& ConMethod, int num)
 	return types;
 }
 
-int IBeanWrapper::getBeanPropertyType(const char* name, string& type){
+int IBeanWrapper::getBeanPropertyType(const char* name, string& type)
+{
 	string method = string("set") + name;
 	int rtn = this->getParamTypes(method, type, 1);
 	if( 0 == rtn)

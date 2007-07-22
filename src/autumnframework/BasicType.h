@@ -21,11 +21,13 @@
 #include "IAutumnType.h"
 #include "AutumnException.h"
 
+using namespace std;
+
 namespace Autumn{
 
 /** 
  * Create correctly value and free it.
- * class T: the ture type of value, it must support evaluation operator(=); 
+ * class T: the true type of value, it must support evaluation operator(=); 
  * createfun: the function that conversion a string to a T value;
  * freefun: the function that free the space created in createfun, for example,
  * T is a pointer to a space created in createfun;
@@ -47,23 +49,23 @@ public:
 	 * in this function.
 	 * @return A pointer to a value of type T
 	 */
-	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it);
+	virtual void* createValue(const string& type, const StrValueList& vl, StrIterator& it);
 
 	/** Free the space where p points */
-	virtual void freeValue(void* pp, const string type){
+	virtual void freeValue(void* pp, const string& type){
 		this->freeSelfSpace(pp);
 	}
 	
 	/** Free the space where p points, don't free it's memeber's space */
 	virtual void freeSelfSpace(void* p);
 
-	virtual bool isThisType(const string type){
+	virtual bool isThisType(const string& type) const {
 		return type.compare(this->typeFormat) == 0;
 	}
 };
 
 template<class T, T createfun(const char*), void freefun(T)>
-void* BasicType<T, createfun, freefun>::createValue(const string type, const StrValueList& vl, StrIterator& it)
+void* BasicType<T, createfun, freefun>::createValue(const string& type, const StrValueList& vl, StrIterator& it)
 {
 	if( it != vl.end() ){
 		T *p = new T;

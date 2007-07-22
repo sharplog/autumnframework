@@ -4,7 +4,7 @@
 
 typedef struct{
 	int	i;
-	string s;
+	std::string s;
 }MyData;
 
 #endif

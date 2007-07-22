@@ -20,6 +20,8 @@
 #include "Basic.h"
 #include "IAutumnType.h"
 
+using namespace std;
+
 namespace Autumn{
 
 /** 
@@ -39,21 +41,21 @@ public:
 	 * in this function.
 	 * @return A pointer to the pointer value
 	 */
-	void* createValue(const string type, const StrValueList& vl, StrIterator& it);
+	void* createValue(const string& type, const StrValueList& vl, StrIterator& it);
 
 	/** 
 	 * Free the space where p points 
 	 * @param p Pointer to a pointer value
 	 * @param type Type of the value
 	*/
-	void freeValue(void* p, const string type);
+	void freeValue(void* p, const string& type);
 	
 	/** Free the space where p points, don't free it's member's space */
 	void freeSelfSpace(void* p){
 		delete (void**)p;
 	}
 	
-	virtual bool isThisType(const string type){
+	virtual bool isThisType(const string& type) const {
 		return type.at(type.size()-1) == '*';
 	}
 };

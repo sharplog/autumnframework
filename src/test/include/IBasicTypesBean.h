@@ -2,6 +2,8 @@
 #ifndef AUTUMN_IBASICTYPESBEAN_H
 #define AUTUMN_IBASICTYPESBEAN_H
 
+using namespace std;
+
 class IBasicTypesBean{
 public:
 	/* Basic types

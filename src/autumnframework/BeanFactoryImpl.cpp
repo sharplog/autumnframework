@@ -87,7 +87,7 @@ BeanFactoryImpl::~BeanFactoryImpl()
  * @param basename Bean's base class name
  * @return A pointer to the bean or to its base class
  */
-void* BeanFactoryImpl::getBean(const string name, const string basename)
+void* BeanFactoryImpl::getBean(const string& name, const string& basename)
 {
 	void* p;
 	int i;
@@ -193,7 +193,7 @@ void BeanFactoryImpl::freeBean(void* p)
  * @param name Bean's name
  * @return True if it exists, or false.
  */
-bool BeanFactoryImpl::containsBean(string name)
+bool BeanFactoryImpl::containsBean(const string& name)
 {
 	if(	this->Config->getBeanConfig(name) )
 		return true;
@@ -206,7 +206,7 @@ bool BeanFactoryImpl::containsBean(string name)
  * @param name Bean's name
  * @return True if it's a singleton, or false. If not found, also return false.
  */
-bool BeanFactoryImpl::isSingleton(string name)
+bool BeanFactoryImpl::isSingleton(const string& name)
 {
 	BeanConfig* bc = this->Config->getBeanConfig(name);
 	if( bc )

@@ -171,21 +171,24 @@ string ClassElmt::genWrapperH()
 	"		this->pBean = (" + classname + "*)p;"			<< endl <<
 	"	}"													<< endl <<
 	""														<< endl <<
-	"	void* execCreateMethod(string& method, void** Prams, int num);"<<endl<<
-	""																<<endl<<
-	"	int execVoidMethod(string& method, void** Prams, int num);"	<<endl<<
-	""																<<endl<<
-	"	int getParamTypes(string& method, string& types, int num);"	<<endl<<
-	""																<<endl<<
-	"	void* cast2Base(const string basename);"					<<endl<<
-	""																<<endl<<
-	"};"															<<endl<<
-	""																<<endl<<
-	"extern \"C\"{"													<<endl<<
+	"	void* execCreateMethod(const std::string& method, " <<
+		"void** Prams, int num);"							<<endl<<
+	""														<<endl<<
+	"	int execVoidMethod(const std::string& method, "		<<
+		"void** Prams, int num);"							<<endl<<
+	""														<<endl<<
+	"	int getParamTypes(const std::string& method, "		<<
+		"std::string& types, int num);"							<<endl<<
+	""														<<endl<<
+	"	void* cast2Base(const std::string& basename);"		<<endl<<
+	""														<<endl<<
+	"};"													<<endl<<
+	""														<<endl<<
+	"extern \"C\"{"											<<endl<<
 	"	DLL_EXPORT Autumn::IBeanWrapper* create_" + wrappername + "();"<<endl<<
 	"	DLL_EXPORT void delete_" + wrappername + "(Autumn::IBeanWrapper*);"<<endl<<
-	"}"																<<endl<<
-	""																<<endl;
+	"}"														<<endl<<
+	""														<<endl;
 	os << this->genWrapperH4Local();
 	
 	return os.str();
@@ -218,7 +221,7 @@ string ClassElmt::genWrapper4ECM()
 	ostringstream os;
 	os<<
 	"void* "<< wrappername << "::" <<
-	"execCreateMethod(string& method, void** Prams, int num)" << endl <<
+	"execCreateMethod(const std::string& method, void** Prams, int num)"<<endl<<
 	"{" <<endl;
 
 	for( int i=0; i<children.size(); i++){
@@ -243,7 +246,7 @@ string ClassElmt::genWrapper4EVM()
 	ostringstream os;
 	os<<
 	"int "<< wrappername << "::" <<
-	"execVoidMethod(string& method, void** Prams, int num)"	<<endl<<
+	"execVoidMethod(const std::string& method, void** Prams, int num)"<<endl<<
 	"{" <<endl<<
 	"	";
 
@@ -283,7 +286,7 @@ string ClassElmt::genWrapper4GPT()
 	ostringstream os;
 	os<<
 	"int "<< wrappername << "::" <<
-	"getParamTypes(string& method, string& types, int num)"	<<endl<<
+	"getParamTypes(const std::string& method, std::string& types, int num)"<<endl<<
 	"{" <<endl<<
 	"	";
 
@@ -323,7 +326,7 @@ string ClassElmt::genWrapper4Cast()
 	ostringstream os;
 	os<<
 	"void* "<< wrappername << "::" <<
-	"cast2Base(const string basename)" << endl <<
+	"cast2Base(const std::string& basename)" << endl <<
 	"{" <<endl;
 
 	for( int i=0; i<this->BaseClass.size(); i++){
