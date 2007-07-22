@@ -194,7 +194,7 @@ string MethodElmt::genWrapper4GPT()
 
 	os << "if( !method.compare(\"" + this->getName() + "\") && num == " <<
 		paramnum << " )"	<< endl;
-	os<<"\t\ttypes = string(\"\")";
+	os<<"\t\ttypes = std::string(\"\")";
 	
 	if( paramnum > 0 ){
 		for( int i=0; i<paramnum; i++){

@@ -21,6 +21,8 @@
 #include "IAutumnType.h"
 #include "AutumnException.h"
 
+using namespace std;
+
 namespace Autumn{
 
 /** 
@@ -38,7 +40,7 @@ public:
 	 * in this function.
 	 * @return A pointer to a value
 	 */
-	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
+	virtual void* createValue(const string& type, const StrValueList& vl, StrIterator& it){
 		if( it != vl.end() ){
 			string *p = new string(*it++);
 			return (void*)p; //*p is the value
@@ -47,7 +49,7 @@ public:
 			"There is no string in vector!");
 	}
 
-	virtual void freeValue(void* p, const string type){
+	virtual void freeValue(void* p, const string& type){
 		// free space of string
 		delete (string*)p;
 	}
@@ -58,7 +60,7 @@ public:
 		delete (string*)p;
 	}
 
-	virtual bool isThisType(const string type){
+	virtual bool isThisType(const string& type) const {
 		return type.compare("string") == 0;
 	}
 };

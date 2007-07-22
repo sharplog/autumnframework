@@ -24,57 +24,57 @@
 
 namespace Autumn{
 
-/** 
- * Maitain all type makers.
- * 
- * @version 0.1.0
- * @since 2006-11-25
- */
-
-class TypeManager{
-private:
-	/** Type makers */
-	vector<IAutumnType*> TypeList;
-
-	/** Type maker wrappers */
-	vector<IBeanWrapper*> WrapperList;
-	
-	/** a type maker to create bean type value */
-	IAutumnType* beanMaker;
-public:
 	/** 
-	 * Constructor, initialize the inliine type
+	 * Maintain all type makers.
+	 * 
+	 * @version 0.1.0
+	 * @since 2006-11-25
 	 */
-	TypeManager();
 
-	/** 
-	 * Destructor
-	 */
-	~TypeManager();
-	
-	/** 
-	 * Set a AutumnType into list
-	 * @param at A pointer to type maker
-	*/
-	void addTypeBean(IAutumnType* at);
-	
-	/** 
-	 * Set a AutumnType and its wrapper into list
-	 * @param pw Type maker's wrapper
-	*/
-	void addTypeBean(IBeanWrapper* pw);
-	
-	/** 
-	 * Erase a type maker from list
-	 * @param name Type name
-	 */
-	IAutumnType* findTypeBean(string name);
+	class TypeManager{
+	private:
+		/** Type makers */
+		std::vector<IAutumnType*> TypeList;
 
-	void setBeanMaker(IAutumnType* p){
-		this->beanMaker = p;
-	}
+		/** Type maker wrappers */
+		std::vector<IBeanWrapper*> WrapperList;
+		
+		/** a type maker to create bean type value */
+		IAutumnType* beanMaker;
+	public:
+		/** 
+		 * Constructor, initialize the inline type
+		 */
+		TypeManager();
 
-};
+		/** 
+		 * Destructor
+		 */
+		~TypeManager();
+		
+		/** 
+		 * Set a AutumnType into list
+		 * @param at A pointer to type maker
+		*/
+		void addTypeBean(IAutumnType* at);
+		
+		/** 
+		 * Set a AutumnType and its wrapper into list
+		 * @param pw Type maker's wrapper
+		*/
+		void addTypeBean(IBeanWrapper* pw);
+		
+		/** 
+		 * find a type maker from list
+		 * @param name Type name
+		 */
+		IAutumnType* findTypeBean(const std::string& name);
+
+		void setBeanMaker(IAutumnType* p){
+			this->beanMaker = p;
+		}
+
+	};
 
 } // End namespace Autumn
 

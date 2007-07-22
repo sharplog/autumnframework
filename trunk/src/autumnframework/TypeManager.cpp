@@ -126,7 +126,7 @@ TypeManager::~TypeManager(){
 	delete this->beanMaker;
 }
 
-IAutumnType* TypeManager::findTypeBean(string type)
+IAutumnType* TypeManager::findTypeBean(const string& type)
 {
 	vector<IAutumnType*>::iterator tmp;
 	for( tmp=this->TypeList.begin(); tmp!=this->TypeList.end(); tmp++){

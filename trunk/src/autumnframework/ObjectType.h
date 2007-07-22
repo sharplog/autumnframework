@@ -21,6 +21,8 @@
 #include "IBeanFactory.h"
 #include "AutumnException.h"
 
+using namespace std;
+
 namespace Autumn{
 
 /** 
@@ -47,7 +49,8 @@ public:
 	 * in this function.
 	 * @return A pointer to a value of object
 	 */
-	virtual void* createValue(const string type, const StrValueList& vl, StrIterator& it){
+	virtual void* createValue(const string& type, const StrValueList& vl, 
+			StrIterator& it){
 		if( it != vl.end() ){
 			string name = *it++;
 			void* p = this->Bf->getBean(name, type);
@@ -61,7 +64,7 @@ public:
 	}
 
 	/** Free the space where p point */
-	virtual void freeValue(void* p, const string type){
+	virtual void freeValue(void* p, const string& type){
 		this->Bf->freeBean(p);
 	}
 	
@@ -69,7 +72,7 @@ public:
 		this->Bf->freeBean(p);
 	}
 	
-	virtual bool isThisType(const string type){
+	virtual bool isThisType(const string& type) const {
 		return type.compare("autumnbean") == 0;
 	}
 };

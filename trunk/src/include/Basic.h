@@ -20,8 +20,6 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 /** 
  * Basic configuration
  * @version 0.1.0
@@ -30,14 +28,14 @@ using namespace std;
 
 namespace Autumn{
 	
-/** Value strings */
-typedef vector<string> StrValueList;
-typedef vector<string>::iterator StrIterator;
+	/** Value strings */
+	typedef std::vector<std::string> StrValueList;
+	typedef std::vector<std::string>::iterator StrIterator;
 
-/** A type represents pointer */
-typedef long TPointer;
+	/** A type represents pointer */
+	typedef long TPointer;
 
-extern const char typeSeparator;
+	extern const char typeSeparator;
 
 } // End namespace Autumn
 

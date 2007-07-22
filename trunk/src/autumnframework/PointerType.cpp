@@ -19,7 +19,7 @@
 
 namespace Autumn{
 
-void* PointerType::createValue(const string type, const StrValueList& vl, StrIterator& it)
+void* PointerType::createValue(const string& type, const StrValueList& vl, StrIterator& it)
 {
 	string basicType = type.substr(0, type.size()-1); // erase the '*'
 	IAutumnType* at = this->getTypeManager()->findTypeBean(basicType);
@@ -31,7 +31,7 @@ void* PointerType::createValue(const string type, const StrValueList& vl, StrIte
 	return (void*)pp;
 }
 
-void PointerType::freeValue(void* p, string type)
+void PointerType::freeValue(void* p, const string& type)
 {
 	string basicType = type.substr(0, type.size()-1); // erase the '*'
 	IAutumnType* at = this->getTypeManager()->findTypeBean(basicType);

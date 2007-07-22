@@ -20,58 +20,58 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 namespace Autumn{
 
-class TypeManager;
+	class TypeManager;
 
-/** 
- * Interface of ValueType
- * 
- * @version 0.1.0
- * @since 2006-11-25
- */
-class IAutumnType{
-private:
-	TypeManager* TypeMng;
-
-public:
 	/** 
-	 * Create a value from StrValueList.
-	 * @param vl A Vector<string>
-	 * @param it A iterator pointing to the first unused string, it will be changed
-	 * in this function.
-	 * @return A pointer to a pointer value
+	 * Interface of ValueType
+	 * 
+	 * @version 0.1.0
+	 * @since 2006-11-25
 	 */
-	virtual void* createValue(const string type, const vector<string>& vl, vector<string>::iterator& it) = 0;
+	class IAutumnType{
+	private:
+		TypeManager* TypeMng;
 
-	/** Free the space where p point, include it's member's space */
-	virtual void freeValue(void* p, const string type) = 0;
-	
-	/** Free the space where p point, don't free it's member's space */
-	virtual void freeSelfSpace(void* p) = 0;
+	public:
+		/** 
+		 * Create a value from StrValueList.
+		 * @param vl A Vector<string>
+		 * @param it A iterator pointing to the first unused string, it will be changed
+		 * in this function.
+		 * @return A pointer to a pointer value
+		 */
+		virtual void* createValue(const std::string& type, 
+			const std::vector<std::string>& vl, 
+			std::vector<std::string>::iterator& it) = 0;
 
-	/** Is this type or not */
-	virtual bool isThisType(const string type) = 0;
-	
-	/** 
-	 * Set type manager
-	 * @param p A pointer to TypeManager
-	 */
-	void setTypeManager(TypeManager* p){
-		this->TypeMng = p;
-	}
-	
-	TypeManager* getTypeManager(){
-		return this->TypeMng;
-	}
-	
-	/** 
-	 * Destructor
-	 */
-	virtual ~IAutumnType(){}
-};
+		/** Free the space where p point, include it's member's space */
+		virtual void freeValue(void* p, const std::string& type) = 0;
+		
+		/** Free the space where p point, don't free it's member's space */
+		virtual void freeSelfSpace(void* p) = 0;
+
+		/** Is this type or not */
+		virtual bool isThisType(const std::string& type) const = 0;
+		
+		/** 
+		 * Set type manager
+		 * @param p A pointer to TypeManager
+		 */
+		void setTypeManager(TypeManager* p){
+			this->TypeMng = p;
+		}
+		
+		TypeManager* getTypeManager() const {
+			return this->TypeMng;
+		}
+		
+		/** 
+		 * Destructor
+		 */
+		virtual ~IAutumnType(){}
+	};
 
 } // End namespace Autumn
 

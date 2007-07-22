@@ -4,6 +4,8 @@
 
 #include "IBasicTypesBean.h"
 
+using namespace std;
+
 /** class for testing singleton property */
 class SingletonBean: public IBasicTypesBean{
 private:

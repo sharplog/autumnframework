@@ -37,91 +37,92 @@
 	#define DLL_EXPORT 
 #endif
 
-using namespace std;
-
 namespace Autumn{
 
-/** 
- * Wrapper of bean
- * 
- * @version 0.7.0
- * @since 2007-04-27
- */
-
-class DLL_IM_EXPORT IBeanWrapper{
-	typedef void WrapperFreer(IBeanWrapper*);
-	
-	/** bean name */
-	string BeanName;
-
-	/** pointers of parameters, using long type */
-	vector<TPointer> Parameters;
-
-	/** function pointer to delete wrapper */
-	WrapperFreer* WrapperDeleter;
-
 	/** 
-	 * bean's property 
+	 * Wrapper of bean
+	 * 
+	 * @version 0.7.0
+	 * @since 2007-04-27
 	 */
-	bool Singleton;								// is singleton or not
-	string InitMethod;							// init method name
-	string DestroyMethod;						// destroy method name
-	string DeleteMethod;						// destruct method name
-	
-public:
-	virtual void* getBean() = 0;
-	virtual void  setBean(void*) = 0;
-	virtual void* execCreateMethod(string& method, void** pPrams, int num) = 0;
-	virtual int   execVoidMethod(string& method, void** pPrams, int num) = 0;
-	virtual int   getParamTypes (string& method, string& types, int num) = 0;
 
-	/** 
-	 * cast bean pointer to base class pointer.
-	 * @param basename base class name
-	 * @return base class pointer if basename is bean's base class
-	 *         or return bean pointer
-	 */
-	virtual void* cast2Base(const string basename) = 0;
-	
-	string getConArgTypes(string& ConMethod, int num);
-	
-	void   setBeanName(string s){ this->BeanName = s; }
-	string getBeanName(){ return this->BeanName; }
-	
-	void   setInitMethod(string s){ this->InitMethod = s; }
-	string getInitMethod(){ return this->InitMethod; }
-	
-	void   setDestroyMethod(string s){ this->DestroyMethod = s; }
-	string getDestroyMethod(){ return this->DestroyMethod; }
-	
-	void   setDeleteMethod(string s){ this->DeleteMethod = s; }
-	string getDeleteMethod(){ return this->DeleteMethod; }
-	
-	void setSingleton(bool s){ this->Singleton = s; }
-	bool getSingleton() { return this->Singleton; }
+	class DLL_IM_EXPORT IBeanWrapper{
+		typedef void WrapperFreer(IBeanWrapper*);
+		
+		/** bean name */
+		std::string BeanName;
 
-	void setWrapperDeleter(WrapperFreer* wd){ this->WrapperDeleter = wd; }
-	WrapperFreer* getWrapperDeleter(){ return this->WrapperDeleter; }
-	
-	void addParameter(TPointer p){ this->Parameters.push_back(p); }
-	vector<TPointer> getParameter(){ return this->Parameters; }
+		/** pointers of parameters, using long type */
+		std::vector<TPointer> Parameters;
 
-	int setBeanPropertyValue(const char* name, void* value){
-		string method = string("set") + name;
-		return this->execVoidMethod(method, &value, 1);
-	}
-	
-	int getBeanPropertyType(const char* name, string& type);
-	
-	/** if has deleteMethod, use this to delete bean */
-	bool deleteBean();
-	
-	/** Destructor */
-	virtual ~IBeanWrapper();
-};
+		/** function pointer to delete wrapper */
+		WrapperFreer* WrapperDeleter;
 
-/** register local function for local library */
-DLL_IM_EXPORT void registerLocalFunction(const char* name, void* f);
+		/** 
+		 * bean's property 
+		 */
+		bool Singleton;								// is singleton or not
+		std::string InitMethod;						// init method name
+		std::string DestroyMethod;					// destroy method name
+		std::string DeleteMethod;					// destruct method name
+		
+	public:
+		virtual void* getBean() = 0;
+		virtual void  setBean(void*) = 0;
+		virtual void* execCreateMethod(const std::string& method, 
+									void** pPrams, int num) = 0;
+		virtual int   execVoidMethod(const std::string& method, 
+									void** pPrams, int num) = 0;
+		virtual int   getParamTypes (const std::string& method, 
+									std::string& types, int num) = 0;
+
+		/** 
+		 * cast bean pointer to base class pointer.
+		 * @param basename base class name
+		 * @return base class pointer if basename is bean's base class
+		 *         or return bean pointer
+		 */
+		virtual void* cast2Base(const std::string& basename) = 0;
+		
+		std::string getConArgTypes(const std::string& ConMethod, int num);
+		
+		void   setBeanName(const std::string& s){ this->BeanName = s; }
+		std::string getBeanName() const { return this->BeanName; }
+		
+		void   setInitMethod(const std::string& s){ this->InitMethod = s; }
+		std::string getInitMethod() const { return this->InitMethod; }
+		
+		void   setDestroyMethod(const std::string& s){ this->DestroyMethod = s; }
+		std::string getDestroyMethod() const { return this->DestroyMethod; }
+		
+		void   setDeleteMethod(const std::string& s){ this->DeleteMethod = s; }
+		std::string getDeleteMethod() const { return this->DeleteMethod; }
+		
+		void setSingleton(bool s){ this->Singleton = s; }
+		bool getSingleton() const { return this->Singleton; }
+
+		void setWrapperDeleter(WrapperFreer* wd){ this->WrapperDeleter = wd; }
+		WrapperFreer* getWrapperDeleter() const { return this->WrapperDeleter; }
+		
+		void addParameter(TPointer p){ this->Parameters.push_back(p); }
+		std::vector<TPointer> getParameter() const { return this->Parameters; }
+
+		int setBeanPropertyValue(const char* name, void* value){
+			std::string method = std::string("set") + name;
+			return this->execVoidMethod(method, &value, 1);
+		}
+		
+		int getBeanPropertyType(const char* name, std::string& type);
+		
+		/** if has deleteMethod, use this to delete bean */
+		bool deleteBean();
+		
+		/** Destructor */
+		virtual ~IBeanWrapper();
+	};
+
+	/** register local function for local library */
+	DLL_IM_EXPORT void registerLocalFunction(const char* name, void* f);
 
 } // End namespace Autumn
 

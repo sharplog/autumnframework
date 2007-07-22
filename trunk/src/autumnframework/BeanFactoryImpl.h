@@ -23,6 +23,8 @@
 #include "BeanManager.h"
 #include "TypeManager.h"
 
+using namespace std;
+
 namespace Autumn{
 
 /** 
@@ -62,7 +64,7 @@ public:
 	 * @param basename Bean's base class name
 	 * @return A pointer to the bean or to its base class
 	 */
-	virtual void* getBean(const string name, const string basename = "");
+	virtual void* getBean(const string& name, const string& basename = "");
 
 	/** 
 	 * Free a bean
@@ -75,14 +77,14 @@ public:
 	 * @param name Bean's name
 	 * @return True if it exists, or false.
 	 */
-	virtual bool containsBean(string name);
+	virtual bool containsBean(const string& name);
 
 	/** 
 	 * A bean is a singleton or not
 	 * @param name Bean's name
 	 * @return True if it's a singleton, or false.
 	 */
-	virtual bool isSingleton(string name);
+	virtual bool isSingleton(const string& name);
 
 	/** Destructor */
 	virtual ~BeanFactoryImpl();
