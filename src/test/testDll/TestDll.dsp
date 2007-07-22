@@ -153,6 +153,43 @@ SOURCE=.\SingletonBean_Wrapper.cpp
 # Begin Source File
 
 SOURCE=.\BasicTypesBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__BASIC="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\BasicTypesBean.h
+InputName=BasicTypesBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__BASIC="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\BasicTypesBean.h
+InputName=BasicTypesBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -161,6 +198,43 @@ SOURCE=.\BasicTypesBean_Wrapper.h
 # Begin Source File
 
 SOURCE=.\BeanTypeBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__BEANT="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\BeanTypeBean.h
+InputName=BeanTypeBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__BEANT="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\BeanTypeBean.h
+InputName=BeanTypeBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -169,6 +243,43 @@ SOURCE=.\BeanTypeBean_Wrapper.h
 # Begin Source File
 
 SOURCE=.\Factories.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__FACTO="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\Factories.h
+InputName=Factories
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__FACTO="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\Factories.h
+InputName=Factories
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -177,6 +288,43 @@ SOURCE=.\Factories_Wrapper.h
 # Begin Source File
 
 SOURCE=.\FactoryMethodBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__FACTOR="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\FactoryMethodBean.h
+InputName=FactoryMethodBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__FACTOR="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\FactoryMethodBean.h
+InputName=FactoryMethodBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -197,6 +345,43 @@ SOURCE=..\include\IMultiBase.h
 # Begin Source File
 
 SOURCE=.\InitDestBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__INITD="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\InitDestBean.h
+InputName=InitDestBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__INITD="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\InitDestBean.h
+InputName=InitDestBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -205,6 +390,43 @@ SOURCE=.\InitDestBean_Wrapper.h
 # Begin Source File
 
 SOURCE=..\include\IProduct.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__IPROD="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=..\include\IProduct.h
+InputName=IProduct
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe -out . $(InputPath)
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__IPROD="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=..\include\IProduct.h
+InputName=IProduct
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe -out . $(InputPath)
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -213,6 +435,43 @@ SOURCE=.\IProduct_Wrapper.h
 # Begin Source File
 
 SOURCE=.\MultiInheriteBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__MULTI="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MultiInheriteBean.h
+InputName=MultiInheriteBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__MULTI="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MultiInheriteBean.h
+InputName=MultiInheriteBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -221,6 +480,43 @@ SOURCE=.\MultiInheriteBean_Wrapper.h
 # Begin Source File
 
 SOURCE=.\MyBasicType.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__MYBAS="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MyBasicType.h
+InputName=MyBasicType
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__MYBAS="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MyBasicType.h
+InputName=MyBasicType
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -237,6 +533,43 @@ SOURCE=.\MyData.h
 # Begin Source File
 
 SOURCE=.\MyTypeBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__MYTYP="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MyTypeBean.h
+InputName=MyTypeBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__MYTYP="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\MyTypeBean.h
+InputName=MyTypeBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -249,6 +582,43 @@ SOURCE=.\Products.h
 # Begin Source File
 
 SOURCE=.\SelfManagedBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__SELFM="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\SelfManagedBean.h
+InputName=SelfManagedBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__SELFM="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\SelfManagedBean.h
+InputName=SelfManagedBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -257,6 +627,43 @@ SOURCE=.\SelfManagedBean_Wrapper.h
 # Begin Source File
 
 SOURCE=.\SingletonBean.h
+
+!IF  "$(CFG)" == "TestDll - Win32 Release"
+
+USERDEP__SINGL="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\SingletonBean.h
+InputName=SingletonBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
+
+USERDEP__SINGL="..\..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\SingletonBean.h
+InputName=SingletonBean
+
+BuildCmds= \
+	..\..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
