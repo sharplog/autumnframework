@@ -53,7 +53,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework.lib /nologo /subsystem:console /machine:I386 /libpath:"../lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy       ..\lib\autumnframework.dll     release\ 
+PostBuild_Cmds=copy        ..\lib\autumnframework.dll      release\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "FrameTest - Win32 Debug"
@@ -81,7 +81,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework_D.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept /libpath:"../lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy       ..\lib\autumnframework_D.dll     debug\ 
+PostBuild_Cmds=copy        ..\lib\autumnframework_D.dll      debug\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -120,6 +120,43 @@ SOURCE=.\FactoryTest.h
 # Begin Source File
 
 SOURCE=.\LocalBean.h
+
+!IF  "$(CFG)" == "FrameTest - Win32 Release"
+
+USERDEP__LOCAL="..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\LocalBean.h
+InputName=LocalBean
+
+BuildCmds= \
+	..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ELSEIF  "$(CFG)" == "FrameTest - Win32 Debug"
+
+USERDEP__LOCAL="..\bin\AutumnGen.exe"	
+# Begin Custom Build
+InputPath=.\LocalBean.h
+InputName=LocalBean
+
+BuildCmds= \
+	..\bin\AutumnGen.exe $(InputName).h
+
+"$(InputName)_Wrapper.h" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+
+"$(InputName)_Wrapper.cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+   $(BuildCmds)
+# End Custom Build
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
