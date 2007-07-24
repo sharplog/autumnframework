@@ -57,7 +57,8 @@ private:
 
 public:
 	/** Constructor */
-	DynamicLibrary(string name, string path):Name(name), Path(path){
+	DynamicLibrary(const string& name, const string& path)
+				   :Name(name), Path(path){
 		this->Handle = _OPENDLL_(path.c_str());
 		if( this->Handle == NULL){
 			throw NotFoundEx("DynamicLibrary", "DynamicLibrary", 
@@ -73,7 +74,7 @@ public:
 	}
 
 	/** Get function address */
-	void* getFunction(string name){
+	void* getFunction(const string& name){
 		void* p = _GETFUNCTION_(this->Handle, name.c_str());
 		if( p )
 			return p;

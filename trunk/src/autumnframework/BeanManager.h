@@ -77,12 +77,12 @@ public:
 	 * @param name bean's name
 	 * @param pw Pointer to bean's wrapper
 	*/
-	void addBean(string name, IBeanWrapper* pw);
+	void addBean(const string& name, IBeanWrapper* pw);
 
 	/** 
 	 * Find a singleton by name
 	 */
-	void* getSingleton(string name);
+	void* getSingleton(const string& name);
 };
 
 } // End namespace Autumn

@@ -50,7 +50,8 @@ private:
 	bool IsBeanRef;
 	
 public:
-	BeanProperty(string name, string type, StrValueList& vl, bool r, bool b=true):
+	BeanProperty(const string& name, const string& type, StrValueList& vl,
+				bool r, bool b=true):
 	  Name(name), Type(type), StrValue(vl), IsBeanRef(r), Managed(b){ }
 
 	/** 

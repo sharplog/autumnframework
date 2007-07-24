@@ -32,7 +32,7 @@ namespace Autumn{
 class ILibrary{
 public:
 	/** Get function address */
-	virtual void* getFunction(string name) = 0;
+	virtual void* getFunction(const string& name) = 0;
 
 	/** 
 	 * if don't define this destructor, the devided class's 

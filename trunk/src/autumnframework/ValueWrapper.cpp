@@ -23,7 +23,8 @@ using namespace std;
 
 namespace Autumn{
 
-ValueWrapper::ValueWrapper(string type, StrValueList& vl, bool managed, IAutumnType* at):
+ValueWrapper::ValueWrapper(const string& type, StrValueList& vl, bool managed,
+						   IAutumnType* at):
   Type(type), Managed(managed), TypeBean(at){
 	StrIterator it = vl.begin();
 	this->PointerOfValue = this->TypeBean->createValue(type, vl, it);

@@ -40,7 +40,7 @@ private:
 	string typeFormat;
 
 public:
-	BasicType(const string name): typeFormat(name){}
+	BasicType(const string& name): typeFormat(name){}
 	
 	/** 
 	 * Create a value from StrValueList(from it's first element in fact).

@@ -45,24 +45,25 @@ private:
 
 public:
 	/** Create a new PropertyDefine */
-	PropertyDefinition(string name, string type, StrValueList value){
+	PropertyDefinition(const string& name, const string& type,
+						StrValueList value){
 		this->Name = name;
 		this->Type = type;
 		this->Value = value;
 	}
 
 	/** Return property's name */
-	string getName(){
+	string getName() const {
 		return this->Name;
 	}
 
 	/** Return property value's type */
-	string getType(){
+	string getType() const {
 		return this->Type;
 	}
 
 	/** Return the string list of property's value */
-	StrValueList getValueString(){
+	StrValueList getValueString() const {
 		return this->Value;
 	}
 };

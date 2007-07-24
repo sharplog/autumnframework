@@ -103,7 +103,7 @@ IBeanWrapper* BeanManager::getBeanWrapper(void* p){
  * @param name Bean's name
  * @param pw Pointer to bean's wrapper
  */
-void BeanManager::addBean(string name, IBeanWrapper* pw)
+void BeanManager::addBean(const string& name, IBeanWrapper* pw)
 {
 	TPointer pl = (TPointer)pw;
 	this->Beans.insertElement((TPointer)pw->getBean(), pl);
@@ -115,7 +115,7 @@ void BeanManager::addBean(string name, IBeanWrapper* pw)
 /** 
  * Find a singleton by name
  */
-void* BeanManager::getSingleton(string name)
+void* BeanManager::getSingleton(const string& name)
 {
 	map<string, void*>::iterator it = this->SingletonBeans.find(name);
 	if( it != this->SingletonBeans.end() )

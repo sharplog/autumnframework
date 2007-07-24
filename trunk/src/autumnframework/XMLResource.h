@@ -48,7 +48,7 @@ private:
 	string getErrorMsg(XMLResults& err, const char* tag);
 
 	/** convert value to true or false */
-	bool boolAttribute(string value, string name);
+	bool boolAttribute(const string& value, const string& name);
 public:
 	/** 
 	 * Constructor, parse XML file 
