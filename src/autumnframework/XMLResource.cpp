@@ -253,7 +253,7 @@ string XMLResource::getErrorMsg(XMLResults& err, const char* tag)
 	return errStr.str();
 }
 
-bool XMLResource::boolAttribute(string value, string name)
+bool XMLResource::boolAttribute(const string& value, const string& name)
 {
 	if( value.compare("true") == 0 )
 		return true;

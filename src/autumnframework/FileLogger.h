@@ -50,7 +50,7 @@ private:
 	}
 
 public:
-	FileLogger(string filepath, int level):Level(level){
+	FileLogger(const string& filepath, int level):Level(level){
 		this->Of.open(filepath.c_str(), ios::out | ios::app);
 		if( !this->Of.is_open() )
 			throw InitException("FileLogger", "FileLogger", 

@@ -86,7 +86,8 @@ void AutumnConfig::processBean(TBean& bean, ILibrary* pl)
 	this->Beans.insert(make_pair(bean.Name, pb.release()));
 }
 
-string AutumnConfig::mangleName(string objType, string  op, string objName)
+string AutumnConfig::mangleName(const string& objType, 
+								const string&  op, const string& objName)
 {
 	if( objType == "bean" ){
 		if( op == "create" )
@@ -116,7 +117,7 @@ AutumnConfig::~AutumnConfig()
 		delete it->second;
 }
 
-BeanConfig* AutumnConfig::getBeanConfig(string name)
+BeanConfig* AutumnConfig::getBeanConfig(const string& name)
 {
 	map<string, BeanConfig*>::iterator it = this->Beans.find(name);
 	if( it != this->Beans.end() )

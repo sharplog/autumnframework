@@ -51,7 +51,8 @@ public:
 	/** 
 	 * Constructor with class name, method name and cause.
 	 */
-	AutumnException(string cname, string mname, string msg):
+	AutumnException(const string& cname, const string& mname,
+					const string& msg):
 		ClassName(cname),MethodName(mname),ErrMessage(msg){
 
 		this->WholeMessage = cname + "->" + mname + ": " + msg;
@@ -70,7 +71,7 @@ public:
 /** Exception happened while initializing bean configuration*/
 class InitException: public AutumnException{
 public:
-	InitException(string cname, string mname, string msg):
+	InitException(const string& cname, const string& mname, const string& msg):
 	  AutumnException(cname, mname, msg){
 	  }
 
@@ -79,7 +80,7 @@ public:
 /** Exception happened while injecting beans */
 class InjectionException: public AutumnException{
 public:
-	InjectionException(string cname, string mname, string msg):
+	InjectionException(const string& cname, const string& mname, const string& msg):
 	  AutumnException(cname, mname, msg){
 	  }
 };
@@ -87,7 +88,8 @@ public:
 /** Exception of not having something definition */
 class MissDefinitionEx: public InitException{
 public:
-	MissDefinitionEx(string cname, string mname, string msg):
+	MissDefinitionEx(const string& cname, const string& mname,
+					const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -95,7 +97,7 @@ public:
 /** Exception of having non value */
 class NonValueEx: public InitException{
 public:
-	NonValueEx(string cname, string mname, string msg):
+	NonValueEx(const string& cname, const string& mname, const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -103,7 +105,7 @@ public:
 /** Exception of having non instance */
 class NonInstanceEx: public InitException{
 public:
-	NonInstanceEx(string cname, string mname, string msg):
+	NonInstanceEx(const string& cname, const string& mname, const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -111,7 +113,7 @@ public:
 /** Exception of not found the object operated on */
 class NotFoundEx: public InitException{
 public:
-	NotFoundEx(string cname, string mname, string msg):
+	NotFoundEx(const string& cname, const string& mname, const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -119,7 +121,7 @@ public:
 /** Reduplicate definition */
 class ReduplicateEx: public InitException{
 public:
-	ReduplicateEx(string cname, string mname, string msg):
+	ReduplicateEx(const string& cname, const string& mname, const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -127,7 +129,7 @@ public:
 /** Parsing XML file error */
 class XMLParsingEx: public InitException{
 public:
-	XMLParsingEx(string cname, string mname, string msg):
+	XMLParsingEx(const string& cname, const string& mname, const string& msg):
 	  InitException(cname, mname, msg){
 	  }
 };
@@ -135,7 +137,8 @@ public:
 /** Create bean failed */
 class CreateBeanFailedEx: public InjectionException{
 public:
-	CreateBeanFailedEx(string cname, string mname, string msg):
+	CreateBeanFailedEx(const string& cname, const string& mname, 
+					   const string& msg):
 	  InjectionException(cname, mname, msg){
 	  }
 };
@@ -143,7 +146,8 @@ public:
 /** Create bean failed */
 class SetPropertyFailedEx: public InjectionException{
 public:
-	SetPropertyFailedEx(string cname, string mname, string msg):
+	SetPropertyFailedEx(const string& cname, const string& mname,
+						const string& msg):
 	  InjectionException(cname, mname, msg){
 	  }
 };

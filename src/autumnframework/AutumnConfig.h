@@ -55,7 +55,8 @@ class AutumnConfig{
 	 * @param op Operation on object
 	 * @param objName Name of object
 	 */
-	string mangleName(string objType, string  op, string objName);
+	string mangleName(const string& objType, const string&  op, 
+			const string& objName);
 
 public:
 	/** Constructor */
@@ -65,12 +66,12 @@ public:
 	~AutumnConfig();
 	
 	/** Set a bean's configuration */
-	void setBeanConfig(string name, BeanConfig* pb){
+	void setBeanConfig(const string& name, BeanConfig* pb){
 		this->Beans.insert(make_pair(name, pb));
 	}
 
 	/** Get a bean's configuration by name */
-	BeanConfig* getBeanConfig(string name);
+	BeanConfig* getBeanConfig(const string& name);
 	
 	/** Get all customized types */
 	vector<string>* getAllTypes(){

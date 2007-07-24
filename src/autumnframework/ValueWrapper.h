@@ -55,7 +55,8 @@ public:
 	 * @param managed This value is managed by Autumn or not
 	 * @param at TypeBean to create and delete value
 	 */
-	ValueWrapper(string type, StrValueList& vl, bool managed, IAutumnType* at);
+	ValueWrapper(const string& type, StrValueList& vl, bool managed,
+				 IAutumnType* at);
 	
 	/** Destructor, delete pointer of value */
 	~ValueWrapper();
