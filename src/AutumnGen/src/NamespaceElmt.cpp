@@ -20,7 +20,7 @@
 #include "ElmtFactory.h"
 #include "NamespaceElmt.h"
 
-bool NamespaceElmt::isThisType(string& s, int idx)
+bool NamespaceElmt::isThisType(const string& s, int idx)
 {
 	string r = s.substr(idx);
 
@@ -34,7 +34,7 @@ bool NamespaceElmt::isThisType(string& s, int idx)
 		( string::npos == semicolon || brace < semicolon ) );
 }
 
-IElement* NamespaceElmt::clone(string& s, int& idx0)
+IElement* NamespaceElmt::clone(const string& s, int& idx0)
 {
 	// s is the whole content of head file
 	string rest = s.substr(idx0);

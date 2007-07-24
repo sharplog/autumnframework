@@ -31,7 +31,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx){
+	virtual bool isThisType(const string& s, int idx){
 		return false;
 	}
 
@@ -42,7 +42,7 @@ public:
 	 *			  Out: the position after this element.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx){
+	virtual IElement* clone(const string& s, int& idx){
 		return NULL;
 	}
 
@@ -57,7 +57,7 @@ public:
 	}
 
 	/** Return the type of this element. */
-	IElement::ElmtType getType(){
+	IElement::ElmtType getType() const {
 		return IElement::ENUM_UNION;
 	}
 	

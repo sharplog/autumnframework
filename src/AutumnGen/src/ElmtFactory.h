@@ -43,7 +43,7 @@ public:
 	 * @param s Content of head file
 	 * @param idx begin position to parse a element
 	 */
-	static IElement* makeElmt(string& s, int& idx);
+	static IElement* makeElmt(const string& s, int& idx);
 
 	~ElmtFactory();
 };

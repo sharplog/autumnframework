@@ -31,7 +31,7 @@ MethodElmt::MethodElmt()
 	this->PureVirtual = false;
 }
 
-bool MethodElmt::isThisType(string& s, int idx)
+bool MethodElmt::isThisType(const string& s, int idx)
 {
 	string rest = s.substr(idx);
 
@@ -59,7 +59,7 @@ bool MethodElmt::isThisType(string& s, int idx)
 // Can't process method like: void(* ff(void(*fp)()))(){ return fp; } and
 // void(*(*fg(int*()))(void(*)()))(){ return &ff; }
 //
-IElement* MethodElmt::clone(string& s, int& idx0)
+IElement* MethodElmt::clone(const string& s, int& idx0)
 {
 	string rest = s.substr(idx0);
 	int endbracket = Util::findMatching(rest, '(', ')');
@@ -98,7 +98,7 @@ IElement* MethodElmt::clone(string& s, int& idx0)
 	return e;
 }
 
-string MethodElmt::genWrapper4ECM(string classname)
+string MethodElmt::genWrapper4ECM(const string& classname)
 {
 	string methodname = this->getName();
 	int paramnum = this->Parameters.size();
@@ -145,7 +145,7 @@ string MethodElmt::genWrapper4ECM(string classname)
 	return os.str();
 }
 
-string MethodElmt::genWrapper4EVM(string classname)
+string MethodElmt::genWrapper4EVM(const string& classname)
 {
 	string methodname = this->getName();
 	int paramnum = this->Parameters.size();

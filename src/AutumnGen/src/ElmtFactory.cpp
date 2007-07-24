@@ -38,7 +38,7 @@ ElmtFactory::ElmtFactory()
 	this->Elements.push_back(new DocCommentElmt(""));
 }
 
-IElement* ElmtFactory::makeElmt(string& s, int& idx)
+IElement* ElmtFactory::makeElmt(const string& s, int& idx)
 {
 	if( ElmtFactory::instance == NULL )
 		ElmtFactory::instance = new ElmtFactory;

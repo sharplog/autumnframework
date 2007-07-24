@@ -23,7 +23,7 @@
 #include "DocCommentElmt.h"
 #include "ClassElmt.h"
 
-bool ClassElmt::isThisType(string& s, int idx)
+bool ClassElmt::isThisType(const string& s, int idx)
 {
 	string r = s.substr(idx);
 
@@ -36,7 +36,7 @@ bool ClassElmt::isThisType(string& s, int idx)
 	return ( string::npos != brace && brace < semicolon );
 }
 
-IElement* ClassElmt::clone(string& s, int& idx0)
+IElement* ClassElmt::clone(const string& s, int& idx0)
 {
 	// s is the whole content of head file
 	string rest = s.substr(idx0);

@@ -17,7 +17,7 @@
 #include "Util.h"
 #include "Parameter.h"
 
-Parameter::Parameter(string s){
+Parameter::Parameter(const string& s){
 	this->IsConst = false;
 	this->IsReference = false;
 	
