@@ -20,7 +20,7 @@
 
 using namespace std;
 
-int Util::lineno(string& s, int idx)
+int Util::lineno(const string& s, int idx)
 {
     int n = 0;
     for(int i = 0; i < idx && i < s.length(); i++)
@@ -29,14 +29,14 @@ int Util::lineno(string& s, int idx)
     return n;
 }
 
-int Util::whiteSapceLen(string& s)
+int Util::whiteSapceLen(const string& s)
 {
 	int n = 0;
 	while( n < s.size() && isspace(s[n]) ) n++;
 	return n;
 }
 
-int Util::implCommentLen(string& s)
+int Util::implCommentLen(const string& s)
 {
 	int idx, delta;
 
@@ -62,7 +62,7 @@ int Util::implCommentLen(string& s)
 		return idx + delta;
 }
 
-int Util::DocCommentLen(string& s)
+int Util::DocCommentLen(const string& s)
 {
 	if( s.empty() || s.length() < 5 )
 		return 0;
@@ -78,7 +78,7 @@ int Util::DocCommentLen(string& s)
 	return 0;
 }
 
-int Util::CommentLen(string& s)
+int Util::CommentLen(const string& s)
 {
 	int len;
 	
@@ -89,7 +89,7 @@ int Util::CommentLen(string& s)
 
 	return 0;
 }
-int Util::preProcessortLen(string& s)
+int Util::preProcessortLen(const string& s)
 {
 	if( s.empty() || s[0] != '#' )
 		return 0;
@@ -105,7 +105,7 @@ int Util::preProcessortLen(string& s)
 		return s.length();		// the whole s
 }
 
-int Util::literalLen(string& s)
+int Util::literalLen(const string& s)
 {
 	if( s.empty() || (s[0] != '"' && s[0] != '\'') )
 		return 0;
@@ -124,7 +124,7 @@ int Util::literalLen(string& s)
 	return 0;
 }
 
-int Util::irrelevantLen(string& s)
+int Util::irrelevantLen(const string& s)
 {
 	int w, c, p, l;
 	string rest = s;
@@ -142,7 +142,7 @@ int Util::irrelevantLen(string& s)
 	return l;
 }
 
-int Util::unrecognisedLen(string& s)
+int Util::unrecognisedLen(const string& s)
 {
 	int brace = Util::indexOf(s, '{');
 	int semicolon = Util::indexOf(s, ';');
@@ -164,7 +164,7 @@ int Util::unrecognisedLen(string& s)
 		return idx + 1;
 }
 
-int Util::findMatching(string& s, char c1, char c2)
+int Util::findMatching(const string& s, char c1, char c2)
 {
 	int depth = 0;
 	for( int i = 0; i < s.length(); i++ ) {
@@ -185,7 +185,7 @@ int Util::findMatching(string& s, char c1, char c2)
 	return string::npos;
 }
 
-int Util::indexOf(string& s, string t)
+int Util::indexOf(const string& s, const string& t)
 {
 	for( int i = 0; i < s.length(); ){
 		int l;
@@ -200,7 +200,7 @@ int Util::indexOf(string& s, string t)
 	return string::npos;
 }
 
-int Util::indexOf(string& s, char c)
+int Util::indexOf(const string& s, char c)
 {
 	for (int i = 0; i < s.length(); ) {
 		int l;
@@ -217,7 +217,7 @@ int Util::indexOf(string& s, char c)
 	return string::npos;
 }
 	
-bool Util::startWith(string& s, string t)
+bool Util::startWith(const string& s, const string& t)
 {
 	if( s.empty() || t.empty() ) return false;
 	if( s.compare(0, t.length(), t) != 0 ) return false;
@@ -227,7 +227,7 @@ bool Util::startWith(string& s, string t)
 	return false;
 }
 
-string Util::basenameOf(string s)
+string Util::basenameOf(const string& s)
 {
 	string::size_type idx1 = s.find_last_of('/');
 	string::size_type idx2 = s.find_last_of('\\');
@@ -247,7 +247,7 @@ string Util::basenameOf(string s)
 }
 
 
-string Util::dirOf(string s)
+string Util::dirOf(const string& s)
 {
 	string::size_type idx1 = s.find_last_of('/');
 	string::size_type idx2 = s.find_last_of('\\');
@@ -269,7 +269,7 @@ bool Util::isSpecialChar(char c)
 	return true;
 }
 
-int Util::skip(string& s)
+int Util::skip(const string& s)
 {
 	int w, c, t, l;
 	string rest = s;
@@ -287,7 +287,7 @@ int Util::skip(string& s)
 	return l;
 }
 
-string Util::getLastWord(string s)
+string Util::getLastWord(const string& s)
 {
 	string word;
 
@@ -303,7 +303,7 @@ string Util::getLastWord(string s)
 	return word;
 }
 
-string Util::replaceComment(string s)
+string Util::replaceComment(string& s)
 {
 	int idx = 0, ridx;
 	string rest;
@@ -321,7 +321,7 @@ string Util::replaceComment(string s)
 	return s;
 }
 
-string Util::trim(string s)
+string Util::trim(const string& s)
 {
 	int idx1, idx2, len = s.length();
 	
@@ -332,17 +332,18 @@ string Util::trim(string s)
 	return s.substr(idx1, idx2 - idx1 + 1);
 }
 
-string Util::trimall(string s)
+string Util::trimall(const string& s)
 {
-	for( int i=0; i<s.length(); )
-		if( isspace(s[i]) ) 
-			s.erase(i, 1);
+	string t = s;
+	for( int i=0; i<t.length(); )
+		if( isspace(t[i]) ) 
+			t.erase(i, 1);
 		else
 			i++;
-	return s;
+	return t;
 }
 
-bool Util::isPrimType(string w)
+bool Util::isPrimType(const string& w)
 {
 	vector<string> primitives;
 	primitives.push_back("void");
@@ -363,7 +364,7 @@ bool Util::isPrimType(string w)
 	return false;
 }
 
-bool Util::isStruTypeKey(string w)
+bool Util::isStruTypeKey(const string& w)
 {
 	vector<string> keys;
 	keys.push_back("struct");
@@ -378,7 +379,7 @@ bool Util::isStruTypeKey(string w)
 	return false;
 }
 
-string Util::toUpper(string s)
+string Util::toUpper(const string& s)
 {
 	string t = s;
 

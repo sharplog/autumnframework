@@ -30,21 +30,21 @@ class Parameter{
 	string DefaultValue;
 
 public:
-	Parameter(string s);
+	Parameter(const string& s);
 
-	string getType(){
+	string getType() const {
 		return this->Type;
 	}
 
-	bool isConst(){
+	bool isConst() const {
 		return this->IsConst;
 	}
 
-	bool isReference(){
+	bool isReference() const {
 		return this->IsReference;
 	}
 
-	bool isVoid(){
+	bool isVoid() const {
 		return 0 == this->Type.compare("void");
 	}
 };

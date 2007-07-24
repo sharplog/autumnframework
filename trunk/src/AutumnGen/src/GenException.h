@@ -25,7 +25,8 @@ using namespace std;
 /** Exception when parsing a file */
 class GenException: public exception{
 public:
-	GenException(string msg, int lineno = 0, string filename = ""){
+	GenException(const string& msg, int lineno = 0,
+				 const string& filename = ""){
 		if( filename.compare("") != 0)
 			cerr<< filename << ": ";
 		if( lineno != 0)

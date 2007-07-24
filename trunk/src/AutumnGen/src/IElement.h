@@ -65,7 +65,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx) = 0;
+	virtual bool isThisType(const string& s, int idx) = 0;
 
 	/** 
 	 * Clone a element of this type from string s.
@@ -74,10 +74,10 @@ public:
 	 *			  Out: the position after this element.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx) = 0;
+	virtual IElement* clone(const string& s, int& idx) = 0;
 
 	/** Return the type of this element. */
-	virtual IElement::ElmtType getType() = 0;
+	virtual IElement::ElmtType getType() const = 0;
 
 	/** Generate wrapper .h file part of this element */
 	virtual string genWrapperH() = 0;
@@ -96,7 +96,7 @@ public:
 	}
 	
 	/** Set the element's scope: public, protected or private. */
-	void setScope(string scope){
+	void setScope(const string& scope){
 		this->Scope = scope;
 	}
 
@@ -106,7 +106,7 @@ public:
 	}
 
 	/** Set the name of this element. */
-	void setName(string name){
+	void setName(const string& name){
 		this->Name = name;
 	}
 	

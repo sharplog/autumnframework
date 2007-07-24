@@ -33,7 +33,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx);
+	virtual bool isThisType(const string& s, int idx);
 
 	/** 
 	 * Clone a element of this type from string s.
@@ -42,7 +42,7 @@ public:
 	 *			  Out: the position after this element.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx);
+	virtual IElement* clone(const string& s, int& idx);
 
 	/** Generate wrapper .h file part of this element */
 	virtual string genWrapperH();
@@ -51,17 +51,17 @@ public:
 	virtual string genWrapperCPP();
 
 	/** Return the type of this element. */
-	IElement::ElmtType getType(){
+	IElement::ElmtType getType() const {
 		return IElement::NAMESAPCE;
 	}
 	
 	/** set Supper */
-	void setSupper(string s){
+	void setSupper(const string& s){
 		this->Supper = s;
 	}
 
 	/** return Supper */
-	string getSupper(){
+	string getSupper() const {
 		return this->Supper;
 	}
 };

@@ -41,7 +41,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx){
+	virtual bool isThisType(const string& s, int idx){
 		string r = s.substr(idx);
 		return 0 != Util::DocCommentLen(r);
 	}
@@ -54,7 +54,7 @@ public:
 	 * @return If can't create, return NULL.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx){
+	virtual IElement* clone(const string& s, int& idx){
 		string r = s.substr(idx);
 		int len = Util::DocCommentLen(r);
 		DocCommentElmt* dc = new DocCommentElmt(r.substr(0, len));
@@ -63,7 +63,7 @@ public:
 	}
 
 	/** Return the type of this element. */
-	virtual IElement::ElmtType getType(){
+	virtual IElement::ElmtType getType() const {
 		return IElement::DOCCOMMENT;
 	}
 

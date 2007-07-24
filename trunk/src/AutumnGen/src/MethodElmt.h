@@ -60,7 +60,7 @@ public:
 	 * @param s the whole content of head file.
 	 * @param idx Position to start parsing.
 	 */
-	virtual bool isThisType(string& s, int idx);
+	virtual bool isThisType(const string& s, int idx);
 
 	/** 
 	 * Clone a element of this type from string s.
@@ -69,7 +69,7 @@ public:
 	 *			  Out: the position after this element.
 	 * !!Notice: if clone failed, idx should not be changed!
 	 */
-	virtual IElement* clone(string& s, int& idx);
+	virtual IElement* clone(const string& s, int& idx);
 
 	/** 
 	 * Generate wrapper part of this element.
@@ -86,15 +86,15 @@ public:
 	}
 
 	/** Return the type of this element. */
-	IElement::ElmtType getType(){
+	IElement::ElmtType getType() const {
 		return IElement::METHOD;
 	}
 	
 	/** Generate wrapper part for execCreateMethod() */
-	string genWrapper4ECM(string classname);
+	string genWrapper4ECM(const string& classname);
 
 	/** Generate wrapper part for execVoidMethod() */
-	string genWrapper4EVM(string classname);
+	string genWrapper4EVM(const string& classname);
 
 	/** Generate wrapper part for getParamTypes() */
 	string genWrapper4GPT();
