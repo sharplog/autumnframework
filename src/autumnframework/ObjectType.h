@@ -50,7 +50,7 @@ public:
 	 * @return A pointer to a value of object
 	 */
 	virtual void* createValue(const string& type, const StrValueList& vl, 
-			StrIterator& it){
+			StrIterator& it) const{
 		if( it != vl.end() ){
 			string name = *it++;
 			void* p = this->Bf->getBean(name, type);

@@ -40,7 +40,8 @@ public:
 	 * in this function.
 	 * @return A pointer to a value
 	 */
-	virtual void* createValue(const string& type, const StrValueList& vl, StrIterator& it){
+	virtual void* createValue(const string& type, const StrValueList& vl,
+							  StrIterator& it)const{
 		if( it != vl.end() ){
 			string *p = new string(*it++);
 			return (void*)p; //*p is the value

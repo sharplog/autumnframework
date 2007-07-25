@@ -117,9 +117,9 @@ AutumnConfig::~AutumnConfig()
 		delete it->second;
 }
 
-BeanConfig* AutumnConfig::getBeanConfig(const string& name)
+BeanConfig* AutumnConfig::getBeanConfig(const string& name) const
 {
-	map<string, BeanConfig*>::iterator it = this->Beans.find(name);
+	const map<string, BeanConfig*>::const_iterator it = this->Beans.find(name);
 	if( this->Beans.end() != it )
 		return it->second;
 	else

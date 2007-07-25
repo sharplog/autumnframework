@@ -74,7 +74,7 @@ public:
 	}
 
 	/** Get function address */
-	void* getFunction(const string& name){
+	void* getFunction(const string& name)const{
 		void* p = _GETFUNCTION_(this->Handle, name.c_str());
 		if( p )
 			return p;

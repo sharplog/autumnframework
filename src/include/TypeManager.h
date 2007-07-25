@@ -68,7 +68,7 @@ namespace Autumn{
 		 * find a type maker from list
 		 * @param name Type name
 		 */
-		IAutumnType* findTypeBean(const std::string& name);
+		IAutumnType* findTypeBean(const std::string& name)const;
 
 		void setBeanMaker(IAutumnType* p){
 			this->beanMaker = p;

@@ -53,7 +53,7 @@ BeanFactoryImpl::BeanFactoryImpl(IResource* config)
 	
 	// Add customized types
 	// it is deleted in TypeManager destructor.
-	vector<string>* types = this->Config->getAllTypes();
+	const vector<string>* types = this->Config->getAllTypes();
 	for(int j = 0; j<types->size(); j++){
 		IAutumnType* pt =(IAutumnType*) this->getBean((*types)[j]);
 		pt->setTypeManager(this->ManagerOfType);
