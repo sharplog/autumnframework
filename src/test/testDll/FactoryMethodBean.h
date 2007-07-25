@@ -36,7 +36,7 @@ public:
 
 };
 
-class ProductB_M: IProductA{
+class ProductB_M: public IProductA{
 	static int RefNum;
 	static ProductB_M* instance;
 	ProductB_M(){}
