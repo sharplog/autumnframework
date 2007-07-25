@@ -24,7 +24,7 @@
 using namespace std;
 
 /** 
- * Document comment, the text between '/**' and '*'&'/'
+ * Document comment, the text between '/'&'**' and '*'&'/'
  */
 class DocCommentElmt: public IElement{
 

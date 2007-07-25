@@ -8,4 +8,5 @@ MethodElmt.o \
 NamespaceElmt.o \
 Parameter.o \
 Util.o \
+DocCommentElmt.o \
 

@@ -1,4 +1,4 @@
-LowerAction_Wrapper.cpp LowerAction_Wrapper.h: LowerAction.h
+LowerAction_Wrapper.cpp LowerAction_Wrapper.h: LowerAction.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) LowerAction.h
-UpperAction_Wrapper.cpp UpperAction_Wrapper.h: UpperAction.h
+UpperAction_Wrapper.cpp UpperAction_Wrapper.h: UpperAction.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) UpperAction.h
