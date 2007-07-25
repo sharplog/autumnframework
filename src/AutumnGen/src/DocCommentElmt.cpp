@@ -39,3 +39,4 @@ vector<string> DocCommentElmt::valueOfTag(const string& tag)
 
 	return values;
 }
+
