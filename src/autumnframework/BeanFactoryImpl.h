@@ -77,14 +77,14 @@ public:
 	 * @param name Bean's name
 	 * @return True if it exists, or false.
 	 */
-	virtual bool containsBean(const string& name);
+	virtual bool containsBean(const string& name) const;
 
 	/** 
 	 * A bean is a singleton or not
 	 * @param name Bean's name
 	 * @return True if it's a singleton, or false.
 	 */
-	virtual bool isSingleton(const string& name);
+	virtual bool isSingleton(const string& name) const;
 
 	/** Destructor */
 	virtual ~BeanFactoryImpl();

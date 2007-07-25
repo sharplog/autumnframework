@@ -70,14 +70,14 @@ namespace Autumn{
 		 * @param name Bean's name
 		 * @return True if it exists, or false.
 		 */
-		virtual bool containsBean(const std::string& name) = 0;
+		virtual bool containsBean(const std::string& name) const = 0;
 
 		/** 
 		 * A bean is a singleton or not
 		 * @param name Bean's name
 		 * @return True if it's a singleton, or false.
 		 */
-		virtual bool isSingleton(const std::string& name) = 0;
+		virtual bool isSingleton(const std::string& name) const = 0;
 		
 		/** 
 		 * Destructor

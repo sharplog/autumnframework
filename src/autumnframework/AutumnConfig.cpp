@@ -120,7 +120,7 @@ AutumnConfig::~AutumnConfig()
 BeanConfig* AutumnConfig::getBeanConfig(const string& name)
 {
 	map<string, BeanConfig*>::iterator it = this->Beans.find(name);
-	if( it != this->Beans.end() )
+	if( this->Beans.end() != it )
 		return it->second;
 	else
 		return NULL;

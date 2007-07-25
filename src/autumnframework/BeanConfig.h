@@ -98,22 +98,22 @@ public:
 	}
 
 	/** Get depended objects list */
-	StrValueList& getDependedObjects() {
+	const StrValueList& getDependedObjects() {
 		return this->DependedObjects;
 	}
 
 	/** Get factory bean name */
-	string getFactoryBeanName(){
+	string getFactoryBeanName() const {
 		return this->FactoryBean;
 	}
 
 	/** Get constructor method name */
-	string getConMethod(){
+	string getConMethod() const {
 		return this->ConMethod;
 	}
 
 	/** Get status of being singleton or not */
-	bool isSingleton(){return this->Singleton;}
+	bool isSingleton() const {return this->Singleton;}
 };
 
 } // End namespace Autumn

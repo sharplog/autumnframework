@@ -92,7 +92,7 @@ IBeanWrapper* BeanManager::releaseBean(void* p){
 	return (IBeanWrapper*)pw;
 }
 
-IBeanWrapper* BeanManager::getBeanWrapper(void* p){
+IBeanWrapper* BeanManager::getBeanWrapper(void* p) const {
 	TPointer pw = (TPointer)NULL;
 	this->Beans.searchElement((TPointer)p, pw);
 	return (IBeanWrapper*)pw;
