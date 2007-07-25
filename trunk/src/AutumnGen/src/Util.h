@@ -29,7 +29,7 @@ class Util{
    /**
     * If the String s starts with a string literal, a comment or white spaces,
     * return the length of the literal, comment and white spaces. String
-    * literals are enclosed in " or ' and comments start with /* or //.
+    * literals are enclosed in " or ' and comments start with /&* or //.
     */
 	static int skip(const string& s);
 	
@@ -111,7 +111,7 @@ public:
 	static string getLastWord(const string& s);
 
 	/** replace comment with white space */
-	static string replaceComment(string& s);
+	static string replaceComment(const string& r);
 
 	/** erase white spaces at head and tail */
 	static string trim(const string& s);

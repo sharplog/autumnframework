@@ -303,10 +303,10 @@ string Util::getLastWord(const string& s)
 	return word;
 }
 
-string Util::replaceComment(string& s)
+string Util::replaceComment(const string& r)
 {
 	int idx = 0, ridx;
-	string rest;
+	string s = r, rest;
 	while( idx <s.size() ){
 		rest = s.substr(idx);
 		// can't replace /* in a literal string 

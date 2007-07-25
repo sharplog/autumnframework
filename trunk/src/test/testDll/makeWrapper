@@ -1,22 +1,22 @@
-BasicTypesBean_Wrapper.cpp BasicTypesBean_Wrapper.h: BasicTypesBean.h
+BasicTypesBean_Wrapper.cpp BasicTypesBean_Wrapper.h: BasicTypesBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) BasicTypesBean.h
-BeanTypeBean_Wrapper.cpp BeanTypeBean_Wrapper.h: BeanTypeBean.h
+BeanTypeBean_Wrapper.cpp BeanTypeBean_Wrapper.h: BeanTypeBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) BeanTypeBean.h
-Factories_Wrapper.cpp Factories_Wrapper.h: Factories.h
+Factories_Wrapper.cpp Factories_Wrapper.h: Factories.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) Factories.h
-FactoryMethodBean_Wrapper.cpp FactoryMethodBean_Wrapper.h: FactoryMethodBean.h
+FactoryMethodBean_Wrapper.cpp FactoryMethodBean_Wrapper.h: FactoryMethodBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) FactoryMethodBean.h
-InitDestBean_Wrapper.cpp InitDestBean_Wrapper.h: InitDestBean.h
+InitDestBean_Wrapper.cpp InitDestBean_Wrapper.h: InitDestBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) InitDestBean.h
-MultiInheriteBean_Wrapper.cpp MultiInheriteBean_Wrapper.h: MultiInheriteBean.h
+MultiInheriteBean_Wrapper.cpp MultiInheriteBean_Wrapper.h: MultiInheriteBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) MultiInheriteBean.h
-MyBasicType_Wrapper.cpp MyBasicType_Wrapper.h: MyBasicType.h
+MyBasicType_Wrapper.cpp MyBasicType_Wrapper.h: MyBasicType.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) MyBasicType.h
-MyTypeBean_Wrapper.cpp MyTypeBean_Wrapper.h: MyTypeBean.h
+MyTypeBean_Wrapper.cpp MyTypeBean_Wrapper.h: MyTypeBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) MyTypeBean.h
-SelfManagedBean_Wrapper.cpp SelfManagedBean_Wrapper.h: SelfManagedBean.h
+SelfManagedBean_Wrapper.cpp SelfManagedBean_Wrapper.h: SelfManagedBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) SelfManagedBean.h
-SingletonBean_Wrapper.cpp SingletonBean_Wrapper.h: SingletonBean.h
+SingletonBean_Wrapper.cpp SingletonBean_Wrapper.h: SingletonBean.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) SingletonBean.h
-IProduct_Wrapper.cpp IProduct_Wrapper.h: ../include/IProduct.h
+IProduct_Wrapper.cpp IProduct_Wrapper.h: ../include/IProduct.h ../../bin/$(WRAPGEN)
 	../../bin/$(WRAPGEN) -out . ../include/IProduct.h

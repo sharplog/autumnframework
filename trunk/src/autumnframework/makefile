@@ -26,4 +26,5 @@ depend::
 	@echo >>$(OBJSFILE)
 
 include $(DEPENDFILE)
+include $(WRAPPERDEP)
 

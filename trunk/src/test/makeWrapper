@@ -1,2 +1,2 @@
-LocalBean_Wrapper.cpp LocalBean_Wrapper.h: LocalBean.h
+LocalBean_Wrapper.cpp LocalBean_Wrapper.h: LocalBean.h ../bin/$(WRAPGEN)
 	../bin/$(WRAPGEN) LocalBean.h

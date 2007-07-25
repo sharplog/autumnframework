@@ -1,0 +1,2 @@
+FileLogger_Wrapper.cpp FileLogger_Wrapper.h: FileLogger.h ../bin/$(WRAPGEN)
+	../bin/$(WRAPGEN) FileLogger.h

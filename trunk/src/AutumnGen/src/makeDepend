@@ -12,4 +12,5 @@ MethodElmt.o: MethodElmt.cpp GenException.h Util.h ElmtFactory.h \
 NamespaceElmt.o: NamespaceElmt.cpp GenException.h Util.h ElmtFactory.h \
   IElement.h NamespaceElmt.h
 Parameter.o: Parameter.cpp Util.h Parameter.h
+DocCommentElmt.o: DocCommentElmt.cpp DocCommentElmt.h Util.h IElement.h
 Util.o: Util.cpp Util.h
