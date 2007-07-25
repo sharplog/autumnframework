@@ -64,7 +64,7 @@ public:
 	/** 
 	 * Return the address of pointer to the argument's value. 
 	 */
-	void*  getValuePointer(){
+	void*  getValuePointer() const {
 		return this->PointerOfValue;
 	}
 };

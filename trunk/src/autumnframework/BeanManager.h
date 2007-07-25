@@ -70,7 +70,7 @@ public:
 	/** 
 	 * @param p Pointer to the bean.
 	 */
-	IBeanWrapper* getBeanWrapper(void* p);
+	IBeanWrapper* getBeanWrapper(void* p) const;
 
 	/** 
 	 * Add a bean

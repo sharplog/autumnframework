@@ -108,7 +108,7 @@ void* BeanFactoryImpl::getBean(const string& name, const string& basename)
 	}
 
 	// Create depended objects, they should be singletons.
-	StrValueList vl = bc->getDependedObjects();
+	const StrValueList vl = bc->getDependedObjects();
 	for( i=0; i<vl.size(); i++){
 		if( this->ManagerOfBean->getSingleton(vl[i]) == NULL)
 			this->getBean(vl[i]);
@@ -193,7 +193,7 @@ void BeanFactoryImpl::freeBean(void* p)
  * @param name Bean's name
  * @return True if it exists, or false.
  */
-bool BeanFactoryImpl::containsBean(const string& name)
+bool BeanFactoryImpl::containsBean(const string& name) const
 {
 	if(	this->Config->getBeanConfig(name) )
 		return true;
@@ -206,7 +206,7 @@ bool BeanFactoryImpl::containsBean(const string& name)
  * @param name Bean's name
  * @return True if it's a singleton, or false. If not found, also return false.
  */
-bool BeanFactoryImpl::isSingleton(const string& name)
+bool BeanFactoryImpl::isSingleton(const string& name) const
 {
 	BeanConfig* bc = this->Config->getBeanConfig(name);
 	if( bc )

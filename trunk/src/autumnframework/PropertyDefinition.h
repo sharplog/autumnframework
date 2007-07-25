@@ -63,7 +63,7 @@ public:
 	}
 
 	/** Return the string list of property's value */
-	StrValueList getValueString() const {
+	const StrValueList& getValueString() const {
 		return this->Value;
 	}
 };
