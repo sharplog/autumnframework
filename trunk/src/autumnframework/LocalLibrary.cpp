@@ -34,9 +34,9 @@ void LocalLibrary::addFunction(const char* name, void* fun)
 	this->LocalFunctions.insert(make_pair(string(name), fun));
 }
 
-void* LocalLibrary::getFunction(const string& name)
+void* LocalLibrary::getFunction(const string& name)const
 {
-	map<string, void*>::iterator it=this->LocalFunctions.find(name);
+	map<string, void*>::const_iterator it=this->LocalFunctions.find(name);
 	if( it != this->LocalFunctions.end() )
 		return it->second;
 	throw NotFoundEx("LocalLibrary", "getFunction", 

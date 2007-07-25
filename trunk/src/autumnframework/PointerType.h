@@ -41,7 +41,8 @@ public:
 	 * in this function.
 	 * @return A pointer to the pointer value
 	 */
-	void* createValue(const string& type, const StrValueList& vl, StrIterator& it);
+	void* createValue(const string& type, const StrValueList& vl,
+					  StrIterator& it)const;
 
 	/** 
 	 * Free the space where p points 

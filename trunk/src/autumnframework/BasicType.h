@@ -49,7 +49,8 @@ public:
 	 * in this function.
 	 * @return A pointer to a value of type T
 	 */
-	virtual void* createValue(const string& type, const StrValueList& vl, StrIterator& it);
+	virtual void* createValue(const string& type, const StrValueList& vl,
+							  StrIterator& it)const;
 
 	/** Free the space where p points */
 	virtual void freeValue(void* pp, const string& type){
@@ -65,7 +66,7 @@ public:
 };
 
 template<class T, T createfun(const char*), void freefun(T)>
-void* BasicType<T, createfun, freefun>::createValue(const string& type, const StrValueList& vl, StrIterator& it)
+void* BasicType<T, createfun, freefun>::createValue(const string& type, const StrValueList& vl, StrIterator& it)const
 {
 	if( it != vl.end() ){
 		T *p = new T;

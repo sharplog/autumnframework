@@ -48,7 +48,7 @@ public:
 	void addFunction(const char* name, void* fun);
 
 	/** Get function address */
-	void* getFunction(const string& name);
+	void* getFunction(const string& name)const;
 };
 
 } // End namespace Autumn

@@ -89,7 +89,7 @@ BeanConfig::~BeanConfig()
 	delete this->Properties;	
 }
 
-IBeanWrapper* BeanConfig::createWrapper()
+IBeanWrapper* BeanConfig::createWrapper() const
 {
 	IBeanWrapper* p = this->WrapperCreater();
 	p->setWrapperDeleter(this->WrapperDeleter);

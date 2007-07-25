@@ -84,7 +84,7 @@ public:
 	~BeanConfig();
 
 	/** Create bean's wrapper */
-	IBeanWrapper* createWrapper();
+	IBeanWrapper* createWrapper() const;
 	
 	/** 
 	 * Get constructor's arguments
@@ -98,7 +98,7 @@ public:
 	}
 
 	/** Get depended objects list */
-	const StrValueList& getDependedObjects() {
+	const StrValueList& getDependedObjects() const {
 		return this->DependedObjects;
 	}
 

@@ -115,9 +115,9 @@ void BeanManager::addBean(const string& name, IBeanWrapper* pw)
 /** 
  * Find a singleton by name
  */
-void* BeanManager::getSingleton(const string& name)
+void* BeanManager::getSingleton(const string& name)const
 {
-	map<string, void*>::iterator it = this->SingletonBeans.find(name);
+	map<string, void*>::const_iterator it = this->SingletonBeans.find(name);
 	if( it != this->SingletonBeans.end() )
 		return it->second;
 

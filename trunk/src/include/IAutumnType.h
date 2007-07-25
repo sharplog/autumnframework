@@ -44,7 +44,7 @@ namespace Autumn{
 		 */
 		virtual void* createValue(const std::string& type, 
 			const std::vector<std::string>& vl, 
-			std::vector<std::string>::iterator& it) = 0;
+			std::vector<std::string>::iterator& it) const = 0;
 
 		/** Free the space where p point, include it's member's space */
 		virtual void freeValue(void* p, const std::string& type) = 0;

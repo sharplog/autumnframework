@@ -71,10 +71,10 @@ public:
 	}
 
 	/** Get a bean's configuration by name */
-	BeanConfig* getBeanConfig(const string& name);
+	BeanConfig* getBeanConfig(const string& name) const;
 	
 	/** Get all customized types */
-	vector<string>* getAllTypes(){
+	const vector<string>* getAllTypes() const {
 		return &this->TypeNames;
 	}
 };

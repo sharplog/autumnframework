@@ -82,7 +82,7 @@ public:
 	/** 
 	 * Find a singleton by name
 	 */
-	void* getSingleton(const string& name);
+	void* getSingleton(const string& name)const;
 };
 
 } // End namespace Autumn
