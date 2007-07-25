@@ -23,7 +23,7 @@ using namespace std;
 
 namespace Autumn{
 
-string IBeanWrapper::getConArgTypes(const string& ConMethod, int num)
+string IBeanWrapper::getConArgTypes(const string& ConMethod, int num)const
 {
 	string types;
 
@@ -36,7 +36,7 @@ string IBeanWrapper::getConArgTypes(const string& ConMethod, int num)
 	return types;
 }
 
-int IBeanWrapper::getBeanPropertyType(const char* name, string& type)
+int IBeanWrapper::getBeanPropertyType(const char* name, string& type)const
 {
 	string method = string("set") + name;
 	int rtn = this->getParamTypes(method, type, 1);

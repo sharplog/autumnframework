@@ -166,7 +166,7 @@ string ClassElmt::genWrapperH()
 	"			delete this->pBean;"						<< endl <<
 	"	}"													<< endl <<
 	""														<< endl <<
-	"	void* getBean(){ return (void*)this->pBean; }"		<< endl <<
+	"	void* getBean() const { return (void*)this->pBean; }"<<endl <<
 	"	void  setBean(void* p){"							<< endl <<
 	"		this->pBean = (" + classname + "*)p;"			<< endl <<
 	"	}"													<< endl <<
@@ -175,12 +175,12 @@ string ClassElmt::genWrapperH()
 		"void** Prams, int num);"							<<endl<<
 	""														<<endl<<
 	"	int execVoidMethod(const std::string& method, "		<<
-		"void** Prams, int num);"							<<endl<<
+		"void** Prams, int num) const;"						<<endl<<
 	""														<<endl<<
 	"	int getParamTypes(const std::string& method, "		<<
-		"std::string& types, int num);"							<<endl<<
+		"std::string& types, int num) const;"				<<endl<<
 	""														<<endl<<
-	"	void* cast2Base(const std::string& basename);"		<<endl<<
+	"	void* cast2Base(const std::string& basename) const;"<<endl<<
 	""														<<endl<<
 	"};"													<<endl<<
 	""														<<endl<<
@@ -246,7 +246,8 @@ string ClassElmt::genWrapper4EVM()
 	ostringstream os;
 	os<<
 	"int "<< wrappername << "::" <<
-	"execVoidMethod(const std::string& method, void** Prams, int num)"<<endl<<
+	"execVoidMethod(const std::string& method, void** Prams, " <<
+	"int num) const" <<endl<<
 	"{" <<endl<<
 	"	";
 
@@ -286,7 +287,8 @@ string ClassElmt::genWrapper4GPT()
 	ostringstream os;
 	os<<
 	"int "<< wrappername << "::" <<
-	"getParamTypes(const std::string& method, std::string& types, int num)"<<endl<<
+	"getParamTypes(const std::string& method, std::string& types, " <<
+	"int num) const"<<endl<<
 	"{" <<endl<<
 	"	";
 
@@ -326,7 +328,7 @@ string ClassElmt::genWrapper4Cast()
 	ostringstream os;
 	os<<
 	"void* "<< wrappername << "::" <<
-	"cast2Base(const std::string& basename)" << endl <<
+	"cast2Base(const std::string& basename) const" << endl <<
 	"{" <<endl;
 
 	for( int i=0; i<this->BaseClass.size(); i++){

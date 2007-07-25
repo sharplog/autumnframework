@@ -67,14 +67,14 @@ namespace Autumn{
 		std::string DeleteMethod;					// destruct method name
 		
 	public:
-		virtual void* getBean() = 0;
+		virtual void* getBean() const = 0;
 		virtual void  setBean(void*) = 0;
 		virtual void* execCreateMethod(const std::string& method, 
 									void** pPrams, int num) = 0;
 		virtual int   execVoidMethod(const std::string& method, 
-									void** pPrams, int num) = 0;
+									void** pPrams, int num)const = 0;
 		virtual int   getParamTypes (const std::string& method, 
-									std::string& types, int num) = 0;
+									std::string& types, int num)const = 0;
 
 		/** 
 		 * cast bean pointer to base class pointer.
@@ -82,9 +82,9 @@ namespace Autumn{
 		 * @return base class pointer if basename is bean's base class
 		 *         or return bean pointer
 		 */
-		virtual void* cast2Base(const std::string& basename) = 0;
+		virtual void* cast2Base(const std::string& basename) const = 0;
 		
-		std::string getConArgTypes(const std::string& ConMethod, int num);
+		std::string getConArgTypes(const std::string& ConMethod, int num)const;
 		
 		void   setBeanName(const std::string& s){ this->BeanName = s; }
 		std::string getBeanName() const { return this->BeanName; }
@@ -112,7 +112,7 @@ namespace Autumn{
 			return this->execVoidMethod(method, &value, 1);
 		}
 		
-		int getBeanPropertyType(const char* name, std::string& type);
+		int getBeanPropertyType(const char* name, std::string& type)const;
 		
 		/** if has deleteMethod, use this to delete bean */
 		bool deleteBean();

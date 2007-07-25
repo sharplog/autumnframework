@@ -12,7 +12,7 @@ using namespace Autumn;
 
 class MyBasicType: public IAutumnType{
 public:
-	void* createValue(const string& type, const vector<string>& vl, vector<string>::iterator& it){
+	void* createValue(const string& type, const vector<string>& vl, vector<string>::iterator& it)const{
 		if( it != vl.end() && ++it != vl.end()){
 			MyData* p = new MyData;
 			p->i = atoi((*--it).c_str());
