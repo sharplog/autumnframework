@@ -15,6 +15,7 @@ all:: $(DLLLIBNAME)
 
 clean::
 	$(RM) *.o ./$(DLLLIBNAME)
+	$(RM) *_Wrapper.*
 	$(RM) ../lib/$(DLLLIBNAME)
 
 test::
