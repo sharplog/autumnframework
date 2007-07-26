@@ -32,6 +32,8 @@ ValueWrapper.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/**
  * Parameter value for class constuctor or setter functions.
  * 
@@ -61,7 +63,8 @@ ValueWrapper.h
      * @param managed This value is managed by Autumn or not
      * @param at TypeBean to create and delete value
      */</font>
-    ValueWrapper<font color="black">(</font>string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed, IAutumnType<font color="black">*</font> at<font color="black">)</font>;
+    ValueWrapper<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed,
+                 IAutumnType<font color="black">*</font> at<font color="black">)</font>;
     
     <font color="green">/** Destructor, delete pointer of value */</font>
     ~ValueWrapper<font color="black">(</font><font color="black">)</font>;
@@ -69,10 +72,12 @@ ValueWrapper.h
     <font color="green">/** 
      * Return the address of pointer to the argument's value. 
      */</font>
-    <font color="blue">void</font><font color="black">*</font>  getValuePointer<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    <font color="blue">void</font><font color="black">*</font>  getValuePointer<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue;
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

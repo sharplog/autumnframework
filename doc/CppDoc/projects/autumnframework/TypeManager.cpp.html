@@ -29,6 +29,8 @@ TypeManager.cpp
 <font color="blue">#include</font> <font color="maroon">"PointerType.h"</font>
 <font color="blue">#include</font> <font color="maroon">"StringType.h"</font>
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">// The basic types</font>
 <font color="blue">const</font> string charAT<font color="black">(</font><font color="maroon">"char"</font><font color="black">)</font>;
 <font color="blue">const</font> string ucharAT<font color="black">(</font><font color="maroon">"unsignedchar"</font><font color="black">)</font>;
@@ -107,15 +109,34 @@ TypeManager<font color="black">:</font><font color="black">:</font>TypeManager<f
  */</font>
 TypeManager<font color="black">:</font><font color="black">:</font>~TypeManager<font color="black">(</font><font color="black">)</font><font color="black">{</font>
     AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>debug<font color="black">(</font><font color="maroon">"TypeManager-&#62;~TypeManager"</font><font color="black">)</font>;
-    <font color="blue">for</font><font color="black">(</font>vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator it <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.begin<font color="black">(</font><font color="black">)</font>; it <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.end<font color="black">(</font><font color="black">)</font>; it<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
-            <font color="blue">delete</font> it<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
+
+    <font color="blue">void</font> <font color="black">(</font><font color="black">*</font>pf<font color="black">)</font><font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>;
+    vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator it;
+    vector<font color="black">&#60;</font>IBeanWrapper<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator itw;
+
+    <font color="green">// delete wrappers, wrapper will delete type maker</font>
+    <font color="blue">for</font><font color="black">(</font>itw <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperList.begin<font color="black">(</font><font color="black">)</font>; itw <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperList.end<font color="black">(</font><font color="black">)</font>; itw<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+        <font color="blue">for</font><font color="black">(</font>it <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.begin<font color="black">(</font><font color="black">)</font>; it <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.end<font color="black">(</font><font color="black">)</font>; it<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+            <font color="blue">if</font><font color="black">(</font> <font color="black">*</font>it <font color="black">=</font><font color="black">=</font> <font color="black">(</font><font color="black">*</font>itw<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
+                <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.erase<font color="black">(</font>it<font color="black">)</font>;
+                <font color="blue">break</font>;
+            <font color="black">}</font>
+        <font color="black">}</font>
+        pf <font color="black">=</font> <font color="black">(</font><font color="black">*</font>itw<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>getWrapperDeleter<font color="black">(</font><font color="black">)</font>;
+        pf<font color="black">(</font><font color="black">*</font>itw<font color="black">)</font>;
     <font color="black">}</font>
+    
+    <font color="green">// delete inline type maker</font>
+    <font color="blue">for</font><font color="black">(</font>it <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.begin<font color="black">(</font><font color="black">)</font>; it <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.end<font color="black">(</font><font color="black">)</font>; it<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+            <font color="blue">delete</font> <font color="black">*</font>it;
+    <font color="black">}</font>
+    
     <font color="blue">delete</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>beanMaker;
 <font color="black">}</font>
 
-IAutumnType<font color="black">*</font> TypeManager<font color="black">:</font><font color="black">:</font>findTypeBean<font color="black">(</font>string type<font color="black">)</font>
+IAutumnType<font color="black">*</font> TypeManager<font color="black">:</font><font color="black">:</font>findTypeBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> type<font color="black">)</font><font color="blue">const</font>
 <font color="black">{</font>
-    vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator tmp;
+    vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>const_iterator tmp;
     <font color="blue">for</font><font color="black">(</font> tmp<font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.begin<font color="black">(</font><font color="black">)</font>; tmp<font color="black">!</font><font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.end<font color="black">(</font><font color="black">)</font>; tmp<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         <font color="blue">if</font><font color="black">(</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font><font color="black">-</font><font color="black">&#62;</font>isThisType<font color="black">(</font>type<font color="black">)</font> <font color="black">)</font><font color="black">{</font>
             <font color="blue">return</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font>;
@@ -131,11 +152,26 @@ IAutumnType<font color="black">*</font> TypeManager<font color="black">:</font><
     vector<font color="black">&#60;</font>IAutumnType<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator tmp;
     <font color="blue">for</font><font color="black">(</font> tmp<font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.begin<font color="black">(</font><font color="black">)</font>; tmp<font color="black">!</font><font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.end<font color="black">(</font><font color="black">)</font>; tmp<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         <font color="blue">if</font><font color="black">(</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font> <font color="black">=</font><font color="black">=</font> at<font color="black">)</font><font color="black">{</font>
-            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.erase<font color="black">(</font>tmp<font color="black">)</font>;
+            <font color="blue">return</font>;
         <font color="black">}</font>
     <font color="black">}</font>
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeList.push_back<font color="black">(</font>at<font color="black">)</font>;
 <font color="black">}</font>
+
+<font color="blue">void</font> TypeManager<font color="black">:</font><font color="black">:</font>addTypeBean<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw<font color="black">)</font>
+<font color="black">{</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>addTypeBean<font color="black">(</font><font color="black">(</font>IAutumnType<font color="black">*</font><font color="black">)</font>pw<font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+    
+    vector<font color="black">&#60;</font>IBeanWrapper<font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator tmp;
+    <font color="blue">for</font><font color="black">(</font> tmp<font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperList.begin<font color="black">(</font><font color="black">)</font>; tmp<font color="black">!</font><font color="black">=</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperList.end<font color="black">(</font><font color="black">)</font>; tmp<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+        <font color="blue">if</font><font color="black">(</font> tmp<font color="black">[</font><font color="maroon">0</font><font color="black">]</font> <font color="black">=</font><font color="black">=</font> pw<font color="black">)</font><font color="black">{</font>
+            <font color="blue">return</font>;
+        <font color="black">}</font>
+    <font color="black">}</font>
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>WrapperList.push_back<font color="black">(</font>pw<font color="black">)</font>;
+<font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 </PRE>
 </BODY>

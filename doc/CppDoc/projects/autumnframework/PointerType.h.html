@@ -28,6 +28,10 @@ PointerType.h
 <font color="blue">#include</font> <font color="maroon">"Basic.h"</font>
 <font color="blue">#include</font> <font color="maroon">"IAutumnType.h"</font>
 
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Create correctly pointer value and free it.
  * 
@@ -45,24 +49,27 @@ PointerType.h
      * in this function.
      * @return A pointer to the pointer value
      */</font>
-    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> string type, <font color="blue">const</font> StrValueList<font color="black">&</font> vl, StrIterator<font color="black">&</font> it<font color="black">)</font>;
+    <font color="blue">void</font><font color="black">*</font> createValue<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> type, <font color="blue">const</font> StrValueList<font color="black">&</font> vl,
+                      StrIterator<font color="black">&</font> it<font color="black">)</font><font color="blue">const</font>;
 
     <font color="green">/** 
      * Free the space where p points 
      * @param p Pointer to a pointer value
      * @param type Type of the value
     */</font>
-    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, <font color="blue">const</font> string type<font color="black">)</font>;
+    <font color="blue">void</font> freeValue<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p, <font color="blue">const</font> string<font color="black">&</font> type<font color="black">)</font>;
     
-    <font color="green">/** Free the space where p points, don't free it's memeber's space */</font>
+    <font color="green">/** Free the space where p points, don't free it's member's space */</font>
     <font color="blue">void</font> freeSelfSpace<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font><font color="black">{</font>
         <font color="blue">delete</font> <font color="black">(</font><font color="blue">void</font><font color="black">*</font><font color="black">*</font><font color="black">)</font>p;
     <font color="black">}</font>
     
-    virtual <font color="blue">bool</font> isThisType<font color="black">(</font><font color="blue">const</font> string type<font color="black">)</font><font color="black">{</font>
+    virtual <font color="blue">bool</font> isThisType<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> type<font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> type.at<font color="black">(</font>type.size<font color="black">(</font><font color="black">)</font><font color="maroon">-1</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">'*'</font>;
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 <font color="blue">#endif</font>
 

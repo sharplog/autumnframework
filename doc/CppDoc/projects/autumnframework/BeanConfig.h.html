@@ -34,6 +34,8 @@ BeanConfig.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="blue">typedef</font> vector<font color="black">&#60;</font>BeanProperty<font color="black">*</font><font color="black">&#62;</font> PropertyList;
 <font color="blue">typedef</font> IBeanWrapper<font color="black">*</font> WrapperMaker<font color="black">(</font><font color="black">)</font>;
 <font color="blue">typedef</font> <font color="blue">void</font> WrapperFreer<font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>;
@@ -63,8 +65,24 @@ BeanConfig.h
     <font color="green">/** Bean's properties */</font>
     PropertyList <font color="black">*</font>Properties;
 
+    <font color="green">/** Factory bean name*/</font>
+    string FactoryBean;
+
+    <font color="green">/**
+     * Constructor method name. It may be bean's class name, bean's static 
+     * factory method name or a factory's creating method name.
+     */</font>
+    string ConMethod;
+
+    string InitMethod;
+    string DestroyMethod;
+    string DeleteMethod;
+
     <font color="green">/** Bean is singleton or not */</font>
     <font color="blue">bool</font> Singleton;
+
+    <font color="green">/** Constructor arguments' types are got or not */</font>
+    <font color="blue">bool</font> GotArgTypes;
 
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** Constructor */</font>
@@ -74,12 +92,13 @@ BeanConfig.h
     ~BeanConfig<font color="black">(</font><font color="black">)</font>;
 
     <font color="green">/** Create bean's wrapper */</font>
-    IBeanWrapper<font color="black">*</font> createWrapper<font color="black">(</font><font color="black">)</font>;
+    IBeanWrapper<font color="black">*</font> createWrapper<font color="black">(</font><font color="black">)</font> <font color="blue">const</font>;
     
-    <font color="green">/** Get constructor's arguments */</font>
-    PropertyList <font color="black">*</font>getConArgs<font color="black">(</font><font color="black">)</font> <font color="blue">const</font><font color="black">{</font>
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ConArgs;
-    <font color="black">}</font>
+    <font color="green">/** 
+     * Get constructor's arguments
+     * @param pw The bean wrapper to get constructor arguments' types.
+     */</font>
+    PropertyList <font color="black">*</font>getConArgs<font color="black">(</font>IBeanWrapper<font color="black">*</font> pw<font color="black">)</font>;
 
     <font color="green">/** Get bean's properties */</font>
     PropertyList <font color="black">*</font>getProperties<font color="black">(</font><font color="black">)</font> <font color="blue">const</font><font color="black">{</font>
@@ -87,13 +106,25 @@ BeanConfig.h
     <font color="black">}</font>
 
     <font color="green">/** Get depended objects list */</font>
-    StrValueList<font color="black">&</font> getDependedObjects<font color="black">(</font><font color="black">)</font> <font color="black">{</font>
+    <font color="blue">const</font> StrValueList<font color="black">&</font> getDependedObjects<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>DependedObjects;
     <font color="black">}</font>
 
+    <font color="green">/** Get factory bean name */</font>
+    string getFactoryBeanName<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
+        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>FactoryBean;
+    <font color="black">}</font>
+
+    <font color="green">/** Get constructor method name */</font>
+    string getConMethod<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
+        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ConMethod;
+    <font color="black">}</font>
+
     <font color="green">/** Get status of being singleton or not */</font>
-    <font color="blue">bool</font> isSingleton<font color="black">(</font><font color="black">)</font><font color="black">{</font><font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton;<font color="black">}</font>
+    <font color="blue">bool</font> isSingleton<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font><font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Singleton;<font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

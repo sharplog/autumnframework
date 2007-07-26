@@ -34,18 +34,13 @@ AutumnConfig.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Autumn configuration, include bean, library.
  * @version 0.1.0
  * @since 2006-12-6
  */</font>
-
-<font color="green">/** A struct to store type configure */</font>
-<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
-    string Name;
-    BeanConfig<font color="black">*</font> BeanCfg;
-<font color="black">}</font>TypeConfig;
-
 <font color="blue">class</font> AutumnConfig<font color="black">{</font>
     <font color="green">/** All dynamic libraries */</font>
     vector<font color="black">&#60;</font>ILibrary<font color="black">*</font><font color="black">&#62;</font> Libs;
@@ -53,11 +48,8 @@ AutumnConfig.h
     <font color="green">/** All Beans */</font>
     map<font color="black">&#60;</font>string, BeanConfig<font color="black">*</font><font color="black">&#62;</font> Beans;
 
-    <font color="green">/** All bean classes,  */</font>
-    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> BeanClasses;
-
     <font color="green">/** All customized types,  */</font>
-    vector<font color="black">&#60;</font>TypeConfig<font color="black">&#62;</font> Types;
+    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> TypeNames;
     
     <font color="green">/** Deal with each dynamic library */</font>
     <font color="blue">void</font> processLibrary<font color="black">(</font>TLibrary<font color="black">&</font> lib<font color="black">)</font>;
@@ -65,19 +57,14 @@ AutumnConfig.h
     <font color="green">/** Deal with each bean */</font>
     <font color="blue">void</font> processBean<font color="black">(</font>TBean<font color="black">&</font> bean, ILibrary<font color="black">*</font> pl<font color="black">)</font>;
     
-    <font color="green">/** Deal with each type */</font>
-    <font color="blue">void</font> processType<font color="black">(</font>TType<font color="black">&</font> type, ILibrary<font color="black">*</font> pl<font color="black">)</font>;
-
-    <font color="green">/** Add bean class name */</font>
-    <font color="blue">void</font> addBeanClassName<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
-    
     <font color="green">/** 
      * Name mangler
      * @param objType Type of object
      * @param op Operation on object
      * @param objName Name of object
      */</font>
-    string mangleName<font color="black">(</font>string objType, string  op, string objName<font color="black">)</font>;
+    string mangleName<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> objType, <font color="blue">const</font> string<font color="black">&</font>  op, 
+            <font color="blue">const</font> string<font color="black">&</font> objName<font color="black">)</font>;
 
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** Constructor */</font>
@@ -87,23 +74,20 @@ AutumnConfig.h
     ~AutumnConfig<font color="black">(</font><font color="black">)</font>;
     
     <font color="green">/** Set a bean's configuration */</font>
-    <font color="blue">void</font> setBeanConfig<font color="black">(</font>string <font color="blue">name</font>, BeanConfig<font color="black">*</font> pb<font color="black">)</font><font color="black">{</font>
+    <font color="blue">void</font> setBeanConfig<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font>, BeanConfig<font color="black">*</font> pb<font color="black">)</font><font color="black">{</font>
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Beans.insert<font color="black">(</font>make_pair<font color="black">(</font><font color="blue">name</font>, pb<font color="black">)</font><font color="black">)</font>;
     <font color="black">}</font>
 
     <font color="green">/** Get a bean's configuration by name */</font>
-    BeanConfig<font color="black">*</font> getBeanConfig<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
+    BeanConfig<font color="black">*</font> getBeanConfig<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font>;
     
     <font color="green">/** Get all customized types */</font>
-    vector<font color="black">&#60;</font>TypeConfig<font color="black">&#62;</font><font color="black">*</font> getAllTypes<font color="black">(</font><font color="black">)</font><font color="black">{</font>
-        <font color="blue">return</font> <font color="black">&</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Types;
-    <font color="black">}</font>
-    
-    <font color="green">/** Get all bean class names */</font>
-    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> getAllBeanClasses<font color="black">(</font><font color="black">)</font><font color="black">{</font>
-        <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>BeanClasses;
+    <font color="blue">const</font> vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">*</font> getAllTypes<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
+        <font color="blue">return</font> <font color="black">&</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeNames;
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

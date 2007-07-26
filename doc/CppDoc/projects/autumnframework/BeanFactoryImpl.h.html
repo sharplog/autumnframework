@@ -31,6 +31,10 @@ BeanFactoryImpl.h
 <font color="blue">#include</font> <font color="maroon">"BeanManager.h"</font>
 <font color="blue">#include</font> <font color="maroon">"TypeManager.h"</font>
 
+<font color="blue">using</font> <font color="blue">namespace</font> std;
+
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * BeanFactory implementation
  *
@@ -65,9 +69,10 @@ BeanFactoryImpl.h
     <font color="green">/** 
      * Get a bean with bean's name
      * @param name Bean's name
-     * @return A pointer to the bean
+     * @param basename Bean's base class name
+     * @return A pointer to the bean or to its base class
      */</font>
-    virtual <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
+    virtual <font color="blue">void</font><font color="black">*</font> getBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font>, <font color="blue">const</font> string<font color="black">&</font> basename <font color="black">=</font> <font color="maroon">""</font><font color="black">)</font>;
 
     <font color="green">/** 
      * Free a bean
@@ -80,18 +85,20 @@ BeanFactoryImpl.h
      * @param name Bean's name
      * @return True if it exists, or false.
      */</font>
-    virtual <font color="blue">bool</font> containsBean<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
+    virtual <font color="blue">bool</font> containsBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font>;
 
     <font color="green">/** 
      * A bean is a singleton or not
      * @param name Bean's name
      * @return True if it's a singleton, or false.
      */</font>
-    virtual <font color="blue">bool</font> isSingleton<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
+    virtual <font color="blue">bool</font> isSingleton<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font>;
 
     <font color="green">/** Destructor */</font>
     virtual ~BeanFactoryImpl<font color="black">(</font><font color="black">)</font>;
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>
