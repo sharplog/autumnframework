@@ -17,6 +17,7 @@ all:: $(TESTDLLNAME)
 
 clean::
 	$(RM) *.o ./$(TESTDLLNAME)
+	$(RM) *_Wrapper.*
 	$(RM) ../lib/$(TESTDLLNAME)
 
 test::

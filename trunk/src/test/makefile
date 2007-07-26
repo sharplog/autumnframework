@@ -24,6 +24,7 @@ all:: $(EXENAME)
 
 clean::
 	$(RM) *.o ./$(EXENAME)
+	$(RM) *_Wrapper.*
 	$(RM) AutumnFramework.log AutumnApp.log
 	$(RM) lib/TestDll.dll lib/TestDll2.dll
 
