@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by  () -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:element name="autumn">
+		<xs:annotation>
+			<xs:documentation>AutumnFramework's root element</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="library" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="library">
+		<xs:annotation>
+			<xs:documentation>Dynamic library or Local library</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="beans">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="bean" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="types" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="bean" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="path" type="xs:string" use="required"/>
+			<xs:attribute name="namespace" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>namespace is useless now.</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="bean">
+		<xs:annotation>
+			<xs:documentation>A simple bean</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="constructor-arg" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Constructor arguments</xs:documentation>
+					</xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="argument" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="properties" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="property" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="depends-on" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="bean-name" type="xs:string" maxOccurs="unbounded">
+								<xs:annotation>
+									<xs:documentation>bean-name must not be empty</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="name" type="xs:string"/>
+			<xs:attribute name="class" type="xs:string" use="required"/>
+			<xs:attribute name="singleton" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>A bean is not a singleton in default</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="factory-bean" type="xs:string"/>
+			<xs:attribute name="factory-method">
+				<xs:annotation>
+					<xs:documentation>The name of a factory method to use to create this object</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="init-method"/>
+			<xs:attribute name="destroy-method"/>
+			<xs:attribute name="delete-method"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property" type="propertyType"/>
+	<xs:element name="argument">
+		<xs:complexType>
+			<xs:choice>
+				<xs:element name="value" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>If value is empty, it is empty string</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="ref">
+					<xs:complexType>
+						<xs:attribute name="bean"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+			<xs:attribute name="type"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="propertyType">
+		<xs:choice>
+			<xs:element name="value" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>If value is empty, it is empty string</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ref">
+				<xs:complexType>
+					<xs:attribute name="bean"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:choice>
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="optional"/>
+	</xs:complexType>
+</xs:schema>
