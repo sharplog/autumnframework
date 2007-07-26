@@ -103,11 +103,11 @@ string MethodElmt::genWrapper4ECM(const string& classname)
 	string methodname = this->getName();
 	int paramnum = this->Parameters.size();
 	ostringstream os;
-
+	
 	// only generate for constructor and creating method
-	if( methodname != classname && 
-			this->ReturnType[this->ReturnType.size()-1] != '*' )
-		return os.str();
+	if(  '~' == methodname[0] || ( methodname != classname && 
+			this->ReturnType[this->ReturnType.size()-1] != '*' ) )
+		return "";
 
 	
 	os << "\tif( !method.compare(\"" + methodname + "\") && num == " <<
@@ -153,7 +153,7 @@ string MethodElmt::genWrapper4EVM(const string& classname)
 
 	// only generate for methods that return void
 	if( this->ReturnType.compare("void") )
-		return os.str();
+		return "";
 
 	os << "if( !method.compare(\"" + methodname + "\") && num == " <<
 		paramnum << " )"	<< endl;
@@ -190,7 +190,7 @@ string MethodElmt::genWrapper4GPT()
 	ostringstream os;
 
 	if( '~' == methodname[0] )	// destructor
-		return os.str();
+		return "";
 
 	os << "if( !method.compare(\"" + this->getName() + "\") && num == " <<
 		paramnum << " )"	<< endl;

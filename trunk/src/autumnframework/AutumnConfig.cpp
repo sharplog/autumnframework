@@ -105,7 +105,7 @@ AutumnConfig::~AutumnConfig()
 	for(int i=0; i<this->Libs.size(); i++)
 		delete this->Libs[i];
 	
-	/**
+	/*
 	 * Mustn't delete LocalLibrary singleton. BeanFactory maybe be created and deleted
 	 * many times, but LocalLibrary must be created at the time of the first local
 	 * function registering.

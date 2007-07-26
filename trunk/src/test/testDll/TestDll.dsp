@@ -157,7 +157,7 @@ SOURCE=.\BasicTypesBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__BASIC="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\BasicTypesBean.h
 InputName=BasicTypesBean
 
@@ -174,7 +174,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__BASIC="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\BasicTypesBean.h
 InputName=BasicTypesBean
 
@@ -202,7 +202,7 @@ SOURCE=.\BeanTypeBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__BEANT="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\BeanTypeBean.h
 InputName=BeanTypeBean
 
@@ -219,7 +219,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__BEANT="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\BeanTypeBean.h
 InputName=BeanTypeBean
 
@@ -247,7 +247,7 @@ SOURCE=.\Factories.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__FACTO="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\Factories.h
 InputName=Factories
 
@@ -264,7 +264,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__FACTO="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\Factories.h
 InputName=Factories
 
@@ -292,7 +292,7 @@ SOURCE=.\FactoryMethodBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__FACTOR="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\FactoryMethodBean.h
 InputName=FactoryMethodBean
 
@@ -309,7 +309,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__FACTOR="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\FactoryMethodBean.h
 InputName=FactoryMethodBean
 
@@ -349,7 +349,7 @@ SOURCE=.\InitDestBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__INITD="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\InitDestBean.h
 InputName=InitDestBean
 
@@ -366,7 +366,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__INITD="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\InitDestBean.h
 InputName=InitDestBean
 
@@ -394,7 +394,7 @@ SOURCE=..\include\IProduct.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__IPROD="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=..\include\IProduct.h
 InputName=IProduct
 
@@ -411,7 +411,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__IPROD="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=..\include\IProduct.h
 InputName=IProduct
 
@@ -439,7 +439,7 @@ SOURCE=.\MultiInheriteBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__MULTI="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MultiInheriteBean.h
 InputName=MultiInheriteBean
 
@@ -456,7 +456,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__MULTI="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MultiInheriteBean.h
 InputName=MultiInheriteBean
 
@@ -484,7 +484,7 @@ SOURCE=.\MyBasicType.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__MYBAS="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MyBasicType.h
 InputName=MyBasicType
 
@@ -501,7 +501,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__MYBAS="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MyBasicType.h
 InputName=MyBasicType
 
@@ -537,7 +537,7 @@ SOURCE=.\MyTypeBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__MYTYP="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MyTypeBean.h
 InputName=MyTypeBean
 
@@ -554,7 +554,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__MYTYP="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\MyTypeBean.h
 InputName=MyTypeBean
 
@@ -586,7 +586,7 @@ SOURCE=.\SelfManagedBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__SELFM="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\SelfManagedBean.h
 InputName=SelfManagedBean
 
@@ -603,7 +603,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__SELFM="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\SelfManagedBean.h
 InputName=SelfManagedBean
 
@@ -631,7 +631,7 @@ SOURCE=.\SingletonBean.h
 !IF  "$(CFG)" == "TestDll - Win32 Release"
 
 USERDEP__SINGL="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\SingletonBean.h
 InputName=SingletonBean
 
@@ -648,7 +648,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "TestDll - Win32 Debug"
 
 USERDEP__SINGL="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\SingletonBean.h
 InputName=SingletonBean
 

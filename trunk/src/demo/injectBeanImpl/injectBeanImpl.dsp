@@ -56,7 +56,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework.lib /nologo /dll /machine:I386 /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy           release\injectBeanImpl.dll           ..\lib\ 
+PostBuild_Cmds=copy            release\injectBeanImpl.dll            ..\lib\ 
 # End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "injectBeanImpl - Win32 Debug"
@@ -86,7 +86,7 @@ LINK32=link.exe
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib AutumnFramework_D.lib /nologo /dll /debug /machine:I386 /out:"Debug/injectBeanImpl_D.dll" /pdbtype:sept /libpath:"..\..\lib"
 # Begin Special Build Tool
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy          debug\injectBeanImpl_D.dll          ..\lib\ 
+PostBuild_Cmds=copy           debug\injectBeanImpl_D.dll           ..\lib\ 
 # End Special Build Tool
 
 !ENDIF 
@@ -133,7 +133,7 @@ SOURCE=.\LowerAction.h
 !IF  "$(CFG)" == "injectBeanImpl - Win32 Release"
 
 USERDEP__LOWER="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\LowerAction.h
 InputName=LowerAction
 
@@ -150,7 +150,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "injectBeanImpl - Win32 Debug"
 
 USERDEP__LOWER="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\LowerAction.h
 InputName=LowerAction
 
@@ -178,7 +178,7 @@ SOURCE=.\UpperAction.h
 !IF  "$(CFG)" == "injectBeanImpl - Win32 Release"
 
 USERDEP__UPPER="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\UpperAction.h
 InputName=UpperAction
 
@@ -195,7 +195,7 @@ BuildCmds= \
 !ELSEIF  "$(CFG)" == "injectBeanImpl - Win32 Debug"
 
 USERDEP__UPPER="..\..\bin\AutumnGen.exe"	
-# Begin Custom Build
+# Begin Custom Build - Generating wrapper files for $(InputName).h
 InputPath=.\UpperAction.h
 InputName=UpperAction
 
