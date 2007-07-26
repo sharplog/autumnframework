@@ -3,7 +3,7 @@
 
 == 07/26/2007 ==
  * add const to some class member functions
- * ported to VS2005, AIX5L, Ubuntu6.06 
+ * ported to VS2005, AIX5L, Ubuntu6.06, Solaris10 
 
 == 07/22/2007 ==
  * Wrapper files can be auto-generated before compile with VC
