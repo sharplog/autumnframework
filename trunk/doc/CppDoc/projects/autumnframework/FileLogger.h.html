@@ -33,6 +33,8 @@ FileLogger.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Adapter for external log implementation
  * @version 0.1.0
@@ -56,10 +58,10 @@ FileLogger.h
     <font color="black">}</font>
 
 <font color="blue">public</font><font color="black">:</font>
-    FileLogger<font color="black">(</font>string filepath, <font color="blue">int</font> level<font color="black">)</font><font color="black">:</font>Level<font color="black">(</font>level<font color="black">)</font><font color="black">{</font>
+    FileLogger<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> filepath, <font color="blue">int</font> level<font color="black">)</font><font color="black">:</font>Level<font color="black">(</font>level<font color="black">)</font><font color="black">{</font>
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Of.open<font color="black">(</font>filepath.c_str<font color="black">(</font><font color="black">)</font>, ios<font color="black">:</font><font color="black">:</font>out <font color="black">|</font> ios<font color="black">:</font><font color="black">:</font>app<font color="black">)</font>;
         <font color="blue">if</font><font color="black">(</font> <font color="black">!</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Of.is_open<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
-            <font color="blue">throw</font> <font color="blue">new</font> InitException<font color="black">(</font><font color="maroon">"FileLogger"</font>, <font color="maroon">"FileLogger"</font>, 
+            <font color="blue">throw</font> InitException<font color="black">(</font><font color="maroon">"FileLogger"</font>, <font color="maroon">"FileLogger"</font>, 
                 string<font color="black">(</font><font color="maroon">"Can't open file["</font> <font color="black">+</font> filepath <font color="black">+</font> <font color="maroon">"]."</font><font color="black">)</font><font color="black">)</font>;
     <font color="black">}</font>
     
@@ -89,6 +91,8 @@ FileLogger.h
         <font color="black">}</font>
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

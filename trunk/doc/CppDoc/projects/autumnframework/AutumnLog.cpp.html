@@ -26,6 +26,8 @@ AutumnLog.cpp
 <font color="blue">#include</font> <font color="maroon">"ConsoleLogger.h"</font>
 <font color="blue">#include</font> <font color="maroon">"FileLogger.h"</font>
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 AutumnLog<font color="black">*</font> AutumnLog<font color="black">:</font><font color="black">:</font>Instance <font color="black">=</font> NULL;
 <font color="blue">const</font> string DefaultLogPath <font color="black">=</font> <font color="maroon">"AutumnFramework.log"</font>;
 <font color="blue">const</font> <font color="blue">int</font> DefaultLogLevel <font color="black">=</font> <font color="maroon">2</font>;
@@ -66,6 +68,8 @@ AutumnLog<font color="black">*</font> AutumnLog<font color="black">:</font><font
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>isDefault <font color="black">=</font> <font color="blue">true</font>;
     <font color="black">}</font>
 <font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 
 </PRE>

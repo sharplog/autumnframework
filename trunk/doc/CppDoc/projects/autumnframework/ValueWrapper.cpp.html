@@ -29,7 +29,10 @@ ValueWrapper.cpp
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
-ValueWrapper<font color="black">:</font><font color="black">:</font>ValueWrapper<font color="black">(</font>string type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed, IAutumnType<font color="black">*</font> at<font color="black">)</font><font color="black">:</font>
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
+ValueWrapper<font color="black">:</font><font color="black">:</font>ValueWrapper<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> type, StrValueList<font color="black">&</font> vl, <font color="blue">bool</font> managed,
+                           IAutumnType<font color="black">*</font> at<font color="black">)</font><font color="black">:</font>
   Type<font color="black">(</font>type<font color="black">)</font>, Managed<font color="black">(</font>managed<font color="black">)</font>, TypeBean<font color="black">(</font>at<font color="black">)</font><font color="black">{</font>
     StrIterator it <font color="black">=</font> vl.begin<font color="black">(</font><font color="black">)</font>;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>PointerOfValue <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>TypeBean<font color="black">-</font><font color="black">&#62;</font>createValue<font color="black">(</font>type, vl, it<font color="black">)</font>;
@@ -46,6 +49,8 @@ ValueWrapper<font color="black">:</font><font color="black">:</font>~ValueWrappe
         <font color="black">}</font>
     <font color="black">}</font>
 <font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 </PRE>
 </BODY>

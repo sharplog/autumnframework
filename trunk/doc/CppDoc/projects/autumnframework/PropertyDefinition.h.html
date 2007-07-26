@@ -30,6 +30,8 @@ PropertyDefinition.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Contains property's information
  * @version 0.1.0
@@ -51,27 +53,30 @@ PropertyDefinition.h
 
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** Create a new PropertyDefine */</font>
-    PropertyDefinition<font color="black">(</font>string <font color="blue">name</font>, string type, StrValueList value<font color="black">)</font><font color="black">{</font>
+    PropertyDefinition<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font>, <font color="blue">const</font> string<font color="black">&</font> type,
+                        StrValueList value<font color="black">)</font><font color="black">{</font>
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name <font color="black">=</font> <font color="blue">name</font>;
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type <font color="black">=</font> type;
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Value <font color="black">=</font> value;
     <font color="black">}</font>
 
     <font color="green">/** Return property's name */</font>
-    string getName<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    string getName<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Name;
     <font color="black">}</font>
 
     <font color="green">/** Return property value's type */</font>
-    string getType<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    string getType<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Type;
     <font color="black">}</font>
 
     <font color="green">/** Return the string list of property's value */</font>
-    StrValueList getValueString<font color="black">(</font><font color="black">)</font><font color="black">{</font>
+    <font color="blue">const</font> StrValueList<font color="black">&</font> getValueString<font color="black">(</font><font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
         <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Value;
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

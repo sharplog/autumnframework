@@ -32,6 +32,8 @@ BeanManager.cpp
  * @since 2006-12-18
  */</font>
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="blue">const</font> <font color="blue">int</font> BeanManager<font color="black">:</font><font color="black">:</font>HashDivisor <font color="black">=</font> <font color="maroon">997</font>;
 
 BeanManager<font color="black">:</font><font color="black">:</font>~BeanManager<font color="black">(</font><font color="black">)</font>
@@ -98,12 +100,18 @@ IBeanWrapper<font color="black">*</font> BeanManager<font color="black">:</font>
     <font color="blue">return</font> <font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>pw;
 <font color="black">}</font>
 
+IBeanWrapper<font color="black">*</font> BeanManager<font color="black">:</font><font color="black">:</font>getBeanWrapper<font color="black">(</font><font color="blue">void</font><font color="black">*</font> p<font color="black">)</font> <font color="blue">const</font> <font color="black">{</font>
+    TPointer pw <font color="black">=</font> <font color="black">(</font>TPointer<font color="black">)</font>NULL;
+    <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Beans.searchElement<font color="black">(</font><font color="black">(</font>TPointer<font color="black">)</font>p, pw<font color="black">)</font>;
+    <font color="blue">return</font> <font color="black">(</font>IBeanWrapper<font color="black">*</font><font color="black">)</font>pw;
+<font color="black">}</font>
+
 <font color="green">/** 
  * Add a bean
  * @param name Bean's name
  * @param pw Pointer to bean's wrapper
  */</font>
-<font color="blue">void</font> BeanManager<font color="black">:</font><font color="black">:</font>addBean<font color="black">(</font>string <font color="blue">name</font>, IBeanWrapper<font color="black">*</font> pw<font color="black">)</font>
+<font color="blue">void</font> BeanManager<font color="black">:</font><font color="black">:</font>addBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font>, IBeanWrapper<font color="black">*</font> pw<font color="black">)</font>
 <font color="black">{</font>
     TPointer pl <font color="black">=</font> <font color="black">(</font>TPointer<font color="black">)</font>pw;
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Beans.insertElement<font color="black">(</font><font color="black">(</font>TPointer<font color="black">)</font>pw<font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font><font color="black">)</font>, pl<font color="black">)</font>;
@@ -115,9 +123,9 @@ IBeanWrapper<font color="black">*</font> BeanManager<font color="black">:</font>
 <font color="green">/** 
  * Find a singleton by name
  */</font>
-<font color="blue">void</font><font color="black">*</font> BeanManager<font color="black">:</font><font color="black">:</font>getSingleton<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="blue">void</font><font color="black">*</font> BeanManager<font color="black">:</font><font color="black">:</font>getSingleton<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font><font color="blue">const</font>
 <font color="black">{</font>
-    map<font color="black">&#60;</font>string, <font color="blue">void</font><font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>iterator it <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>SingletonBeans.find<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
+    map<font color="black">&#60;</font>string, <font color="blue">void</font><font color="black">*</font><font color="black">&#62;</font><font color="black">:</font><font color="black">:</font>const_iterator it <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>SingletonBeans.find<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> it <font color="black">!</font><font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>SingletonBeans.end<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
         <font color="blue">return</font> it<font color="black">-</font><font color="black">&#62;</font>second;
 
@@ -137,6 +145,8 @@ IBeanWrapper<font color="black">*</font> BeanManager<font color="black">:</font>
         <font color="black">}</font>
     <font color="black">}</font>
 <font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 </PRE>
 </BODY>

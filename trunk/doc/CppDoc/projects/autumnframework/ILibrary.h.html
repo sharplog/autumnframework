@@ -29,6 +29,8 @@ ILibrary.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Dynamic library 
  * @version 0.1.0
@@ -38,14 +40,16 @@ ILibrary.h
 <font color="blue">class</font> ILibrary<font color="black">{</font>
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** Get function address */</font>
-    virtual <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font> <font color="black">=</font> <font color="maroon">0</font>;
+    virtual <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font> <font color="black">=</font> <font color="maroon">0</font>;
 
     <font color="green">/** 
-     * if don't define this destructor, the devided class's 
+     * if don't define this destructor, the derived class's 
      * destructor may not be called when it being deleted.
      */</font>
     virtual ~ILibrary<font color="black">(</font><font color="black">)</font><font color="black">{</font><font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 <font color="blue">#endif</font>
 

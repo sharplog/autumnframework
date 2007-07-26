@@ -31,6 +31,8 @@ XMLResource.h
 <font color="blue">#include</font> <font color="maroon">"IResource.h"</font>
 <font color="blue">#include</font> <font color="maroon">"AutumnDefinition.h"</font>
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Parse XML configuration file
  * @version 0.1.0
@@ -47,9 +49,6 @@ XMLResource.h
     <font color="green">/** Parse bean */</font>
     <font color="blue">void</font> parseBean<font color="black">(</font>XMLNode<font color="black">&</font> xml, TBean<font color="black">&</font> bean<font color="black">)</font>;
 
-    <font color="green">/** Parse type */</font>
-    <font color="blue">void</font> parseType<font color="black">(</font>XMLNode<font color="black">&</font> xml, TType<font color="black">&</font> type<font color="black">)</font>;
-
     <font color="green">/** Parse Property */</font>
     <font color="blue">void</font> parseProperty<font color="black">(</font>XMLNode<font color="black">&</font> xml, TProperty<font color="black">&</font> prop, <font color="blue">bool</font> isProp<font color="black">)</font>;
 
@@ -57,7 +56,7 @@ XMLResource.h
     string getErrorMsg<font color="black">(</font>XMLResults<font color="black">&</font> err, <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> tag<font color="black">)</font>;
 
     <font color="green">/** convert value to true or false */</font>
-    <font color="blue">bool</font> boolAttribute<font color="black">(</font>string value, string <font color="blue">name</font><font color="black">)</font>;
+    <font color="blue">bool</font> boolAttribute<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> value, <font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font>;
 <font color="blue">public</font><font color="black">:</font>
     <font color="green">/** 
      * Constructor, parse XML file 
@@ -76,6 +75,8 @@ XMLResource.h
         <font color="blue">return</font> <font color="black">&</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>LibsConfig;
     <font color="black">}</font>
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 <font color="blue">#endif</font>
 
 </PRE>

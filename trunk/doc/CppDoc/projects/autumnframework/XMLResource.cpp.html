@@ -28,6 +28,8 @@ XMLResource.cpp
 <font color="blue">#include</font> <font color="maroon">"xmlParser.h"</font>
 <font color="blue">#include</font> <font color="maroon">"AutumnException.h"</font>
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Constructor, parse XML file 
  * @param path XML file path
@@ -41,11 +43,11 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     XMLNode rootNode <font color="black">=</font> XMLNode<font color="black">:</font><font color="black">:</font>parseFile<font color="black">(</font>path, rootTag, <font color="black">&</font>errRlt<font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> errRlt.<font color="blue">error</font> <font color="black">!</font><font color="black">=</font> eXMLErrorNone <font color="black">)</font><font color="black">{</font>
         <font color="blue">if</font><font color="black">(</font> errRlt.<font color="blue">error</font> <font color="black">=</font><font color="black">=</font> eXMLErrorFileNotFound <font color="black">)</font><font color="black">{</font>
-            <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
+            <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
                 string<font color="black">(</font><font color="maroon">"File not found: "</font><font color="black">)</font> <font color="black">+</font> path <font color="black">+</font> <font color="maroon">". "</font><font color="black">)</font>;
         <font color="black">}</font>
         <font color="blue">else</font><font color="black">{</font>
-            <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
+            <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
                 string<font color="black">(</font><font color="maroon">"Error when parsing file '"</font><font color="black">)</font> <font color="black">+</font> path <font color="black">+</font> <font color="maroon">"'. "</font> <font color="black">+</font> 
                 <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getErrorMsg<font color="black">(</font>errRlt, rootTag<font color="black">)</font><font color="black">)</font>;
         <font color="black">}</font>
@@ -59,7 +61,7 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
         <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>LibsConfig.push_back<font color="black">(</font>plib.release<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
     <font color="black">}</font>
     <font color="blue">if</font><font color="black">(</font> n <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font><font color="black">)</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"XMLResource"</font>, 
             string<font color="black">(</font><font color="maroon">"Error when parsing tag '"</font><font color="black">)</font> <font color="black">+</font> libTag <font color="black">+</font> 
             <font color="maroon">"'. There is no element '"</font> <font color="black">+</font> libTag <font color="black">+</font> <font color="maroon">"'."</font><font color="black">)</font>;
 <font color="black">}</font>
@@ -68,7 +70,6 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
 <font color="blue">void</font> XMLResource<font color="black">:</font><font color="black">:</font>parseLibrary<font color="black">(</font>XMLNode<font color="black">&</font> xml, TLibrary<font color="black">&</font> lib<font color="black">)</font>
 <font color="black">{</font>
     XMLCSTR beanTag<font color="black">=</font><font color="maroon">"bean"</font>;
-    XMLCSTR typeTag<font color="black">=</font><font color="maroon">"type"</font>;
 
     <font color="green">// parsing attributes</font>
     XMLCSTR <font color="blue">name</font> <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"name"</font><font color="black">)</font>;
@@ -80,7 +81,7 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     <font color="blue">if</font><font color="black">(</font> ns   <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> lib.NS   <font color="black">=</font> ns;
 
     <font color="blue">if</font><font color="black">(</font> lib.Path.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseLibrary"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseLibrary"</font>, 
             string<font color="black">(</font><font color="maroon">"Error when parsing library '"</font><font color="black">)</font> <font color="black">+</font> lib.Name <font color="black">+</font> 
             <font color="maroon">"'. There is no path."</font><font color="black">)</font>;
     <font color="black">}</font>
@@ -92,29 +93,28 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     <font color="green">// parsing beans</font>
     <font color="blue">int</font> i, pos, n <font color="black">=</font> <font color="maroon">0</font>;
     XMLNode beans <font color="black">=</font> xml.getChildNode<font color="black">(</font><font color="maroon">"beans"</font><font color="black">)</font>;
-    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font> beans.isEmpty<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
-        n<font color="black">=</font> beans.nChildNode<font color="black">(</font>beanTag<font color="black">)</font>;
-        <font color="blue">for</font><font color="black">(</font> pos<font color="black">=</font><font color="maroon">0</font>, i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>n; i<font color="black">+</font><font color="black">+</font> <font color="black">)</font><font color="black">{</font>
-            auto_ptr<font color="black">&#60;</font>TBean<font color="black">&#62;</font> pbean<font color="black">(</font><font color="blue">new</font> TBean<font color="black">)</font>;
-            XMLNode beanNode <font color="black">=</font> beans.getChildNode<font color="black">(</font>beanTag, <font color="black">&</font>pos<font color="black">)</font>;
-            <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>parseBean<font color="black">(</font>beanNode, <font color="black">*</font>pbean<font color="black">)</font>;
-            lib.Beans.push_back<font color="black">(</font><font color="black">*</font>pbean<font color="black">)</font>;
-        <font color="black">}</font>
+    n<font color="black">=</font> beans.nChildNode<font color="black">(</font>beanTag<font color="black">)</font>;
+    <font color="blue">for</font><font color="black">(</font> pos<font color="black">=</font><font color="maroon">0</font>, i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>n; i<font color="black">+</font><font color="black">+</font> <font color="black">)</font><font color="black">{</font>
+        auto_ptr<font color="black">&#60;</font>TBean<font color="black">&#62;</font> pbean<font color="black">(</font><font color="blue">new</font> TBean<font color="black">)</font>;
+        XMLNode beanNode <font color="black">=</font> beans.getChildNode<font color="black">(</font>beanTag, <font color="black">&</font>pos<font color="black">)</font>;
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>parseBean<font color="black">(</font>beanNode, <font color="black">*</font>pbean<font color="black">)</font>;
+        lib.Beans.push_back<font color="black">(</font><font color="black">*</font>pbean<font color="black">)</font>;
     <font color="black">}</font>
     <font color="blue">if</font><font color="black">(</font> n<font color="black">=</font><font color="black">=</font><font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseLibrary"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseLibrary"</font>, 
             string<font color="black">(</font><font color="maroon">"Error when parsing tag '"</font><font color="black">)</font> <font color="black">+</font> beanTag <font color="black">+</font> 
             <font color="maroon">"'. There is no element '"</font> <font color="black">+</font> beanTag <font color="black">+</font> <font color="maroon">"'."</font><font color="black">)</font>;
     <font color="black">}</font>
 
-    <font color="green">// parsing types</font>
+    <font color="green">// parsing types, type is a bean.</font>
     XMLNode types <font color="black">=</font> xml.getChildNode<font color="black">(</font><font color="maroon">"types"</font><font color="black">)</font>;
-     n <font color="black">=</font> types.nChildNode<font color="black">(</font>typeTag<font color="black">)</font>;
+    n <font color="black">=</font> types.nChildNode<font color="black">(</font>beanTag<font color="black">)</font>;
     <font color="blue">for</font><font color="black">(</font>pos<font color="black">=</font><font color="maroon">0</font>, i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>n; i<font color="black">+</font><font color="black">+</font> <font color="black">)</font><font color="black">{</font>
-        auto_ptr<font color="black">&#60;</font>TType<font color="black">&#62;</font> ptype<font color="black">(</font><font color="blue">new</font> TType<font color="black">)</font>;
-        XMLNode typeNode <font color="black">=</font> types.getChildNode<font color="black">(</font>typeTag, <font color="black">&</font>pos<font color="black">)</font>;
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>parseType<font color="black">(</font>typeNode, <font color="black">*</font>ptype<font color="black">)</font>;
-        lib.Types.push_back<font color="black">(</font><font color="black">*</font>ptype<font color="black">)</font>;
+        auto_ptr<font color="black">&#60;</font>TBean<font color="black">&#62;</font> pbean<font color="black">(</font><font color="blue">new</font> TBean<font color="black">)</font>;
+        XMLNode typeNode <font color="black">=</font> types.getChildNode<font color="black">(</font>beanTag, <font color="black">&</font>pos<font color="black">)</font>;
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>parseBean<font color="black">(</font>typeNode, <font color="black">*</font>pbean<font color="black">)</font>;
+        lib.Beans.push_back<font color="black">(</font><font color="black">*</font>pbean<font color="black">)</font>;
+        lib.TypeNames.push_back<font color="black">(</font>pbean<font color="black">-</font><font color="black">&#62;</font>Name<font color="black">)</font>;
     <font color="black">}</font>
 <font color="black">}</font>
 
@@ -131,21 +131,29 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     XMLCSTR singleton   <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"singleton"</font><font color="black">)</font>;
     XMLCSTR factory     <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"factory-bean"</font><font color="black">)</font>;
     XMLCSTR factoryMthd <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"factory-method"</font><font color="black">)</font>;
+    XMLCSTR initMthd    <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"init-method"</font><font color="black">)</font>;
+    XMLCSTR destroyMthd <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"destroy-method"</font><font color="black">)</font>;
+    XMLCSTR deleteMthd  <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"delete-method"</font><font color="black">)</font>;
     
     string isSingleton<font color="black">(</font><font color="maroon">"false"</font><font color="black">)</font>;
     
     <font color="blue">if</font><font color="black">(</font> <font color="blue">name</font> <font color="black">!</font><font color="black">=</font> NULL<font color="black">)</font> bean.Name <font color="black">=</font> <font color="blue">name</font>;
-    <font color="blue">if</font><font color="black">(</font> classname <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font>bean.ClassName <font color="black">=</font> classname;
+    <font color="blue">if</font><font color="black">(</font> classname <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.ClassName <font color="black">=</font> classname;
     <font color="blue">if</font><font color="black">(</font> singleton <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> isSingleton <font color="black">=</font> singleton;
-
+    <font color="blue">if</font><font color="black">(</font> factory <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.FactoryBean <font color="black">=</font> factory;
+    
     <font color="blue">if</font><font color="black">(</font> bean.ClassName.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseBean"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseBean"</font>, 
             string<font color="black">(</font><font color="maroon">"Error when parsing type '"</font><font color="black">)</font> <font color="black">+</font> bean.Name <font color="black">+</font> 
             <font color="maroon">"'. There is no class name."</font><font color="black">)</font>;
     <font color="black">}</font>
-    <font color="blue">if</font><font color="black">(</font> bean.Name.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
-        bean.Name <font color="black">=</font> bean.ClassName;
-    <font color="black">}</font>
+    <font color="blue">if</font><font color="black">(</font> bean.Name.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font> bean.Name <font color="black">=</font> bean.ClassName;
+    <font color="blue">if</font><font color="black">(</font> factoryMthd <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.ConMethod <font color="black">=</font> factoryMthd;
+    <font color="blue">else</font> bean.ConMethod <font color="black">=</font> bean.ClassName;
+
+    <font color="blue">if</font><font color="black">(</font> initMthd <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.InitMethod <font color="black">=</font> initMthd;
+    <font color="blue">if</font><font color="black">(</font> destroyMthd <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.DestroyMethod <font color="black">=</font> destroyMthd;
+    <font color="blue">if</font><font color="black">(</font> deleteMthd <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> bean.DeleteMethod <font color="black">=</font> deleteMthd;
 
     bean.Singleton <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>boolAttribute<font color="black">(</font>isSingleton, <font color="maroon">"singleton"</font><font color="black">)</font>;
     
@@ -161,31 +169,6 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
             <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>parseProperty<font color="black">(</font>proNode, <font color="black">*</font>pprop, <font color="blue">true</font><font color="black">)</font>;
             bean.Properties.push_back<font color="black">(</font><font color="black">*</font>pprop<font color="black">)</font>;
         <font color="black">}</font>
-    <font color="black">}</font>
-
-    <font color="green">// factory pattern, set factory method as the first argument</font>
-    <font color="green">// this depends on the BeanWrapperMacro.</font>
-    <font color="blue">if</font><font color="black">(</font> factoryMthd <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
-        TProperty factoryMthdArg;
-
-        factoryMthdArg.Type <font color="black">=</font> <font color="maroon">"string"</font>;
-        factoryMthdArg.Value.push_back<font color="black">(</font>string<font color="black">(</font>factoryMthd<font color="black">)</font><font color="black">)</font>;
-        factoryMthdArg.IsBeanRef <font color="black">=</font> <font color="blue">false</font>;
-        factoryMthdArg.Managed <font color="black">=</font> <font color="blue">true</font>;
-        bean.ConArgs.push_back<font color="black">(</font>factoryMthdArg<font color="black">)</font>;
-    <font color="black">}</font>
-    
-    <font color="green">// factory pattern, set factory instance as the next argument</font>
-    <font color="blue">if</font><font color="black">(</font> factory <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
-        TProperty factoryArg;
-        
-        <font color="green">// setting type to bean's class name only to make TypeManager to get factory</font>
-        <font color="green">// instance from BeanFacotry. This depends on the implement of TypeManager.</font>
-        factoryArg.Type <font color="black">=</font> bean.ClassName;
-        factoryArg.Value.push_back<font color="black">(</font>string<font color="black">(</font>factory<font color="black">)</font><font color="black">)</font>;
-        factoryArg.IsBeanRef <font color="black">=</font> <font color="blue">true</font>;
-        factoryArg.Managed <font color="black">=</font> <font color="blue">true</font>;
-        bean.ConArgs.push_back<font color="black">(</font>factoryArg<font color="black">)</font>;
     <font color="black">}</font>
     
     <font color="green">// Constructor argument</font>
@@ -212,26 +195,6 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     
 <font color="black">}</font>
 
-<font color="green">/** Parse type */</font>
-<font color="blue">void</font> XMLResource<font color="black">:</font><font color="black">:</font>parseType<font color="black">(</font>XMLNode<font color="black">&</font> xml, TType<font color="black">&</font> type<font color="black">)</font>
-<font color="black">{</font>
-    <font color="green">// parsing attributes</font>
-    XMLCSTR <font color="blue">name</font> <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"name"</font><font color="black">)</font>;
-    XMLCSTR classname <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"class"</font><font color="black">)</font>;
-
-    <font color="blue">if</font><font color="black">(</font> <font color="blue">name</font>      <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> type.Name <font color="black">=</font> <font color="blue">name</font>;
-    <font color="blue">if</font><font color="black">(</font> classname <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> type.ClassName <font color="black">=</font> classname;
-    
-    <font color="blue">if</font><font color="black">(</font> type.ClassName.empty<font color="black">(</font><font color="black">)</font><font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseType"</font>, 
-            string<font color="black">(</font><font color="maroon">"Error when parsing type '"</font><font color="black">)</font> <font color="black">+</font> type.Name <font color="black">+</font> 
-            <font color="maroon">"'. There is no class name."</font><font color="black">)</font>;
-    <font color="black">}</font>
-    
-    <font color="blue">if</font><font color="black">(</font> type.Name.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font>
-        type.Name <font color="black">=</font> type.ClassName;
-<font color="black">}</font>
-
 <font color="green">/* Parse Property */</font>
 <font color="blue">void</font> XMLResource<font color="black">:</font><font color="black">:</font>parseProperty<font color="black">(</font>XMLNode<font color="black">&</font> xml, TProperty<font color="black">&</font> prop, <font color="blue">bool</font> isProp<font color="black">)</font>
 <font color="black">{</font>
@@ -239,7 +202,7 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
     XMLCSTR <font color="blue">name</font> <font color="black">=</font> xml.getAttribute<font color="black">(</font><font color="maroon">"name"</font><font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> <font color="blue">name</font> <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font> prop.Name <font color="black">=</font> <font color="blue">name</font>;
     <font color="blue">if</font><font color="black">(</font> prop.Name.empty<font color="black">(</font><font color="black">)</font> <font color="black">&</font><font color="black">&</font> isProp <font color="black">=</font><font color="black">=</font> <font color="blue">true</font> <font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
             <font color="maroon">"Error when parsing property. There is no property name."</font><font color="black">)</font>;
     <font color="black">}</font>
     
@@ -271,14 +234,14 @@ XMLResource<font color="black">:</font><font color="black">:</font>XMLResource<f
             prop.IsBeanRef <font color="black">=</font> <font color="blue">true</font>;
         <font color="black">}</font>
         <font color="blue">else</font><font color="black">{</font>
-            <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
+            <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
                 <font color="maroon">"Error when parsing property '"</font> <font color="black">+</font> prop.Name <font color="black">+</font> 
                 <font color="maroon">"'. There is no reference bean name ."</font><font color="black">)</font>;
         <font color="black">}</font>
     <font color="black">}</font>
     
     <font color="blue">if</font><font color="black">(</font> n<font color="black">=</font><font color="black">=</font><font color="maroon">0</font> <font color="black">&</font><font color="black">&</font> ref.isEmpty<font color="black">(</font><font color="black">)</font> <font color="black">)</font> <font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"parseProperty"</font>, 
             <font color="maroon">"Error when parsing property '"</font> <font color="black">+</font> prop.Name <font color="black">+</font> 
             <font color="maroon">"'. There is no value."</font><font color="black">)</font>;
     <font color="black">}</font>
@@ -298,19 +261,21 @@ string XMLResource<font color="black">:</font><font color="black">:</font>getErr
     <font color="blue">return</font> errStr.str<font color="black">(</font><font color="black">)</font>;
 <font color="black">}</font>
 
-<font color="blue">bool</font> XMLResource<font color="black">:</font><font color="black">:</font>boolAttribute<font color="black">(</font>string value, string <font color="blue">name</font><font color="black">)</font>
+<font color="blue">bool</font> XMLResource<font color="black">:</font><font color="black">:</font>boolAttribute<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> value, <font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font>
 <font color="black">{</font>
     <font color="blue">if</font><font color="black">(</font> value.compare<font color="black">(</font><font color="maroon">"true"</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font>
         <font color="blue">return</font> <font color="blue">true</font>;
     <font color="blue">else</font> <font color="blue">if</font><font color="black">(</font> value.compare<font color="black">(</font><font color="maroon">"false"</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font>
         <font color="blue">return</font> <font color="blue">false</font>;
     <font color="blue">else</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"boolAttribute"</font>, 
+        <font color="blue">throw</font> XMLParsingEx<font color="black">(</font><font color="maroon">"XMLResource"</font>, <font color="maroon">"boolAttribute"</font>, 
             <font color="maroon">"The value of '"</font> <font color="black">+</font> <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"' must be 'true' or 'false'."</font><font color="black">)</font>;
         <font color="green">// useless, only avoid some compiler to warn</font>
         <font color="blue">return</font> <font color="blue">true</font>;
     <font color="black">}</font>
 <font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 
 </PRE>

@@ -31,6 +31,8 @@ LocalLibrary.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** 
  * Local library, if a bean is in main process
  * @version 0.1.0
@@ -54,8 +56,10 @@ LocalLibrary.h
     <font color="blue">void</font> addFunction<font color="black">(</font><font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> <font color="blue">name</font>, <font color="blue">void</font><font color="black">*</font> fun<font color="black">)</font>;
 
     <font color="green">/** Get function address */</font>
-    <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>;
+    <font color="blue">void</font><font color="black">*</font> getFunction<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font><font color="blue">const</font>;
 <font color="black">}</font>;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 <font color="blue">#endif</font>
 

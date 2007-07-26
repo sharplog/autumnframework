@@ -39,6 +39,8 @@ BeanFactoryImpl.cpp
  * @version 0.1.0
  * @since 2006-12-5
  */</font>
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="blue">const</font> <font color="blue">char</font><font color="black">*</font> LogBeanName <font color="black">=</font> <font color="maroon">"AutumnFrameworkLog"</font>;
 
 <font color="green">/** 
@@ -59,21 +61,16 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>BeanFacto
     
     <font color="green">// Add customized types</font>
     <font color="green">// it is deleted in TypeManager destructor.</font>
-    vector<font color="black">&#60;</font>TypeConfig<font color="black">&#62;</font><font color="black">*</font> types <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getAllTypes<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">const</font> vector<font color="black">&#60;</font>string<font color="black">&#62;</font><font color="black">*</font> types <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getAllTypes<font color="black">(</font><font color="black">)</font>;
     <font color="blue">for</font><font color="black">(</font><font color="blue">int</font> j <font color="black">=</font> <font color="maroon">0</font>; j<font color="black">&#60;</font>types<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font>; j<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
-        TypeConfig tc <font color="black">=</font> <font color="black">(</font><font color="black">*</font>types<font color="black">)</font><font color="black">[</font>j<font color="black">]</font>;
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>setBeanConfig<font color="black">(</font>tc.Name, tc.BeanCfg<font color="black">)</font>;
-
-        IAutumnType<font color="black">*</font> pt <font color="black">=</font><font color="black">(</font>IAutumnType<font color="black">*</font><font color="black">)</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>tc.Name<font color="black">)</font>;
+        IAutumnType<font color="black">*</font> pt <font color="black">=</font><font color="black">(</font>IAutumnType<font color="black">*</font><font color="black">)</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font><font color="black">(</font><font color="black">*</font>types<font color="black">)</font><font color="black">[</font>j<font color="black">]</font><font color="black">)</font>;
         pt<font color="black">-</font><font color="black">&#62;</font>setTypeManager<font color="black">(</font><font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">)</font>;
-        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>addTypeBean<font color="black">(</font>pt<font color="black">)</font>;
         IBeanWrapper<font color="black">*</font> pw <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>releaseBean<font color="black">(</font>pt<font color="black">)</font>;
-        pw<font color="black">-</font><font color="black">&#62;</font>setBean<font color="black">(</font>NULL<font color="black">)</font>;
-        <font color="blue">delete</font> pw;
+        <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">-</font><font color="black">&#62;</font>addTypeBean<font color="black">(</font>pw<font color="black">)</font>;
     <font color="black">}</font>
     
     <font color="green">// use logger configured by user</font>
-    <font color="blue">void</font><font color="black">*</font> p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>LogBeanName<font color="black">)</font>;
+    <font color="blue">void</font><font color="black">*</font> p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>LogBeanName, <font color="maroon">"ILogAdapter"</font><font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> p <font color="black">!</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
         AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>injectLogger<font color="black">(</font><font color="black">(</font>ILogAdapter<font color="black">*</font><font color="black">)</font>p<font color="black">)</font>;
     <font color="black">}</font>
@@ -95,10 +92,10 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
 
 <font color="green">/** 
  * Get a bean with bean's name
- * @param name Bean's name
- * @return A pointer to the bean
+ * @param basename Bean's base class name
+ * @return A pointer to the bean or to its base class
  */</font>
-<font color="blue">void</font><font color="black">*</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>getBean<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="blue">void</font><font color="black">*</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>getBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font>, <font color="blue">const</font> string<font color="black">&</font> basename<font color="black">)</font>
 <font color="black">{</font>
     <font color="blue">void</font><font color="black">*</font> p;
     <font color="blue">int</font> i;
@@ -106,51 +103,70 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
     BeanConfig<font color="black">*</font> bc <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getBeanConfig<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
     <font color="green">// Not found</font>
     <font color="blue">if</font><font color="black">(</font> bc <font color="black">=</font><font color="black">=</font> NULL <font color="black">)</font><font color="black">{</font>
-        AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font><font color="blue">error</font><font color="black">(</font><font color="maroon">"BeanFactoryImpl-&#62;getBean: bean["</font> <font color="black">+</font> <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"]'s config is not found"</font><font color="black">)</font>;
+        AutumnLog<font color="black">:</font><font color="black">:</font>getInstance<font color="black">(</font><font color="black">)</font><font color="black">-</font><font color="black">&#62;</font><font color="blue">error</font><font color="black">(</font><font color="maroon">"BeanFactoryImpl-&#62;getBean: bean["</font> <font color="black">+</font>
+                <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"]'s config is not found"</font><font color="black">)</font>;
         <font color="blue">return</font> NULL;
     <font color="black">}</font>
 
     <font color="green">// If singleton</font>
     <font color="blue">if</font><font color="black">(</font> bc<font color="black">-</font><font color="black">&#62;</font>isSingleton<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
         p <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>getSingleton<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
-        <font color="blue">if</font><font color="black">(</font> p <font color="black">!</font><font color="black">=</font> NULL<font color="black">)</font> <font color="blue">return</font> p;
+        <font color="blue">if</font><font color="black">(</font> p <font color="black">!</font><font color="black">=</font> NULL<font color="black">)</font> 
+            <font color="blue">return</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>getBeanWrapper<font color="black">(</font>p<font color="black">)</font><font color="black">-</font><font color="black">&#62;</font>cast2Base<font color="black">(</font>basename<font color="black">)</font>;
     <font color="black">}</font>
 
     <font color="green">// Create depended objects, they should be singletons.</font>
-    StrValueList vl <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getDependedObjects<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">const</font> StrValueList vl <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getDependedObjects<font color="black">(</font><font color="black">)</font>;
     <font color="blue">for</font><font color="black">(</font> i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>vl.size<font color="black">(</font><font color="black">)</font>; i<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
         <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>getSingleton<font color="black">(</font>vl<font color="black">[</font>i<font color="black">]</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> NULL<font color="black">)</font>
             <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>vl<font color="black">[</font>i<font color="black">]</font><font color="black">)</font>;
     <font color="black">}</font>
 
     <font color="green">//Use auto_ptr to free pw if exception happens?</font>
-    auto_ptr<font color="black">&#60;</font>IBeanWrapper<font color="black">&#62;</font> pw<font color="black">(</font> bc<font color="black">-</font><font color="black">&#62;</font>createWrapper<font color="black">(</font><font color="black">)</font> <font color="black">)</font>;
+    auto_ptr<font color="black">&#60;</font>IBeanWrapper<font color="black">&#62;</font> pw<font color="black">(</font>bc<font color="black">-</font><font color="black">&#62;</font>createWrapper<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+
+    <font color="green">// if use factory, use factory's wrapper to create bean.</font>
+    <font color="green">// pwc only to create bean, it may be bean wrapper or factory's wrapper.</font>
+    IBeanWrapper<font color="black">*</font> pwc <font color="black">=</font> NULL;
+    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font> bc<font color="black">-</font><font color="black">&#62;</font>getFactoryBeanName<font color="black">(</font><font color="black">)</font>.empty<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+        <font color="blue">void</font><font color="black">*</font> pf <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>getBean<font color="black">(</font>bc<font color="black">-</font><font color="black">&#62;</font>getFactoryBeanName<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+        <font color="blue">if</font><font color="black">(</font> pf <font color="black">=</font><font color="black">=</font> NULL<font color="black">)</font><font color="black">{</font>
+            <font color="blue">throw</font> CreateBeanFailedEx<font color="black">(</font><font color="maroon">"BeanFactoryImpl"</font>, <font color="maroon">"getBean"</font>, 
+                string<font color="black">(</font><font color="maroon">"Create Bean ["</font><font color="black">)</font> <font color="black">+</font> <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"] failed! Get factory ["</font> <font color="black">+</font>
+                bc<font color="black">-</font><font color="black">&#62;</font>getFactoryBeanName<font color="black">(</font><font color="black">)</font> <font color="black">+</font> <font color="maroon">"] failed!"</font><font color="black">)</font>;
+        <font color="black">}</font>
+        pwc <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>getBeanWrapper<font color="black">(</font>pf<font color="black">)</font>;
+    <font color="black">}</font>
+    <font color="blue">if</font><font color="black">(</font> NULL <font color="black">=</font><font color="black">=</font> pwc <font color="black">)</font> pwc <font color="black">=</font> pw.get<font color="black">(</font><font color="black">)</font>;
 
     <font color="green">//Create bean</font>
-    PropertyList<font color="black">*</font> pargs <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getConArgs<font color="black">(</font><font color="black">)</font>;
-    <font color="blue">if</font><font color="black">(</font> pargs<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font> <font color="black">=</font><font color="black">=</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>   <font color="green">//No constructor argument</font>
-        <font color="blue">void</font> <font color="black">*</font><font color="black">*</font> pDummy;
-        p <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>createBean<font color="black">(</font>pDummy, <font color="maroon">0</font><font color="black">)</font>;
-    <font color="black">}</font>
-    <font color="blue">else</font><font color="black">{</font>                       <font color="green">//Has constructor argments</font>
-        <font color="blue">int</font> num <font color="black">=</font> pargs<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font>;
-
-        <font color="blue">typedef</font> <font color="blue">void</font><font color="black">*</font> void_ptr;
+    <font color="blue">typedef</font> <font color="blue">void</font><font color="black">*</font> void_ptr;
+    string conMethod <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getConMethod<font color="black">(</font><font color="black">)</font>;
+    PropertyList<font color="black">*</font> pargs <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getConArgs<font color="black">(</font>pwc<font color="black">)</font>;
+    <font color="blue">int</font> num <font color="black">=</font> pargs<font color="black">-</font><font color="black">&#62;</font>size<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">if</font><font color="black">(</font> num <font color="black">&#62;</font> <font color="maroon">0</font> <font color="black">)</font><font color="black">{</font>  <font color="green">//Has constructor arguments</font>
         auto_ptr<font color="black">&#60;</font>void_ptr<font color="black">&#62;</font> pp<font color="black">(</font> <font color="blue">new</font> void_ptr<font color="black">[</font>num<font color="black">]</font> <font color="black">)</font>;
         void_ptr<font color="black">*</font> pv <font color="black">=</font> pp.get<font color="black">(</font><font color="black">)</font>;
 
         <font color="blue">for</font><font color="black">(</font>i<font color="black">=</font><font color="maroon">0</font>; i<font color="black">&#60;</font>num; i<font color="black">+</font><font color="black">+</font><font color="black">)</font><font color="black">{</font>
+            <font color="green">// add argument into pw, not pwc</font>
             pv<font color="black">[</font>i<font color="black">]</font> <font color="black">=</font> <font color="black">(</font><font color="black">*</font>pargs<font color="black">)</font><font color="black">[</font>i<font color="black">]</font><font color="black">-</font><font color="black">&#62;</font>takeoutValue<font color="black">(</font>pw.get<font color="black">(</font><font color="black">)</font>, <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfType<font color="black">)</font>;
         <font color="black">}</font>
-        p <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>createBean<font color="black">(</font>pv, num<font color="black">)</font>;
+        p <font color="black">=</font> pwc<font color="black">-</font><font color="black">&#62;</font>execCreateMethod<font color="black">(</font>conMethod, pv, num<font color="black">)</font>;
     <font color="black">}</font>
+    <font color="blue">else</font><font color="black">{</font>
+        void_ptr<font color="black">*</font> pDummy <font color="black">=</font> NULL;
+        p <font color="black">=</font> pwc<font color="black">-</font><font color="black">&#62;</font>execCreateMethod<font color="black">(</font>conMethod, pDummy, num<font color="black">)</font>;
+    <font color="black">}</font>   
+
     <font color="blue">if</font><font color="black">(</font> NULL <font color="black">=</font><font color="black">=</font> p<font color="black">)</font><font color="black">{</font>
-        <font color="blue">throw</font> <font color="blue">new</font> CreateBeanFailedEx<font color="black">(</font><font color="maroon">"BeanFactoryImpl"</font>, <font color="maroon">"getBean"</font>, 
+        <font color="blue">throw</font> CreateBeanFailedEx<font color="black">(</font><font color="maroon">"BeanFactoryImpl"</font>, <font color="maroon">"getBean"</font>, 
             string<font color="black">(</font><font color="maroon">"Create Bean ["</font><font color="black">)</font> <font color="black">+</font> <font color="blue">name</font> <font color="black">+</font> <font color="maroon">"] failed!"</font><font color="black">)</font>;
     <font color="black">}</font>
-    
-    <font color="green">//Set singleton</font>
-    pw<font color="black">-</font><font color="black">&#62;</font>setSingleton<font color="black">(</font>bc<font color="black">-</font><font color="black">&#62;</font>isSingleton<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
+    <font color="green">//if bean created by factory, it should be set into pw.</font>
+    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font> bc<font color="black">-</font><font color="black">&#62;</font>getFactoryBeanName<font color="black">(</font><font color="black">)</font>.empty<font color="black">(</font><font color="black">)</font><font color="black">)</font> <font color="black">{</font>
+        pw<font color="black">-</font><font color="black">&#62;</font>setBean<font color="black">(</font>p<font color="black">)</font>;
+    <font color="black">}</font>
 
     <font color="green">//Set properties</font>
     PropertyList<font color="black">*</font> props <font color="black">=</font> bc<font color="black">-</font><font color="black">&#62;</font>getProperties<font color="black">(</font><font color="black">)</font>;
@@ -159,14 +175,16 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
     <font color="black">}</font>
 
     <font color="green">//Initialize bean</font>
-    <font color="blue">if</font><font color="black">(</font> pw<font color="black">-</font><font color="black">&#62;</font>Initializable<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
-        pw<font color="black">-</font><font color="black">&#62;</font>initializeBean<font color="black">(</font><font color="black">)</font>;
+    string initmethod <font color="black">=</font> pw<font color="black">-</font><font color="black">&#62;</font>getInitMethod<font color="black">(</font><font color="black">)</font>;
+    <font color="blue">if</font><font color="black">(</font> <font color="black">!</font>initmethod.empty<font color="black">(</font><font color="black">)</font> <font color="black">)</font><font color="black">{</font>
+        pw<font color="black">-</font><font color="black">&#62;</font>execVoidMethod<font color="black">(</font>initmethod, NULL, <font color="maroon">0</font><font color="black">)</font>;
     <font color="black">}</font>
 
+    IBeanWrapper<font color="black">*</font> pw_tmp <font color="black">=</font> pw.get<font color="black">(</font><font color="black">)</font>;
     <font color="green">//Add to bean manager</font>
     <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>ManagerOfBean<font color="black">-</font><font color="black">&#62;</font>addBean<font color="black">(</font><font color="blue">name</font>, pw.release<font color="black">(</font><font color="black">)</font><font color="black">)</font>;
 
-    <font color="blue">return</font> p;
+    <font color="blue">return</font> pw_tmp<font color="black">-</font><font color="black">&#62;</font>cast2Base<font color="black">(</font>basename<font color="black">)</font>;
 <font color="black">}</font>
 
 <font color="green">/** 
@@ -183,7 +201,7 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
  * @param name Bean's name
  * @return True if it exists, or false.
  */</font>
-<font color="blue">bool</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>containsBean<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="blue">bool</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>containsBean<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font>
 <font color="black">{</font>
     <font color="blue">if</font><font color="black">(</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getBeanConfig<font color="black">(</font><font color="blue">name</font><font color="black">)</font> <font color="black">)</font>
         <font color="blue">return</font> <font color="blue">true</font>;
@@ -196,7 +214,7 @@ BeanFactoryImpl<font color="black">:</font><font color="black">:</font>~BeanFact
  * @param name Bean's name
  * @return True if it's a singleton, or false. If not found, also return false.
  */</font>
-<font color="blue">bool</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>isSingleton<font color="black">(</font>string <font color="blue">name</font><font color="black">)</font>
+<font color="blue">bool</font> BeanFactoryImpl<font color="black">:</font><font color="black">:</font>isSingleton<font color="black">(</font><font color="blue">const</font> string<font color="black">&</font> <font color="blue">name</font><font color="black">)</font> <font color="blue">const</font>
 <font color="black">{</font>
     BeanConfig<font color="black">*</font> bc <font color="black">=</font> <font color="blue">this</font><font color="black">-</font><font color="black">&#62;</font>Config<font color="black">-</font><font color="black">&#62;</font>getBeanConfig<font color="black">(</font><font color="blue">name</font><font color="black">)</font>;
     <font color="blue">if</font><font color="black">(</font> bc <font color="black">)</font>
@@ -216,6 +234,8 @@ IBeanFactory<font color="black">*</font> getBeanFactoryWithXML<font color="black
 <font color="black">{</font>
     <font color="blue">delete</font> p;
 <font color="black">}</font>
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 </PRE>
 </BODY>

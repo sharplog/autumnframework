@@ -31,6 +31,8 @@ AutumnDefinition.h
 
 <font color="blue">using</font> <font color="blue">namespace</font> std;
 
+<font color="blue">namespace</font> Autumn<font color="black">{</font>
+
 <font color="green">/** struct to store property configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
     string  Name;
@@ -67,16 +69,20 @@ AutumnDefinition.h
 
     <font color="green">/** Depended objects, should be singleton. */</font>
     StrValueList DependedObjects;
+
+    <font color="green">/** Factory bean name*/</font>
+    string FactoryBean;
+
+    <font color="green">/**
+     * Constructor method name. It may be bean's class name, bean's static 
+     * factory method name or a factory's creating method name.
+     */</font>
+    string ConMethod;
+
+    string InitMethod;
+    string DestroyMethod;
+    string DeleteMethod;
 <font color="black">}</font> TBean;
-
-<font color="green">/** struct to store customized type configuration */</font>
-<font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
-    <font color="green">/** Type name */</font>
-    string Name;
-
-    <font color="green">/** Class derived from IBasicType or ICombinedType */</font>
-    string ClassName;
-<font color="black">}</font> TType;
 
 <font color="green">/** struct to store library configuration */</font>
 <font color="blue">typedef</font> <font color="blue">struct</font><font color="black">{</font>
@@ -92,9 +98,11 @@ AutumnDefinition.h
     <font color="green">/** beans in library */</font>
     vector<font color="black">&#60;</font>TBean<font color="black">&#62;</font> Beans;
     
-    <font color="green">/** customized types */</font>
-    vector<font color="black">&#60;</font>TType<font color="black">&#62;</font> Types;
+    <font color="green">/** customized type's name */</font>
+    vector<font color="black">&#60;</font>string<font color="black">&#62;</font> TypeNames;
 <font color="black">}</font> TLibrary;
+
+<font color="black">}</font> <font color="green">// End namespace Autumn</font>
 
 <font color="blue">#endif</font>
 
