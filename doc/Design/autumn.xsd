@@ -112,23 +112,6 @@
 			<xs:attribute name="type"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="type">
-		<xs:annotation>
-			<xs:documentation>Customed types</xs:documentation>
-		</xs:annotation>
-		<xs:complexType>
-			<xs:attribute name="name" type="xs:string">
-				<xs:annotation>
-					<xs:documentation>same as class in default</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-			<xs:attribute name="class" type="xs:string" use="required">
-				<xs:annotation>
-					<xs:documentation>The type's implementation</xs:documentation>
-				</xs:annotation>
-			</xs:attribute>
-		</xs:complexType>
-	</xs:element>
 	<xs:complexType name="propertyType">
 		<xs:choice>
 			<xs:element name="value" maxOccurs="unbounded">
