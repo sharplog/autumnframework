@@ -212,6 +212,9 @@ string MethodElmt::genWrapper4GPT()
 // s should has no comments
 void MethodElmt::parseNameAndRetType(MethodElmt* e, string s)
 {
+	string ops("operator");
+	int opl = ops.length();
+	bool isOp = false;
 	int idx;
 
 	// is destructor
@@ -222,8 +225,11 @@ void MethodElmt::parseNameAndRetType(MethodElmt* e, string s)
 	}
 
 	// is overloading operator
-	if( string::npos != (idx = s.find("operator", 0)) )
-		e->setName( Util::trimall(s.substr(idx)) );
+	if( string::npos != (idx = s.find(ops.c_str(), 0)) &&
+		isalpha(s[idx+opl]) == 0 && s[idx+opl] != '_'){
+			e->setName( Util::trimall(s.substr(idx + opl) ));
+			isOp = true;
+	}
 	else {	// is other
 		string name = Util::getLastWord(s);
 		e->setName(name);
@@ -239,6 +245,10 @@ void MethodElmt::parseNameAndRetType(MethodElmt* e, string s)
 	}
 	e->ReturnType = Util::trim(rt);
 	
+	// type conversion operators
+	if( isOp && e->ReturnType.empty() )
+		e->ReturnType = e->getName();
+
 	return;
 }
 

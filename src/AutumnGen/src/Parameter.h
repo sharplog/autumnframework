@@ -25,6 +25,7 @@ class Parameter{
 
 	bool IsConst;
 	bool IsReference;
+	bool HasDefaultValue;
 	
 	string Name;
 	string DefaultValue;
@@ -46,6 +47,10 @@ public:
 
 	bool isVoid() const {
 		return 0 == this->Type.compare("void");
+	}
+
+	bool hasDefaultValue() const {
+		return this->HasDefaultValue;
 	}
 };
 

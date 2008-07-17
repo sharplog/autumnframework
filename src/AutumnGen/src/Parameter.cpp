@@ -20,6 +20,7 @@
 Parameter::Parameter(const string& s){
 	this->IsConst = false;
 	this->IsReference = false;
+	this->HasDefaultValue = false;
 	
 	string pstr = Util::trim(s);
 	if( pstr.empty() )
@@ -27,6 +28,7 @@ Parameter::Parameter(const string& s){
 
 	int idx = pstr.find('=', 0);
 	if( string::npos != idx ){
+		this->HasDefaultValue = true;
 		this->DefaultValue = Util::trim(pstr.substr(idx + 1));
 		pstr = Util::trim(pstr.substr(0, idx));
 	}
