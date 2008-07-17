@@ -14,9 +14,9 @@ void  UpperAction::setMessage(const char* msg)
 	this->Message = msg;
 }
 
-const char* UpperAction::excute(const char* s)
+string UpperAction::excute(const char* s)
 {
-	//return (string("Upper: ") + this->getMessage() + s).c_str();
-	cout<<string("Upper: ") + this->getMessage() + ", " + s<<endl;;
-	return "Upper";
+	return string("Upper: ") + this->getMessage() + "," + s;
+	//cout<<string("Upper: ") + this->getMessage() + ", " + s<<endl;;
+	//return "Upper";
 }

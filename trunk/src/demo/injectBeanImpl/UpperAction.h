@@ -13,7 +13,7 @@ private:
 public:
 	const char* getMessage();
 	void  setMessage(const char* msg);
-	const char* excute(const char* s);
+	string excute(const char* s);
 };
 #endif
 

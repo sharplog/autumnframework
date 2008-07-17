@@ -14,9 +14,9 @@ void  LowerAction::setMessage(const char* msg)
 	this->Message = msg;
 }
 
-const char* LowerAction::excute(const char* s)
+string LowerAction::excute(const char* s)
 {
-	//return (string("Lower: ") + this->getMessage() + s).c_str();
-	cout<<string("Lower: ") + this->getMessage() + ", " + s<<endl;;
-	return "Lower";
+	return string("Lower: ") + this->getMessage() + "," + s;
+	//cout<<string("Lower: ") + this->getMessage() + ", " + s<<endl;;
+	//return "Lower";
 }
